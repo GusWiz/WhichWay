@@ -48,3 +48,14 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Some we might need to avoid - Alan
+__pycache__/
+.pytest_cache
+.coverage
+.DS_Store
+.venv
+artifacts/
+coverage-reports/
+tools/
+venv
+**/*.mpy
