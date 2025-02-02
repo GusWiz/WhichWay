@@ -22,7 +22,7 @@ The main reason is to help users save time when it comes to actually doing resea
 provide you with extra information about the different activities found. This not only helps to save time, but also to make an informed decision on what to do.
 
 ## General Information
-
+![Our Image](README%20img/your-image-file.jpg)
 
 ## Technologies Used
 - HTML - version HTML5
