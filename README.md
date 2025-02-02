@@ -44,14 +44,14 @@ provide you with extra information about the different activities found. This no
 
 Data Gathering Features:
 
-- "Location" Feature: Give the app the destination so that the AI can start gathering a list of activities in within that location.
+- "Location" Feature: Give the app the destination so that the AI can start gathering a list of activities within that location.
 > User Story: As a user, I want to only get a list of activities within a 20-50 mile radius. 
 
 - "Budgeting" Feature: Give the application your budget estimate so that you can make better financial decisions.
 > User Story: As a budget-conscious traveler, I want to set a total budget for my trip in the trip planning app, so that every activity, accommodation, or expense I add to my itinerary automatically deducts from my budget, helping me stay on track financially.
 	
 - "Select Activities" Feature: The AI will categorize different variations of activities (places to eat, entertainment).
-> User Story: As a user, I want the AI to give me a list of things to do. I want them to be categorized in a way that makes sense so that I can pick 1, 2 or even 3 from a category.
+> User Story: As a user, I want the AI to give me a list of things to do. I want them to be categorized in a way that makes sense so that I can pick 1, 2 or even 3 from the same category.
 
 Additional Features:
 
