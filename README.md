@@ -58,8 +58,8 @@ Additional Features:
 - "Create Itinerary" Feature: This feature will put together the selected activities, and come up with different versions of itineraries (Times spent at activities will vary). The AI will also find driving times between activities. 
 > User Story: As a user, I want the AI to put together different options of itineraries, with the previous activities I selected. I want the AI create different times to spend at these activites and mix these around for each itinerary, and I also want it to give me driving times between activites.
 
-- "Add People to my Trip" Feature: 
-> User Story:
+- "Add People to my Trip" Feature: This feature allows users to invite others to join their trip and collaborate on planning.
+> User Story: As a user, I want to add people to my trip so they can view and edit the itinerary. The feature should allow me to invite others via email or a shared link, and they should be able to suggest changes or add activities given the proper permissions.
 
-- "View Trips" Features:
-> User Story
+- "View Trips" Features: This feature allows users to see a their planned and previous trips, and access details for each one.
+> User Story: As a trip member, I want to view all my trips in one place so I can quickly access and manage them. The feature should display trip details, including dates, activities, and participants, with an option to edit or delete trips.
