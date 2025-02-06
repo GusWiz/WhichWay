@@ -1,7 +1,7 @@
 # WhichWay
 
 ## Description
-### Team: 
+### Team:
 - Aaron Siemsen
 - Vinny Rose
 - Aldo Guerrero
@@ -10,12 +10,12 @@
 
 ### What we are creating?
 We are creating an application that will allow users to plan different kinds of trips using AI. We envision the app to be able to suggest the user many activity possibilites and combinations.
-Ranging from camping, hiking, or any outdoor style trips. To in-city activites like places to eat, events, entertainment, and more. The idea is to give the app information like the destination, 
-time-frame of the trip, preferences, and the AI will be able to put together an itinenary once the user selects the desired activities. Additionally, we are trying to implement avg. driving time 
+Ranging from camping, hiking, or any outdoor style trips. To in-city activites like places to eat, events, entertainment, and more. The idea is to give the app information like the destination,
+time-frame of the trip, preferences, and the AI will be able to put together an itinenary once the user selects the desired activities. Additionally, we are trying to implement avg. driving time
 between activities.
 
 ### Who were doing it for?
-This application can be used by people who want to discover outdoor places away from the city, to people who live in the middle of downtown, but just don't know what there is to do. 
+This application can be used by people who want to discover outdoor places away from the city, to people who live in the middle of downtown, but just don't know what there is to do.
 
 ### Why we are doing this?
 The main reason is to help users save time when it comes to actually doing research on what there is available to them. It would be very useful to have AI find places you might like, as well as
@@ -45,17 +45,17 @@ provide you with extra information about the different activities found. This no
 Data Gathering Features:
 
 - "Location" Feature: Give the app the destination so that the AI can start gathering a list of activities within that location.
-> User Story: As a user, I want to only get a list of activities within a 20-50 mile radius. 
+> User Story: As a user, I want to only get a list of activities within a 20-50 mile radius.
 
 - "Budgeting" Feature: Give the application your budget estimate so that you can make better financial decisions.
 > User Story: As a budget-conscious traveler, I want to set a total budget for my trip in the trip planning app, so that every activity, accommodation, or expense I add to my itinerary automatically deducts from my budget, helping me stay on track financially.
-	
+
 - "Select Activities" Feature: The AI will categorize different variations of activities (places to eat, entertainment).
 > User Story: As a user, I want the AI to give me a list of things to do. I want them to be categorized in a way that makes sense so that I can pick 1, 2 or even 3 from the same category.
 
 Additional Features:
 
-- "Create Itinerary" Feature: This feature will put together the selected activities, and come up with different versions of itineraries (Times spent at activities will vary). The AI will also find driving times between activities. 
+- "Create Itinerary" Feature: This feature will put together the selected activities, and come up with different versions of itineraries (Times spent at activities will vary). The AI will also find driving times between activities.
 > User Story: As a user, I want the AI to put together different options of itineraries, with the previous activities I selected. I want the AI create different times to spend at these activites and mix these around for each itinerary, and I also want it to give me driving times between activites.
 
 - "Add People to my Trip" Feature: This feature allows users to invite others to join their trip and collaborate on planning.
@@ -72,6 +72,19 @@ Pre-commit hooks are ordinary scripts that Git executes when certain events occu
 
 You can format your python files before committing as this will save you some time by not having to type ```git add .``` and ```git commit -m "commit message"``` twice:
 
+**FOR MAC (RUN ONLY ONCE)**
+1. If make not installed
+```
+#to check if make installed:
+make --version
+#install make:
+brew install make
+```
+2. Activate virtual envirnonment
+```
+python -m venv venv
+```
+
 1. **ONLY RUN ONCE**:
 ```Python
 pip install pre-commit
@@ -84,4 +97,5 @@ make fmt
 ```Python
 git add .
 git commit -m "commit message"
-```
+
+
