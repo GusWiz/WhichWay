@@ -72,30 +72,39 @@ Pre-commit hooks are ordinary scripts that Git executes when certain events occu
 
 You can format your python files before committing as this will save you some time by not having to type ```git add .``` and ```git commit -m "commit message"``` twice:
 
-**FOR MAC (RUN ONLY ONCE)**
-1. If make not installed
+**FOR MAC**
+
+- If make not installed:
 ```
 #to check if make installed:
 make --version
 #install make:
 brew install make
 ```
-2. Activate virtual envirnonment
+- Activate virtual envirnonment:
 ```
 python -m venv venv
 ```
 
-1. **ONLY RUN ONCE**:
+**ONLY RUN ONCE**
+
+- Install pre-commit:
 ```Python
 pip install pre-commit
 ```
-2. Run:
+**RUN BEFORE COMMIT**
+
+- Run:
 ```Python
 make fmt
 ```
-3. Now run:
+
+**TO COMMIT**
+
+- Run:
 ```Python
 git add .
 git commit -m "commit message"
+```
 
 
