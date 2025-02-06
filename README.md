@@ -63,3 +63,25 @@ Additional Features:
 
 - "View Trips" Features: This feature allows users to see a their planned and previous trips, and access details for each one.
 > User Story: As a trip member, I want to view all my trips in one place so I can quickly access and manage them. The feature should display trip details, including dates, activities, and participants, with an option to edit or delete trips.
+
+
+# Developer Information
+
+### Pre-commit Hooks
+Pre-commit hooks are ordinary scripts that Git executes when certain events occur in the repository. The pre-commit hook is run first, before you even type in a commit message. It’s used to inspect the snapshot that’s about to be committed, to see if you’ve forgotten something, to make sure tests run, or to examine whatever you need to inspect in the code.
+
+You can format your python files before committing as this will save you some time by not having to type ```git add .``` and ```git commit -m "commit message"``` twice:
+
+1. **ONLY RUN ONCE**:
+```Python
+pip install pre-commit
+```
+2. Run:
+```Python
+make fmt
+```
+3. Now run:
+```Python
+git add .
+git commit -m "commit message"
+```
