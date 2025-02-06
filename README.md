@@ -67,44 +67,71 @@ Additional Features:
 
 # Developer Information
 
-### Pre-commit Hooks
+#### Pre-commit Hooks
 Pre-commit hooks are ordinary scripts that Git executes when certain events occur in the repository. The pre-commit hook is run first, before you even type in a commit message. It’s used to inspect the snapshot that’s about to be committed, to see if you’ve forgotten something, to make sure tests run, or to examine whatever you need to inspect in the code.
 
-You can format your python files before committing as this will save you some time by not having to type ```git add .``` and ```git commit -m "commit message"``` twice:
+You can format your python files before committing by running ```make fmt``` as this will save you some time by not having to type ```git add .``` and ```git commit -m "commit message"``` twice:
 
-**FOR MAC**
+In VSCode using Git:
 
-- If make not installed:
+### FOR MAC
+
+- Check if Make is installed:
 ```
-#to check if make installed:
 make --version
-#install make:
-brew install make
 ```
-- Activate virtual envirnonment:
+- Install Make if not installed:
+```
+brew install make 
+```
+- If you dont have a '/venv/' directory run the following:
 ```
 python -m venv venv
 ```
-
-**ONLY RUN ONCE**
-
+- Activate your environment:
+```
+source ./venv/bin/activate
+```
 - Install pre-commit:
 ```Python
 pip install pre-commit
 ```
-**RUN BEFORE COMMIT**
 
-- Run:
+
+### FOR WINDOWS
+- Check if Make is installed:
+```
+make --version
+```
+- Install Make if not installed:
+```
+choco install make 
+```
+- If you dont have a '/venv/' directory run the following:
+```
+python -m venv venv
+```
+- Activate your environment:
+```
+source ./venv/Scripts/activate
+```
+- Install pre-commit:
 ```Python
-make fmt
+pip install pre-commit
 ```
 
-**TO COMMIT**
-
-- Run:
+### BEFORE ```git add .```
+- Activate your environment (MAC):
+```
+source ./venv/bin/activate
+```
+- Activate your environment (WINDOWS):
+```
+source ./venv/Scripts/activate
+```
+- Run the make script:
 ```Python
-git add .
-git commit -m "commit message"
+make fmt
 ```
 
 
