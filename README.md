@@ -9,9 +9,9 @@
 - Alan De La Torre
 
 ### What we are creating?
-We are creating an application that will allow users to plan different kinds of trips using AI. We envision the app to be able to suggest the user many activity possibilites and combinations.
-Ranging from camping, hiking, or any outdoor style trips. To in-city activites like places to eat, events, entertainment, and more. The idea is to give the app information like the destination,
-time-frame of the trip, preferences, and the AI will be able to put together an itinenary once the user selects the desired activities. Additionally, we are trying to implement avg. driving time
+We are creating an application that will allow users to plan different kinds of trips using AI. We envision the app to be able to suggest the user many activity possibilities and combinations.
+Ranging from camping, hiking, or any outdoor style trips. To in-city activities like places to eat, events, entertainment, and more. The idea is to give the app information like the destination,
+time-frame of the trip, preferences, and the AI will be able to put together an itinerary once the user selects the desired activities. Additionally, we are trying to implement avg. driving time
 between activities.
 
 ### Who were doing it for?
@@ -82,7 +82,7 @@ make --version
 ```
 - Install Make if not installed:
 ```
-brew install make 
+brew install make
 ```
 - If you dont have a '/venv/' directory run the following:
 ```
@@ -105,7 +105,7 @@ make --version
 ```
 - Install Make if not installed:
 ```
-choco install make 
+choco install make
 ```
 - If you dont have a '/venv/' directory run the following:
 ```
