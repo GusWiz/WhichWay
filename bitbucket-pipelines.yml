@@ -1,11 +1,11 @@
 image: python:3.9
 
 clone:
-  depth: full              # SonarQube Cloud scanner needs the full history to assign issues properly
+  depth: full # SonarQube Cloud scanner needs the full history to assign issues properly
 
 definitions:
   caches:
-    sonar: ~/.sonar/cache  # Caching SonarQube Cloud artifacts will speed up your build
+    sonar: ~/.sonar/cache # Caching SonarQube Cloud artifacts will speed up your build
   steps:
     - step: &build-test-sonarcloud
         name: Build, test and analyze on SonarQube Cloud
@@ -20,7 +20,7 @@ definitions:
         script:
           - pipe: sonarsource/sonarcloud-quality-gate:0.1.6
 
-pipelines:                 # More info here: https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html
+pipelines: # More info here: https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html
   branches:
     master:
       - step: *build-test-sonarcloud

@@ -1,9 +1,12 @@
 .PHONY: fmt install-hooks
 
-# Run the formatters defined in .pre-commit-config.yaml
 fmt:
+	@echo " "
+	@echo "Running Python Hooks ..."
 	pre-commit run --all-files
+	@echo " "
+	@echo "Running Frontend Hooks ..."
+	npx prettier . --write
 
-# Install pre-commit hooks (optional)
 install-hooks:
 	pre-commit install
