@@ -1,7 +1,7 @@
 image: python:3.9
 
 clone:
-  depth: full  # SonarQube Cloud scanner needs the full history to assign issues properly
+  depth: full              # SonarQube Cloud scanner needs the full history to assign issues properly
 
 definitions:
   caches:
@@ -12,14 +12,7 @@ definitions:
         caches:
           - sonar
         script:
-          # Check if there are any Python file changes
-          - |
-            if git diff --name-only origin/$BITBUCKET_PR_DESTINATION..HEAD | grep -E '\.py$'; then
-              echo "Python files changed, running SonarCloud scan..."
-              pipe: sonarsource/sonarcloud-scan:3.0.0
-            else
-              echo "No Python file changes detected. Skipping SonarCloud scan."
-            fi
+          - pipe: sonarsource/sonarcloud-scan:3.0.0
     - step: &check-quality-gate-sonarcloud
         name: Check the Quality Gate on SonarQube Cloud
         script:
