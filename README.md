@@ -149,18 +149,6 @@ pip install pre-commit
 
 ### BEFORE `git add .`
 
-- Activate your environment (MAC):
-
-```
-source ./venv/bin/activate
-```
-
-- Activate your environment (WINDOWS):
-
-```
-source ./venv/Scripts/activate
-```
-
 - Run the make script:
 
 ```Python
