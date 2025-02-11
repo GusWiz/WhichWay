@@ -1,0 +1,34 @@
+# Ignore build artifacts
+build
+dist
+coverage
+node_modules
+venv
+__pycache__
+
+# Ignore Python files
+*.py
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environment
+.env
+.venv
+
+# Ignore Flask-specific generated files
+instance/
+migrations/
+*.db
+
+# Ignore lock files
+Pipfile.lock
+poetry.lock
+
+README.md
+package.json
+package-lock.json
+bitbucket-pipelines.yml
+.prettierrrc
+.pre-commit-config.yaml
+.prettierrc

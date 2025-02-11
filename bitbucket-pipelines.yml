@@ -5,7 +5,7 @@ clone:
 
 definitions:
   caches:
-    sonar: ~/.sonar/cache  # Caching SonarQube Cloud artifacts will speed up your build
+    sonar: ~/.sonar/cache # Caching SonarQube Cloud artifacts will speed up your build
   steps:
     - step: &build-test-sonarcloud
         name: Build, test and analyze on SonarQube Cloud
