@@ -9,15 +9,15 @@
         </div>
 
         <div>
-            <form action="/signup_page.js">
-                <label for="name">Full Name:</label><br>
-                <input type="text" id="name" name="name"><br>
-                <label for="email">Email:</label><br>
-                <input type="text" id="email" name="email"><br>
-                <label for="user_name">Username:</label><br>
-                <input type="text" id="user_name" name="user_name"><br>
-                <label for="password">Password:</label><br>
-                <input type="text" id="password" name="password"><br>
+            <form action="/signup_page.js" method="POST">
+                <input type="text" id="name" name="name" placeholder="Full Name">
+                <br><br>
+                <input type="text" id="email" name="email" placeholder="Email">
+                <br><br>
+                <input type="text" id="user_name" name="user_name" placeholder="Username">
+                <br><br>
+                <input type="text" id="password" name="password" placeholder="Password">
+                <br>
             </form>
             <button type="login" onClick="">login</button>
         </div>
