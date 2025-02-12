@@ -1,5 +1,8 @@
 from datetime import datetime
-from google.cloud import firestore
+from firebase_init import get_firestore_client
+
+# Initialize Firestore client
+db = get_firestore_client()
 
 class Activity:
     def __init__(self, name, location, start_time, price):
