@@ -10,17 +10,20 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url(/frontend/static/img.jpg) no-repeat;
+  background: url(/frontend/static/img3.jpg) no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .wrapper {
   width: 420px;
-  background: rgb(88, 87, 156);
   color: rgb(13, 12, 48);
   border-radius: 10px;
-  padding: 30px 40px
+  padding: 30px 40px;
+  border: 2px solid rgb(134, 134, 134);
+  background: transparent;
+  backdrop-filter: blur(35px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .wrapper h1 {
@@ -41,10 +44,10 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgb(134, 134, 134);
   font-size: 16px;
   font-weight: 500;
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
   padding: 20px, 45px, 20px, 20px;
   cursor: pointer;
   border-radius: 5px;
@@ -52,7 +55,7 @@ body {
 }
 
 .input-box input::placeholder {
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
 }
 
 .input-box i {
@@ -68,17 +71,17 @@ body {
   justify-content: space-between;
   font-size: 14.5px;
   margin: -15px 0 15px;
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
 }
 
 .remember-forgot label input {
   accent-color: rgb(43, 43, 255);
   margin-right: 3px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .remember-forgot a {
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
   text-decoration: none;
 }
 
@@ -93,10 +96,10 @@ body {
   border: none;
   outline: none;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-size: 17px;
-  color: rgb(203, 228, 171);
+  color: rgb(0, 1, 0);
   font-weight: 475;
 }
 
@@ -107,7 +110,7 @@ body {
 }
 
 .register-link p a {
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-size: 14;
 }
@@ -116,5 +119,5 @@ body {
 }
 
 .register-link p {
-  color: rgb(203, 228, 171);
+  color: rgb(0, 0, 0);
 }
