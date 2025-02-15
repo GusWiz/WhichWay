@@ -2,9 +2,10 @@ import React from "react";
 
 const Home = () => {
     return (
-        <>
-            <h1>Home</h1>
-        </>
+        <div>
+            <h2>Welcome to the Home Page</h2>
+            <p>This is the home page of the application.</p>
+        </div>
     );
 };
 
