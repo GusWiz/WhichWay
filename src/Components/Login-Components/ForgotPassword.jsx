@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginButton from './LoginButton';
-import InputField from './InputField';
+import InputField from '../InputField';
 
 function ForgotPassword() {
   return (

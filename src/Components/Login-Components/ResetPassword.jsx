@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginButton from './Login-Components/LoginButton';
-import InputField from './InputField';
+import LoginButton from './LoginButton';
+import InputField from '../InputField';
 
 function ResetPassword() {
   return (

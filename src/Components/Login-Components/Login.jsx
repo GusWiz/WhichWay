@@ -1,7 +1,7 @@
 import React from 'react';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
-import InputField from './InputField';
+import InputField from '../InputField';
 
 function Login() {
   return (
