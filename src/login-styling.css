@@ -12,7 +12,7 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: hsl(201, 69%, 22%);
+  background: hsl(0, 0%, 100%);
 }
 
 #root {
@@ -150,7 +150,7 @@ body {
 }
 
 .form .button:hover {
-  background: hsl(202, 52%, 30%);
+  background: hsl(0, 0%, 100%);
 }
 
 .container .text {
@@ -160,7 +160,7 @@ body {
 }
 
 .container a {
-  color: hsl(201, 69%, 22%);
+  color: hsl(0, 0%, 100%);
   font-weight: 500;
   text-decoration: none;
 }
