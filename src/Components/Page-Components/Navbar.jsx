@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import * as FaIcons from 'react-icons/fa';
-import * as GrIcons from 'react-icons/gr';
+import * as MdIcons from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { SidebarData } from "./SidebarData.jsx";
-import "../App.css";
+import "..menu-styling.css";
 import { IconContext } from "react-icons";
 
 function Navbar() {
     const [sidebar, setSidebar] = useState(false);
 
-    const showSidebar = () => setSidebar(sidebar);
+    const showSidebar = () => setSidebar(!sidebar);
 
     return(
         <>
@@ -23,13 +23,14 @@ function Navbar() {
                     <ul className="nav-menu-items" onClicl={showSidebar}>
                         <li className="navbar-toggle">
                             <Link to="#" className="menu-bars">
-                                <GrIcons.GrClose />
+                                <MdIcons.MdClose />
                             </Link>
                         </li>
                         {SidebarData.map((item, index) => {
                             return (
-                                <li key={index} className={item.className}>
+                                <li key={index} className={item.cName}>
                                     <Link to={item.path}>
+                                        {item.icon}
                                         <span>{item.title}</span>
                                     </Link>
                                 </li>

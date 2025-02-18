@@ -5,16 +5,12 @@ import EnterVerificationCode from './components/Login-Components/EnterVerificati
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
 import Navbar from './Components/Page-Components/Navbar.jsx';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import LoginButton from './components/Login-Components/LoginButton.jsx';
 
 function App() {
   return (
     <>
-    <Router>
-      <Navbar />
-      <Switch>
-        <Route path='/' />
-      </Switch>
-    </Router>
+      <LoginButton />
     </>
   );
 }
