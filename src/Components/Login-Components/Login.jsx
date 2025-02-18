@@ -26,8 +26,7 @@ function Login() {
         </form>
 
         <p className='text'>
-          Don't have an account?{' '}
-          <a href='./src/components/Signup.jsx'>Signup</a>
+          Don't have an account? <a href='/Signup'>Signup</a>
         </p>
       </div>
     </>
