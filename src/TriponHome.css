@@ -1,50 +1,50 @@
 /* Global styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
 
-  /* Header styles */
-  h1 {
-    text-align: center;
-    color: #333;
-    padding-top: 30px;
-  }
+/* Header styles */
+h1 {
+  text-align: center;
+  color: #333;
+  padding-top: 30px;
+}
 
-  /* Container for the trip sections */
-  .trip-container {
-    display: flex;
-    justify-content: space-around;
-    padding: 20px;
-  }
+/* Container for the trip sections */
+.trip-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
 
-  /* Each trip section styles */
-  .trip-section {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 30%;
-    text-align: center;
-  }
+/* Each trip section styles */
+.trip-section {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 30%;
+  text-align: center;
+}
 
-  .trip-section h2 {
-    color: #555;
-  }
+.trip-section h2 {
+  color: #555;
+}
 
-  button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #ddd;
-    border: none;
-    border-radius: 5px;
-    cursor: not-allowed;
-    color: #888;
-    font-size: 16px;
-  }
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed;
+  color: #888;
+  font-size: 16px;
+}
 
-  button:disabled {
-    background-color: #ccc;
-  }
+button:disabled {
+  background-color: #ccc;
+}
