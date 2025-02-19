@@ -7,7 +7,7 @@ import ResetPassword from './components/Login-Components/ResetPassword.jsx';
 function App() {
   return (
     <>
-      <ResetPassword />
+      <Login />
     </>
   );
 }
