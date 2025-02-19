@@ -6,6 +6,7 @@ function CreateTrip() {
   return (
     <>
       <h1>Create Trip</h1>
+
       <div>
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />
@@ -13,22 +14,22 @@ function CreateTrip() {
           <InputField type='text' placeholder='Duration' />
         </form>
       </div>
+
       <div>
         <h2>Activities</h2>
-
         <div className='container'>
           <h2 className='form-title'>Entertainment</h2>
           <div className='selectable-container'>
             <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='movie' />
+              <input type='checkbox' name='entertainment' value='movie' />
               Movie
             </label>
             <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='concert' />
+              <input type='checkbox' name='entertainment' value='concert' />
               Concert
             </label>
             <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='theater' />
+              <input type='checkbox' name='entertainment' value='theater' />
               Theater
             </label>
           </div>
@@ -38,15 +39,15 @@ function CreateTrip() {
           <h2 className='form-title'>Food</h2>
           <div className='selectable-container'>
             <label className='selectable-label'>
-              <input type='radio' name='food' value='Chilis' />
+              <input type='checkbox' name='food' value='Chilis' />
               Chilis
             </label>
             <label className='selectable-label'>
-              <input type='radio' name='food' value='Grimaldis' />
+              <input type='checkbox' name='food' value='Grimaldis' />
               Grimaldis
             </label>
             <label className='selectable-label'>
-              <input type='radio' name='food' value='McDonalds' />
+              <input type='checkbox' name='food' value='McDonalds' />
               McDonalds
             </label>
           </div>
@@ -56,16 +57,16 @@ function CreateTrip() {
           <h2 className='form-title'>Outdoor</h2>
           <div className='selectable-container'>
             <label className='selectable-label'>
-              <input type='radio' name='outdoor' value='Gustavo Hiking Trail' />
+              <input type='checkbox' name='outdoor' value='Gustavo Hiking Trail' />
               Gustavo Hiking Trail
             </label>
             <label className='selectable-label'>
-              <input type='radio' name='outdoor' value='Vinny Rosy River' />
+              <input type='checkbox' name='outdoor' value='Vinny Rosy River' />
               Vinny Rosy River
             </label>
             <label className='selectable-label'>
               <input
-                type='radio'
+                type='checkbox'
                 name='outdoor'
                 value='Alan De Le Torre Lake'
               />
