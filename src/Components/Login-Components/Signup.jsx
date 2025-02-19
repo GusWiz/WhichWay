@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
@@ -25,11 +30,18 @@ function Signup() {
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error('Google Sign-In Error: ', error.message);
+    }
+  };
   return (
     <>
       <div className='container'>
         <h2 className='form-title'>Signup with</h2>
-        <SocialLogin />
+        <SocialLogin onClick={signInWithGoogle} />
 
         <p className='separator'>
           <span>or</span>
