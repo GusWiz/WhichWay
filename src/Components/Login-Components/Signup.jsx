@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
 
 function Signup() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      await createUserWithEmailAndPassword(auth, email, password);
+      const user = auth.currentUser;
+      console.log(user);
+      console.log('User Registered Successfully!');
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <div className='container'>
@@ -14,18 +35,33 @@ function Signup() {
           <span>or</span>
         </p>
 
-        <form action='#' className='form'>
-          <InputField type='text' placeholder='First Name' />
-          <InputField type='text' placeholder='Last Name' />
-          <InputField type='email' placeholder='Email Address' />
-          <InputField type='password' placeholder='Password' />
+        <form className='form' onSubmit={handleRegister}>
+          <InputField
+            type='text'
+            placeholder='First Name'
+            onChange={(e) => setFname(e.target.value)}
+          />
+          <InputField
+            type='text'
+            placeholder='Last Name'
+            onChange={(e) => setLname(e.target.value)}
+          />
+          <InputField
+            type='email'
+            placeholder='Email Address'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputField
+            type='password'
+            placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <InputField type='password' placeholder='Confirm Password' />
 
           <LoginButton text='Sign Up' />
         </form>
         <p className='text'>
-          Already have an account?{' '}
-          <a href='./src/components/Login.jsx'>Login</a>
+          Already have an account? <Link to='/Login'>Login</Link>
         </p>
       </div>
     </>

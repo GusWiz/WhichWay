@@ -1,22 +1,36 @@
-import Login from './components/Login-Components/Login.jsx';
+import React, { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+
+import Login from './Components/Login-Components/Login.jsx';
 import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import EnterVerificationCode from './components/Login-Components/EnterVerificationCode.jsx';
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
-import SocialLogin from './components/Login-Components/SocialLogin.jsx';
-import LoginButton from './components/Login-Components/LoginButton.jsx';
-import CreateTrip from './Components/Create-Trip-Components/createTrip.jsx';
-import Navbar from './Components/Navbar/index.jsx';
-import { BrowserRouter as Router } from 'react-router-dom';
+import Home from './pages/Home.jsx';
+import app from './Components/firebase.js';
 
-function App() {
+export default function App() {
+  // const [user, setUser] = useState();
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     setUser(user);
+  //   })
+  // });
+
   return (
-    <>
-      <CreateTrip />
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path='/home' element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
-
-
