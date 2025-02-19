@@ -1,19 +1,20 @@
-import React from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import React, { useState } from 'react';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
+import { Link } from 'react-router-dom';
 
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [first_name, setFname] = useState('');
-  const [last_name, setLname] = useState('');
-
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
+      const auth = getAuth();
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
       console.log(user);
@@ -33,7 +34,7 @@ function Signup() {
           <span>or</span>
         </p>
 
-        <form action='#' className='form' onSubmit={handleRegister}>
+        <form className='form' onSubmit={handleRegister}>
           <InputField
             type='text'
             placeholder='First Name'
@@ -59,7 +60,7 @@ function Signup() {
           <LoginButton text='Sign Up' />
         </form>
         <p className='text'>
-          Already have an account? <a href='/Login'>Login</a>
+          Already have an account? <Link to='/Login'>Login</Link>
         </p>
       </div>
     </>

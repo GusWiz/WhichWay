@@ -2,6 +2,10 @@ import React from 'react';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
+import { Link } from 'react-router-dom';
+
+// CSS
+//import styles from './login.styling.css';
 
 function Login() {
   return (
@@ -14,11 +18,11 @@ function Login() {
           <span>or</span>
         </p>
 
-        <form action='#' className='form'>
+        <form className='form'>
           <InputField type='email' placeholder='Email Address' />
           <InputField type='password' placeholder='Password' />
 
-          <a href='#' className='forgot-pass-link'>
+          <a href='/ForgotPassword' className='forgot-pass-link'>
             Forgot Password?
           </a>
 
@@ -26,7 +30,7 @@ function Login() {
         </form>
 
         <p className='text'>
-          Don't have an account? <a href='/Signup'>Signup</a>
+          Don't have an account? <Link to='/signup'>Signup</Link>
         </p>
       </div>
     </>
