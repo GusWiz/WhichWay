@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
-import { Link } from 'react-router-dom';
 
 // CSS
 //import styles from './login.styling.css';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('User logged in Successfully');
+      window.location.href = '/home';
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <div className='container'>
@@ -18,9 +34,17 @@ function Login() {
           <span>or</span>
         </p>
 
-        <form className='form'>
-          <InputField type='email' placeholder='Email Address' />
-          <InputField type='password' placeholder='Password' />
+        <form className='form' onSubmit={handleLogin}>
+          <InputField
+            type='email'
+            placeholder='Email Address'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputField
+            type='password'
+            placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
           <a href='/ForgotPassword' className='forgot-pass-link'>
             Forgot Password?

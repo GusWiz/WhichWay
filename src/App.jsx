@@ -11,6 +11,7 @@ import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import EnterVerificationCode from './components/Login-Components/EnterVerificationCode.jsx';
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
+import Home from './pages/Home.jsx';
 import app from './Components/firebase.js';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path='/home' element={<Home />} />
       </Routes>
     </Router>
   );
