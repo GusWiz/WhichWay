@@ -88,3 +88,4 @@ dist-ssr
 
 
 package.lock.json
+firebase.js
