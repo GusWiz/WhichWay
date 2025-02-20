@@ -5,7 +5,7 @@ import EnterVerificationCode from './components/Login-Components/EnterVerificati
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
 import SocialLogin from './components/Login-Components/SocialLogin.jsx';
 import LoginButton from './components/Login-Components/LoginButton.jsx';
-import CreateTrip from './Components/Create-Trip-Components/createTrip.jsx';
+import CreateTrip from './Pages/CreateTrip.jsx';
 import Navbar from './Components/Navbar/index.jsx';
 import { BrowserRouter as Router } from 'react-router-dom';
 
