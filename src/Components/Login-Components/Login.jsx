@@ -1,24 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { auth, googleProvider } from '../firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
 
+// CSS
+//import styles from './login.styling.css';
+
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log('User logged in Successfully');
+      window.location.href = '/home';
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+    } catch (error) {
+      console.error('Google Sign-In Error: ', error.message);
+    }
+  };
   return (
     <>
       <div className='container'>
         <h2 className='form-title'>Log in with</h2>
-        <SocialLogin />
+        <SocialLogin onClick={signInWithGoogle} />
 
         <p className='separator'>
           <span>or</span>
         </p>
 
-        <form action='#' className='form'>
-          <InputField type='email' placeholder='Email Address' />
-          <InputField type='password' placeholder='Password' />
+        <form className='form' onSubmit={handleLogin}>
+          <InputField
+            type='email'
+            placeholder='Email Address'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <InputField
+            type='password'
+            placeholder='Password'
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-          <a href='#' className='forgot-pass-link'>
+          <a href='/ForgotPassword' className='forgot-pass-link'>
             Forgot Password?
           </a>
 
@@ -26,8 +62,7 @@ function Login() {
         </form>
 
         <p className='text'>
-          Don't have an account?{' '}
-          <a href='./src/components/Signup.jsx'>Signup</a>
+          Don't have an account? <Link to='/signup'>Signup</Link>
         </p>
       </div>
     </>
