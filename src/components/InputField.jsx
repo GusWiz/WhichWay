@@ -1,5 +1,5 @@
 // input text boxes
-const InputField = ({ type, placeholder }) => {
+const InputField = ({ type, placeholder, onChange }) => {
   return (
     <>
       <div className='input-wrapper'>
@@ -8,6 +8,7 @@ const InputField = ({ type, placeholder }) => {
           placeholder={placeholder}
           className='input-field'
           required
+          onChange={onChange}
         />
       </div>
     </>
