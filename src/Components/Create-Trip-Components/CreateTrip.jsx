@@ -63,7 +63,10 @@ function CreateTrip() {
       </div>
 
       <div>
-        <h2>Activities</h2>
+        <div className='activities-container'>
+          <h2>Activities</h2>
+        </div>
+        
 
         {/* Categories aligned horizontally */}
         <div className="categories-container">

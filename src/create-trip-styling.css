@@ -16,6 +16,13 @@
     text-align: center;
 }
   
+.activities-container {
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;  /* Centers vertically */
+  width: 100%;
+}
+
   /* Enlarging the selectable container */
   .selectable-container {
     display: flex;
