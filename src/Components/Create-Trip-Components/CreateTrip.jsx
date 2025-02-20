@@ -50,8 +50,10 @@ function CreateTrip() {
 
   return (
     <>
-      <h1>Create Trip</h1>
-
+      <div className='title-container'>
+        <h1>Create Trip</h1>
+      </div>
+      
       <div>
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />
