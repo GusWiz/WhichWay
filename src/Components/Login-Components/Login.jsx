@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
