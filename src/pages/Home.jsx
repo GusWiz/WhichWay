@@ -1,11 +1,13 @@
 // Temp file
 // testing login functionality
 import { signOut } from 'firebase/auth';
+import { auth } from '../Components/firebase';
 
 function Home() {
   const logout = async () => {
     try {
       await signOut(auth);
+      window.location.href = '/login';
     } catch (error) {
       console.log(error);
     }

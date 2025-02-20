@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
+import { auth } from './Components/firebase.js';
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,17 +17,10 @@ import Home from './pages/Home.jsx';
 import app from './Components/firebase.js';
 
 export default function App() {
-  // const [user, setUser] = useState();
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     setUser(user);
-  //   })
-  // });
-
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/' element={user ? <Navigate to='/home' /> : <Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotpassword' element={<ForgotPassword />} />
