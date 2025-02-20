@@ -17,6 +17,13 @@ import Home from './pages/Home.jsx';
 import app from './Components/firebase.js';
 
 export default function App() {
+  const [user, setUser] = useState();
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+  });
+
   return (
     <Router>
       <Routes>
