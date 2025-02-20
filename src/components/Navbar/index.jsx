@@ -30,12 +30,6 @@ const Navbar = () => {
         <NavBtn>
           <NavBtnLink to='/signin'>Sign In</NavBtnLink>
         </NavBtn>
-        <nav classname="navbar">
-            <ul>
-                <fa-ul><button onclick="location.href''">Login</button></fa-ul>
-                <fa-ul><button onclick="location.href''">Get Started</button></fa-ul>            
-            </ul>
-      </nav>
       </Nav>
     </>
   );
