@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import LoginButton from '../components/Login-Components/LoginButton';
-import "../create-trip-styling.css";
+import '../create-trip-styling.css';
 
 function CreateTrip() {
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -10,19 +10,25 @@ function CreateTrip() {
 
   const handleSelect = (category, value) => {
     switch (category) {
-      case "food":
+      case 'food':
         setSelectedFoods((prev) =>
-          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((item) => item !== value)
+            : [...prev, value]
         );
         break;
-      case "entertainment":
+      case 'entertainment':
         setSelectedEntertainment((prev) =>
-          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((item) => item !== value)
+            : [...prev, value]
         );
         break;
-      case "outdoor":
+      case 'outdoor':
         setSelectedOutdoor((prev) =>
-          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((item) => item !== value)
+            : [...prev, value]
         );
         break;
       default:
@@ -31,21 +37,21 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: "Chilis", imgSrc: "chilis.jpg" },
-    { name: "Grimaldis", imgSrc: "grimaldis.jpg" },
-    { name: "McDonalds", imgSrc: "mcdonalds.jpg" }
+    { name: 'Chilis', imgSrc: 'chilis.jpg' },
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg' },
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg' },
   ];
 
   const entertainmentOptions = [
-    { name: "Movie", imgSrc: "movie.jpg" },
-    { name: "Concert", imgSrc: "concert.jpg" },
-    { name: "Theater", imgSrc: "theater.jpg" }
+    { name: 'Movie', imgSrc: 'movie.jpg' },
+    { name: 'Concert', imgSrc: 'concert.jpg' },
+    { name: 'Theater', imgSrc: 'theater.jpg' },
   ];
 
   const outdoorOptions = [
-    { name: "Gustavo Hiking Trail", imgSrc: "hiking.jpg" },
-    { name: "Vinny Rosy River", imgSrc: "river.jpg" },
-    { name: "Alan De Le Torre Lake", imgSrc: "lake.jpg" }
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
+    { name: 'Vinny Rosy River', imgSrc: 'river.jpg' },
+    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg' },
   ];
 
   return (
@@ -67,85 +73,94 @@ function CreateTrip() {
           <h2>Activities</h2>
         </div>
 
-
         {/* Categories aligned horizontally */}
-        <div className="categories-container">
-
+        <div className='categories-container'>
           {/* Entertainment Selection */}
-          <div className="category">
-            <h2 className="form-title">Entertainment</h2>
-            <div className="selectable-container">
+          <div className='category'>
+            <h2 className='form-title'>Entertainment</h2>
+            <div className='selectable-container'>
               {entertainmentOptions.map((item) => (
                 <label
                   key={item.name}
                   className={`selectable-box ${
-                    selectedEntertainment.includes(item.name) ? "selected" : ""
+                    selectedEntertainment.includes(item.name) ? 'selected' : ''
                   }`}
                 >
                   <input
-                    type="checkbox"
-                    name="entertainment"
+                    type='checkbox'
+                    name='entertainment'
                     value={item.name}
                     checked={selectedEntertainment.includes(item.name)}
-                    onChange={() => handleSelect("entertainment", item.name)}
+                    onChange={() => handleSelect('entertainment', item.name)}
                   />
-                  <img src={item.imgSrc} alt={item.name} className="selectable-image" />
-                  <span className="selectable-title">{item.name}</span>
+                  <img
+                    src={item.imgSrc}
+                    alt={item.name}
+                    className='selectable-image'
+                  />
+                  <span className='selectable-title'>{item.name}</span>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Food Selection */}
-          <div className="category">
-            <h2 className="form-title">Food</h2>
-            <div className="selectable-container">
+          <div className='category'>
+            <h2 className='form-title'>Food</h2>
+            <div className='selectable-container'>
               {foodOptions.map((food) => (
                 <label
                   key={food.name}
                   className={`selectable-box ${
-                    selectedFoods.includes(food.name) ? "selected" : ""
+                    selectedFoods.includes(food.name) ? 'selected' : ''
                   }`}
                 >
                   <input
-                    type="checkbox"
-                    name="food"
+                    type='checkbox'
+                    name='food'
                     value={food.name}
                     checked={selectedFoods.includes(food.name)}
-                    onChange={() => handleSelect("food", food.name)}
+                    onChange={() => handleSelect('food', food.name)}
                   />
-                  <img src={food.imgSrc} alt={food.name} className="selectable-image" />
-                  <span className="selectable-title">{food.name}</span>
+                  <img
+                    src={food.imgSrc}
+                    alt={food.name}
+                    className='selectable-image'
+                  />
+                  <span className='selectable-title'>{food.name}</span>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Outdoor Selection */}
-          <div className="category">
-            <h2 className="form-title">Outdoor</h2>
-            <div className="selectable-container">
+          <div className='category'>
+            <h2 className='form-title'>Outdoor</h2>
+            <div className='selectable-container'>
               {outdoorOptions.map((item) => (
                 <label
                   key={item.name}
                   className={`selectable-box ${
-                    selectedOutdoor.includes(item.name) ? "selected" : ""
+                    selectedOutdoor.includes(item.name) ? 'selected' : ''
                   }`}
                 >
                   <input
-                    type="checkbox"
-                    name="outdoor"
+                    type='checkbox'
+                    name='outdoor'
                     value={item.name}
                     checked={selectedOutdoor.includes(item.name)}
-                    onChange={() => handleSelect("outdoor", item.name)}
+                    onChange={() => handleSelect('outdoor', item.name)}
                   />
-                  <img src={item.imgSrc} alt={item.name} className="selectable-image" />
-                  <span className="selectable-title">{item.name}</span>
+                  <img
+                    src={item.imgSrc}
+                    alt={item.name}
+                    className='selectable-image'
+                  />
+                  <span className='selectable-title'>{item.name}</span>
                 </label>
               ))}
             </div>
           </div>
-
         </div>
 
         <LoginButton text='Create Itinerary' />

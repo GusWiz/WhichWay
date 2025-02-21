@@ -25,8 +25,11 @@ function Signup() {
       const user = auth.currentUser;
       console.log(user);
       console.log('User Registered Successfully!');
+      window.location.href = '/home';
     } catch (error) {
       console.log(error.message);
+      const errorMessage = error.message;
+      alert(errorMessage);
     }
   };
 
