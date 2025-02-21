@@ -67,10 +67,7 @@ function CreateTrip() {
           <h2>Activities</h2>
         </div>
 
-
-        {/* Categories aligned horizontally */}
         <div className="categories-container">
-
           {/* Entertainment Selection */}
           <div className="category">
             <h2 className="form-title">Entertainment</h2>
@@ -145,10 +142,41 @@ function CreateTrip() {
               ))}
             </div>
           </div>
-
         </div>
 
         <LoginButton text='Create Itinerary' />
+      </div>
+
+      {/* Current Itinerary Container */}
+      <div className="itinerary-container">
+        <h2>Current Itinerary</h2>
+
+        <div className="itinerary-section">
+          <h3>Food</h3>
+          <ul>
+            {selectedFoods.map((food) => (
+              <li key={food}>{food}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="itinerary-section">
+          <h3>Outdoor</h3>
+          <ul>
+            {selectedOutdoor.map((outdoor) => (
+              <li key={outdoor}>{outdoor}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="itinerary-section">
+          <h3>Entertainment</h3>
+          <ul>
+            {selectedEntertainment.map((entertainment) => (
+              <li key={entertainment}>{entertainment}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );
