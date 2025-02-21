@@ -13,7 +13,7 @@ import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import EnterVerificationCode from './components/Login-Components/EnterVerificationCode.jsx';
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
-import Home from './pages/Home.jsx';
+import Home from './Pages/Home.jsx';
 import app from './Components/firebase.js';
 
 export default function App() {

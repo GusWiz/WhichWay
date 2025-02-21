@@ -1,7 +1,8 @@
-// Temp file
-// testing login functionality
 import { signOut } from 'firebase/auth';
-import { auth } from '../Components/firebase';
+import { auth } from '../components/firebase';
+import React from 'react';
+import HomeBody from '../components/RoutingPage/HomeBody';
+import NavigationBar from '../components/RoutingPage/NavigationBar';
 
 function Home() {
   const logout = async () => {
@@ -12,10 +13,13 @@ function Home() {
       console.log(error);
     }
   };
+
   return (
     <>
-      <h2>You are logged in to homepage!</h2>
-      <button onClick={logout}> Logout </button>
+      <NavigationBar />
+      {/* <button onClick={logout}> Logout </button>
+      <h1>Home Page</h1> */}
+      <HomeBody />
     </>
   );
 }
