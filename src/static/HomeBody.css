@@ -28,14 +28,19 @@ body, html {
 
 .option-boxes button {
   padding: 20px 40px;
-  font-size: 18px;
+  font-size: 1.125rem;
+  font-weight: 425;
   cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  outline: none;
+  background: hsl(201, 69%, 22%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 0.31rem;
+  border: 1px solid hsl(0, 0%, 75%);
+  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+  transition: 0.2s ease;
+  
 }
 
 .option-boxes button:hover {
-  background-color: #0056b3;
+  background: hsl(202, 52%, 30%);
 }
