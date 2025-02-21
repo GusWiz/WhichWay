@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import InputField from '../other_components/Login-Components/InputField';
-import LoginButton from '../other_components/Login-Components/LoginButton';
+import InputField from '../components/Login-Components/InputField';
+import LoginButton from '../components/Login-Components/LoginButton';
 import "../create-trip-styling.css";
 
 function CreateTrip() {

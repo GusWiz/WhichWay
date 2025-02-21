@@ -8,9 +8,9 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Login from './other_components/Login-Components/Login.js';
-import Signup from './other_components/Login-Components/Signup.jsx';
-import ForgotPassword from './other_components/Login-Components/ForgotPassword.js';
+import Login from './components/Login-Components/Login.js';
+import Signup from './components/Login-Components/Signup.js';
+import ForgotPassword from './components/Login-Components/ForgotPassword.js';
 import Home from './other_pages/Home.jsx';
 import CreateTrip from './other_pages/CreateTrip.jsx';
 
