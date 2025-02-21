@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { auth } from './Components/firebase.js';
+import { auth } from './components/firebase.js';
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,14 +8,12 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Login from './Components/Login-Components/Login.jsx';
+import Login from '../src/components/Login-Components/Login.jsx';
 import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
-import EnterVerificationCode from './components/Login-Components/EnterVerificationCode.jsx';
-import ResetPassword from './components/Login-Components/ResetPassword.jsx';
-import Home from './Pages/Home.jsx';
-import CreateTrip from './Pages/CreateTrip.jsx';
-import app from './Components/firebase.js';
+import Home from './pages/Home.jsx';
+import CreateTrip from './pages/CreateTrip.jsx';
+
 
 export default function App() {
   const [user, setUser] = useState();
