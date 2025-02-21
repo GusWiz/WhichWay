@@ -8,11 +8,11 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Login from './components/Login-Components/Login.js';
-import Signup from './components/Login-Components/Signup.js';
-import ForgotPassword from './components/Login-Components/ForgotPassword.js';
-import Home from './other_pages/Home.jsx';
-import CreateTrip from './other_pages/CreateTrip.jsx';
+import Login from '../src/components/Login-Components/Login.jsx';
+import Signup from './components/Login-Components/Signup.jsx';
+import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
+import Home from './pages/Home.jsx';
+import CreateTrip from './pages/CreateTrip.jsx';
 
 
 export default function App() {
