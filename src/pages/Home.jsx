@@ -1,4 +1,3 @@
-// Temp file
 // testing login functionality
 import { signOut } from 'firebase/auth';
 import { auth } from '../Components/firebase';

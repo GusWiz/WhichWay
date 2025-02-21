@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import InputField from '../Components/InputField';
-import LoginButton from '../Components/Login-Components/LoginButton';
+import InputField from '../components/Login-Components/InputField';
+import LoginButton from '../components/Login-Components/LoginButton';
 import "../create-trip-styling.css";
 
 function CreateTrip() {
@@ -53,7 +53,7 @@ function CreateTrip() {
       <div className='title-container'>
         <h1>Create Trip</h1>
       </div>
-      
+
       <div>
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />

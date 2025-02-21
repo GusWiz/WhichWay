@@ -1,0 +1,18 @@
+// input text boxes
+const InputField = ({ type, placeholder, onChange }) => {
+    return (
+      <>
+        <div className='input-wrapper'>
+          <input
+            type={type}
+            placeholder={placeholder}
+            className='input-field'
+            required
+            onChange={onChange}
+          />
+        </div>
+      </>
+    );
+  };
+
+  export default InputField;
