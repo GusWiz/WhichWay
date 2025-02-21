@@ -149,6 +149,22 @@ function CreateTrip() {
         </div>
 
         <LoginButton text='Create Itinerary' />
+
+        <div className="itinerary-container">
+          <h2>Current Itinerary</h2>
+  
+          <div className="itinerary-section">
+            <h3>Food</h3>
+          </div>
+
+          <div className="itinerary-section">
+            <h3>Outdoor</h3>
+          </div>
+
+          <div className="itinerary-section">
+            <h3>Entertainment</h3>
+          </div>
+</div>
       </div>
     </>
   );
