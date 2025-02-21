@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-//import '../../static/NavigationBar.css'; // Ensure the correct path to the CSS file
+import '../../static/NavigationBar.css'; // Ensure the correct path to the CSS file
 
 function NavigationBar() {
   return (

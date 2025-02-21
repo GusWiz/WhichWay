@@ -1,4 +1,4 @@
-body, html {
+.home-body, .home-body html {
   height: 100%;
   margin: 0;
   display: flex;
@@ -14,7 +14,7 @@ body, html {
   height: 100%;
 }
 
-.option-boxes {
+.home-body .option-boxes {
   display: flex;
   flex-direction: row; /* Place buttons next to each other */
   justify-content: center; /* Center the buttons horizontally */
@@ -26,7 +26,7 @@ body, html {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for better visibility */
 }
 
-.option-boxes button {
+.home-body .option-boxes button {
   padding: 20px 40px;
   font-size: 1.125rem;
   font-weight: 425;
@@ -38,9 +38,8 @@ body, html {
   border: 1px solid hsl(0, 0%, 75%);
   box-shadow: 0 10px 20px hsl(0, 0%, 90%);
   transition: 0.2s ease;
-  
 }
 
-.option-boxes button:hover {
+.home-body .option-boxes button:hover {
   background: hsl(202, 52%, 30%);
 }
