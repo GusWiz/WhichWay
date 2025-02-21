@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import InputField from '../Components/InputField';
-import LoginButton from '../Components/Login-Components/LoginButton';
+import InputField from '../other_components/Login-Components/InputField';
+import LoginButton from '../other_components/Login-Components/LoginButton';
 import "../create-trip-styling.css";
 
 function CreateTrip() {
@@ -53,7 +53,7 @@ function CreateTrip() {
       <div className='title-container'>
         <h1>Create Trip</h1>
       </div>
-      
+
       <div>
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />
@@ -66,7 +66,7 @@ function CreateTrip() {
         <div className='activities-container'>
           <h2>Activities</h2>
         </div>
-        
+
 
         {/* Categories aligned horizontally */}
         <div className="categories-container">

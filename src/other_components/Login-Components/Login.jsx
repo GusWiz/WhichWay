@@ -5,7 +5,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
-import InputField from '../InputField';
+import InputField from './InputField';
 
 // CSS
 //import styles from './login.styling.css';
