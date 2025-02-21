@@ -1,13 +1,13 @@
 import React from "react";
 import { NavLink } from 'react-router-dom';
-import '../../static/NavigationBar.css'; // Ensure the correct path to the CSS file
+import '../../NavigationBar.css';
 
 function NavigationBar() {
   return (
     <header className="navbar-header">
     <nav className="navbar">
       <NavLink to='/' className="logo">
-        <h1>Logo image</h1>
+        <h1>Trip Planner Image Goes Here</h1>
       </NavLink>
       <ul className="nav-links">
         <li><NavLink to='/about' activeClassName="active">About</NavLink></li>

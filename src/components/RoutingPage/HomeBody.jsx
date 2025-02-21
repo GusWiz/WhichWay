@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../static/HomeBody.css';
+import '../../HomeBody.css';
 
 // Mising proper routing after the buttons are pressed
 function HomeBody() {
