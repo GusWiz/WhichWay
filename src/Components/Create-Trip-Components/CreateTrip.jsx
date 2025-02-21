@@ -2,6 +2,11 @@ import React from 'react';
 import InputField from '../InputField';
 import LoginButton from '../Login-Components/LoginButton';
 
+
+function ChangeBudget(){
+
+}
+
 function CreateTrip() {
   return (
     <>
@@ -12,6 +17,12 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
+        <label>Budget = </label><label id='displayedBudget'>null</label>
+        <form action='#' classname='form'>
+          <input type='text' placeholder='Budget' id='budgetInput'/>
+          <button type='submit' placeholder='submit'>BRUH</button>
+        </form>
+
       </div>
       <div>
         <h2>Activities</h2>

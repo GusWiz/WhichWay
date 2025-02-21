@@ -15,6 +15,8 @@ import EnterVerificationCode from './components/Login-Components/EnterVerificati
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
 import Home from './pages/Home.jsx';
 import app from './Components/firebase.js';
+import CreateTrip from './Components/Create-Trip-Components/CreateTrip.jsx'
+import Navbar from './Components/Navbar/index.jsx'
 
 export default function App() {
   const [user, setUser] = useState();
@@ -32,6 +34,7 @@ export default function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotpassword' element={<ForgotPassword />} />
         <Route path='/home' element={<Home />} />
+        <Route path='/aaron' element={<CreateTrip />} />
       </Routes>
     </Router>
   );
