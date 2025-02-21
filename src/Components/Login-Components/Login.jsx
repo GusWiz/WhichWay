@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from '../InputField';
@@ -28,6 +29,7 @@ function Login() {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
+      window.location.href = '/home';
     } catch (error) {
       console.error('Google Sign-In Error: ', error.message);
     }
