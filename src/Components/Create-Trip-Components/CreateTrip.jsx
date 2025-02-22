@@ -7,16 +7,32 @@ function ChangeBudget(){
 
 }
 
-const handleChange = (event) =>{
-  const name = event.target.name;
-  const value = event.target.value;
-  console.log(name, value);
-}
+
 
 function CreateTrip() {
   const [details, setDetails] = useState({
     budget: ""
   })
+  const[displayedBudget, setDisplayedBudget] = useState({
+    budget: ""
+  })
+
+  const handleChange = (event) =>{
+    const name = event.target.name;
+    const value = event.target.value;
+    setDetails((prev) => {
+      return {...prev, [name]: value}
+    })
+    // console.log(details);
+  }
+  const budgetSubmit = (event) =>{
+    event.preventDefault();
+    setDisplayedBudget((prev) => {
+      return {...prev, budget: details.budget}
+    })
+    console.log(details);
+  }
+
   return (
     <>
       <h1>Create Trip</h1>
@@ -26,10 +42,10 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>Budget = </label><label id='displayedBudget'>null</label>
-        <form action='#' className='form'>
-          <input type='text' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
-          <button >Button</button>
+        <label>Budget = $</label><label id='displayedBudget'>{displayedBudget.budget}</label>
+        <form action='#' className='form' onSubmit={budgetSubmit}>
+          <input type='number' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
+          <button type='submit'>Button</button>
         </form>
 
       </div>
