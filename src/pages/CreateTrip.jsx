@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
-import LoginButton from '../components/Login-Components/LoginButton';
 import { useNavigate } from 'react-router-dom';
 import "../create-trip-styling.css";
 
@@ -169,6 +168,12 @@ function CreateTrip() {
 
       {/* Current Itinerary Container */}
       <div className='itinerary-container'>
+
+
+
+
+
+
         <h2>Current Itinerary</h2>
 
         <div className='itinerary-section'>
@@ -197,6 +202,11 @@ function CreateTrip() {
             ))}
           </ul>
         </div>
+
+        {/* Standard Button Added Here */}
+        <button className='standard-button' onClick={() => alert('Button clicked!')}>
+        Create Itinerary
+        </button>
       </div>
     </>
   );
