@@ -14,7 +14,6 @@ import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
 
-
 export default function App() {
   const [user, setUser] = useState();
   useEffect(() => {

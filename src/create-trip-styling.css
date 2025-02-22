@@ -17,10 +17,10 @@
 }
 
 .activities-container {
-display: flex;
-justify-content: center;  /* Centers horizontally */
-align-items: center;  /* Centers vertically */
-width: 100%;
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  width: 100%;
 }
 
 /* Enlarging the selectable container */
@@ -91,7 +91,7 @@ width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Aligns to the left */
-  padding-left: 20
+  padding-left: 20;
 }
 
 .itinerary-section {
