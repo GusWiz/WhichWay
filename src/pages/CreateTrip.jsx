@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import LoginButton from '../components/Login-Components/LoginButton';
+import { useNavigate } from 'react-router-dom';
 import "../create-trip-styling.css";
 
 function CreateTrip() {
+  const navigate = useNavigate();
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
