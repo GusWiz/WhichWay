@@ -1,15 +1,58 @@
 import React, { useState } from 'react';
-import InputField from '../components/InputField';
+import InputField from '../components/Login-Components/InputField';
 import LoginButton from '../components/Login-Components/LoginButton';
-
-
-function ChangeBudget(){
-
-}
-
-
+import "../create-trip-styling.css";
 
 function CreateTrip() {
+
+  // Aaron's functions
+  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedEntertainment, setSelectedEntertainment] = useState([]);
+  const [selectedOutdoor, setSelectedOutdoor] = useState([]);
+
+  const handleSelect = (category, value) => {
+    switch (category) {
+      case "food":
+        setSelectedFoods((prev) =>
+          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        );
+        break;
+      case "entertainment":
+        setSelectedEntertainment((prev) =>
+          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        );
+        break;
+      case "outdoor":
+        setSelectedOutdoor((prev) =>
+          prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
+        );
+        break;
+      default:
+        break;
+    }
+  };
+
+  const foodOptions = [
+    { name: "Chilis", imgSrc: "chilis.jpg" },
+    { name: "Grimaldis", imgSrc: "grimaldis.jpg" },
+    { name: "McDonalds", imgSrc: "mcdonalds.jpg" }
+  ];
+
+  const entertainmentOptions = [
+    { name: "Movie", imgSrc: "movie.jpg" },
+    { name: "Concert", imgSrc: "concert.jpg" },
+    { name: "Theater", imgSrc: "theater.jpg" }
+  ];
+
+  const outdoorOptions = [
+    { name: "Gustavo Hiking Trail", imgSrc: "hiking.jpg" },
+    { name: "Vinny Rosy River", imgSrc: "river.jpg" },
+    { name: "Alan De Le Torre Lake", imgSrc: "lake.jpg" }
+  ];
+  // End of Aaron's functions
+
+  //Vinny's functions
+
   const [details, setDetails] = useState({
     budget: ""
   })
@@ -32,10 +75,14 @@ function CreateTrip() {
     })
     console.log(details);
   }
-
+  // end of Vinny's functions
+  
   return (
     <>
-      <h1>Create Trip</h1>
+      <div className='title-container'>
+        <h1>Create Trip</h1>
+      </div>
+
       <div>
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />
@@ -47,70 +94,121 @@ function CreateTrip() {
           <input type='number' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
           <button type='submit'>Button</button>
         </form>
-
-      </div>
-      <div>
-        <h2>Activities</h2>
-
-        <div className='container'>
-          <h2 className='form-title'>Entertainment</h2>
-          <div className='selectable-container'>
-            <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='movie' />
-              Movie
-            </label>
-            <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='concert' />
-              Concert
-            </label>
-            <label className='selectable-label'>
-              <input type='radio' name='entertainment' value='theater' />
-              Theater
-            </label>
-          </div>
+      
+        <div className='activities-container'>
+          <h2>Activities</h2>
         </div>
 
-        <div className='container'>
-          <h2 className='form-title'>Food</h2>
-          <div className='selectable-container'>
-            <label className='selectable-label'>
-              <input type='radio' name='food' value='Chilis' />
-              Chilis
-            </label>
-            <label className='selectable-label'>
-              <input type='radio' name='food' value='Grimaldis' />
-              Grimaldis
-            </label>
-            <label className='selectable-label'>
-              <input type='radio' name='food' value='McDonalds' />
-              McDonalds
-            </label>
+        <div className="categories-container">
+          {/* Entertainment Selection */}
+          <div className="category">
+            <h2 className="form-title">Entertainment</h2>
+            <div className="selectable-container">
+              {entertainmentOptions.map((item) => (
+                <label
+                  key={item.name}
+                  className={`selectable-box ${
+                    selectedEntertainment.includes(item.name) ? "selected" : ""
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    name="entertainment"
+                    value={item.name}
+                    checked={selectedEntertainment.includes(item.name)}
+                    onChange={() => handleSelect("entertainment", item.name)}
+                  />
+                  <img src={item.imgSrc} alt={item.name} className="selectable-image" />
+                  <span className="selectable-title">{item.name}</span>
+                </label>
+              ))}
+            </div>
           </div>
-        </div>
 
-        <div className='container'>
-          <h2 className='form-title'>Outdoor</h2>
-          <div className='selectable-container'>
-            <label className='selectable-label'>
-              <input type='radio' name='outdoor' value='Gustavo Hiking Trail' />
-              Gustavo Hiking Trail
-            </label>
-            <label className='selectable-label'>
-              <input type='radio' name='outdoor' value='Vinny Rosy River' />
-              Vinny Rosy River
-            </label>
-            <label className='selectable-label'>
-              <input
-                type='radio'
-                name='outdoor'
-                value='Alan De Le Torre Lake'
-              />
-              Alan De Le Torre Lake
-            </label>
+          {/* Food Selection */}
+          <div className="category">
+            <h2 className="form-title">Food</h2>
+            <div className="selectable-container">
+              {foodOptions.map((food) => (
+                <label
+                  key={food.name}
+                  className={`selectable-box ${
+                    selectedFoods.includes(food.name) ? "selected" : ""
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    name="food"
+                    value={food.name}
+                    checked={selectedFoods.includes(food.name)}
+                    onChange={() => handleSelect("food", food.name)}
+                  />
+                  <img src={food.imgSrc} alt={food.name} className="selectable-image" />
+                  <span className="selectable-title">{food.name}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Outdoor Selection */}
+          <div className="category">
+            <h2 className="form-title">Outdoor</h2>
+            <div className="selectable-container">
+              {outdoorOptions.map((item) => (
+                <label
+                  key={item.name}
+                  className={`selectable-box ${
+                    selectedOutdoor.includes(item.name) ? "selected" : ""
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    name="outdoor"
+                    value={item.name}
+                    checked={selectedOutdoor.includes(item.name)}
+                    onChange={() => handleSelect("outdoor", item.name)}
+                  />
+                  <img src={item.imgSrc} alt={item.name} className="selectable-image" />
+                  <span className="selectable-title">{item.name}</span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
         <LoginButton text='Create Itinerary' />
+      </div>
+
+      {/* Current Itinerary Container */}
+      <div className="itinerary-container">
+        <h2>Current Itinerary</h2>
+
+        <div className="itinerary-section">
+          <h3>Food</h3>
+          <ul>
+            {selectedFoods.map((food) => (
+              <li key={food}>{food}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="itinerary-section">
+          <h3>Outdoor</h3>
+          <ul>
+            {selectedOutdoor.map((outdoor) => (
+              <li key={outdoor}>{outdoor}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="itinerary-section">
+          <h3>Entertainment</h3>
+          <ul>
+            {selectedEntertainment.map((entertainment) => (
+              <li key={entertainment}>{entertainment}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

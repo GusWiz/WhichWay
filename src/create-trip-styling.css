@@ -1,0 +1,110 @@
+/* Enlarging the main container */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Controls title area height */
+  text-align: center;
+}
+
+.activities-container {
+display: flex;
+justify-content: center;  /* Centers horizontally */
+align-items: center;  /* Centers vertically */
+width: 100%;
+}
+
+/* Enlarging the selectable container */
+.selectable-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Individual selectable box */
+.selectable-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 150px;
+  height: 180px;
+  border: 3px solid #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.3s;
+  user-select: none;
+  background-color: white;
+  padding: 10px;
+}
+
+/* Hide the default checkbox */
+.selectable-box input {
+  display: none;
+}
+
+/* Image inside selectable box */
+.food-image {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Title inside selectable box */
+.food-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Highlight border when selected */
+.selectable-box.selected {
+  border: 3px solid #4caf50;
+  background-color: #e8f5e9;
+}
+
+.itinerary-container {
+  width: 250px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px; /* Push it down naturally */
+}
+
+/* Make sure the parent container allows it to be at the bottom left */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns to the left */
+  padding-left: 20
+}
+
+.itinerary-section {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.itinerary-section h3 {
+  font-size: 16px;
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
