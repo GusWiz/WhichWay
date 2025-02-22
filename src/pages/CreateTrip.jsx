@@ -146,11 +146,12 @@ function CreateTrip() {
           </div>
         </div>
 
-        <LoginButton text='Create Itinerary' />
+
       </div>
 
       {/* Current Itinerary Container */}
       <div className="itinerary-container">
+      <LoginButton text='Create Itinerary' />
         <h2>Current Itinerary</h2>
 
         <div className="itinerary-section">
