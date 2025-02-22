@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputField from '../InputField';
 import LoginButton from '../Login-Components/LoginButton';
 
@@ -7,7 +7,16 @@ function ChangeBudget(){
 
 }
 
+const handleChange = (event) =>{
+  const name = event.target.name;
+  const value = event.target.value;
+  console.log(name, value);
+}
+
 function CreateTrip() {
+  const [details, setDetails] = useState({
+    budget: ""
+  })
   return (
     <>
       <h1>Create Trip</h1>
@@ -18,9 +27,9 @@ function CreateTrip() {
           <InputField type='text' placeholder='Duration' />
         </form>
         <label>Budget = </label><label id='displayedBudget'>null</label>
-        <form action='#' classname='form'>
-          <input type='text' placeholder='Budget' id='budgetInput'/>
-          <button type='submit' placeholder='submit'>BRUH</button>
+        <form action='#' className='form'>
+          <input type='text' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
+          <button >Button</button>
         </form>
 
       </div>
