@@ -23,6 +23,8 @@ function Login() {
       window.location.href = '/home';
     } catch (error) {
       console.log(error.message);
+      const errorMessage = error.message;
+      alert(errorMessage);
     }
   };
 
