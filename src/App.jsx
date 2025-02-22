@@ -14,8 +14,8 @@ import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import EnterVerificationCode from './components/Login-Components/EnterVerificationCode.jsx';
 import ResetPassword from './components/Login-Components/ResetPassword.jsx';
 import Home from './pages/Home.jsx';
-import app from './Components/firebase.js';
-import CreateTrip from './Components/Create-Trip-Components/CreateTrip.jsx'
+import app from './components/firebase.js';
+import CreateTrip from './pages/CreateTrip.jsx'
 import Navbar from './Components/Navbar/index.jsx'
 
 export default function App() {
