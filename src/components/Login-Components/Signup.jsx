@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth, googleProvider } from '../firebase';
+import { auth, googleProvider, db} from '../firebase';
+import { setDoc, doc} from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -24,6 +25,13 @@ function Signup() {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
       console.log(user);
+      if (user) {
+        await setDoc(doc(db, 'Users', user.uid), {
+          email: user.email,
+          firstName: fname,
+          lastName: lname,
+        });
+      }
       console.log('User Registered Successfully!');
     } catch (error) {
       console.log(error.message);
