@@ -11,7 +11,7 @@ import {
 import Login from '../src/components/Login-Components/Login.jsx';
 import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
-import Home from '../pages/Home.jsx';
+import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
 
 
