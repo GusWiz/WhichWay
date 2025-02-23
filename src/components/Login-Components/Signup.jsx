@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth, googleProvider, db} from '../firebase';
-import { setDoc, doc} from 'firebase/firestore';
+import { auth, googleProvider, db } from '../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
+
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
@@ -33,8 +34,11 @@ function Signup() {
         });
       }
       console.log('User Registered Successfully!');
+      window.location.href = '/home';
     } catch (error) {
       console.log(error.message);
+      const errorMessage = error.message;
+      alert(errorMessage);
     }
   };
 
