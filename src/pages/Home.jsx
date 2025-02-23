@@ -1,6 +1,6 @@
 // testing login functionality
 import { signOut } from 'firebase/auth';
-import { auth } from '../Components/firebase';
+import { auth } from '../components/firebase';
 
 function Home() {
   const logout = async () => {
