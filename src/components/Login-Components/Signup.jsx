@@ -48,11 +48,15 @@ function Signup() {
       // from the Google sign-in
       const userCredentials = await signInWithPopup(auth, googleProvider);
       const user = userCredentials.user;
-      await setDoc(doc(db, 'Users', user.uid),{
-        email: user.email,
-        firstName: user.displayName.split(' ')[0],
-        lastName: user.displayName.split(' ')[1],
-      }, {merge: true});
+      await setDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          firstName: user.displayName.split(' ')[0],
+          lastName: user.displayName.split(' ')[1],
+        },
+        { merge: true }
+      );
       window.location.href = '/home';
     } catch (error) {
       console.error('Google Sign-In Error: ', error.message);
