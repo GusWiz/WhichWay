@@ -169,11 +169,6 @@ function CreateTrip() {
       {/* Current Itinerary Container */}
       <div className='itinerary-container'>
 
-
-
-
-
-
         <h2>Current Itinerary</h2>
 
         <div className='itinerary-section'>
@@ -204,9 +199,19 @@ function CreateTrip() {
         </div>
 
         {/* Standard Button Added Here */}
-        <button className='standard-button' onClick={() => alert('Button clicked!')}>
-        Create Itinerary
-        </button>
+        <button
+          className='standard-button'
+          onClick={() => navigate('/Itinerary', {
+            state: {
+              selectedFoods,
+              selectedEntertainment,
+              selectedOutdoor
+            }
+          })}
+>
+  Create Itinerary
+</button>
+
       </div>
     </>
   );
