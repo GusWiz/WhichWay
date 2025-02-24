@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
-import LoginButton from '../components/Login-Components/LoginButton';
-import '../create-trip-styling.css';
+import { useNavigate } from 'react-router-dom';
+import "../create-trip-styling.css";
 
 function CreateTrip() {
+  const navigate = useNavigate();
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
@@ -200,11 +201,12 @@ function CreateTrip() {
           </div>
         </div>
 
-        <LoginButton text='Create Itinerary' />
+
       </div>
 
       {/* Current Itinerary Container */}
       <div className='itinerary-container'>
+
         <h2>Current Itinerary</h2>
 
         <div className='itinerary-section'>
@@ -233,6 +235,21 @@ function CreateTrip() {
             ))}
           </ul>
         </div>
+
+        {/* Standard Button Added Here */}
+        <button
+          className='standard-button'
+          onClick={() => navigate('/Itinerary', {
+            state: {
+              selectedFoods,
+              selectedEntertainment,
+              selectedOutdoor
+            }
+          })}
+>
+  Create Itinerary
+</button>
+
       </div>
     </>
   );
