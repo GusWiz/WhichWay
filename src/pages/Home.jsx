@@ -17,7 +17,7 @@ function Home() {
   return (
     <>
       <header>
-        <h1>Home Page</h1>
+        <h1>WhichWay</h1>
       </header>
       <div className='home-page'>
         <div className='home-container'>
