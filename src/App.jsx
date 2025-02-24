@@ -15,7 +15,6 @@ import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
 import TriponHome from './components/TripHomePage/TriponHome.jsx';
 
-
 export default function App() {
   const [user, setUser] = useState();
   useEffect(() => {
