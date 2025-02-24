@@ -13,6 +13,7 @@ function ForgotPassword() {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         alert('email sent');
+        window.location.href = '/login';
       })
       .catch((error) => {
         const errorCode = error.code;
