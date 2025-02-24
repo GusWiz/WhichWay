@@ -1,4 +1,4 @@
-import { db } from './firestore'; // import the firestore instance
+import { db } from '../components/firebase'; // import the firestore instance
 import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
 
 // function to creates a new user document in the Users collection

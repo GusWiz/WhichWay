@@ -1,5 +1,5 @@
 import { createUserDocument, createTripDocument, addTripToUser } from '../../api/dataModel';
-import { db } from '../api/firestore';
+import { db } from '../../components/firebase';
 import { doc, setDoc, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 jest.mock('firebase/firestore', () => ({
