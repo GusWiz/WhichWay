@@ -4,7 +4,6 @@ import LoginButton from '../components/Login-Components/LoginButton';
 import '../create-trip-styling.css';
 
 function CreateTrip() {
-
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
@@ -60,29 +59,29 @@ function CreateTrip() {
   //Vinny's functions
 
   const [details, setDetails] = useState({
-    budget: ""
-  })
-  const[displayedBudget, setDisplayedBudget] = useState({
-    budget: ""
-  })
+    budget: '',
+  });
+  const [displayedBudget, setDisplayedBudget] = useState({
+    budget: '',
+  });
 
-  const handleChange = (event) =>{
+  const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setDetails((prev) => {
-      return {...prev, [name]: value}
-    })
+      return { ...prev, [name]: value };
+    });
     // console.log(details);
-  }
-  const budgetSubmit = (event) =>{
+  };
+  const budgetSubmit = (event) => {
     event.preventDefault();
     setDisplayedBudget((prev) => {
-      return {...prev, budget: details.budget}
-    })
+      return { ...prev, budget: details.budget };
+    });
     console.log(details);
-  }
+  };
   // end of Vinny's functions
-  
+
   return (
     <>
       <div className='title-container'>
@@ -95,12 +94,19 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>Budget = $</label><label id='displayedBudget'>{displayedBudget.budget}</label>
+        <label>Budget = $</label>
+        <label id='displayedBudget'>{displayedBudget.budget}</label>
         <form action='#' className='form' onSubmit={budgetSubmit}>
-          <input type='number' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
+          <input
+            type='number'
+            name='budget'
+            placeholder='Budget'
+            id='budgetInput'
+            onChange={handleChange}
+          />
           <button type='submit'>Button</button>
         </form>
-      
+
         <div className='activities-container'>
           <h2>Activities</h2>
         </div>
