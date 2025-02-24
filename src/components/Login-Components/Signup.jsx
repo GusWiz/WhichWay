@@ -44,7 +44,19 @@ function Signup() {
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      // userCredentials is the object that contains the user information
+      // from the Google sign-in
+      const userCredentials = await signInWithPopup(auth, googleProvider);
+      const user = userCredentials.user;
+      await setDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          firstName: user.displayName.split(' ')[0],
+          lastName: user.displayName.split(' ')[1],
+        },
+        { merge: true }
+      );
       window.location.href = '/home';
     } catch (error) {
       console.error('Google Sign-In Error: ', error.message);
