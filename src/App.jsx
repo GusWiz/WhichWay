@@ -28,7 +28,7 @@ export default function App() {
       <Routes>
         <Route
           path='/'
-          element={user ? <Navigate to='/landing' /> : <Login />}
+          element={user ? <Navigate to='/home' /> : <HomeBody />}
         />
         <Route path='/landing' element={<HomeBody />} />
         <Route path='/login' element={<Login />} />
