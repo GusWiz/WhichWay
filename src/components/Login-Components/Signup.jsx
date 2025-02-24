@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth, googleProvider, db} from '../firebase';
-import { setDoc, doc} from 'firebase/firestore';
+import { auth, googleProvider, db } from '../firebase';
+import { setDoc, doc } from 'firebase/firestore';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
+
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
@@ -33,14 +34,29 @@ function Signup() {
         });
       }
       console.log('User Registered Successfully!');
+      window.location.href = '/home';
     } catch (error) {
       console.log(error.message);
+      const errorMessage = error.message;
+      alert(errorMessage);
     }
   };
 
   const signInWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      // userCredentials is the object that contains the user information
+      // from the Google sign-in
+      const userCredentials = await signInWithPopup(auth, googleProvider);
+      const user = userCredentials.user;
+      await setDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          firstName: user.displayName.split(' ')[0],
+          lastName: user.displayName.split(' ')[1],
+        },
+        { merge: true }
+      );
       window.location.href = '/home';
     } catch (error) {
       console.error('Google Sign-In Error: ', error.message);
