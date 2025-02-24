@@ -5,6 +5,7 @@ import "../create-trip-styling.css";
 
 function CreateTrip() {
   const navigate = useNavigate();
+  // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
@@ -54,6 +55,33 @@ function CreateTrip() {
     { name: 'Vinny Rosy River', imgSrc: 'river.jpg' },
     { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg' },
   ];
+  // End of Aaron's functions
+
+  //Vinny's functions
+
+  const [details, setDetails] = useState({
+    budget: '',
+  });
+  const [displayedBudget, setDisplayedBudget] = useState({
+    budget: '',
+  });
+
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setDetails((prev) => {
+      return { ...prev, [name]: value };
+    });
+    // console.log(details);
+  };
+  const budgetSubmit = (event) => {
+    event.preventDefault();
+    setDisplayedBudget((prev) => {
+      return { ...prev, budget: details.budget };
+    });
+    console.log(details);
+  };
+  // end of Vinny's functions
 
   return (
     <>
@@ -67,9 +95,19 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-      </div>
+        <label>Budget = $</label>
+        <label id='displayedBudget'>{displayedBudget.budget}</label>
+        <form action='#' className='form' onSubmit={budgetSubmit}>
+          <input
+            type='number'
+            name='budget'
+            placeholder='Budget'
+            id='budgetInput'
+            onChange={handleChange}
+          />
+          <button type='submit'>Button</button>
+        </form>
 
-      <div>
         <div className='activities-container'>
           <h2>Activities</h2>
         </div>

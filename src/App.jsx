@@ -14,6 +14,7 @@ import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
 import Itinerary from './pages/Itinerary.jsx';
+import HomeBody from './components/RoutingPage/HomeBody.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -26,7 +27,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={user ? <Navigate to='/home' /> : <Login />} />
+        <Route
+          path='/'
+          element={user ? <Navigate to='/home' /> : <HomeBody />}
+        />
+        <Route path='/landing' element={<HomeBody />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotpassword' element={<ForgotPassword />} />
