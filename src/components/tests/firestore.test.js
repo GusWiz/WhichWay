@@ -1,5 +1,5 @@
 import { createUserDocument, createTripDocument, addTripToUser } from '../../api/dataModel';
-import { db } from '../../components/firebase';
+import { db } from '../../api/firestore';
 import { doc, setDoc, addDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 
 jest.mock('firebase/firestore', () => ({
@@ -14,7 +14,7 @@ describe('Firestore Functions', () => {
   it('should create a new user document', async () => {
     const user = { uid: 'userId1', email: 'user1@example.com', firstName: 'John', lastName: 'Doe' };
     await createUserDocument(user);
-    expect(doc).toHaveBeenCalledWith(db, 'Users', user.uid);
+    expect(doc).toHaveBeenCalledWith(db, 'users', user.uid);
     expect(setDoc).toHaveBeenCalledWith(expect.any(Object), {
       email: user.email,
       firstName: user.firstName,
@@ -33,7 +33,7 @@ describe('Firestore Functions', () => {
     const userId = 'userId1';
     const tripId = 'tripId1';
     await addTripToUser(userId, tripId);
-    expect(doc).toHaveBeenCalledWith(db, 'Users', userId);
+    expect(doc).toHaveBeenCalledWith(db, 'users', userId);
     expect(updateDoc).toHaveBeenCalledWith(expect.any(Object), {
       trips: arrayUnion(tripId),
     });
