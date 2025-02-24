@@ -139,14 +139,19 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>Budget = $</label><label id='displayedBudget'>{displayedBudget.budget}</label><br></br>
-        <label>Cost = $</label><label id='displayedCost'>{displayedCost.cost}</label><br></br>
-        <label>Remaining Budget = $</label><label id='displayedRemainingBudget'>{displayedBudget.budget - displayedCost.cost}</label>
+        <label>Budget = $</label>
+        <label id='displayedBudget'>{displayedBudget.budget}</label>
         <form action='#' className='form' onSubmit={budgetSubmit}>
-          <input type='number' name='budget' placeholder='Budget' id='budgetInput' onChange={handleChange}/>
-          <button type='submit'>Change Budget</button>
+          <input
+            type='number'
+            name='budget'
+            placeholder='Budget'
+            id='budgetInput'
+            onChange={handleChange}
+          />
+          <button type='submit'>Button</button>
         </form>
-      
+
         <div className='activities-container'>
           <h2>Activities</h2>
         </div>
