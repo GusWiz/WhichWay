@@ -39,25 +39,29 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: 'chilis.jpg' },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg' },
+    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40'},
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60'},
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25'},
   ];
 
   const entertainmentOptions = [
-    { name: 'Movie', imgSrc: 'movie.jpg' },
-    { name: 'Concert', imgSrc: 'concert.jpg' },
-    { name: 'Theater', imgSrc: 'theater.jpg' },
+    { name: 'Movie', imgSrc: 'movie.jpg', price: '25' },
+    { name: 'Concert', imgSrc: 'concert.jpg', price: '90' },
+    { name: 'Theater', imgSrc: 'theater.jpg', price: '50' },
   ];
 
   const outdoorOptions = [
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
-    { name: 'Vinny Rosy River', imgSrc: 'river.jpg' },
-    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg' },
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg', price: '0' },
+    { name: 'Vinny Rosy River', imgSrc: 'river.jpg', price: '10' },
+    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
   // End of Aaron's functions
 
   //Vinny's functions
+  
+  // const handleBudget(category, value){
+
+  // }
 
   const [details, setDetails] = useState({
     budget: ""
@@ -130,6 +134,7 @@ function CreateTrip() {
                     className='selectable-image'
                   />
                   <span className='selectable-title'>{item.name}</span>
+                  <span className='selectable-price'>${item.price}</span>
                 </label>
               ))}
             </div>
@@ -159,6 +164,7 @@ function CreateTrip() {
                     className='selectable-image'
                   />
                   <span className='selectable-title'>{food.name}</span>
+                  <span className='selectable-price'>${food.price}</span>
                 </label>
               ))}
             </div>
@@ -188,6 +194,7 @@ function CreateTrip() {
                     className='selectable-image'
                   />
                   <span className='selectable-title'>{item.name}</span>
+                  <span className='selectable-price'>${item.price}</span>
                 </label>
               ))}
             </div>
