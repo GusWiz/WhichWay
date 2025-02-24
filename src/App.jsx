@@ -38,7 +38,6 @@ export default function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/createtrip' element={<CreateTrip />} />
         <Route path='/itinerary' element={<Itinerary />} />
-
       </Routes>
     </Router>
   );

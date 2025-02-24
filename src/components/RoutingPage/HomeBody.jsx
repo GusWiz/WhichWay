@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../HomeBody.css';
+import './HomeBody.css';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 
@@ -11,8 +11,12 @@ function HomeBody() {
       <NavigationBar />
       <main className='home-body'>
         <div className='option-boxes'>
-        <button onClick={() => navigate('/CreateTrip')}>Create New Trip</button>
-        <button onClick={() => navigate('/load-trip')}>Load Existing Trip</button>
+          <button onClick={() => navigate('/CreateTrip')}>
+            Create New Trip
+          </button>
+          <button onClick={() => navigate('/load-trip')}>
+            Load Existing Trip
+          </button>
         </div>
       </main>
     </>

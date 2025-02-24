@@ -1,3 +1,4 @@
+import './login-styling.css';
 const SocialLogin = ({ onClick }) => {
   return (
     <div className='social-login'>

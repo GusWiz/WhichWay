@@ -2,8 +2,9 @@ import React from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 
-export const SidebarData = [
+export const getSidebarData = (logout) => [
   {
     title: 'Home',
     icon: <HomeIcon />,
@@ -18,5 +19,10 @@ export const SidebarData = [
     title: 'Settings',
     icon: <SettingsIcon />,
     link: '/settings',
+  },
+  {
+    title: 'Logout',
+    icon: <LogoutIcon />,
+    onClick: logout,
   },
 ];

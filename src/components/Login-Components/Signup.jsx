@@ -11,6 +11,7 @@ import {
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
+import './login-styling.css';
 
 function Signup() {
   const [email, setEmail] = useState('');
@@ -64,42 +65,44 @@ function Signup() {
   };
   return (
     <>
-      <div className='container'>
-        <h2 className='form-title'>Signup with</h2>
-        <SocialLogin onClick={signInWithGoogle} />
+      <div className='auth-page'>
+        <div className='container'>
+          <h2 className='form-title'>Signup with</h2>
+          <SocialLogin onClick={signInWithGoogle} />
 
-        <p className='separator'>
-          <span>or</span>
-        </p>
+          <p className='separator'>
+            <span>or</span>
+          </p>
 
-        <form className='form' onSubmit={handleRegister}>
-          <InputField
-            type='text'
-            placeholder='First Name'
-            onChange={(e) => setFname(e.target.value)}
-          />
-          <InputField
-            type='text'
-            placeholder='Last Name'
-            onChange={(e) => setLname(e.target.value)}
-          />
-          <InputField
-            type='email'
-            placeholder='Email Address'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputField
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <InputField type='password' placeholder='Confirm Password' />
+          <form className='form' onSubmit={handleRegister}>
+            <InputField
+              type='text'
+              placeholder='First Name'
+              onChange={(e) => setFname(e.target.value)}
+            />
+            <InputField
+              type='text'
+              placeholder='Last Name'
+              onChange={(e) => setLname(e.target.value)}
+            />
+            <InputField
+              type='email'
+              placeholder='Email Address'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputField
+              type='password'
+              placeholder='Password'
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <InputField type='password' placeholder='Confirm Password' />
 
-          <LoginButton text='Sign Up' />
-        </form>
-        <p className='text'>
-          Already have an account? <Link to='/Login'>Login</Link>
-        </p>
+            <LoginButton text='Sign Up' />
+          </form>
+          <p className='text'>
+            Already have an account? <Link to='/Login'>Login</Link>
+          </p>
+        </div>
       </div>
     </>
   );

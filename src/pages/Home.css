@@ -1,13 +1,15 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', serif;
-}
-.homepagebody {
+.home-page {
   display: flex;
+  min-height: 100vh;
 }
-.container {
+.home-container {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
+}
+.home-container .home-contents {
+  width: 100%;
+  height: auto;
+  border: 1px solid black;
 }
