@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
-import "../create-trip-styling.css";
+import '../create-trip-styling.css';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -200,13 +200,10 @@ function CreateTrip() {
             </div>
           </div>
         </div>
-
-
       </div>
 
       {/* Current Itinerary Container */}
       <div className='itinerary-container'>
-
         <h2>Current Itinerary</h2>
 
         <div className='itinerary-section'>
@@ -239,17 +236,18 @@ function CreateTrip() {
         {/* Standard Button Added Here */}
         <button
           className='standard-button'
-          onClick={() => navigate('/Itinerary', {
-            state: {
-              selectedFoods,
-              selectedEntertainment,
-              selectedOutdoor
-            }
-          })}
->
-  Create Itinerary
-</button>
-
+          onClick={() =>
+            navigate('/Itinerary', {
+              state: {
+                selectedFoods,
+                selectedEntertainment,
+                selectedOutdoor,
+              },
+            })
+          }
+        >
+          Create Itinerary
+        </button>
       </div>
     </>
   );
