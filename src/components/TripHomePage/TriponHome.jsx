@@ -1,14 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { collection, addDoc, updateDoc, doc, getDocs, query, orderBy, deleteDoc } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  doc,
+  getDocs,
+  query,
+  orderBy,
+  deleteDoc,
+} from 'firebase/firestore';
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import '../../TriponHome.css';
 
-const TripTable = ({ title, trips, hide, toggleHide, onEdit, onView, onRemove }) => (
+const TripTable = ({
+  title,
+  trips,
+  hide,
+  toggleHide,
+  onEdit,
+  onView,
+  onRemove,
+}) => (
   <>
-    <button onClick={toggleHide}>{hide ? `Show ${title}` : `Hide ${title}`}</button>
+    <button onClick={toggleHide}>
+      {hide ? `Show ${title}` : `Hide ${title}`}
+    </button>
     {!hide && (
-      <div className="trip-section">
+      <div className='trip-section'>
         <h2>{title}</h2>
         {trips.length ? (
           <table>
@@ -23,9 +42,13 @@ const TripTable = ({ title, trips, hide, toggleHide, onEdit, onView, onRemove })
             <tbody>
               {trips.map(({ id, name, date, destination }) => (
                 <tr key={id}>
-                  {["name", "date", "destination"].map((field) => (
+                  {['name', 'date', 'destination'].map((field) => (
                     <td key={field}>
-                      <EditableField field={field} value={{ name, date, destination }[field]} tripId={id} />
+                      <EditableField
+                        field={field}
+                        value={{ name, date, destination }[field]}
+                        tripId={id}
+                      />
                     </td>
                   ))}
                   <td>
@@ -73,7 +96,11 @@ const EditableField = ({ field, value, tripId }) => {
 
 export default function TripManager() {
   const [trips, setTrips] = useState([]);
-  const [tripDetails, setTripDetails] = useState({ name: '', date: '', destination: '' });
+  const [tripDetails, setTripDetails] = useState({
+    name: '',
+    date: '',
+    destination: '',
+  });
   const [tripId, setTripId] = useState(null);
   const [hideUpcoming, setHideUpcoming] = useState(false);
   const [hidePast, setHidePast] = useState(false);
@@ -81,9 +108,14 @@ export default function TripManager() {
 
   useEffect(() => {
     (async () => {
-      const tripQuery = query(collection(db, 'trips'), orderBy('startDate', 'desc'));
+      const tripQuery = query(
+        collection(db, 'trips'),
+        orderBy('startDate', 'desc')
+      );
       const querySnapshot = await getDocs(tripQuery);
-      setTrips(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setTrips(
+        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
     })();
   }, []);
 
@@ -107,14 +139,30 @@ export default function TripManager() {
     setTrips((prev) => prev.filter((trip) => trip.id !== id));
   };
 
-  const upcomingTrips = trips.filter(({ date }) => date >= new Date().toISOString().split('T')[0]);
-  const pastTrips = trips.filter(({ date }) => date < new Date().toISOString().split('T')[0]);
+  const upcomingTrips = trips.filter(
+    ({ date }) => date >= new Date().toISOString().split('T')[0]
+  );
+  const pastTrips = trips.filter(
+    ({ date }) => date < new Date().toISOString().split('T')[0]
+  );
 
   return (
     <div>
       <h1>Trip Dashboard</h1>
-      <TripTable title="Upcoming Trips" trips={upcomingTrips} hide={hideUpcoming} toggleHide={() => setHideUpcoming(!hideUpcoming)} onRemove={handleRemove} />
-      <TripTable title="Past Trips" trips={pastTrips} hide={hidePast} toggleHide={() => setHidePast(!hidePast)} onView={navigate} />
+      <TripTable
+        title='Upcoming Trips'
+        trips={upcomingTrips}
+        hide={hideUpcoming}
+        toggleHide={() => setHideUpcoming(!hideUpcoming)}
+        onRemove={handleRemove}
+      />
+      <TripTable
+        title='Past Trips'
+        trips={pastTrips}
+        hide={hidePast}
+        toggleHide={() => setHidePast(!hidePast)}
+        onView={navigate}
+      />
       <div>
         <h2>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
         {['name', 'date', 'destination'].map((field) => (
