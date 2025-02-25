@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../create-trip-styling.css';
 
 function CreateTrip() {
-<<<<<<< HEAD
+
 
   //Vinny's functions
     
@@ -28,23 +28,6 @@ function CreateTrip() {
     })
   }
 
-  // const handleBudgetDeduct = (price) => {
-  //   const currBudget = parseInt(displayedBudget.budget);
-  //   const activityPrice = parseInt(price);
-  //   const sum = currBudget - activityPrice;
-  //   setDisplayedBudget((prev) => {
-  //     return {...prev, budget: sum}
-  //   })
-  // }
-  // const handleBudgetUndeduct = (price) => {
-  //   const currBudget = parseInt(displayedBudget.budget);
-  //   const activityPrice = parseInt(price);
-  //   const sum = currBudget + activityPrice;
-  //   setDisplayedBudget((prev) => {
-  //     return {...prev, budget: sum}
-  //   })
-  // }
-
   const handleChange = (event) =>{
     const name = event.target.name;
     const value = event.target.value;
@@ -64,16 +47,13 @@ function CreateTrip() {
   // end of Vinny's functions
 
     
-=======
   const navigate = useNavigate();
->>>>>>> 22e0c16fc9d2395e4ec0296aae11818d27d2228f
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
-    // handleBudgetDeduct(price);
     
     switch (category) {
       case 'food':
