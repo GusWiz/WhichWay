@@ -1,8 +1,8 @@
 /* Global styles */
 body {
-  font-family: 'Poppins', sans-serif; /* Modern, clean font */
-  background-color: #f0f0f0;  /* Soft light background */
-  color: #333;  /* Text color */
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
   margin: 0;
   padding: 0;
 }
@@ -10,64 +10,65 @@ body {
 /* Header styles */
 h1 {
   text-align: center;
-  color: #333;
-  padding-top: 40px;
-  font-size: 40px;
-  font-weight: 600;
+  color: #222;
+  padding: 40px 20px 20px;
+  font-size: 36px;
+  font-weight: 700;
   margin-bottom: 20px;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  transition: color 0.3s ease;
+  letter-spacing: 2px;
+  transition: color 0.3s;
 }
 
 h1:hover {
-  color: #007BFF;  /* Subtle header color change on hover */
+  color: #0056b3;
 }
 
 /* Container for the trip sections */
 .trip-container {
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 /* Trip row container for side-by-side layout */
 .trip-row {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 30px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 /* Each trip section styles */
 .trip-section {
-  background-color: #fff;  /* White background for sections */
+  background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
   text-align: center;
-  flex: 1 1 48%;
-  min-width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 1 1 45%;
+  min-width: 320px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .trip-section:hover {
-  transform: translateY(-8px);  /* Stronger lift effect */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Header for trip sections */
 .trip-section h2 {
-  color: #444;
-  margin-bottom: 20px;
-  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 22px;
   font-weight: 600;
 }
 
-/* Larger title for Current Trip section */
 .trip-section:last-child h2 {
-  font-size: 28px;
+  font-size: 26px;
 }
 
 /* Table styles */
@@ -78,36 +79,36 @@ table {
 }
 
 th, td {
-  padding: 15px;
+  padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 th {
-  background-color: #f5f5f5;
-  color: #555;
+  background-color: #f1f1f1;
+  color: #444;
   font-weight: bold;
 }
 
 td {
-  color: #666;
+  color: #555;
 }
 
 tr:hover {
-  background-color: #f9f9f9;  /* Lighter hover effect */
+  background-color: #f5f5f5;
 }
 
 /* Button styles */
 button {
-  padding: 14px 30px;
-  background-color: #007BFF;
+  padding: 12px 24px;
+  background-color: #007bff;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   color: white;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button:disabled {
@@ -117,15 +118,25 @@ button:disabled {
 
 button:hover:enabled {
   background-color: #0056b3;
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 }
 
-/* Additional styles for 'View Itinerary' button */
-button:nth-of-type(2) {
+/* 'View Itinerary' button */
+button.view-itinerary {
   background-color: #28a745;
 }
 
-button:nth-of-type(2):hover {
+button.view-itinerary:hover {
   background-color: #218838;
-  transform: translateY(-4px);
+  transform: translateY(-3px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .trip-row {
+    flex-direction: column;
+  }
+  .trip-section {
+    flex: 1 1 100%;
+  }
 }
