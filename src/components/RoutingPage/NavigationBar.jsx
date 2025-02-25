@@ -7,7 +7,7 @@ function NavigationBar() {
     <header className='navbar-header'>
       <nav className='navbar'>
         <NavLink to='/' className='logo'>
-          <h1>Trip Planner Image Goes Here</h1>
+          <h1>WhichWay</h1>
         </NavLink>
         <ul className='nav-links'>
           <li>

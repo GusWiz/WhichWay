@@ -1,5 +1,5 @@
 /* Global styles */
-body {
+.triphome-body {
   font-family: 'Poppins', sans-serif;
   background-color: #f8f9fa;
   color: #333;
@@ -102,7 +102,7 @@ tr:hover {
 }
 
 /* Button styles */
-button {
+.triphome-button {
   padding: 12px 24px;
   background-color: #007bff;
   border: none;
@@ -116,22 +116,22 @@ button {
     transform 0.3s;
 }
 
-button:disabled {
+.triphome-button:disabled {
   background-color: #b0b0b0;
   cursor: not-allowed;
 }
 
-button:hover:enabled {
+.triphome-button:hover:enabled {
   background-color: #0056b3;
   transform: translateY(-3px);
 }
 
 /* 'View Itinerary' button */
-button.view-itinerary {
+.triphome-button.view-itinerary {
   background-color: #28a745;
 }
 
-button.view-itinerary:hover {
+.triphome-button.view-itinerary:hover {
   background-color: #218838;
   transform: translateY(-3px);
 }

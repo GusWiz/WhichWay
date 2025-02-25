@@ -23,7 +23,7 @@ const TripTable = ({
   onRemove,
 }) => (
   <>
-    <button onClick={toggleHide}>
+    <button className='triphome-button' onClick={toggleHide}>
       {hide ? `Show ${title}` : `Hide ${title}`}
     </button>
     {!hide && (
@@ -53,9 +53,19 @@ const TripTable = ({
                   ))}
                   <td>
                     {title === 'Upcoming Trips' ? (
-                      <button onClick={() => onRemove(id)}>🅧</button>
+                      <button
+                        className='triphome-button'
+                        onClick={() => onRemove(id)}
+                      >
+                        🅧
+                      </button>
                     ) : (
-                      <button onClick={() => onView(id)}>View</button>
+                      <button
+                        className='triphome-button'
+                        onClick={() => onView(id)}
+                      >
+                        View
+                      </button>
                     )}
                   </td>
                 </tr>
@@ -147,35 +157,39 @@ export default function TripManager() {
   );
 
   return (
-    <div>
-      <h1>Trip Dashboard</h1>
-      <TripTable
-        title='Upcoming Trips'
-        trips={upcomingTrips}
-        hide={hideUpcoming}
-        toggleHide={() => setHideUpcoming(!hideUpcoming)}
-        onRemove={handleRemove}
-      />
-      <TripTable
-        title='Past Trips'
-        trips={pastTrips}
-        hide={hidePast}
-        toggleHide={() => setHidePast(!hidePast)}
-        onView={navigate}
-      />
+    <div className='triphome-body'>
       <div>
-        <h2>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
-        {['name', 'date', 'destination'].map((field) => (
-          <input
-            key={field}
-            type={field === 'date' ? 'date' : 'text'}
-            name={field}
-            value={tripDetails[field]}
-            onChange={handleInputChange}
-            placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-          />
-        ))}
-        <button onClick={handleSave}>{tripId ? 'Save' : 'Add Trip'}</button>
+        <h1>Trip Dashboard</h1>
+        <TripTable
+          title='Upcoming Trips'
+          trips={upcomingTrips}
+          hide={hideUpcoming}
+          toggleHide={() => setHideUpcoming(!hideUpcoming)}
+          onRemove={handleRemove}
+        />
+        <TripTable
+          title='Past Trips'
+          trips={pastTrips}
+          hide={hidePast}
+          toggleHide={() => setHidePast(!hidePast)}
+          onView={navigate}
+        />
+        <div>
+          <h2>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
+          {['name', 'date', 'destination'].map((field) => (
+            <input
+              key={field}
+              type={field === 'date' ? 'date' : 'text'}
+              name={field}
+              value={tripDetails[field]}
+              onChange={handleInputChange}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+            />
+          ))}
+          <button className='triphome-button' onClick={handleSave}>
+            {tripId ? 'Save' : 'Add Trip'}
+          </button>
+        </div>
       </div>
     </div>
   );

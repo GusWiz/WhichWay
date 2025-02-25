@@ -40,7 +40,6 @@ export default function App() {
         <Route path='/createtrip' element={<CreateTrip />} />
         <Route path='/triponhome' element={<TriponHome />} />
         <Route path='/itinerary' element={<Itinerary />} />
-
       </Routes>
     </Router>
   );

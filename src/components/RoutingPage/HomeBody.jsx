@@ -11,8 +11,12 @@ function HomeBody() {
       <NavigationBar />
       <main className='home-body'>
         <div className='option-boxes'>
-        <button onClick={() => navigate('/CreateTrip')}>Create New Trip</button>
-        <button onClick={() => navigate('/load-trip')}>Load Existing Trip</button>
+          <button onClick={() => navigate('/CreateTrip')}>
+            Create New Trip
+          </button>
+          <button onClick={() => navigate('/load-trip')}>
+            Load Existing Trip
+          </button>
         </div>
       </main>
     </>
