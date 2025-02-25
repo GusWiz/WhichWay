@@ -3,7 +3,11 @@ import { useLocation } from 'react-router-dom';
 
 function Itinerary() {
   const location = useLocation();
-  const { selectedFoods = [], selectedEntertainment = [], selectedOutdoor = [] } = location.state || {};
+  const {
+    selectedFoods = [],
+    selectedEntertainment = [],
+    selectedOutdoor = [],
+  } = location.state || {};
 
   return (
     <div className='itinerary-container'>
