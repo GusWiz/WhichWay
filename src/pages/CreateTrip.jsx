@@ -4,15 +4,82 @@ import { useNavigate } from 'react-router-dom';
 import '../create-trip-styling.css';
 
 function CreateTrip() {
+<<<<<<< HEAD
+
+  //Vinny's functions
+    
+  const [details, setDetails] = useState({
+    budget: "",
+    cost: "0"
+  })
+  const[displayedBudget, setDisplayedBudget] = useState({
+    budget: ""
+  })
+  const[displayedCost, setDisplayedCost] = useState({
+    cost: "0"
+  })
+
+  const handleCostChange = (price) => {
+    const currCost = parseInt(displayedCost.cost);
+    const activityPrice = parseInt(price);
+    const sum = currCost + activityPrice;
+    setDisplayedCost((prev) => {
+      return {...prev, cost: sum}
+    })
+  }
+
+  // const handleBudgetDeduct = (price) => {
+  //   const currBudget = parseInt(displayedBudget.budget);
+  //   const activityPrice = parseInt(price);
+  //   const sum = currBudget - activityPrice;
+  //   setDisplayedBudget((prev) => {
+  //     return {...prev, budget: sum}
+  //   })
+  // }
+  // const handleBudgetUndeduct = (price) => {
+  //   const currBudget = parseInt(displayedBudget.budget);
+  //   const activityPrice = parseInt(price);
+  //   const sum = currBudget + activityPrice;
+  //   setDisplayedBudget((prev) => {
+  //     return {...prev, budget: sum}
+  //   })
+  // }
+
+  const handleChange = (event) =>{
+    const name = event.target.name;
+    const value = event.target.value;
+    setDetails((prev) => {
+      return {...prev, [name]: value}
+    })
+    // console.log(details);
+  }
+
+  const budgetSubmit = (event) =>{
+    event.preventDefault();
+    setDisplayedBudget((prev) => {
+      return {...prev, budget: details.budget}
+    })
+    console.log(details);
+  }
+  // end of Vinny's functions
+
+    
+=======
   const navigate = useNavigate();
+>>>>>>> 22e0c16fc9d2395e4ec0296aae11818d27d2228f
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
-  const handleSelect = (category, value) => {
+  const handleSelect = (category, value, price) => {
+    // handleBudgetDeduct(price);
+    
     switch (category) {
       case 'food':
+        selectedFoods.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price)
         setSelectedFoods((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -20,6 +87,9 @@ function CreateTrip() {
         );
         break;
       case 'entertainment':
+        selectedEntertainment.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price)
         setSelectedEntertainment((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -27,6 +97,9 @@ function CreateTrip() {
         );
         break;
       case 'outdoor':
+        selectedOutdoor.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price)
         setSelectedOutdoor((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -39,50 +112,25 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: 'chilis.jpg' },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg' },
+    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40'},
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60'},
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25'},
   ];
 
   const entertainmentOptions = [
-    { name: 'Movie', imgSrc: 'movie.jpg' },
-    { name: 'Concert', imgSrc: 'concert.jpg' },
-    { name: 'Theater', imgSrc: 'theater.jpg' },
+    { name: 'Movie', imgSrc: 'movie.jpg', price: '25' },
+    { name: 'Concert', imgSrc: 'concert.jpg', price: '90' },
+    { name: 'Theater', imgSrc: 'theater.jpg', price: '50' },
   ];
 
   const outdoorOptions = [
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
-    { name: 'Vinny Rosy River', imgSrc: 'river.jpg' },
-    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg' },
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg', price: '0' },
+    { name: 'Vinny Rosy River', imgSrc: 'river.jpg', price: '10' },
+    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
   // End of Aaron's functions
 
-  //Vinny's functions
-
-  const [details, setDetails] = useState({
-    budget: '',
-  });
-  const [displayedBudget, setDisplayedBudget] = useState({
-    budget: '',
-  });
-
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setDetails((prev) => {
-      return { ...prev, [name]: value };
-    });
-    // console.log(details);
-  };
-  const budgetSubmit = (event) => {
-    event.preventDefault();
-    setDisplayedBudget((prev) => {
-      return { ...prev, budget: details.budget };
-    });
-    console.log(details);
-  };
-  // end of Vinny's functions
-
+  
   return (
     <>
       <div className='title-container'>
@@ -129,14 +177,15 @@ function CreateTrip() {
                     name='entertainment'
                     value={item.name}
                     checked={selectedEntertainment.includes(item.name)}
-                    onChange={() => handleSelect('entertainment', item.name)}
+                    onChange={() => handleSelect('entertainment', item.name, item.price)}
                   />
                   <img
                     src={item.imgSrc}
                     alt={item.name}
                     className='selectable-image'
                   />
-                  <span className='selectable-title'>{item.name}</span>
+                  {/* <span className='selectable-title'>{item.name}</span> */}
+                  <span className='selectable-price'>${item.price}</span>
                 </label>
               ))}
             </div>
@@ -158,14 +207,15 @@ function CreateTrip() {
                     name='food'
                     value={food.name}
                     checked={selectedFoods.includes(food.name)}
-                    onChange={() => handleSelect('food', food.name)}
+                    onChange={() => handleSelect('food', food.name, food.price)}
                   />
                   <img
                     src={food.imgSrc}
                     alt={food.name}
                     className='selectable-image'
                   />
-                  <span className='selectable-title'>{food.name}</span>
+                  {/* <span className='selectable-title'>{food.name}</span> */}
+                  <span className='selectable-price'>${food.price}</span>
                 </label>
               ))}
             </div>
@@ -187,14 +237,15 @@ function CreateTrip() {
                     name='outdoor'
                     value={item.name}
                     checked={selectedOutdoor.includes(item.name)}
-                    onChange={() => handleSelect('outdoor', item.name)}
+                    onChange={() => handleSelect('outdoor', item.name, item.price)}
                   />
                   <img
                     src={item.imgSrc}
                     alt={item.name}
                     className='selectable-image'
                   />
-                  <span className='selectable-title'>{item.name}</span>
+                  {/* <span className='selectable-title'>{item.name}</span> */}
+                  <span className='selectable-price'>${item.price}</span>
                 </label>
               ))}
             </div>
