@@ -13,6 +13,8 @@ import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
+import TriponHome from './components/TripHomePage/TriponHome.jsx';
+import Itinerary from './pages/Itinerary.jsx';
 import HomeBody from './components/RoutingPage/HomeBody.jsx';
 
 export default function App() {
@@ -36,6 +38,8 @@ export default function App() {
         <Route path='/forgotpassword' element={<ForgotPassword />} />
         <Route path='/home' element={<Home />} />
         <Route path='/createtrip' element={<CreateTrip />} />
+        <Route path='/triponhome' element={<TriponHome />} />
+        <Route path='/itinerary' element={<Itinerary />} />
       </Routes>
     </Router>
   );

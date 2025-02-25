@@ -20,7 +20,6 @@ function Home() {
       <NavigationBar />
       <Sidebar />
       <button onClick={logout}> Logout </button>
-      <h1>Home Page</h1>
     </>
   );
 }

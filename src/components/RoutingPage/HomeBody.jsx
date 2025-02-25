@@ -1,18 +1,20 @@
 import React from 'react';
 import '../../HomeBody.css';
+import { useNavigate } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 
 // Mising proper routing after the buttons are pressed
 function HomeBody() {
+  const navigate = useNavigate();
   return (
     <>
       <NavigationBar />
       <main className='home-body'>
         <div className='option-boxes'>
-          <button onClick={() => history.push('/create-trip')}>
+          <button onClick={() => navigate('/CreateTrip')}>
             Create New Trip
           </button>
-          <button onClick={() => history.push('/load-trip')}>
+          <button onClick={() => navigate('/load-trip')}>
             Load Existing Trip
           </button>
         </div>

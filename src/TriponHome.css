@@ -1,7 +1,8 @@
 /* Global styles */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+.triphome-body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
   margin: 0;
   padding: 0;
 }
@@ -9,42 +10,138 @@ body {
 /* Header styles */
 h1 {
   text-align: center;
-  color: #333;
-  padding-top: 30px;
+  color: #222;
+  padding: 40px 20px 20px;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+
+h1:hover {
+  color: #0056b3;
 }
 
 /* Container for the trip sections */
 .trip-container {
-  display: flex;
-  justify-content: space-around;
   padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Trip row container for side-by-side layout */
+.trip-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
 /* Each trip section styles */
 .trip-section {
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  width: 30%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
   text-align: center;
+  flex: 1 1 45%;
+  min-width: 320px;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 }
 
+.trip-section:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Header for trip sections */
 .trip-section h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.trip-section:last-child h2 {
+  font-size: 26px;
+}
+
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f1f1f1;
+  color: #444;
+  font-weight: bold;
+}
+
+td {
   color: #555;
 }
 
-button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background-color: #ddd;
-  border: none;
-  border-radius: 5px;
-  cursor: not-allowed;
-  color: #888;
-  font-size: 16px;
+tr:hover {
+  background-color: #f5f5f5;
 }
 
-button:disabled {
-  background-color: #ccc;
+/* Button styles */
+.triphome-button {
+  padding: 12px 24px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.3s,
+    transform 0.3s;
+}
+
+.triphome-button:disabled {
+  background-color: #b0b0b0;
+  cursor: not-allowed;
+}
+
+.triphome-button:hover:enabled {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+/* 'View Itinerary' button */
+.triphome-button.view-itinerary {
+  background-color: #28a745;
+}
+
+.triphome-button.view-itinerary:hover {
+  background-color: #218838;
+  transform: translateY(-3px);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .trip-row {
+    flex-direction: column;
+  }
+  .trip-section {
+    flex: 1 1 100%;
+  }
 }
