@@ -215,7 +215,7 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
     - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
 
-  - `Task 5: Task 5: Enable Navigation to the Itinerary Page:
+  - `Task 5: Enable Navigation to the Itinerary Page:
     - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
@@ -226,23 +226,41 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
   - `Task 4: Adding visual representation of current activity selections:
     - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
+    
+### **Gustavo**: Designed the initial wireframe and implemented React components and UI elements for the Home/Routing page. Also created the Data model for User's and Trips.
+  - `Task 1: Create Wireframes and UI Mockups:
+    - [WW-36](https://cs3398-betazoids-spring.atlassian.net/browse/WW-36)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/feature/WW-36-task-1-create-wireframes-and-ui-mo)
+  - `Task 2: Implement Navigation and Layout Components:
+    - [WW-37](https://cs3398-betazoids-spring.atlassian.net/browse/WW-37)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-37_MergeConflictsWithFix-WW-93)
+  - `Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
+    - [WW-23](https://cs3398-betazoids-spring.atlassian.net/browse/WW-23)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-23-task-3-implement-backend-data-mode)
+    
 
 ## Next steps
 
 ### **Vinny**: 
   - Integrate budget storage with firebase
-  - Change CSS of the budget features to be more in line with the rest of CreateTrip page
-  - Integrate API calls for estimating how much an activity would cost
+  - Change CSS of the budget features to be more in line with the rest of CreateTrip page.
+  - Integrate API calls for estimating how much an activity would cost.
   
 ### **Alan**: 
-  - Research and learn how to implement the functionality behind 'fetching' activites from OpenAI
-  - Research and implement API calls to Places API in order to get information from places to present to the user
-  - Implement database data fetching for create trip and create itinerary pages
-  - Organize css files and make them local to the pages that use them
+  - Research and learn how to implement the functionality behind 'fetching' activites from OpenAI.
+  - Research and implement API calls to Places API in order to get information from places to present to the user.
+  - Implement database data fetching for create trip and create itinerary pages.
+  - Organize css files and make them local to the pages that use them.
   
 ### **Aaron**: 
   - Create and establish trip object that is stored in firestore database per user.
   - Add AI integration for activity suggestions and itinerary planning.
+  
+### **Gustavo**:
+  - Assist with implementing synchronization between Users, trips, and the Firestore database. 
+  - Setup API calls for getting location information for near by activites, food, and attractions.
+  - Implement past/current trips to be fetched from Firestore when a user is logged into the web app.
+  - Create and build unit test for React components with the jest framework.
 
 ## Retrospective
 
@@ -250,15 +268,16 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 
   **Team**: 
   
-  - Great communication, many team meetings
-  - Picked up a rythm and soon began knocking out tasks
-  - All team members were always more than willing to assist anyone else with any problems another team member had
+  - Great communication, many team meetings either in a call or in-person.
+  - Picked up a rythm and soon began knocking out tasks.
+  - All team members were always more than willing to assist anyone else with any problems/concerns another team member had.
   
   **Individual**:
   
   - **Vinny**: I started to understand jsx near the end of the sprint, and I became very efficient at my later tasks
   - **Alan**: I got a good grasp of react and firebase, and I was able to provide a lot of support to my team on various things
   - **Aaron**: Near the beginning of the sprint it was very difficult to get a grasp on the structure and flow of React, making my progress slow at the beginning.
+  - **Gustavo**: During the sprint I had to learn and understand HTML, CSS, React, and Firestore which was a bigger hurtle than anticipated. But once I got over it, I was able to explain Firestore and React OOP structure to my teammates.  
   
 ### What Might Be Impeding Us from Performing Better?
 
@@ -278,3 +297,5 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
   - **Alan**: Read more documentation and find resources that can help the team and myself
   
   - **Aaron**: Gain a deeper understanding of firebase and firestore; this would show itself in cleaner and more efficient database storage and management
+    
+    **Gustavo**: Research and expand my knowledge over Firestore implementation for our user and trips data.
