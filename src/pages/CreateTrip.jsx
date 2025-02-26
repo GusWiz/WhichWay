@@ -7,7 +7,7 @@ function CreateTrip() {
 
 
   //Vinny's functions
-    
+
   const [details, setDetails] = useState({
     budget: "",
     cost: "0"
@@ -46,7 +46,7 @@ function CreateTrip() {
   }
   // end of Vinny's functions
 
-    
+
   const navigate = useNavigate();
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -54,7 +54,7 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
-    
+
     switch (category) {
       case 'food':
         selectedFoods.includes(value)
@@ -110,7 +110,7 @@ function CreateTrip() {
   ];
   // End of Aaron's functions
 
-  
+
   return (
     <>
       <div className='title-container'>
