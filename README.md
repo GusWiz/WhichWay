@@ -208,3 +208,73 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
   - `Task 3: Storing Budgets and Costs
     - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
+    
+### **Aaron**: Designed and implemented page UI for the 'Create Trip' page where users will be able to create their trips with unique seletions/modifications. Created functionality of selecting activities to add to a user itinerary. 
+
+  - `Task 1: Create the Trip Input Page UI (Frontend - React):
+    - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
+
+  - `Task 5: Task 5: Enable Navigation to the Itinerary Page:
+    - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
+
+  - `Task 3: Build the Activity Selection Component:
+    - [WW-48](https://cs3398-betazoids-spring.atlassian.net/browse/WW-48)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-48-task-3-build-the-activity-selectio)
+
+  - `Task 4: Adding visual representation of current activity selections:
+    - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
+
+## Next steps
+
+### **Vinny**: 
+  - Integrate budget storage with firebase
+  - Change CSS of the budget features to be more in line with the rest of CreateTrip page
+  - Integrate API calls for estimating how much an activity would cost
+  
+### **Alan**: 
+  - Research and learn how to implement the functionality behind 'fetching' activites from OpenAI
+  - Research and implement API calls to Places API in order to get information from places to present to the user
+  - Implement database data fetching for create trip and create itinerary pages
+  - Organize css files and make them local to the pages that use them
+  
+### **Aaron**: 
+  - Create and establish trip object that is stored in firestore database per user.
+  - Add AI integration for activity suggestions and itinerary planning.
+
+## Retrospective
+
+### What Went Well or maybe not?
+
+  **Team**: 
+  
+  - Great communication, many team meetings
+  - Picked up a rythm and soon began knocking out tasks
+  - All team members were always more than willing to assist anyone else with any problems another team member had
+  
+  **Individual**:
+  
+  - **Vinny**: I started to understand jsx near the end of the sprint, and I became very efficient at my later tasks
+  - **Alan**: I got a good grasp of react and firebase, and I was able to provide a lot of support to my team on various things
+  - **Aaron**: Near the beginning of the sprint it was very difficult to get a grasp on the structure and flow of React, making my progress slow at the beginning.
+  
+### What Might Be Impeding Us from Performing Better?
+
+   **Team**: 
+  - We're all doing our own thing, so there are parts of jsx that are understood by some more than others, making helping each other a little more difficult
+  
+  - We might not organize ourselves to find time in the day to work on the project, nor are we doing as much research as we should
+  
+  - We're all doing our own thing, so there are parts of jsx that are understood by some more than others, making helping each other a little more difficult
+  
+### What Can I do to Improve?
+
+   **Individual**: 
+  
+  - **Vinny**: Learn CSS more since I was relying on the CSS that someone else made for my pages
+ 
+  - **Alan**: Read more documentation and find resources that can help the team and myself
+  
+  - **Aaron**: Gain a deeper understanding of firebase and firestore; this would show itself in cleaner and more efficient database storage and management
