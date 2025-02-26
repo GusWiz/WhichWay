@@ -216,7 +216,7 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
 
   - `Task 5: Task 5: Enable Navigation to the Itinerary Page:
-    - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
+    - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
   - `Task 3: Build the Activity Selection Component:
