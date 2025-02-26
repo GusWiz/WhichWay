@@ -154,3 +154,23 @@ pip install pre-commit
 ```Python
 make fmt
 ```
+
+## Team Contributions
+
+### **Vinny**: Created a budget and cost handling system and worked with Gustavo to create a navigation bar.
+
+  - `Task 3: Develop Interactive UI Elements
+    - [WW-38](https://cs3398-betazoids-spring.atlassian.net/browse/WW-38),
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-38-task-3-develop-interactive-ui-elem)
+
+  - `Task 1: Research JavaScript and React
+    - [WW-64](https://cs3398-betazoids-spring.atlassian.net/browse/WW-64),
+    No commit - Research task
+
+  - `Task 2: Frontend Input for Budget and Cost Updates
+    - [WW-65](https://cs3398-betazoids-spring.atlassian.net/browse/WW-65),
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-65-task-2-frontend-input-for-budget-a/)
+  
+  - `Task 3: Storing Budgets and Costs
+    - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
