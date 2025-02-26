@@ -155,7 +155,41 @@ pip install pre-commit
 make fmt
 ```
 
-## Team Contributions
+### Install icons:
+
+- On terminal run:
+
+```
+npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
+```
+
+---
+# Contributions:
+### **Alan**: "Built UI and backend functionality for login, signup, & forgot password pages, users can signup with or without google, login, and remain logged in. Built a side bar for homepage"
+
+  - `Jira Task: Design the Authentication UI
+    - [WW-4](https://cs3398-betazoids-spring.atlassian.net/browse/WW-4), 
+      [BitBucket](https://bitbucket.org/%7B89569452-9506-45bd-9610-41c9a67ad57b%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/pull-requests/4) Got Deleted On Accident
+
+  - `Jira Task: Implement Authentication
+    - [WW-5](https://cs3398-betazoids-spring.atlassian.net/browse/WW-5), 
+      [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-5-task-2-implement-authentication/)
+
+  - `Jira Task: Implement User Session Management
+    - [WW-6](https://cs3398-betazoids-spring.atlassian.net/browse/WW-6), 
+      [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-6-task-3-implement-user-session-manag/)
+
+  - `Jira Task: Integrate Error Handling & Notifications
+    - [WW-7](https://cs3398-betazoids-spring.atlassian.net/browse/WW-7), 
+      [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-7-task-4-integrate-error-handling-not/)
+
+  - `Jira Task: Setup Database for Logged In Users
+    - [WW-8](https://cs3398-betazoids-spring.atlassian.net/browse/WW-8), 
+      [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-8-task-5-setup-database-for-logged-in/)
+      
+  - `Jira Task: Implement Sidebar for Homepage
+    - [WW-40](https://cs3398-betazoids-spring.atlassian.net/browse/WW-40), 
+      [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-40-task-5-implement-sidebar-for-homep/)
 
 ### **Vinny**: Created a budget and cost handling system and worked with Gustavo to create a navigation bar.
 
