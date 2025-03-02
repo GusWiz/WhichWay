@@ -319,3 +319,5 @@ npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
     **Gustavo**: Research and expand my knowledge over Firestore implementation for our user and trips data.
 
   - **Aldo**: Communicate with my team more efficiently and learn more deeply how React and Firebase can work together.
+
+![Image](READMEimg/BurnupChart.png)
