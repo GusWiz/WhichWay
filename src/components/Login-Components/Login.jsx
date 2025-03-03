@@ -39,15 +39,15 @@ function Login() {
   return (
     <>
       <div className='auth-page'>
-        <div className='container'>
-          <h2 className='form-title'>Log in with</h2>
+        <div className='acontainer'>
+          <h2 className='aform-title'>Log in with</h2>
           <SocialLogin onClick={signInWithGoogle} />
 
-          <p className='separator'>
+          <p className='aseparator'>
             <span>or</span>
           </p>
 
-          <form className='form' onSubmit={handleLogin}>
+          <form className='aform' onSubmit={handleLogin}>
             <InputField
               type='email'
               placeholder='Email Address'
@@ -66,7 +66,7 @@ function Login() {
             <LoginButton text='Log In' />
           </form>
 
-          <p className='text'>
+          <p className='atext'>
             Don't have an account? <Link to='/signup'>Signup</Link>
           </p>
         </div>

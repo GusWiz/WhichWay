@@ -3,11 +3,11 @@ import './login-styling.css';
 const InputField = ({ type, placeholder, onChange }) => {
   return (
     <>
-      <div className='input-wrapper'>
+      <div className='ainput-wrapper'>
         <input
           type={type}
           placeholder={placeholder}
-          className='input-field'
+          className='ainput-field'
           required
           onChange={onChange}
         />

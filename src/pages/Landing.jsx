@@ -9,7 +9,7 @@ function Landing() {
   return (
     <>
       <NavigationBar />
-      <main className='home-body'>
+      <div className='home-body'>
         <div className='option-boxes'>
           <button onClick={() => navigate('/CreateTrip')}>
             Create New Trip
@@ -18,7 +18,7 @@ function Landing() {
             Load Existing Trip
           </button>
         </div>
-      </main>
+      </div>
     </>
   );
 }

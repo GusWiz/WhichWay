@@ -25,10 +25,10 @@ function ForgotPassword() {
   return (
     <>
       <div className='auth-page'>
-        <div className='container'>
-          <h2 className='form-title'>Enter Your Email</h2>
+        <div className='acontainer'>
+          <h2 className='aform-title'>Enter Your Email</h2>
 
-          <form className='form' onSubmit={handleReset}>
+          <form className='aform' onSubmit={handleReset}>
             <InputField
               type='email'
               placeholder='Email Address'

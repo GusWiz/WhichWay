@@ -66,15 +66,15 @@ function Signup() {
   return (
     <>
       <div className='auth-page'>
-        <div className='container'>
-          <h2 className='form-title'>Signup with</h2>
+        <div className='acontainer'>
+          <h2 className='aform-title'>Signup with</h2>
           <SocialLogin onClick={signInWithGoogle} />
 
-          <p className='separator'>
+          <p className='aseparator'>
             <span>or</span>
           </p>
 
-          <form className='form' onSubmit={handleRegister}>
+          <form className='aform' onSubmit={handleRegister}>
             <InputField
               type='text'
               placeholder='First Name'
@@ -99,7 +99,7 @@ function Signup() {
 
             <LoginButton text='Sign Up' />
           </form>
-          <p className='text'>
+          <p className='atext'>
             Already have an account? <Link to='/Login'>Login</Link>
           </p>
         </div>

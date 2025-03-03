@@ -24,7 +24,6 @@ function Home() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <p>Home Metadata</p>
             <TriponHome />
           </div>
         </div>

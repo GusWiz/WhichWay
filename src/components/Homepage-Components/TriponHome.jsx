@@ -28,7 +28,7 @@ const TripTable = ({
     </button>
     {!hide && (
       <div className='trip-section'>
-        <h2>{title}</h2>
+        <h2 class='h2'>{title}</h2>
         {trips.length ? (
           <table>
             <thead>
@@ -159,7 +159,7 @@ export default function TripManager() {
   return (
     <div className='triphome-body'>
       <div>
-        <h1>Trip Dashboard</h1>
+        <h1 className='h1'>Trip Dashboard</h1>
         <TripTable
           title='Upcoming Trips'
           trips={upcomingTrips}
@@ -175,7 +175,7 @@ export default function TripManager() {
           onView={navigate}
         />
         <div>
-          <h2>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
+          <h2 className='h2'>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
           {['name', 'date', 'destination'].map((field) => (
             <input
               key={field}
