@@ -1,51 +1,48 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
-import '../create-trip-styling.css';
+import './create-trip-styling.css';
 
 function CreateTrip() {
-
-
   //Vinny's functions
 
   const [details, setDetails] = useState({
-    budget: "",
-    cost: "0"
-  })
-  const[displayedBudget, setDisplayedBudget] = useState({
-    budget: ""
-  })
-  const[displayedCost, setDisplayedCost] = useState({
-    cost: "0"
-  })
+    budget: '',
+    cost: '0',
+  });
+  const [displayedBudget, setDisplayedBudget] = useState({
+    budget: '',
+  });
+  const [displayedCost, setDisplayedCost] = useState({
+    cost: '0',
+  });
 
   const handleCostChange = (price) => {
     const currCost = parseInt(displayedCost.cost);
     const activityPrice = parseInt(price);
     const sum = currCost + activityPrice;
     setDisplayedCost((prev) => {
-      return {...prev, cost: sum}
-    })
-  }
+      return { ...prev, cost: sum };
+    });
+  };
 
-  const handleChange = (event) =>{
+  const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setDetails((prev) => {
-      return {...prev, [name]: value}
-    })
+      return { ...prev, [name]: value };
+    });
     // console.log(details);
-  }
+  };
 
-  const budgetSubmit = (event) =>{
+  const budgetSubmit = (event) => {
     event.preventDefault();
     setDisplayedBudget((prev) => {
-      return {...prev, budget: details.budget}
-    })
+      return { ...prev, budget: details.budget };
+    });
     console.log(details);
-  }
+  };
   // end of Vinny's functions
-
 
   const navigate = useNavigate();
   // Aaron's functions
@@ -54,12 +51,11 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
-
     switch (category) {
       case 'food':
         selectedFoods.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price)
+          ? handleCostChange(price * -1)
+          : handleCostChange(price);
         setSelectedFoods((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -68,8 +64,8 @@ function CreateTrip() {
         break;
       case 'entertainment':
         selectedEntertainment.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price)
+          ? handleCostChange(price * -1)
+          : handleCostChange(price);
         setSelectedEntertainment((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -78,8 +74,8 @@ function CreateTrip() {
         break;
       case 'outdoor':
         selectedOutdoor.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price)
+          ? handleCostChange(price * -1)
+          : handleCostChange(price);
         setSelectedOutdoor((prev) =>
           prev.includes(value)
             ? prev.filter((item) => item !== value)
@@ -92,9 +88,9 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40'},
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60'},
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25'},
+    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40' },
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60' },
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25' },
   ];
 
   const entertainmentOptions = [
@@ -110,7 +106,6 @@ function CreateTrip() {
   ];
   // End of Aaron's functions
 
-
   return (
     <>
       <div className='title-container'>
@@ -123,9 +118,16 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>Budget = $</label><label id='displayedBudget'>{displayedBudget.budget}</label><br></br>
-        <label>Cost = $</label><label id='displayedCost'>{displayedCost.cost}</label><br></br>
-        <label>Remaining Budget = $</label><label id='displayedRemainingBudget'>{displayedBudget.budget - displayedCost.cost}</label>
+        <label>Budget = $</label>
+        <label id='displayedBudget'>{displayedBudget.budget}</label>
+        <br></br>
+        <label>Cost = $</label>
+        <label id='displayedCost'>{displayedCost.cost}</label>
+        <br></br>
+        <label>Remaining Budget = $</label>
+        <label id='displayedRemainingBudget'>
+          {displayedBudget.budget - displayedCost.cost}
+        </label>
         <form action='#' className='form' onSubmit={budgetSubmit}>
           <input
             type='number'
@@ -158,7 +160,9 @@ function CreateTrip() {
                     name='entertainment'
                     value={item.name}
                     checked={selectedEntertainment.includes(item.name)}
-                    onChange={() => handleSelect('entertainment', item.name, item.price)}
+                    onChange={() =>
+                      handleSelect('entertainment', item.name, item.price)
+                    }
                   />
                   <img
                     src={item.imgSrc}
@@ -218,7 +222,9 @@ function CreateTrip() {
                     name='outdoor'
                     value={item.name}
                     checked={selectedOutdoor.includes(item.name)}
-                    onChange={() => handleSelect('outdoor', item.name, item.price)}
+                    onChange={() =>
+                      handleSelect('outdoor', item.name, item.price)
+                    }
                   />
                   <img
                     src={item.imgSrc}

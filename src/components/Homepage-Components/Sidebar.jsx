@@ -1,8 +1,9 @@
 import React from 'react';
 import './Sidebar.css';
-import { SidebarData } from './SidebarData';
+import { getSidebarData } from './SidebarData';
 
-function Sidebar() {
+function Sidebar({ logout }) {
+  const SidebarData = getSidebarData(logout);
   return (
     <>
       <div className='Sidebar'>
@@ -14,7 +15,11 @@ function Sidebar() {
                 className='row'
                 id={window.location.pathname == val.link ? 'active' : ''}
                 onClick={() => {
-                  window.location.pathname = val.link;
+                  if (val.onClick) {
+                    val.onClick();
+                  } else {
+                    window.location.pathname = val.link;
+                  }
                 }}
               >
                 {' '}

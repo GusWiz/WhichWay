@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../HomeBody.css';
+import './HomeBody.css';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 

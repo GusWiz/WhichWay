@@ -1,9 +1,8 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import React from 'react';
-import HomeBody from '../components/RoutingPage/HomeBody';
-import NavigationBar from '../components/RoutingPage/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
+import './Home.css';
 
 function Home() {
   const logout = async () => {
@@ -17,9 +16,17 @@ function Home() {
 
   return (
     <>
-      <NavigationBar />
-      <Sidebar />
-      <button onClick={logout}> Logout </button>
+      <header>
+        <h1>WhichWay</h1>
+      </header>
+      <div className='home-page'>
+        <div className='home-container'>
+          <Sidebar logout={logout} />
+          <div className='home-contents'>
+            <p>Home Metadata</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

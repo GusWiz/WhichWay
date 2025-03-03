@@ -8,7 +8,7 @@ import LoginButton from './LoginButton';
 import InputField from './InputField';
 
 // CSS
-//import styles from './login.styling.css';
+import './login-styling.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -38,36 +38,38 @@ function Login() {
   };
   return (
     <>
-      <div className='container'>
-        <h2 className='form-title'>Log in with</h2>
-        <SocialLogin onClick={signInWithGoogle} />
+      <div className='auth-page'>
+        <div className='container'>
+          <h2 className='form-title'>Log in with</h2>
+          <SocialLogin onClick={signInWithGoogle} />
 
-        <p className='separator'>
-          <span>or</span>
-        </p>
+          <p className='separator'>
+            <span>or</span>
+          </p>
 
-        <form className='form' onSubmit={handleLogin}>
-          <InputField
-            type='email'
-            placeholder='Email Address'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <InputField
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <form className='form' onSubmit={handleLogin}>
+            <InputField
+              type='email'
+              placeholder='Email Address'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <InputField
+              type='password'
+              placeholder='Password'
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <a href='/ForgotPassword' className='forgot-pass-link'>
-            Forgot Password?
-          </a>
+            <a href='/ForgotPassword' className='forgot-pass-link'>
+              Forgot Password?
+            </a>
 
-          <LoginButton text='Log In' />
-        </form>
+            <LoginButton text='Log In' />
+          </form>
 
-        <p className='text'>
-          Don't have an account? <Link to='/signup'>Signup</Link>
-        </p>
+          <p className='text'>
+            Don't have an account? <Link to='/signup'>Signup</Link>
+          </p>
+        </div>
       </div>
     </>
   );

@@ -1,3 +1,4 @@
+import './login-styling.css';
 // input text boxes
 const InputField = ({ type, placeholder, onChange }) => {
   return (
