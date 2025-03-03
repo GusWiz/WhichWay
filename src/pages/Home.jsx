@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import React from 'react';
 import Sidebar from '../components/Homepage-Components/Sidebar';
+import TriponHome from '../components/Homepage-Components/TriponHome';
 import './Home.css';
 
 function Home() {
@@ -24,6 +25,7 @@ function Home() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <p>Home Metadata</p>
+            <TriponHome />
           </div>
         </div>
       </div>

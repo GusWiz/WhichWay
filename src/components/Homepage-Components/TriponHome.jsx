@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import '../../TriponHome.css';
+import './TriponHome.css';
 
 const TripTable = ({
   title,

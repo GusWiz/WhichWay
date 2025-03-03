@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
-import './create-trip-styling.css';
+import './CreateTrip.css';
 
 function CreateTrip() {
   //Vinny's functions

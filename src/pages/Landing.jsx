@@ -1,10 +1,10 @@
 import React from 'react';
-import './HomeBody.css';
+import './Landing.css';
 import { useNavigate } from 'react-router-dom';
-import NavigationBar from './NavigationBar';
+import NavigationBar from '../components/Landing-Components/NavigationBar';
 
 // Mising proper routing after the buttons are pressed
-function HomeBody() {
+function Landing() {
   const navigate = useNavigate();
   return (
     <>
@@ -23,4 +23,4 @@ function HomeBody() {
   );
 }
 
-export default HomeBody;
+export default Landing;
