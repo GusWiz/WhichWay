@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
-import ItineraryModal from '../components/Createtrip-Components/ItineraryModal';
+import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 
 function CreateTrip() {
 
@@ -259,7 +259,7 @@ function CreateTrip() {
       </button>
 
       {/* Conditionally render the modal */}
-      {isModalOpen && <ItineraryModal onClose={handleModalToggle} />}
+      {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
     </>
   );
 }

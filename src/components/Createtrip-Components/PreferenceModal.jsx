@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
-import './ItineraryModal.css';
+import './PreferenceModal.css';
 
-function ItineraryModal({ onClose }) {
+function PreferenceModal({ onClose }) {
   const [destination, setDestination] = useState('');
   const [dates, setDates] = useState('');
   const [activities, setActivities] = useState('');
@@ -97,5 +97,5 @@ function ItineraryModal({ onClose }) {
   );
 }
 
-export default ItineraryModal;
+export default PreferenceModal;
 
