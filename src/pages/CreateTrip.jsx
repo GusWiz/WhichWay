@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
+import ItineraryModal from '../components/Createtrip-Components/ItineraryModal';
 
 function CreateTrip() {
   //Vinny's functions
@@ -240,53 +241,8 @@ function CreateTrip() {
         </div>
       </div>
 
-      {/* Current Itinerary Container */}
-      <div className='itinerary-container'>
-        <h2>Current Itinerary</h2>
-
-        <div className='itinerary-section'>
-          <h3>Food</h3>
-          <ul>
-            {selectedFoods.map((food) => (
-              <li key={food}>{food}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className='itinerary-section'>
-          <h3>Outdoor</h3>
-          <ul>
-            {selectedOutdoor.map((outdoor) => (
-              <li key={outdoor}>{outdoor}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className='itinerary-section'>
-          <h3>Entertainment</h3>
-          <ul>
-            {selectedEntertainment.map((entertainment) => (
-              <li key={entertainment}>{entertainment}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Standard Button Added Here */}
-        <button
-          className='standard-button'
-          onClick={() =>
-            navigate('/Itinerary', {
-              state: {
-                selectedFoods,
-                selectedEntertainment,
-                selectedOutdoor,
-              },
-            })
-          }
-        >
-          Create Itinerary
-        </button>
-      </div>
+      {/* Add the modal here */}
+      <ItineraryModal />
     </>
   );
 }
