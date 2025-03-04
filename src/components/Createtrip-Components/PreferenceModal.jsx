@@ -4,17 +4,15 @@ import './PreferenceModal.css';
 
 function PreferenceModal({ onClose }) {
   const [destination, setDestination] = useState('');
-  const [dates, setDates] = useState('');
-  const [activities, setActivities] = useState('');
-  const [food, setFood] = useState('');
+  const [cuisine, setCuisine] = useState('');
+  const [activityType, setActivityType] = useState('');
   const [budget, setBudget] = useState('');
-  const [companions, setCompanions] = useState('');
-  const [accommodation, setAccommodation] = useState('');
+  const [transportation, setTransportation] = useState('');
   const [moreDetails, setMoreDetails] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ destination, dates, activities, food, budget, companions, accommodation, moreDetails });
+    console.log({ destination, cuisine, activityType, budget, transportation, moreDetails });
     onClose();
   };
 
@@ -28,46 +26,75 @@ function PreferenceModal({ onClose }) {
         <h1 className="text-2xl font-bold text-center">Trip Preferences</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+          {/* Destination */}
           <div className="flex flex-col">
-            <label htmlFor="destination" className="text-lg">Where are you going?</label>
-            <input type="text" id="destination" placeholder="Enter destination" value={destination} onChange={(e) => setDestination(e.target.value)} required />
+            <label htmlFor="destination" className="text-lg">Preferred Destination</label>
+            <input
+              type="text"
+              id="destination"
+              placeholder="Enter destination"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              required
+            />
           </div>
 
+          {/* Cuisine Preference (Yelp API) */}
           <div className="flex flex-col">
-            <label htmlFor="dates" className="text-lg">Enter travel dates</label>
-            <input type="text" id="dates" placeholder="Enter start and end dates" value={dates} onChange={(e) => setDates(e.target.value)} required />
+            <label htmlFor="cuisine" className="text-lg">Cuisine Preference</label>
+            <select id="cuisine" value={cuisine} onChange={(e) => setCuisine(e.target.value)}>
+              <option value="">Select Cuisine</option>
+              <option value="asian">Asian</option>
+              <option value="mediterranean">Mediterranean</option>
+              <option value="latin">Latin American</option>
+            </select>
           </div>
 
+          {/* Activity Type (Google Places API) */}
           <div className="flex flex-col">
-            <label htmlFor="activities" className="text-lg">What activities are you interested in?</label>
-            <input type="text" id="activities" placeholder="Enter activities" value={activities} onChange={(e) => setActivities(e.target.value)} />
+            <label htmlFor="activityType" className="text-lg">Activity Type</label>
+            <select id="activityType" value={activityType} onChange={(e) => setActivityType(e.target.value)}>
+              <option value="">Select Activity</option>
+              <option value="adventure">Adventure (Hiking, Scuba Diving)</option>
+              <option value="entertainment">Entertainment (Concerts, Theme Parks)</option>
+              <option value="cultural">Cultural (Museums, Historical Sites)</option>
+            </select>
           </div>
 
+          {/* Budget Category (YNAB API) */}
           <div className="flex flex-col">
-            <label htmlFor="food" className="text-lg">Any foods you're interested in?</label>
-            <input type="text" id="food" placeholder="Enter food preferences" value={food} onChange={(e) => setFood(e.target.value)} />
+            <label htmlFor="budget" className="text-lg">Budget Preference</label>
+            <select id="budget" value={budget} onChange={(e) => setBudget(e.target.value)}>
+              <option value="">Select Budget</option>
+              <option value="low">Budget-Friendly ($)</option>
+              <option value="medium">Mid-Range ($$)</option>
+              <option value="high">Luxury ($$$)</option>
+            </select>
           </div>
 
+          {/* Transportation Type (Google Maps API) */}
           <div className="flex flex-col">
-            <label htmlFor="budget" className="text-lg">Estimated Budget</label>
-            <input type="text" id="budget" placeholder="Enter budget" value={budget} onChange={(e) => setBudget(e.target.value)} />
+            <label htmlFor="transportation" className="text-lg">Transportation Preference</label>
+            <select id="transportation" value={transportation} onChange={(e) => setTransportation(e.target.value)}>
+              <option value="">Select Transportation</option>
+              <option value="public">Public Transport</option>
+              <option value="rental">Rental Car</option>
+              <option value="private">Private Driver</option>
+            </select>
           </div>
 
+          {/* More Details */}
           <div className="flex flex-col">
-            <label htmlFor="companions" className="text-lg">Who are you traveling with?</label>
-            <input type="text" id="companions" placeholder="Enter travel companions" value={companions} onChange={(e) => setCompanions(e.target.value)} />
+            <label htmlFor="moreDetails" className="text-lg">Additional Details (Optional)</label>
+            <textarea
+              id="moreDetails"
+              placeholder="Add any extra preferences"
+              value={moreDetails}
+              onChange={(e) => setMoreDetails(e.target.value)}
+            />
           </div>
 
-          <div className="flex flex-col">
-            <label htmlFor="accommodation" className="text-lg">Preferred Accommodation</label>
-            <input type="text" id="accommodation" placeholder="Enter accommodation type" value={accommodation} onChange={(e) => setAccommodation(e.target.value)} />
-          </div>
-
-          <div className="flex flex-col">
-            <label htmlFor="moreDetails" className="text-lg">More details (optional)</label>
-            <textarea id="moreDetails" placeholder="Add any additional details" value={moreDetails} onChange={(e) => setMoreDetails(e.target.value)} />
-          </div>
-
+          {/* Submit */}
           <button type="submit" className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 flex justify-center items-center gap-2">
             <CheckCircle size={20} /> Submit Preferences
           </button>
@@ -78,3 +105,4 @@ function PreferenceModal({ onClose }) {
 }
 
 export default PreferenceModal;
+

@@ -1,84 +1,126 @@
 /* Modal Container */
 .fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
-  /* Background and Blur */
-  .bg-black {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
+/* Background and Blur */
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
-  .backdrop-blur-sm {
-    backdrop-filter: blur(5px);
-  }
+.backdrop-blur-sm {
+  backdrop-filter: blur(8px);
+}
 
-  /* Main Modal Box */
+/* Main Modal Box */
+.bg-white {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 30px 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align to the left */
+  gap: 20px;
+  position: relative; /* Added position relative for positioning the X button */
+}
+
+/* Close Button (Placed at the top-right corner of the input area) */
+.place-self-end {
+  position: absolute;
+  top: 10px; /* Move slightly down from the top */
+  right: 10px; /* Align to the right edge */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333; /* Dark color to make it visible */
+  font-size: 1.5rem; /* Increase size */
+  transition: color 0.3s;
+}
+
+/* Hover Effect for Close Button */
+.place-self-end:hover {
+  color: #000000; /* Red color when hovered */
+  opacity: 0.8;
+}
+
+/* Title */
+.text-2xl {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;  /* Make sure title takes up full width for alignment */
+}
+
+
+/* Form Fields */
+input, textarea, select {
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+select {
+  background-color: #f8f8f8;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #4c6ef5;
+  outline: none;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: #4c6ef5;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button:hover {
+  background-color: #2f4df2;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
   .bg-white {
-    background-color: white;
-    border-radius: 1rem;
-    padding: 30px 40px;
-    max-width: 500px;
-    width: 100%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px;
+    width: 90%;
   }
 
-  /* Close Button */
-  .place-self-end {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  /* Title */
   .text-2xl {
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
   }
-
-  /* Form Fields */
-  input, textarea {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  /* Button Styles */
-  button {
-    padding: 12px 20px;
-    margin-top: 20px;
-    background-color: #4c6ef5;
-    color: white;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  button:hover {
-    background-color: #2f4df2;
-  }
-
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+}
