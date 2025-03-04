@@ -1,15 +1,15 @@
 import React from 'react';
-import '../../HomeBody.css';
+import './Landing.css';
 import { useNavigate } from 'react-router-dom';
-import NavigationBar from './NavigationBar';
+import NavigationBar from '../components/Landing-Components/NavigationBar';
 
 // Mising proper routing after the buttons are pressed
-function HomeBody() {
+function Landing() {
   const navigate = useNavigate();
   return (
     <>
       <NavigationBar />
-      <main className='home-body'>
+      <div className='home-body'>
         <div className='option-boxes'>
           <button onClick={() => navigate('/CreateTrip')}>
             Create New Trip
@@ -18,9 +18,9 @@ function HomeBody() {
             Load Existing Trip
           </button>
         </div>
-      </main>
+      </div>
     </>
   );
 }
 
-export default HomeBody;
+export default Landing;
