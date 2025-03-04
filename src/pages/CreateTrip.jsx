@@ -5,6 +5,14 @@ import './CreateTrip.css';
 import ItineraryModal from '../components/Createtrip-Components/ItineraryModal';
 
 function CreateTrip() {
+
+  //Aldo's updated itinerary modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen); // Toggle the modal visibility
+  };
+
   //Vinny's functions
 
   const [details, setDetails] = useState({
@@ -241,8 +249,17 @@ function CreateTrip() {
         </div>
       </div>
 
-      {/* Add the modal here */}
-      <ItineraryModal />
+      {/* Add button to open modal */}
+      <button
+        type="button"
+        onClick={handleModalToggle}
+        className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+      >
+        Plan Your Itinerary
+      </button>
+
+      {/* Conditionally render the modal */}
+      {isModalOpen && <ItineraryModal onClose={handleModalToggle} />}
     </>
   );
 }
