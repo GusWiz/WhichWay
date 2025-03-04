@@ -255,7 +255,7 @@ function CreateTrip() {
         onClick={handleModalToggle}
         className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
       >
-        Plan Your Itinerary
+        Trip Preferences
       </button>
 
       {/* Conditionally render the modal */}
