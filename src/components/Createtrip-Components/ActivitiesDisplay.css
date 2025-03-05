@@ -1,0 +1,99 @@
+/* Container for the activities section */
+.activities-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    width: 100%;
+    margin-top: 30px; /* Space from top */
+    flex-direction: column;
+  }
+  
+  /* Container for the categories (Food, Entertainment, Outdoor) */
+  .categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+  
+  /* Category container for individual category sections */
+  .category {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  /* Title for each category */
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Container for the selectable boxes within each category */
+  .selectable-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  
+  /* Individual selectable box (Food, Entertainment, Outdoor) */
+  .selectable-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+    height: 180px;
+    border: 3px solid #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+    user-select: none;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Hide the default checkbox */
+  .selectable-box input {
+    display: none;
+  }
+  
+  /* Image inside selectable box */
+  .selectable-image {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  /* Price displayed inside the selectable box */
+  .selectable-price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Highlight border and background when selected */
+  .selectable-box.selected {
+    border: 3px solid #4caf50;
+    background-color: #e8f5e9;
+  }
+  
+  .selectable-box.selected .selectable-price {
+    color: #4caf50;
+  }
+  
+  /* Styles for the checkbox container inside each selectable box */
+  .selectable-box input:checked + .selectable-title {
+    color: #4caf50;
+  }
+  
