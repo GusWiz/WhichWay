@@ -104,6 +104,27 @@ function CreateTrip() {
     { name: 'Vinny Rosy River', imgSrc: 'river.jpg', price: '10' },
     { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
+
+  const [preferences, setPreferences] = useState({
+    maxPrice: '',
+    maxTravelTime: '',
+    groupSize: '',
+    foodType: ''
+  });
+  
+  const handlePreferenceChange = (event) => {
+    const { name, value } = event.target;
+    setPreferences(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('User Preferences:', preferences);
+    // Handle form submission logic (e.g., save preferences)
+  };
   // End of Aaron's functions
 
   return (
@@ -116,7 +137,7 @@ function CreateTrip() {
         <form action='#' className='form'>
           <InputField type='text' placeholder='Trip Name' />
           <InputField type='text' placeholder='Destination' />
-          <InputField type='text' placeholder='Duration' />
+          <InputField type='text' placeholder='Duration (days)' />
         </form>
         <label>Budget = $</label>
         <label id='displayedBudget'>{displayedBudget.budget}</label>
@@ -142,6 +163,68 @@ function CreateTrip() {
         <div className='activities-container'>
           <h2>Activities</h2>
         </div>
+
+        {/* Activity Preferences */}
+        <div className="preferences-container">
+    <form className="activity-preferences-form" onSubmit={handleSubmit}>
+      <h3>Activity Preferences</h3>
+
+      {/* Maximum Price Input */}
+      <div className="input-group">
+        <label htmlFor="maxPrice">Maximum Price:</label>
+        <input
+          type="number"
+          id="maxPrice"
+          name="maxPrice"
+          value={preferences.maxPrice}
+          onChange={handlePreferenceChange}
+          placeholder="Enter maximum price"
+        />
+      </div>
+
+      {/* Maximum Travel Time Input */}
+      <div className="input-group">
+        <label htmlFor="maxTravelTime">Maximum Travel Time (in hours):</label>
+        <input
+          type="number"
+          id="maxTravelTime"
+          name="maxTravelTime"
+          value={preferences.maxTravelTime}
+          onChange={handlePreferenceChange}
+          placeholder="Enter travel time in hours"
+        />
+      </div>
+
+      {/* Group Size Input */}
+      <div className="input-group">
+        <label htmlFor="groupSize">Group Size:</label>
+        <input
+          type="number"
+          id="groupSize"
+          name="groupSize"
+          value={preferences.groupSize}
+          onChange={handlePreferenceChange}
+          placeholder="Enter group size"
+        />
+      </div>
+
+      {/* Food Type Input */}
+      <div className="input-group">
+        <label htmlFor="foodType">Food Type:</label>
+        <input
+          type="text"
+          id="foodType"
+          name="foodType"
+          value={preferences.foodType}
+          onChange={handlePreferenceChange}
+          placeholder="Enter preferred food type"
+        />
+      </div>
+
+      <button type="submit">Save Preferences</button>
+    </form>
+  </div>
+        
 
         <div className='categories-container'>
           {/* Entertainment Selection */}
