@@ -36,7 +36,7 @@
 }
 
 /* Close Button (Placed at the top-right corner of the input area) */
-.place-self-end {
+.close-btn {
   position: absolute;
   top: 10px; /* Move slightly down from the top */
   right: 10px; /* Align to the right edge */
@@ -49,20 +49,19 @@
 }
 
 /* Hover Effect for Close Button */
-.place-self-end:hover {
+.close-btn:hover {
   color: #000000; /* Red color when hovered */
   opacity: 0.8;
 }
 
 /* Title */
-.text-2xl {
+.modal-title {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
   width: 100%;  /* Make sure title takes up full width for alignment */
 }
-
 
 /* Form Fields */
 input, textarea, select {
@@ -89,8 +88,8 @@ input:focus, textarea:focus, select:focus {
   outline: none;
 }
 
-/* Button Styles */
-button {
+/* Submit Button */
+.submit-btn {
   padding: 10px 20px;
   margin-top: 20px;
   background-color: #4c6ef5;
@@ -104,13 +103,26 @@ button {
   align-items: center;
 }
 
-button:hover {
+.submit-btn:hover {
   background-color: #2f4df2;
 }
 
-button:disabled {
+.submit-btn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
+}
+
+.trip-preference-btn {
+  font-size: 1.2rem !important;
+  padding: 12px 20px !important;
+  background-color: #4c6ef5 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  transition: background-color 0.3s !important;
+}
+
+.trip-preference-btn:hover {
+  background-color: #2f4df2 !important;
 }
 
 /* Responsive Design */
@@ -120,7 +132,7 @@ button:disabled {
     width: 90%;
   }
 
-  .text-2xl {
+  .modal-title {
     font-size: 1.5rem;
   }
 }

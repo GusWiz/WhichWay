@@ -19,11 +19,11 @@ function PreferenceModal({ onClose }) {
   return (
     <div className="fixed bg-black backdrop-blur-sm">
       <div className="bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full">
-        <button className="place-self-end" onClick={onClose}>
+        <button className="close-btn" onClick={onClose}>
           <X size={30} />
         </button>
 
-        <h1 className="text-2xl font-bold text-center">Trip Preferences</h1>
+        <h1 className="modal-title">Trip Preferences</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
           {/* Destination */}
@@ -95,7 +95,7 @@ function PreferenceModal({ onClose }) {
           </div>
 
           {/* Submit */}
-          <button type="submit" className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 flex justify-center items-center gap-2">
+          <button type="submit" className="submit-btn flex justify-center items-center gap-2">
             <CheckCircle size={20} /> Submit Preferences
           </button>
         </form>

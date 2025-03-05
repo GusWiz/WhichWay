@@ -253,10 +253,11 @@ function CreateTrip() {
       <button
         type="button"
         onClick={handleModalToggle}
-        className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+        className="trip-preference-btn"
       >
         Trip Preferences
       </button>
+
 
       {/* Conditionally render the modal */}
       {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
