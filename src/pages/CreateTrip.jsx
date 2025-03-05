@@ -122,8 +122,8 @@ function CreateTrip() {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('User Preferences:', preferences);
-    // Handle form submission logic (e.g., save preferences)
+    //console.log('User Preferences:', preferences);
+    // Handle form submission logic (save to database/send to api call)
   };
   // End of Aaron's functions
 
@@ -164,7 +164,7 @@ function CreateTrip() {
           <h2>Activities</h2>
         </div>
 
-        {/* Activity Preferences */}
+             {/* Activity Preferences */}
         <div className="preferences-container">
     <form className="activity-preferences-form" onSubmit={handleSubmit}>
       <h3>Activity Preferences</h3>
