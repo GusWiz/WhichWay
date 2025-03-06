@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// You would put the ErrorBoundary as a tagname (e.g. of <tagname> </tagname>),
+// this would catch and display any errors in the terminal on the browser
+
 
 // class handles errors for component
 class ErrorBoundary extends Component {
