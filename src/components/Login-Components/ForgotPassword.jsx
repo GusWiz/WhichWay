@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
+import './login-styling.css';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -23,18 +24,20 @@ function ForgotPassword() {
   };
   return (
     <>
-      <div className='container'>
-        <h2 className='form-title'>Enter Your Email</h2>
+      <div className='auth-page'>
+        <div className='acontainer'>
+          <h2 className='aform-title'>Enter Your Email</h2>
 
-        <form className='form' onSubmit={handleReset}>
-          <InputField
-            type='email'
-            placeholder='Email Address'
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <form className='aform' onSubmit={handleReset}>
+            <InputField
+              type='email'
+              placeholder='Email Address'
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-          <LoginButton text='Send Email' />
-        </form>
+            <LoginButton text='Send Email' />
+          </form>
+        </div>
       </div>
     </>
   );

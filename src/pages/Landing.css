@@ -1,18 +1,9 @@
-.home-body,
-.home-body html {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .home-body {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  background: hsl(201, 69%, 22%);
 }
 
 .home-body .option-boxes {

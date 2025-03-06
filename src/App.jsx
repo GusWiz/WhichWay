@@ -13,6 +13,8 @@ import Signup from './components/Login-Components/Signup.jsx';
 import ForgotPassword from './components/Login-Components/ForgotPassword.jsx';
 import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
+import CreateItinerary from './pages/CreateItinerary.jsx';
+import Landing from './pages/Landing.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -25,12 +27,20 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={user ? <Navigate to='/home' /> : <Login />} />
+        <Route
+          path='/'
+          element={user ? <Navigate to='/home' /> : <Landing />}
+        />
+        <Route path='/landing' element={<Landing />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/forgotpassword' element={<ForgotPassword />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/createtrip' element={<CreateTrip />} />
+        <Route path='/home' element={user ? <Home /> : <Login />} />
+        <Route path='/createtrip' element={user ? <CreateTrip /> : <Login />} />
+        <Route
+          path='/createitinerary'
+          element={user ? <CreateItinerary /> : <Login />}
+        />
       </Routes>
     </Router>
   );

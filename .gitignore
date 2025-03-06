@@ -74,6 +74,7 @@ dist
 dist-ssr
 *.local
 
+.env
 .env.local
 .env
 
@@ -87,6 +88,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
 
 package-lock.json
