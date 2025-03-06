@@ -3,9 +3,14 @@ import InputField from '../components/Login-Components/InputField';
 import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
+import { ToastContainer, toast } from 'react-toastify';
 
 function CreateTrip() {
 
+  const budgetEnterError = (event) => {
+    event.preventDefault();
+    toast("Error: Invalid Budget Entered.")
+  }
   //Aldo's updated itinerary modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,7 +53,7 @@ function CreateTrip() {
     event.preventDefault();
     setDisplayedBudget((prev) => {
       return { ...prev, budget: details.budget };
-    });
+    })
     console.log(details);
   };
   // end of Vinny's functions
@@ -127,7 +132,7 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>{displayedBudget.budget > 0 ? "Budget = $" : "No budget entered."}</label>
+        <label>{displayedBudget.budget >= 0 ? "Budget = $" : "No budget entered."}</label>
         <label id='displayedBudget'>{displayedBudget.budget}</label>
         <br></br>
         <label>Cost = $</label>
@@ -137,7 +142,7 @@ function CreateTrip() {
         <label id='displayedRemainingBudget'>
           {displayedBudget.budget - displayedCost.cost}
         </label>
-        <form action='#' className='form' onSubmit={budgetSubmit}>
+        <form action='#' className='form' onSubmit={details.budget >= 0 ? budgetSubmit : budgetEnterError}>
           <input
             type='number'
             name='budget'
@@ -146,6 +151,7 @@ function CreateTrip() {
             onChange={handleChange}
           />
           <button type='submit'>Change Budget</button>
+          <ToastContainer />
         </form>
 
         <div className='activities-container'>
