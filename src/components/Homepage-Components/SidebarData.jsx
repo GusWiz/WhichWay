@@ -5,8 +5,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const getSidebarData = (logout) => {
-  if (typeof logout != 'function'){
-    console.error("Logout function is not provided or");
+  if (typeof logout != 'function') {
+    console.error('Logout function is not provided or');
     logout = () => {};
   }
   return [
