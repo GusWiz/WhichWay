@@ -47,15 +47,6 @@ function CreateTrip() {
     // console.log(details);
   };
 
-  const budgetEnterError = (event) => {
-    event.preventDefault();
-    toast("Error: Invalid Budget Entered.")
-  }
-  const budgetChangeError = (event) => {
-    event.preventDefault();
-    toast("Error: Budget would be less than Cost.")
-  }
-
   const budgetSubmit = (event) => {
     event.preventDefault();
     setDisplayedBudget((prev) => {
@@ -65,6 +56,18 @@ function CreateTrip() {
     
   };
 
+  const budgetEnterError = (event) => {
+    event.preventDefault();
+    toast("Error: Invalid Budget Entered.")
+  }
+  const budgetChangeError = (event) => {
+    event.preventDefault();
+    toast("Error: Budget would be less than Cost.")
+  }
+  const costChangeError = (event) => {
+    event.preventDefault();
+    toast("Error: Cost would be more than Budget.")
+  }
   
   // end of Vinny's functions
 
@@ -75,6 +78,9 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
+    if (true){
+      budgetEnterError;
+    }
     switch (category) {
       case 'food':
         selectedFoods.includes(value)
@@ -171,7 +177,7 @@ function CreateTrip() {
             onChange={handleChange}
           />
           <button type='submit'>Change Budget</button>
-          <ToastContainer />
+          
         </form>
 
         <div className='activities-container'>
@@ -195,9 +201,15 @@ function CreateTrip() {
                     name='entertainment'
                     value={item.name}
                     checked={selectedEntertainment.includes(item.name)}
-                    onChange={() =>
-                      handleSelect('entertainment', item.name, item.price)
-                    }
+                    onChange={(() => {
+                      if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.includes(item.name)) {
+                        return costChangeError;
+                      }
+                      else{
+                        return () => handleSelect('entertainment', item.name, item.price)
+                      }
+                    })()}
+                    
                   />
                   <img
                     src={item.imgSrc}
@@ -227,7 +239,15 @@ function CreateTrip() {
                     name='food'
                     value={food.name}
                     checked={selectedFoods.includes(food.name)}
-                    onChange={() => handleSelect('food', food.name, food.price)}
+                    onChange={(() => {
+                      if (displayedBudget.budget - displayedCost.cost - food.price < 0 && !selectedFoods.includes(food.name)) {
+                        return costChangeError;
+                      }
+                      else{
+                        return () => handleSelect('food', food.name, food.price)
+                      }
+                    })()}
+                    
                   />
                   <img
                     src={food.imgSrc}
@@ -257,9 +277,15 @@ function CreateTrip() {
                     name='outdoor'
                     value={item.name}
                     checked={selectedOutdoor.includes(item.name)}
-                    onChange={() =>
-                      handleSelect('outdoor', item.name, item.price)
-                    }
+                    onChange={(() => {
+                      if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.includes(item.name)) {
+                        return costChangeError;
+                      }
+                      else{
+                        return () => handleSelect('outdoor', item.name, item.price);
+                      }
+                    })()}
+                    
                   />
                   <img
                     src={item.imgSrc}
@@ -287,7 +313,9 @@ function CreateTrip() {
 
       {/* Conditionally render the modal */}
       {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+      <ToastContainer />
     </>
+    
   );
 }
 
