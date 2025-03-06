@@ -91,15 +91,33 @@
   padding: 0;
 }
 
+.selectable-title-container {
+  position: absolute; /* Positions the title container on top */
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-items: flex-start; /* Align titles to the top */
+  gap: 5px; /* Space between titles */
+  z-index: 2; /* Ensures the titles are on top of the image */
+}
+
 .selectable-title {
-  position: absolute;
-  top: 10px; /* Moves it to the top */
-  left: 10px; /* Aligns it to the left */
   background: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 17px;
+  z-index: 1;
+}
+
+.selectable-title-text {
+  font-size: 16px;
+}
+
+.selectable-title-icon {
+  width: 20px; /* Adjust based on the desired icon size */
+  height: 20px; /* Adjust based on the desired icon size */
+  margin-right: 8px; /* Space between icon and text */
 }
 
 /* Hide the default checkbox */
@@ -113,6 +131,7 @@
   height: 100%;
   object-fit: cover; /* Ensures the image fills the box without distortion */
   border-radius: 0px; /* Matches the parent box for a seamless look */
+  z-index: -0;
 }
 
 /* Price displayed inside the selectable box */
