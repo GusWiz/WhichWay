@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
+<<<<<<< HEAD
 import { ToastContainer, toast } from 'react-toastify';
 
+=======
+import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
+>>>>>>> c89f9d81e810a199aa4d4c3cc99822d388e8ec25
 function CreateTrip() {
 
 
@@ -71,7 +75,7 @@ function CreateTrip() {
 
   // end of Vinny's functions
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
@@ -118,9 +122,11 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40' },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25' },
+    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40', groupSize: '2-4'},
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
+    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
+    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: ':P' },
   ];
 
   const entertainmentOptions = [
@@ -180,10 +186,20 @@ function CreateTrip() {
 
         </form>
 
-        <div className='activities-container'>
-          <h2>Activities</h2>
-        </div>
+        {/* Render ActivitiesDisplay component */}
+      <ActivitiesDisplay
+        foodOptions={foodOptions}
+        selectedFoods={selectedFoods}
+        handleSelectFood={(name, price) => handleSelect('food', name, price)}
+        entertainmentOptions={entertainmentOptions}
+        selectedEntertainment={selectedEntertainment}
+        handleSelectEntertainment={(name, price) => handleSelect('entertainment', name, price)}
+        outdoorOptions={outdoorOptions}
+        selectedOutdoor={selectedOutdoor}
+        handleSelectOutdoor={(name, price) => handleSelect('outdoor', name, price)}
+      />
 
+<<<<<<< HEAD
         <div className='categories-container'>
           {/* Entertainment Selection */}
           <div className='category'>
@@ -299,6 +315,8 @@ function CreateTrip() {
             </div>
           </div>
         </div>
+=======
+>>>>>>> c89f9d81e810a199aa4d4c3cc99822d388e8ec25
       </div>
 
       {/* Add button to open modal */}
