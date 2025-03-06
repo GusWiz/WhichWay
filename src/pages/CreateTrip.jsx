@@ -7,10 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function CreateTrip() {
 
-  const budgetEnterError = (event) => {
-    event.preventDefault();
-    toast("Error: Invalid Budget Entered.")
-  }
+  
+
   //Aldo's updated itinerary modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,13 +47,25 @@ function CreateTrip() {
     // console.log(details);
   };
 
+  const budgetEnterError = (event) => {
+    event.preventDefault();
+    toast("Error: Invalid Budget Entered.")
+  }
+  const budgetChangeError = (event) => {
+    event.preventDefault();
+    toast("Error: Budget would be less than Cost.")
+  }
+
   const budgetSubmit = (event) => {
     event.preventDefault();
     setDisplayedBudget((prev) => {
-      return { ...prev, budget: details.budget };
+    return { ...prev, budget: details.budget };
     })
     console.log(details);
+    
   };
+
+  
   // end of Vinny's functions
 
   const navigate = useNavigate();
@@ -142,7 +152,17 @@ function CreateTrip() {
         <label id='displayedRemainingBudget'>
           {displayedBudget.budget - displayedCost.cost}
         </label>
-        <form action='#' className='form' onSubmit={details.budget >= 0 ? budgetSubmit : budgetEnterError}>
+        <form action='#' className='form' onSubmit={(() => {
+          if (details.budget < 0) {
+            return budgetEnterError;
+          } 
+          else if (details.budget < displayedCost.cost){
+            return budgetChangeError;
+          }
+          else{
+            return budgetSubmit;
+          }
+        })()}>
           <input
             type='number'
             name='budget'
