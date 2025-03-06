@@ -162,7 +162,7 @@ function CreateTrip() {
         selectedOutdoor={selectedOutdoor}
         handleSelectOutdoor={(name, price) => handleSelect('outdoor', name, price)}
       />
-        
+
       </div>
 
       {/* Add button to open modal */}

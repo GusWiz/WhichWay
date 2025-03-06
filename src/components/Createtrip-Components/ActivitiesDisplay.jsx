@@ -44,10 +44,10 @@ function ActivitiesDisplay({
                 />
                  <div className='selectable-title-container'>
                     <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>  
+                    <span className='selectable-title'>${item.price}</span>
 
                     <span className='selectable-title'>
-                        <img 
+                        <img
                             src='images/icons/person-icon.jpg'
                             alt='icon'
                             className='selectable-title-icon'
@@ -94,10 +94,10 @@ function ActivitiesDisplay({
                 />
                 <div className='selectable-title-container'>
                     <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>  
+                    <span className='selectable-title'>${item.price}</span>
 
                     <span className='selectable-title'>
-                        <img 
+                        <img
                             src='images/icons/person-icon.jpg'
                             alt='icon'
                             className='selectable-title-icon'
@@ -111,8 +111,8 @@ function ActivitiesDisplay({
                 <button className='selectable-button'>
                     <img src="/images/icons/expand.jpg" alt="icon" className='selectable-button-icon'/>
                 </button>
-                
-                
+
+
               </label>
             ))}
           </div>
@@ -145,10 +145,10 @@ function ActivitiesDisplay({
                 />
                  <div className='selectable-title-container'>
                     <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>  
+                    <span className='selectable-title'>${item.price}</span>
 
                     <span className='selectable-title'>
-                        <img 
+                        <img
                             src='images/icons/person-icon.jpg'
                             alt='icon'
                             className='selectable-title-icon'
