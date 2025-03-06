@@ -97,9 +97,11 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: '/food/chilis.jpg', price: '40' },
+    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40' },
     { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60' },
     { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25' },
+    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25' },
+    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25' },
   ];
 
   const entertainmentOptions = [

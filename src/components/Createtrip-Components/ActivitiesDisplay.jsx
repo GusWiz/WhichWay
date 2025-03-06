@@ -39,43 +39,50 @@ function ActivitiesDisplay({
                 />
                 <img
                   src={item.imgSrc}
-                  alt={item.name}
+                //   alt={"Could not find Image"}
                   className='selectable-image'
                 />
+                <span className='selectable-title'>{item.name}</span>
                 <span className='selectable-price'>${item.price}</span>
               </label>
             ))}
           </div>
         </div>
 
+        <br />
+
+
         {/* Food Selection */}
         <div className='category'>
           <h2 className='form-title'>Food</h2>
           <div className='selectable-container'>
-            {foodOptions.map((food) => (
+            {foodOptions.map((item) => (
               <label
-                key={food.name}
+                key={item.name}
                 className={`selectable-box ${
-                  selectedFoods.includes(food.name) ? 'selected' : ''
+                  selectedFoods.includes(item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='food'
-                  value={food.name}
-                  checked={selectedFoods.includes(food.name)}
-                  onChange={() => handleSelectFood(food.name, food.price)}
+                  value={item.name}
+                  checked={selectedFoods.includes(item.name)}
+                  onChange={() => handleSelectFood(item.name, item.price)}
                 />
                 <img
-                  src={food.imgSrc}
-                  alt={food.name}
+                  src={item.imgSrc}
+                //   alt={item.name}
                   className='selectable-image'
                 />
-                <span className='selectable-price'>${food.price}</span>
+                <span className='selectable-title'>{item.name}</span>  
+                <span className='selectable-price'>${item.price}</span>
               </label>
             ))}
           </div>
         </div>
+
+        <br />
 
         {/* Outdoor Selection */}
         <div className='category'>
@@ -97,14 +104,19 @@ function ActivitiesDisplay({
                 />
                 <img
                   src={item.imgSrc}
-                  alt={item.name}
+                //   alt={item.name}
                   className='selectable-image'
                 />
+                <span className='selectable-title'>{item.name}</span>  
                 <span className='selectable-price'>${item.price}</span>
               </label>
             ))}
           </div>
         </div>
+
+        <br />
+
+
       </div>
     </div>
   );
