@@ -3,12 +3,8 @@ import InputField from '../components/Login-Components/InputField';
 // import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
-<<<<<<< HEAD
-import { ToastContainer, toast } from 'react-toastify';
-
-=======
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
->>>>>>> c89f9d81e810a199aa4d4c3cc99822d388e8ec25
+import { ToastContainer } from 'react-toastify';
 function CreateTrip() {
 
 
@@ -199,124 +195,6 @@ function CreateTrip() {
         handleSelectOutdoor={(name, price) => handleSelect('outdoor', name, price)}
       />
 
-<<<<<<< HEAD
-        <div className='categories-container'>
-          {/* Entertainment Selection */}
-          <div className='category'>
-            <h2 className='form-title'>Entertainment</h2>
-            <div className='selectable-container'>
-              {entertainmentOptions.map((item) => (
-                <label
-                  key={item.name}
-                  className={`selectable-box ${
-                    selectedEntertainment.includes(item.name) ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type='checkbox'
-                    name='entertainment'
-                    value={item.name}
-                    checked={selectedEntertainment.includes(item.name)}
-                    onChange={(() => {
-                      if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.includes(item.name)) {
-                        return costChangeError;
-                      }
-                      else{
-                        return () => handleSelect('entertainment', item.name, item.price)
-                      }
-                    })()}
-
-                  />
-                  <img
-                    src={item.imgSrc}
-                    alt={item.name}
-                    className='selectable-image'
-                  />
-                  {/* <span className='selectable-title'>{item.name}</span> */}
-                  <span className='selectable-price'>${item.price}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Food Selection */}
-          <div className='category'>
-            <h2 className='form-title'>Food</h2>
-            <div className='selectable-container'>
-              {foodOptions.map((food) => (
-                <label
-                  key={food.name}
-                  className={`selectable-box ${
-                    selectedFoods.includes(food.name) ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type='checkbox'
-                    name='food'
-                    value={food.name}
-                    checked={selectedFoods.includes(food.name)}
-                    onChange={(() => {
-                      if (displayedBudget.budget - displayedCost.cost - food.price < 0 && !selectedFoods.includes(food.name)) {
-                        return costChangeError;
-                      }
-                      else{
-                        return () => handleSelect('food', food.name, food.price)
-                      }
-                    })()}
-
-                  />
-                  <img
-                    src={food.imgSrc}
-                    alt={food.name}
-                    className='selectable-image'
-                  />
-                  {/* <span className='selectable-title'>{food.name}</span> */}
-                  <span className='selectable-price'>${food.price}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Outdoor Selection */}
-          <div className='category'>
-            <h2 className='form-title'>Outdoor</h2>
-            <div className='selectable-container'>
-              {outdoorOptions.map((item) => (
-                <label
-                  key={item.name}
-                  className={`selectable-box ${
-                    selectedOutdoor.includes(item.name) ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type='checkbox'
-                    name='outdoor'
-                    value={item.name}
-                    checked={selectedOutdoor.includes(item.name)}
-                    onChange={(() => {
-                      if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.includes(item.name)) {
-                        return costChangeError;
-                      }
-                      else{
-                        return () => handleSelect('outdoor', item.name, item.price);
-                      }
-                    })()}
-
-                  />
-                  <img
-                    src={item.imgSrc}
-                    alt={item.name}
-                    className='selectable-image'
-                  />
-                  {/* <span className='selectable-title'>{item.name}</span> */}
-                  <span className='selectable-price'>${item.price}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </div>
-=======
->>>>>>> c89f9d81e810a199aa4d4c3cc99822d388e8ec25
       </div>
 
       {/* Add button to open modal */}
