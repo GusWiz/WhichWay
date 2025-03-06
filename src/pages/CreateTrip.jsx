@@ -127,7 +127,7 @@ function CreateTrip() {
           <InputField type='text' placeholder='Destination' />
           <InputField type='text' placeholder='Duration' />
         </form>
-        <label>Budget = $</label>
+        <label>{displayedBudget.budget > 0 ? "Budget = $" : "No budget entered."}</label>
         <label id='displayedBudget'>{displayedBudget.budget}</label>
         <br></br>
         <label>Cost = $</label>
