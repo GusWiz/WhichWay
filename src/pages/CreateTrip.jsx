@@ -97,11 +97,11 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40' },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25' },
-    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25' },
-    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25' },
+    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40', groupSize: '2-4'},
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
+    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
+    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: ':P' },
   ];
 
   const entertainmentOptions = [

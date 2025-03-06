@@ -78,8 +78,22 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                     <span className='selectable-title'>{item.name}</span>
                     <span className='selectable-title'>${item.price}</span>  
-                    <span className='selectable-title'>{'group size'}</span>  
+
+                    <span className='selectable-title'>
+                        <img 
+                            src='images/icons/person-icon.jpg'
+                            alt='icon'
+                            className='selectable-title-icon'
+                        />
+                        <span className='selectable-title-text'>{item.groupSize}</span>
+
+                    </span>
                 </div>
+
+                {/*button for functionality */}
+                <button className='selectable-button'>
+                    <img src="/images/icons/expand.jpg" alt="icon" className='selectable-button-icon'/>
+                </button>
                 
                 
               </label>
