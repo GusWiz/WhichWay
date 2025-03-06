@@ -56,7 +56,7 @@
 }
 
 /* Image inside selectable box */
-.food-image {
+.selectable-image {
   width: 100px;
   height: 80px;
   object-fit: cover;
@@ -65,7 +65,7 @@
 }
 
 /* Title inside selectable box */
-.food-title {
+.selectable-title {
   font-size: 16px;
   font-weight: bold;
 }
@@ -91,7 +91,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start; /* Aligns to the left */
-  padding-left: 20;
+  padding-left: 20px;
 }
 
 .itinerary-section {
