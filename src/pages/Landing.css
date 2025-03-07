@@ -1,4 +1,4 @@
-.home-body {
+.landing-body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -6,37 +6,46 @@
   background: hsl(201, 69%, 22%);
 }
 
-.home-body .option-boxes {
-  display: flex;
-  flex-direction: row; /* Place buttons next to each other */
-  justify-content: center; /* Center the buttons horizontally */
-  align-items: center; /* Center the buttons vertically */
-  gap: 40px;
-  padding: 20px; /* Adjust as needed */
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.8
-  ); /* Optional: Add background color for better visibility */
-  border-radius: 10px; /* Optional: Add border radius for rounded corners */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add box shadow for better visibility */
+.landing-card {
+  background-color: hsl(0, 0%, 100%);
+  height: 450px;
+  width: 500px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 4.5px 8px 7.5px #000000;
 }
 
-.home-body .option-boxes button {
-  padding: 20px 40px;
-  font-size: 1.125rem;
+.landingcard-title {
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.landingcard-text {
+  margin-bottom: 25px;
+}
+
+.landingcard-buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+.landing-button {
+  margin-top: 70px;
+  height: 54px;
+  width: 200px;
+  font-size: 1rem;
   font-weight: 425;
   cursor: pointer;
-  outline: none;
+  padding: 0.75rem 0;
   background: hsl(201, 69%, 22%);
-  color: hsl(0, 0%, 100%);
-  border-radius: 0.31rem;
   border: 1px solid hsl(0, 0%, 75%);
   box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 0.31rem;
   transition: 0.2s ease;
+  outline: none;
 }
 
-.home-body .option-boxes button:hover {
+.landing-body .landing-button:hover {
   background: hsl(202, 52%, 30%);
 }

@@ -5,7 +5,6 @@ import './CreateTrip.css';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 function CreateTrip() {
-
   //Aldo's updated itinerary modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -97,7 +96,12 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40', groupSize: '2-4'},
+    {
+      name: 'Chilis',
+      imgSrc: '/images/activities/food/chilis.jpg',
+      price: '40',
+      groupSize: '2-4',
+    },
     { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
     { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
     { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
@@ -151,29 +155,31 @@ function CreateTrip() {
         </form>
 
         {/* Render ActivitiesDisplay component */}
-      <ActivitiesDisplay
-        foodOptions={foodOptions}
-        selectedFoods={selectedFoods}
-        handleSelectFood={(name, price) => handleSelect('food', name, price)}
-        entertainmentOptions={entertainmentOptions}
-        selectedEntertainment={selectedEntertainment}
-        handleSelectEntertainment={(name, price) => handleSelect('entertainment', name, price)}
-        outdoorOptions={outdoorOptions}
-        selectedOutdoor={selectedOutdoor}
-        handleSelectOutdoor={(name, price) => handleSelect('outdoor', name, price)}
-      />
-
+        <ActivitiesDisplay
+          foodOptions={foodOptions}
+          selectedFoods={selectedFoods}
+          handleSelectFood={(name, price) => handleSelect('food', name, price)}
+          entertainmentOptions={entertainmentOptions}
+          selectedEntertainment={selectedEntertainment}
+          handleSelectEntertainment={(name, price) =>
+            handleSelect('entertainment', name, price)
+          }
+          outdoorOptions={outdoorOptions}
+          selectedOutdoor={selectedOutdoor}
+          handleSelectOutdoor={(name, price) =>
+            handleSelect('outdoor', name, price)
+          }
+        />
       </div>
 
       {/* Add button to open modal */}
       <button
-        type="button"
+        type='button'
         onClick={handleModalToggle}
-        className="trip-preference-btn"
+        className='trip-preference-btn'
       >
         Trip Preferences
       </button>
-
 
       {/* Conditionally render the modal */}
       {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}

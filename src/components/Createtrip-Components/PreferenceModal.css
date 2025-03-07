@@ -60,11 +60,13 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
-  width: 100%;  /* Make sure title takes up full width for alignment */
+  width: 100%; /* Make sure title takes up full width for alignment */
 }
 
 /* Form Fields */
-input, textarea, select {
+input,
+textarea,
+select {
   padding: 10px;
   margin-top: 8px;
   border: 1px solid #ddd;
@@ -83,7 +85,9 @@ select {
   background-color: #f8f8f8;
 }
 
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   border-color: #4c6ef5;
   outline: none;
 }
