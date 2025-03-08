@@ -19,10 +19,17 @@
 .landingcard-title {
   margin-bottom: 50px;
   font-size: 20px;
+  background-color: hsl(202, 52%, 30%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 5px;
+  padding: 2px;
 }
 
 .landingcard-text {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  text-align: left;
+  padding: 5px;
+  font-size: 18px;
 }
 
 .landingcard-buttons {

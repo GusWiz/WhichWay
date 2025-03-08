@@ -12,14 +12,17 @@ function Landing() {
       <div className='landing-body'>
         <div className='landing-card'>
           <div className='landingcard-title'>
-            <h2>About</h2>
+            <h2>What is WhichWay?</h2>
           </div>
           <div className='landingcard-text'>
             <p>
-              Tired of spending hours searching for things to do? Let AI handle
-              the planning for you! Our smart trip planner finds the best
-              activities based on your preferences and location, then creates a
-              personalized itinerary—so you can focus on enjoying your trip.
+              Tired of spending hours searching for things to do?
+              <br></br>
+              <br></br>
+              Let AI handle the planning for you! Our smart trip planner finds
+              the best activities based on your preferences and location, then
+              creates a personalized itinerary—so you can focus on enjoying your
+              trip.
             </p>
           </div>
           <div className='landingcard-buttons'>
