@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
 // import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
+import './Home.css';
+
+import NavigationBar from '../components/Landing-Components/NavigationBar';
+import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 function CreateTrip() {
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = '/login';
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Aldo's updated itinerary modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -97,7 +109,12 @@ function CreateTrip() {
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: '/images/activities/food/chilis.jpg', price: '40', groupSize: '2-4'},
+    {
+      name: 'Chilis',
+      imgSrc: '/images/activities/food/chilis.jpg',
+      price: '40',
+      groupSize: '2-4',
+    },
     { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
     { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
     { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
@@ -119,64 +136,76 @@ function CreateTrip() {
 
   return (
     <>
-      <div className='title-container'>
-        <h1>Create Trip</h1>
+      <NavigationBar />
+      <div className='home-page'>
+        <div className='home-container'>
+          <Sidebar logout={logout} />
+          <div className='home-contents'>
+            <div className='title-container'>
+              <h1>Create Trip</h1>
+            </div>
+
+            <div>
+              <form action='#' className='form'>
+                <InputField type='text' placeholder='Trip Name' />
+                <InputField type='text' placeholder='Destination' />
+                <InputField type='text' placeholder='Duration' />
+              </form>
+              <label>Budget = $</label>
+              <label id='displayedBudget'>{displayedBudget.budget}</label>
+              <br></br>
+              <label>Cost = $</label>
+              <label id='displayedCost'>{displayedCost.cost}</label>
+              <br></br>
+              <label>Remaining Budget = $</label>
+              <label id='displayedRemainingBudget'>
+                {displayedBudget.budget - displayedCost.cost}
+              </label>
+              <form action='#' className='form' onSubmit={budgetSubmit}>
+                <input
+                  type='number'
+                  name='budget'
+                  placeholder='Budget'
+                  id='budgetInput'
+                  onChange={handleChange}
+                />
+                <button type='submit'>Change Budget</button>
+              </form>
+
+              {/* Render ActivitiesDisplay component */}
+              <ActivitiesDisplay
+                foodOptions={foodOptions}
+                selectedFoods={selectedFoods}
+                handleSelectFood={(name, price) =>
+                  handleSelect('food', name, price)
+                }
+                entertainmentOptions={entertainmentOptions}
+                selectedEntertainment={selectedEntertainment}
+                handleSelectEntertainment={(name, price) =>
+                  handleSelect('entertainment', name, price)
+                }
+                outdoorOptions={outdoorOptions}
+                selectedOutdoor={selectedOutdoor}
+                handleSelectOutdoor={(name, price) =>
+                  handleSelect('outdoor', name, price)
+                }
+              />
+            </div>
+
+            {/* Add button to open modal */}
+            <button
+              type='button'
+              onClick={handleModalToggle}
+              className='trip-preference-btn'
+            >
+              Trip Preferences
+            </button>
+
+            {/* Conditionally render the modal */}
+            {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+          </div>
+        </div>
       </div>
-
-      <div>
-        <form action='#' className='form'>
-          <InputField type='text' placeholder='Trip Name' />
-          <InputField type='text' placeholder='Destination' />
-          <InputField type='text' placeholder='Duration' />
-        </form>
-        <label>Budget = $</label>
-        <label id='displayedBudget'>{displayedBudget.budget}</label>
-        <br></br>
-        <label>Cost = $</label>
-        <label id='displayedCost'>{displayedCost.cost}</label>
-        <br></br>
-        <label>Remaining Budget = $</label>
-        <label id='displayedRemainingBudget'>
-          {displayedBudget.budget - displayedCost.cost}
-        </label>
-        <form action='#' className='form' onSubmit={budgetSubmit}>
-          <input
-            type='number'
-            name='budget'
-            placeholder='Budget'
-            id='budgetInput'
-            onChange={handleChange}
-          />
-          <button type='submit'>Change Budget</button>
-        </form>
-
-        {/* Render ActivitiesDisplay component */}
-      <ActivitiesDisplay
-        foodOptions={foodOptions}
-        selectedFoods={selectedFoods}
-        handleSelectFood={(name, price) => handleSelect('food', name, price)}
-        entertainmentOptions={entertainmentOptions}
-        selectedEntertainment={selectedEntertainment}
-        handleSelectEntertainment={(name, price) => handleSelect('entertainment', name, price)}
-        outdoorOptions={outdoorOptions}
-        selectedOutdoor={selectedOutdoor}
-        handleSelectOutdoor={(name, price) => handleSelect('outdoor', name, price)}
-      />
-
-      </div>
-
-      {/* Add button to open modal */}
-      <button
-        type="button"
-        onClick={handleModalToggle}
-        className="trip-preference-btn"
-      >
-        Trip Preferences
-      </button>
-
-
-      {/* Conditionally render the modal */}
-      {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
     </>
   );
 }

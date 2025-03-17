@@ -12,7 +12,7 @@ function ActivitiesDisplay({
   handleSelectEntertainment,
   outdoorOptions,
   selectedOutdoor,
-  handleSelectOutdoor
+  handleSelectOutdoor,
 }) {
   return (
     <div className='activities-container'>
@@ -35,31 +35,38 @@ function ActivitiesDisplay({
                   name='entertainment'
                   value={item.name}
                   checked={selectedEntertainment.includes(item.name)}
-                  onChange={() => handleSelectEntertainment(item.name, item.price)}
+                  onChange={() =>
+                    handleSelectEntertainment(item.name, item.price)
+                  }
                 />
                 <img
                   src={item.imgSrc}
-                //   alt={"Could not find Image"}
+                  //   alt={"Could not find Image"}
                   className='selectable-image'
                 />
-                 <div className='selectable-title-container'>
-                    <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>
+                <div className='selectable-title-container'>
+                  <span className='selectable-title'>{item.name}</span>
+                  <span className='selectable-title'>${item.price}</span>
 
-                    <span className='selectable-title'>
-                        <img
-                            src='images/icons/person-icon.jpg'
-                            alt='icon'
-                            className='selectable-title-icon'
-                        />
-                        <span className='selectable-title-text'>{item.groupSize}</span>
-
+                  <span className='selectable-title'>
+                    <img
+                      src='images/icons/person-icon.jpg'
+                      alt='icon'
+                      className='selectable-title-icon'
+                    />
+                    <span className='selectable-title-text'>
+                      {item.groupSize}
                     </span>
+                  </span>
                 </div>
 
                 {/*button for functionality */}
                 <button className='selectable-button'>
-                    <img src="/images/icons/expand.jpg" alt="icon" className='selectable-button-icon'/>
+                  <img
+                    src='/images/icons/expand.jpg'
+                    alt='icon'
+                    className='selectable-button-icon'
+                  />
                 </button>
               </label>
             ))}
@@ -67,7 +74,6 @@ function ActivitiesDisplay({
         </div>
 
         <br />
-
 
         {/* Food Selection */}
         <div className='category'>
@@ -89,30 +95,33 @@ function ActivitiesDisplay({
                 />
                 <img
                   src={item.imgSrc}
-                //   alt={item.name}
+                  //   alt={item.name}
                   className='selectable-image'
                 />
                 <div className='selectable-title-container'>
-                    <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>
+                  <span className='selectable-title'>{item.name}</span>
+                  <span className='selectable-title'>${item.price}</span>
 
-                    <span className='selectable-title'>
-                        <img
-                            src='images/icons/person-icon.jpg'
-                            alt='icon'
-                            className='selectable-title-icon'
-                        />
-                        <span className='selectable-title-text'>{item.groupSize}</span>
-
+                  <span className='selectable-title'>
+                    <img
+                      src='images/icons/person-icon.jpg'
+                      alt='icon'
+                      className='selectable-title-icon'
+                    />
+                    <span className='selectable-title-text'>
+                      {item.groupSize}
                     </span>
+                  </span>
                 </div>
 
                 {/*button for functionality */}
                 <button className='selectable-button'>
-                    <img src="/images/icons/expand.jpg" alt="icon" className='selectable-button-icon'/>
+                  <img
+                    src='/images/icons/expand.jpg'
+                    alt='icon'
+                    className='selectable-button-icon'
+                  />
                 </button>
-
-
               </label>
             ))}
           </div>
@@ -140,27 +149,32 @@ function ActivitiesDisplay({
                 />
                 <img
                   src={item.imgSrc}
-                //   alt={item.name}
+                  //   alt={item.name}
                   className='selectable-image'
                 />
-                 <div className='selectable-title-container'>
-                    <span className='selectable-title'>{item.name}</span>
-                    <span className='selectable-title'>${item.price}</span>
+                <div className='selectable-title-container'>
+                  <span className='selectable-title'>{item.name}</span>
+                  <span className='selectable-title'>${item.price}</span>
 
-                    <span className='selectable-title'>
-                        <img
-                            src='images/icons/person-icon.jpg'
-                            alt='icon'
-                            className='selectable-title-icon'
-                        />
-                        <span className='selectable-title-text'>{item.groupSize}</span>
-
+                  <span className='selectable-title'>
+                    <img
+                      src='images/icons/person-icon.jpg'
+                      alt='icon'
+                      className='selectable-title-icon'
+                    />
+                    <span className='selectable-title-text'>
+                      {item.groupSize}
                     </span>
+                  </span>
                 </div>
 
                 {/*button for functionality */}
                 <button className='selectable-button'>
-                    <img src="/images/icons/expand.jpg" alt="icon" className='selectable-button-icon'/>
+                  <img
+                    src='/images/icons/expand.jpg'
+                    alt='icon'
+                    className='selectable-button-icon'
+                  />
                 </button>
               </label>
             ))}
@@ -168,8 +182,6 @@ function ActivitiesDisplay({
         </div>
 
         <br />
-
-
       </div>
     </div>
   );
@@ -184,7 +196,7 @@ ActivitiesDisplay.propTypes = {
   handleSelectEntertainment: PropTypes.func.isRequired,
   outdoorOptions: PropTypes.array.isRequired,
   selectedOutdoor: PropTypes.array.isRequired,
-  handleSelectOutdoor: PropTypes.func.isRequired
+  handleSelectOutdoor: PropTypes.func.isRequired,
 };
 
 export default ActivitiesDisplay;
