@@ -11,7 +11,8 @@ export const fetchActivitySuggestions = async (userId) => {
       throw new Error("Missing user trip details.");
     }
 
-    //api request
+    //make api request
+
     const endpoint = "suggest-activities";
     const url = `${AI_API_BASE_URL}/${endpoint}`;
 
