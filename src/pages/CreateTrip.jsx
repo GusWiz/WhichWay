@@ -358,6 +358,11 @@ function CreateTrip() {
               />
             </div>
 
+            <button 
+              type = 'button' >
+              save activities
+            </button>
+
             {/* Add button to open modal */}
             <button
               type='button'
