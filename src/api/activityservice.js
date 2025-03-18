@@ -1,19 +1,24 @@
-// src/api/activityService.js
-const AI_API_BASE_URL = "https://api.example.com"; // Replace with actual API base URL
+import { fetchUserInfo } from "../firestore";
 
-export const fetchActivitySuggestions = async (destination, preferences) => {
-  const endpoint = "suggest-activities"; // Replace with actual endpoint
-  const url = `${AI_API_BASE_URL}/${endpoint}`;
-  const body = { destination, preferences };
+const AI_API_BASE_URL = "https://api.example.com"; //replace later
 
+export const fetchActivitySuggestions = async (userId) => {
   try {
+    //fetch user details from firestore
+    const { destination, duration, preferences, selectedActivities } = await fetchUserInfo(userId);
+
+    if (!destination || !duration || !preferences.length) {
+      throw new Error("Missing user trip details.");
+    }
+
+    //api request
+    const endpoint = "suggest-activities";
+    const url = `${AI_API_BASE_URL}/${endpoint}`;
+
     const response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Add any other headers (e.g., authorization tokens) here
-      },
-      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ destination, duration, preferences, selectedActivities }),
     });
 
     if (!response.ok) {
@@ -21,7 +26,7 @@ export const fetchActivitySuggestions = async (destination, preferences) => {
     }
 
     const data = await response.json();
-    return data.activities; // Adjust based on API response structure
+    return data.activities;
   } catch (error) {
     console.error("Error fetching activity suggestions:", error);
     throw error;
