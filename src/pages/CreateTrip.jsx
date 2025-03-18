@@ -39,12 +39,20 @@ function CreateTrip() {
     cost: '0',
   });
 
+  // const handleCostChange = (price) => {
+  //   const currCost = parseInt(displayedCost.cost);
+  //   // const activityPrice = parseInt(price);
+  //   // const sum = currCost + activityPrice;
+  //   console.log(displayedCost.cost);
+  //   setDisplayedCost((prev) => {
+  //     return { ...prev, cost: currCost + parseInt(price)};
+  //   });
+  // };
+
   const handleCostChange = (price) => {
-    const currCost = parseInt(displayedCost.cost);
-    const activityPrice = parseInt(price);
-    const sum = currCost + activityPrice;
-    setDisplayedCost((prev) => {
-      return { ...prev, cost: sum };
+    setDisplayedCost((prevCost) => {
+      const currCost = parseInt(prevCost.cost); // Using the previous state value directly
+      return { ...prevCost, cost: currCost + parseInt(price) };
     });
   };
 
@@ -73,6 +81,33 @@ function CreateTrip() {
     
     console.log(details);
   };
+
+  const budgetTest = () => {
+    setDisplayedBudget((prev) => {
+      return { ...prev, budget: 100};
+    });
+
+    setDetails((prev) => {
+      return { ...prev, budget: 100 };
+    });
+
+    budgetSubmit;
+
+    
+    setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
+    setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
+    setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
+
+    setTimeout(() => {setDetails((prev) => {
+      return { ...prev, budget: 20 };
+    });
+    budgetSubmit;
+    }, 4000);
+    
+
+    
+    
+  }
   // end of Vinny's functions
 
   // const navigate = useNavigate();
@@ -82,6 +117,7 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
+    
       switch (category) {
         case 'food':
           if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedFoods.includes(value)) {
@@ -101,6 +137,7 @@ function CreateTrip() {
         case 'entertainment':
           if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedEntertainment.includes(value)) {
             return toast("Error: Cost would be more than Budget.");
+            break;
           }
           else {
             selectedEntertainment.includes(value)
@@ -116,6 +153,7 @@ function CreateTrip() {
         case 'outdoor':
           if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedOutdoor.includes(value)) {
             return toast("Error: Cost would be more than Budget.");
+            break;
           }
           else {
             selectedOutdoor.includes(value)
@@ -195,6 +233,7 @@ function CreateTrip() {
                   onChange={handleChange}
                 />
                 <button type='submit'>Change Budget</button>
+                <button onClick={budgetTest}>{displayedBudget.budget == 103 ? "Budget Unit Test 1" : ""}</button>
               </form>
 
               {/* Render ActivitiesDisplay component */}
