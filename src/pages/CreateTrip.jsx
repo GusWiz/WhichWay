@@ -33,7 +33,7 @@ function CreateTrip() {
     cost: '0',
   });
   const [displayedBudget, setDisplayedBudget] = useState({
-    budget: '',
+    budget: 'NULL',
   });
   const [displayedCost, setDisplayedCost] = useState({
     cost: '0',
@@ -177,14 +177,14 @@ function CreateTrip() {
                 <InputField type='text' placeholder='Duration' />
               </form>
               <label>{displayedBudget.budget >= 0 ? "Budget = $" : "No budget entered."}</label>
-              <label id='displayedBudget'>{displayedBudget.budget}</label>
+              <label id='displayedBudget'>{displayedBudget.budget >= 0 ? displayedBudget.budget : ""}</label>
               <br></br>
               <label>Cost = $</label>
               <label id='displayedCost'>{displayedCost.cost}</label>
               <br></br>
-              <label>Remaining Budget = $</label>
+              <label>{displayedBudget.budget >= 0 ? "Remaining Budget = $" : ""}</label>
               <label id='displayedRemainingBudget'>
-                {displayedBudget.budget - displayedCost.cost}
+                {displayedBudget.budget >= 0 ? displayedBudget.budget - displayedCost.cost: ""}
               </label>
               <form action='#' className='form' onSubmit={budgetSubmit}>
                 <input
