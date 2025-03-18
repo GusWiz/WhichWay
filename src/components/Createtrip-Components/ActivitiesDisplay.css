@@ -162,7 +162,7 @@
 .selectable-button {
   position: absolute;
   bottom: 10px; /* Distance from the bottom of the box */
-  left: 10px;   /* Distance from the left side of the box */
+  left: 10px; /* Distance from the left side of the box */
   background-color: transparent; /* Green background color (you can change it) */
   border: 2px solid #252525;
   border-radius: 5px;
@@ -177,10 +177,10 @@
 
 /* Icon inside the button */
 .selectable-button-icon {
-  width: 30px;  /* Adjust the width as needed */
+  width: 30px; /* Adjust the width as needed */
   height: 30px; /* Adjust the height as needed */
   object-fit: contain; /* Ensures the image scales while keeping its aspect ratio */
-  display: block;  /* Prevents any inline display issues */
+  display: block; /* Prevents any inline display issues */
 }
 /* Optional: Add a hover effect for the button */
 .selectable-button:hover {

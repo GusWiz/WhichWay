@@ -5,10 +5,10 @@ import ErrorBoundary from './ErrorBoundary';
 
 function Sidebar({ logout }) {
   let SidebarData = []; // Arrary represent list of items that will be display in the side bar
-  try{
+  try {
     SidebarData = getSidebarData(logout);
   } catch (error) {
-    console.errorr("Error fetching sidebar data", error)
+    console.errorr('Error fetching sidebar data', error);
   }
 
   return (

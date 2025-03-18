@@ -1,12 +1,4 @@
 /* Enlarging the main container */
-.container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  background-color: #f8f8f8;
-  border-radius: 10px;
-}
 
 .title-container {
   display: flex;

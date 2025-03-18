@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import React from 'react';
+import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import TriponHome from '../components/Homepage-Components/TriponHome';
 import './Home.css';
@@ -17,9 +18,7 @@ function Home() {
 
   return (
     <>
-      <header>
-        <h1>WhichWay</h1>
-      </header>
+      <NavigationBar />
       <div className='home-page'>
         <div className='home-container'>
           <Sidebar logout={logout} />
