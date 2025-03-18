@@ -1,7 +1,7 @@
 .Sidebar {
   height: 100%;
   width: 250px;
-  background-color: #2f4050;
+  background-color: hsl(201, 69%, 22%);
 }
 
 .SidebarList {
@@ -24,11 +24,11 @@
 
 .SidebarList .row:hover {
   cursor: pointer;
-  background-color: #293846;
+  background-color: hsl(202, 52%, 30%);
 }
 
 .SidebarList #active {
-  background-color: #293846;
+  background-color: hsl(202, 52%, 30%);
 }
 .row #icon {
   flex: 30%;

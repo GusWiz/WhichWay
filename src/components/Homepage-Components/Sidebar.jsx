@@ -1,11 +1,18 @@
 import React from 'react';
 import './Sidebar.css';
 import { getSidebarData } from './SidebarData';
+import ErrorBoundary from './ErrorBoundary';
 
 function Sidebar({ logout }) {
-  const SidebarData = getSidebarData(logout);
+  let SidebarData = []; // Arrary represent list of items that will be display in the side bar
+  try {
+    SidebarData = getSidebarData(logout);
+  } catch (error) {
+    console.errorr('Error fetching sidebar data', error);
+  }
+
   return (
-    <>
+    <ErrorBoundary>
       <div className='Sidebar'>
         <ul className='SidebarList'>
           {SidebarData.map((val, key) => {
@@ -30,7 +37,7 @@ function Sidebar({ logout }) {
           })}
         </ul>
       </div>
-    </>
+    </ErrorBoundary>
   );
 }
 

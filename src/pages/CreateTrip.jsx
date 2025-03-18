@@ -1,9 +1,31 @@
 import React, { useState } from 'react';
 import InputField from '../components/Login-Components/InputField';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
+import './Home.css';
 
+import NavigationBar from '../components/Landing-Components/NavigationBar';
+import Sidebar from '../components/Homepage-Components/Sidebar';
+import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
+import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
+import { ToastContainer, toast } from 'react-toastify';
 function CreateTrip() {
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      window.location.href = '/login';
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //Aldo's updated itinerary modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen); // Toggle the modal visibility
+  };
+
   //Vinny's functions
 
   const [details, setDetails] = useState({
@@ -37,60 +59,91 @@ function CreateTrip() {
 
   const budgetSubmit = (event) => {
     event.preventDefault();
-    setDisplayedBudget((prev) => {
-      return { ...prev, budget: details.budget };
-    });
+    if (details.budget < 0) {
+      return toast("Error: Invalid Budget Entered.");
+    } 
+    else if (details.budget < displayedCost.cost){
+      return toast("Error: Budget would be less than Cost.");
+    }
+    else{
+      setDisplayedBudget((prev) => {
+        return { ...prev, budget: details.budget };
+      });
+    }
+    
     console.log(details);
   };
   // end of Vinny's functions
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // Aaron's functions
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
-    switch (category) {
-      case 'food':
-        selectedFoods.includes(value)
-          ? handleCostChange(price * -1)
-          : handleCostChange(price);
-        setSelectedFoods((prev) =>
-          prev.includes(value)
-            ? prev.filter((item) => item !== value)
-            : [...prev, value]
-        );
-        break;
-      case 'entertainment':
-        selectedEntertainment.includes(value)
-          ? handleCostChange(price * -1)
-          : handleCostChange(price);
-        setSelectedEntertainment((prev) =>
-          prev.includes(value)
-            ? prev.filter((item) => item !== value)
-            : [...prev, value]
-        );
-        break;
-      case 'outdoor':
-        selectedOutdoor.includes(value)
-          ? handleCostChange(price * -1)
-          : handleCostChange(price);
-        setSelectedOutdoor((prev) =>
-          prev.includes(value)
-            ? prev.filter((item) => item !== value)
-            : [...prev, value]
-        );
-        break;
-      default:
-        break;
-    }
+      switch (category) {
+        case 'food':
+          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedFoods.includes(value)) {
+            return toast("Error: Cost would be more than Budget.");
+          }
+          else {
+            selectedFoods.includes(value)
+              ? handleCostChange(price * -1)
+              : handleCostChange(price);
+            setSelectedFoods((prev) =>
+              prev.includes(value)
+                ? prev.filter((item) => item !== value)
+                : [...prev, value]
+            );
+          }
+          break;
+        case 'entertainment':
+          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedEntertainment.includes(value)) {
+            return toast("Error: Cost would be more than Budget.");
+          }
+          else {
+            selectedEntertainment.includes(value)
+              ? handleCostChange(price * -1)
+              : handleCostChange(price);
+            setSelectedEntertainment((prev) =>
+              prev.includes(value)
+                ? prev.filter((item) => item !== value)
+                : [...prev, value]
+            );
+          }
+          break;
+        case 'outdoor':
+          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedOutdoor.includes(value)) {
+            return toast("Error: Cost would be more than Budget.");
+          }
+          else {
+            selectedOutdoor.includes(value)
+              ? handleCostChange(price * -1)
+              : handleCostChange(price);
+            setSelectedOutdoor((prev) =>
+              prev.includes(value)
+                ? prev.filter((item) => item !== value)
+                : [...prev, value]
+            );
+          }
+          break;
+        default:
+          break;
+      }
   };
 
   const foodOptions = [
-    { name: 'Chilis', imgSrc: 'chilis.jpg', price: '40' },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25' },
+    {
+      name: 'Chilis',
+      imgSrc: '/images/activities/food/chilis.jpg',
+      price: '40',
+      groupSize: '2-4',
+    },
+    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
+    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
+    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
+    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: ':P' },
   ];
 
   const entertainmentOptions = [
@@ -257,119 +310,71 @@ function CreateTrip() {
                 </label>
               ))}
             </div>
-          </div>
 
-          {/* Food Selection */}
-          <div className='category'>
-            <h2 className='form-title'>Food</h2>
-            <div className='selectable-container'>
-              {foodOptions.map((food) => (
-                <label
-                  key={food.name}
-                  className={`selectable-box ${
-                    selectedFoods.includes(food.name) ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type='checkbox'
-                    name='food'
-                    value={food.name}
-                    checked={selectedFoods.includes(food.name)}
-                    onChange={() => handleSelect('food', food.name, food.price)}
-                  />
-                  <img
-                    src={food.imgSrc}
-                    alt={food.name}
-                    className='selectable-image'
-                  />
-                  {/* <span className='selectable-title'>{food.name}</span> */}
-                  <span className='selectable-price'>${food.price}</span>
-                </label>
-              ))}
-            </div>
-          </div>
+            <div>
+              <form action='#' className='form'>
+                <InputField type='text' placeholder='Trip Name' />
+                <InputField type='text' placeholder='Destination' />
+                <InputField type='text' placeholder='Duration' />
+              </form>
+              <label>{displayedBudget.budget >= 0 ? "Budget = $" : "No budget entered."}</label>
+              <label id='displayedBudget'>{displayedBudget.budget}</label>
+              <br></br>
+              <label>Cost = $</label>
+              <label id='displayedCost'>{displayedCost.cost}</label>
+              <br></br>
+              <label>Remaining Budget = $</label>
+              <label id='displayedRemainingBudget'>
+                {displayedBudget.budget - displayedCost.cost}
+              </label>
+              <form action='#' className='form' onSubmit={budgetSubmit}>
+                <input
+                  type='number'
+                  name='budget'
+                  placeholder='Budget'
+                  id='budgetInput'
+                  onChange={handleChange}
+                />
+                <button type='submit'>Change Budget</button>
+              </form>
 
-          {/* Outdoor Selection */}
-          <div className='category'>
-            <h2 className='form-title'>Outdoor</h2>
-            <div className='selectable-container'>
-              {outdoorOptions.map((item) => (
-                <label
-                  key={item.name}
-                  className={`selectable-box ${
-                    selectedOutdoor.includes(item.name) ? 'selected' : ''
-                  }`}
-                >
-                  <input
-                    type='checkbox'
-                    name='outdoor'
-                    value={item.name}
-                    checked={selectedOutdoor.includes(item.name)}
-                    onChange={() =>
-                      handleSelect('outdoor', item.name, item.price)
-                    }
-                  />
-                  <img
-                    src={item.imgSrc}
-                    alt={item.name}
-                    className='selectable-image'
-                  />
-                  {/* <span className='selectable-title'>{item.name}</span> */}
-                  <span className='selectable-price'>${item.price}</span>
-                </label>
-              ))}
+              {/* Render ActivitiesDisplay component */}
+              <ActivitiesDisplay
+                foodOptions={foodOptions}
+                selectedFoods={selectedFoods}
+                handleSelectFood={(name, price) =>
+                  handleSelect('food', name, price)
+                }
+                entertainmentOptions={entertainmentOptions}
+                selectedEntertainment={selectedEntertainment}
+                handleSelectEntertainment={(name, price) =>
+                  handleSelect('entertainment', name, price)
+                }
+                outdoorOptions={outdoorOptions}
+                selectedOutdoor={selectedOutdoor}
+                handleSelectOutdoor={(name, price) =>
+                  handleSelect('outdoor', name, price)
+                }
+              />
             </div>
+
+            {/* Add button to open modal */}
+            <button
+              type='button'
+              onClick={handleModalToggle}
+              className='trip-preference-btn'
+            >
+              Trip Preferences
+            </button>
+
+
+            {/* Conditionally render the modal */}
+            {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+            <ToastContainer />
           </div>
         </div>
       </div>
-
-      {/* Current Itinerary Container */}
-      <div className='itinerary-container'>
-        <h2>Current Itinerary</h2>
-
-        <div className='itinerary-section'>
-          <h3>Food</h3>
-          <ul>
-            {selectedFoods.map((food) => (
-              <li key={food}>{food}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className='itinerary-section'>
-          <h3>Outdoor</h3>
-          <ul>
-            {selectedOutdoor.map((outdoor) => (
-              <li key={outdoor}>{outdoor}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className='itinerary-section'>
-          <h3>Entertainment</h3>
-          <ul>
-            {selectedEntertainment.map((entertainment) => (
-              <li key={entertainment}>{entertainment}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Standard Button Added Here */}
-        <button
-          className='standard-button'
-          onClick={() =>
-            navigate('/Itinerary', {
-              state: {
-                selectedFoods,
-                selectedEntertainment,
-                selectedOutdoor,
-              },
-            })
-          }
-        >
-          Create Itinerary
-        </button>
-      </div>
+      
     </>
   );
 }
