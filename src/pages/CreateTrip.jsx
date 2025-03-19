@@ -60,17 +60,15 @@ function CreateTrip() {
   const budgetSubmit = (event) => {
     event.preventDefault();
     if (details.budget < 0) {
-      return toast("Error: Invalid Budget Entered.");
-    } 
-    else if (details.budget < displayedCost.cost){
-      return toast("Error: Budget would be less than Cost.");
-    }
-    else{
+      return toast('Error: Invalid Budget Entered.');
+    } else if (details.budget < displayedCost.cost) {
+      return toast('Error: Budget would be less than Cost.');
+    } else {
       setDisplayedBudget((prev) => {
         return { ...prev, budget: details.budget };
       });
     }
-    
+
     console.log(details);
   };
   // end of Vinny's functions
@@ -82,55 +80,61 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
-      switch (category) {
-        case 'food':
-          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedFoods.includes(value)) {
-            return toast("Error: Cost would be more than Budget.");
-          }
-          else {
-            selectedFoods.includes(value)
-              ? handleCostChange(price * -1)
-              : handleCostChange(price);
-            setSelectedFoods((prev) =>
-              prev.includes(value)
-                ? prev.filter((item) => item !== value)
-                : [...prev, value]
-            );
-          }
-          break;
-        case 'entertainment':
-          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedEntertainment.includes(value)) {
-            return toast("Error: Cost would be more than Budget.");
-          }
-          else {
-            selectedEntertainment.includes(value)
-              ? handleCostChange(price * -1)
-              : handleCostChange(price);
-            setSelectedEntertainment((prev) =>
-              prev.includes(value)
-                ? prev.filter((item) => item !== value)
-                : [...prev, value]
-            );
-          }
-          break;
-        case 'outdoor':
-          if (displayedBudget.budget - displayedCost.cost - price < 0 && !selectedOutdoor.includes(value)) {
-            return toast("Error: Cost would be more than Budget.");
-          }
-          else {
-            selectedOutdoor.includes(value)
-              ? handleCostChange(price * -1)
-              : handleCostChange(price);
-            setSelectedOutdoor((prev) =>
-              prev.includes(value)
-                ? prev.filter((item) => item !== value)
-                : [...prev, value]
-            );
-          }
-          break;
-        default:
-          break;
-      }
+    switch (category) {
+      case 'food':
+        if (
+          displayedBudget.budget - displayedCost.cost - price < 0 &&
+          !selectedFoods.includes(value)
+        ) {
+          return toast('Error: Cost would be more than Budget.');
+        } else {
+          selectedFoods.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price);
+          setSelectedFoods((prev) =>
+            prev.includes(value)
+              ? prev.filter((item) => item !== value)
+              : [...prev, value]
+          );
+        }
+        break;
+      case 'entertainment':
+        if (
+          displayedBudget.budget - displayedCost.cost - price < 0 &&
+          !selectedEntertainment.includes(value)
+        ) {
+          return toast('Error: Cost would be more than Budget.');
+        } else {
+          selectedEntertainment.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price);
+          setSelectedEntertainment((prev) =>
+            prev.includes(value)
+              ? prev.filter((item) => item !== value)
+              : [...prev, value]
+          );
+        }
+        break;
+      case 'outdoor':
+        if (
+          displayedBudget.budget - displayedCost.cost - price < 0 &&
+          !selectedOutdoor.includes(value)
+        ) {
+          return toast('Error: Cost would be more than Budget.');
+        } else {
+          selectedOutdoor.includes(value)
+            ? handleCostChange(price * -1)
+            : handleCostChange(price);
+          setSelectedOutdoor((prev) =>
+            prev.includes(value)
+              ? prev.filter((item) => item !== value)
+              : [...prev, value]
+          );
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   const foodOptions = [
@@ -176,7 +180,11 @@ function CreateTrip() {
                 <InputField type='text' placeholder='Destination' />
                 <InputField type='text' placeholder='Duration' />
               </form>
-              <label>{displayedBudget.budget >= 0 ? "Budget = $" : "No budget entered."}</label>
+              <label>
+                {displayedBudget.budget >= 0
+                  ? 'Budget = $'
+                  : 'No budget entered.'}
+              </label>
               <label id='displayedBudget'>{displayedBudget.budget}</label>
               <br></br>
               <label>Cost = $</label>
@@ -226,14 +234,12 @@ function CreateTrip() {
               Trip Preferences
             </button>
 
-
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
           </div>
         </div>
       </div>
-      
     </>
   );
 }

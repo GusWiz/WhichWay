@@ -7,7 +7,16 @@
   display: flex;
   width: 100%;
 }
-.home-container .home-contents {
+.home-contents {
   width: 100%;
+  margin-left: 17%;
+  margin-right: 2%;
+  display: flex;
+}
+
+.home-card {
+  width: 70%;
+  height: auto;
+  margin: 1%;
   border: 1px solid black;
 }
