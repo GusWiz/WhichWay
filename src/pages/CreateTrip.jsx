@@ -4,6 +4,7 @@ import InputField from '../components/Login-Components/InputField';
 import './CreateTrip.css';
 import './Home.css';
 
+import { getSavedActivities, saveActivities } from '../backend/dataCollect'
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
@@ -81,6 +82,12 @@ function CreateTrip() {
     console.log(selectedEntertainment); 
     console.log(selectedFoods); 
     console.log(selectedOutdoor);
+
+    saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+
+    const savedActivities = getSavedActivities();
+    console.log(savedActivities);
+
   };
   
 

@@ -1,6 +1,6 @@
 // ActivitiesDisplay.jsx
 import React from 'react';
-import PropTypes from 'prop-types'; // For type checking (optional)
+import PropTypes from 'prop-types'; 
 import './ActivitiesDisplay.css';
 
 function ActivitiesDisplay({
