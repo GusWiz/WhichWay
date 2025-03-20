@@ -76,7 +76,11 @@ function CreateTrip() {
   // const navigate = useNavigate();
   // Aaron's functions
 
-  const handleSaveActivities = () => console.log(selectedFoods); 
+  const handleSaveActivities = () => {
+    console.log(selectedEntertainment); 
+    console.log(selectedFoods); 
+    console.log(selectedOutdoor);
+  };
   
 
   const [selectedFoods, setSelectedFoods] = useState([]);
