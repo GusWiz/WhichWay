@@ -75,6 +75,8 @@ function CreateTrip() {
 
   // const navigate = useNavigate();
   // Aaron's functions
+
+  const handleSaveActivities = () => console.log(selectedFoods); 
   
 
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -82,6 +84,7 @@ function CreateTrip() {
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, value, price) => {
+    
     switch (category) {
       case 'food':
         if (
@@ -143,6 +146,7 @@ function CreateTrip() {
       default:
         break;
     }
+
   };
 
   const foodOptions = [
@@ -217,9 +221,9 @@ function CreateTrip() {
               <ActivitiesDisplay
                 foodOptions={foodOptions}
                 selectedFoods={selectedFoods}
-                handleSelectFood={(name, price) =>
+                handleSelectFood={(name, price) => {
                   handleSelect('food', name, price)
-                }
+                }}
                 entertainmentOptions={entertainmentOptions}
                 selectedEntertainment={selectedEntertainment}
                 handleSelectEntertainment={(name, price) =>
@@ -244,7 +248,7 @@ function CreateTrip() {
 
             <button
               type='button'
-              //onClick={handleSaveActivities}
+              onClick={handleSaveActivities}
               className='trip-preference-btn'
             >
               Save Selections
