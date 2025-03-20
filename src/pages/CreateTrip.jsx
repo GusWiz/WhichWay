@@ -77,6 +77,7 @@ function CreateTrip() {
   // Aaron's functions
 
   const handleSaveActivities = () => {
+    console.log("displaying current selections: ")
     console.log(selectedEntertainment); 
     console.log(selectedFoods); 
     console.log(selectedOutdoor);
@@ -87,64 +88,46 @@ function CreateTrip() {
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
-  const handleSelect = (category, value, price) => {
-    
+  const handleSelect = (category, item) => {
+  
     switch (category) {
       case 'food':
-        if (
-          displayedBudget.budget - displayedCost.cost - price < 0 &&
-          !selectedFoods.includes(value)
-        ) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
-        } 
-        else 
-        {
-          selectedFoods.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price);
-          setSelectedFoods((prev) =>
-            prev.includes(value)
-              ? prev.filter((item) => item !== value)
-              : [...prev, value]
-          );
+        } else {
+          if (selectedFoods.some(food => food.name === item.name)) {
+            handleCostChange(item.price * -1);
+            setSelectedFoods(prev => prev.filter(food => food.name !== item.name));  // Remove item by name
+          } else {
+            handleCostChange(item.price);
+            setSelectedFoods(prev => [...prev, item]);  // Add the item to the selected foods
+          }
         }
         break;
       case 'entertainment':
-        if (
-          displayedBudget.budget - displayedCost.cost - price < 0 &&
-          !selectedEntertainment.includes(value)
-        ) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
-        } 
-        else
-        {
-          selectedEntertainment.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price);
-          setSelectedEntertainment((prev) =>
-            prev.includes(value)
-              ? prev.filter((item) => item !== value)
-              : [...prev, value]
-          );
+        } else {
+          if (selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
+            handleCostChange(item.price * -1);
+            setSelectedEntertainment(prev => prev.filter(entertainment => entertainment.name !== item.name));  // Remove item by name
+          } else {
+            handleCostChange(item.price);
+            setSelectedEntertainment(prev => [...prev, item]);  // Add the item to the selected foods
+          }
         }
         break;
       case 'outdoor':
-        if (
-          displayedBudget.budget - displayedCost.cost - price < 0 &&
-          !selectedOutdoor.includes(value)
-        ) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
-        } 
-        else 
-        {
-          selectedOutdoor.includes(value)
-            ? handleCostChange(price * -1)
-            : handleCostChange(price);
-          setSelectedOutdoor((prev) =>
-            prev.includes(value)
-              ? prev.filter((item) => item !== value)
-              : [...prev, value]
-          );
+        } else {
+          if (selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
+            handleCostChange(item.price * -1);
+            setSelectedOutdoor(prev => prev.filter(outdoor => outdoor.name !== item.name));  // Remove item by name
+          } else {
+            handleCostChange(item.price);
+            setSelectedOutdoor(prev => [...prev, item]);  // Add the item to the selected foods
+          }
         }
         break;
       default:
@@ -225,18 +208,18 @@ function CreateTrip() {
               <ActivitiesDisplay
                 foodOptions={foodOptions}
                 selectedFoods={selectedFoods}
-                handleSelectFood={(name, price) => {
-                  handleSelect('food', name, price)
+                handleSelectFood={(item) => {
+                  handleSelect('food', item)
                 }}
                 entertainmentOptions={entertainmentOptions}
                 selectedEntertainment={selectedEntertainment}
-                handleSelectEntertainment={(name, price) =>
-                  handleSelect('entertainment', name, price)
+                handleSelectEntertainment={(item) =>
+                  handleSelect('entertainment', item)
                 }
                 outdoorOptions={outdoorOptions}
                 selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(name, price) =>
-                  handleSelect('outdoor', name, price)
+                handleSelectOutdoor={(item) =>
+                  handleSelect('outdoor', item)
                 }
               />
             </div>

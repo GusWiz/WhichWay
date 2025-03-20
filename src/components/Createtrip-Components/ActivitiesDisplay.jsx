@@ -27,16 +27,16 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedEntertainment.includes(item.name) ? 'selected' : ''
+                  selectedEntertainment.some(entertainment => entertainment.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='entertainment'
                   value={item.name}
-                  checked={selectedEntertainment.includes(item.name)}
+                  checked={selectedEntertainment.some(entertainment => entertainment.name === item.name)}
                   onChange={() =>
-                    handleSelectEntertainment(item.name, item.price)
+                    handleSelectEntertainment(item)
                   }
                 />
                 <img
@@ -83,15 +83,15 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedFoods.includes(item.name) ? 'selected' : ''
+                  selectedFoods.some(food => food.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='food'
                   value={item.name}
-                  checked={selectedFoods.includes(item.name)}
-                  onChange={() => handleSelectFood(item.name, item.price)}
+                  checked={selectedEntertainment.some(food => food.name === item.name)}
+                  onChange={() => handleSelectFood(item)}
                 />
                 <img
                   src={item.imgSrc}
@@ -137,15 +137,15 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedOutdoor.includes(item.name) ? 'selected' : ''
+                  selectedOutdoor.some(outdoor => outdoor.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='outdoor'
                   value={item.name}
-                  checked={selectedOutdoor.includes(item.name)}
-                  onChange={() => handleSelectOutdoor(item.name, item.price)}
+                  checked={selectedEntertainment.some(outdoor => outdoor.name === item.name)}
+                  onChange={() => handleSelectOutdoor(item)}
                 />
                 <img
                   src={item.imgSrc}
