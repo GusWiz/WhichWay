@@ -4,7 +4,7 @@ import InputField from '../components/Login-Components/InputField';
 import './CreateTrip.css';
 import './Home.css';
 
-import { getSavedActivities, saveActivities } from '../backend/dataCollect'
+import { getSavedActivities, saveActivities, saveDetails } from '../backend/dataCollect'
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
@@ -89,6 +89,11 @@ function CreateTrip() {
     console.log(savedActivities);
 
   };
+
+  const handleSaveDetails = () => 
+  {
+    saveDetails(name)
+  }
   
 
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -210,6 +215,14 @@ function CreateTrip() {
                 />
                 <button type='submit'>Change Budget</button>
               </form>
+              
+              <button
+                type='button'
+                onClick={handleSaveDetails}
+                className='trip-preference-btn'
+              >
+                Save Trip Details
+              </button>
 
               {/* Render ActivitiesDisplay component */}
               <ActivitiesDisplay
@@ -247,6 +260,8 @@ function CreateTrip() {
             >
               Save Selections
             </button>
+
+            
 
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}

@@ -1,10 +1,19 @@
 //HANDLE TRIP DETAIL
-const tripDetails = new Map([
-    ["name", null],
-    ["Destination", null],
-    ["Duration", null],
-]);
+let tripDetails = {
+    name: null,
+    destination: null,
+    duration: null,
+    budget: null,
+  };
 
+function saveDetails (name, destination, duration, budget)
+{
+    tripDetails.name = name;
+    tripDetails.destination = destination;
+    tripDetails.duration = duration;
+    tripDetails.budget = budget;
+
+}
 
 // HANDLE ACTIVITIES
 let selectedFoods = [];
@@ -28,26 +37,31 @@ function getSavedActivities() {
 
 
 //HANDLE ACTIVITY PREFERENCES 
-const preferencesMap = new Map([
-    ["destination", null],
-    ["cuisine", null],
-    ["activityType", null],
-    ["budget", null],
-    ["transportation", null],
-    ["moreDetails", null],
-]);
+let preferences = {
+    destination: null,
+    cuisine: null,
+    activityType: null,
+    budget: null,
+    transportation: null,
+    moreDetails: null,
+  };
+  
 
-function collectPreferences (destination = null, cuisine = null, activityType = null, budget = null, transportation = null, moreDetails = null)
+function collectPreferences(destination, cuisine, activityType, budget, transportation, moreDetails) {
+    preferences.destination = destination;
+    preferences.cuisine = cuisine;
+    preferences.activityType = activityType;
+    preferences.budget = budget;
+    preferences.transportation = transportation;
+    preferences.moreDetails = moreDetails;
+  }
+
+function getPreferences() 
 {
-
-    preferencesMap.set("destination", destination);
-    preferencesMap.set("cuisine", cuisine);
-    preferencesMap.set("activityType", activityType);
-    preferencesMap.set("budget", budget);
-    preferencesMap.set("transportation", transportation);
-    preferencesMap.set("moreDetails", moreDetails);
-    
+    return preferences;
 }
 
 
 export { saveActivities, getSavedActivities };
+export { collectPreferences, getPreferences };
+export {saveDetails}
