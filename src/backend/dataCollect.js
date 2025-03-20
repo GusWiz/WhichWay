@@ -8,6 +8,8 @@ const preferencesMap = new Map([
     ["moreDetails", null],
 ]);
 
+const activitiesMap = new Map();
+
 function collectPreferences (destination = null, cuisine = null, activityType = null, budget = null, transportation = null, moreDetails = null)
 {
 
@@ -19,4 +21,5 @@ function collectPreferences (destination = null, cuisine = null, activityType = 
     preferencesMap.set("moreDetails", moreDetails);
     
 }
+
 

@@ -75,6 +75,8 @@ function CreateTrip() {
 
   // const navigate = useNavigate();
   // Aaron's functions
+  
+
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
@@ -87,7 +89,9 @@ function CreateTrip() {
           !selectedFoods.includes(value)
         ) {
           return toast('Error: Cost would be more than Budget.');
-        } else {
+        } 
+        else 
+        {
           selectedFoods.includes(value)
             ? handleCostChange(price * -1)
             : handleCostChange(price);
@@ -104,7 +108,9 @@ function CreateTrip() {
           !selectedEntertainment.includes(value)
         ) {
           return toast('Error: Cost would be more than Budget.');
-        } else {
+        } 
+        else
+        {
           selectedEntertainment.includes(value)
             ? handleCostChange(price * -1)
             : handleCostChange(price);
@@ -121,7 +127,9 @@ function CreateTrip() {
           !selectedOutdoor.includes(value)
         ) {
           return toast('Error: Cost would be more than Budget.');
-        } else {
+        } 
+        else 
+        {
           selectedOutdoor.includes(value)
             ? handleCostChange(price * -1)
             : handleCostChange(price);
@@ -232,6 +240,14 @@ function CreateTrip() {
               className='trip-preference-btn'
             >
               Trip Preferences
+            </button>
+
+            <button
+              type='button'
+              //onClick={handleSaveActivities}
+              className='trip-preference-btn'
+            >
+              Save Selections
             </button>
 
             {/* Conditionally render the modal */}
