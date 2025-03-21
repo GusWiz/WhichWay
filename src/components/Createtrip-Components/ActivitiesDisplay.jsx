@@ -1,7 +1,8 @@
 // ActivitiesDisplay.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'; 
 import './ActivitiesDisplay.css';
+import Model from './ActivityModal';
 
 function ActivitiesDisplay({
   foodOptions,
@@ -14,6 +15,23 @@ function ActivitiesDisplay({
   selectedOutdoor,
   handleSelectOutdoor,
 }) {
+
+  const [showModal, setShowModal] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
+  // const [imageSrc, setImageSrc] = useState('');
+
+  const handleExpand = (item) => {
+    console.log("in handleExpand");
+    console.log(item.imgSrc)
+    setExpandedItem(item);
+    setShowModal(true); // Open the modal
+  };
+
+  const handleClose = () => {
+    setShowModal(false); // Close the modal
+  };
+
+
   return (
     <div className='activities-container'>
       <h2>Activities</h2>
@@ -61,7 +79,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -114,8 +135,15 @@ function ActivitiesDisplay({
                   </span>
                 </div>
 
-                {/*button for functionality */}
-                <button className='selectable-button'>
+                {/*button for functionality */} {/*LOOK HERE*/}
+                <button 
+                  className='selectable-button'
+                  onClick={() => {
+                    console.log("in onClick");
+                    console.log(item); // Log the imageSrc to the console
+                    handleExpand(item); // Pass the imageSrc to handleExpand
+                  }}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -169,7 +197,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -178,6 +209,9 @@ function ActivitiesDisplay({
                 </button>
               </label>
             ))}
+
+            <Model show={showModal} closeModal={handleClose} item = {expandedItem} /> {/*LOOK HERE*/}
+
           </div>
         </div>
 
