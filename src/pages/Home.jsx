@@ -23,7 +23,15 @@ function Home() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <TriponHome />
+            <div className='home-card'>
+              <TriponHome />
+            </div>
+            <div className='home-card'>
+              <TriponHome />
+            </div>
+            <div className='home-card'>
+              <TriponHome />
+            </div>
           </div>
         </div>
       </div>

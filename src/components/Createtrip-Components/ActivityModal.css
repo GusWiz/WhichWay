@@ -32,9 +32,9 @@
 
 /* Optional: Adjusting the image size to fit the new modal size */
 .activity-modal-image {
-  width: 100%;  /* Make sure it takes full width */
-  height: 500px;  /* Set a fixed height */
-  object-fit: cover;  /* Ensure the image fills the space without stretching */
+  width: 100%; /* Make sure it takes full width */
+  height: 500px; /* Set a fixed height */
+  object-fit: cover; /* Ensure the image fills the space without stretching */
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   margin-bottom: 20px; /* Space below the image */
@@ -68,12 +68,11 @@
 
 .activity-modal-description {
   font-size: 1rem;
-  color: #333;  /* Adjust color as needed */
+  color: #333; /* Adjust color as needed */
   margin-top: 10px;
-  text-align: center;  /* Center the description text */
+  text-align: center; /* Center the description text */
   padding: 0 20px;
 }
-
 
 /* Submit Button */
 .activity-modal-submit-btn {
