@@ -1,5 +1,12 @@
 import { db } from './firestore'; // Import Firestore instance
-import { doc, setDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
+import {
+  doc,
+  setDoc,
+  addDoc,
+  collection,
+  updateDoc,
+  arrayUnion,
+} from 'firebase/firestore';
 
 // Create a new user document in the Users collection
 export const createUserDocument = async (Users) => {
@@ -13,7 +20,12 @@ export const createUserDocument = async (Users) => {
 };
 
 // Create a new trip document in the trips collection
-export const createTripDocument = async (userId, placeData, duration, preferences) => {
+export const createTripDocument = async (
+  userId,
+  placeData,
+  duration,
+  preferences
+) => {
   const tripData = {
     userId, // Link trip to user
     place_id: placeData.place_id,

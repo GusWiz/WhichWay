@@ -22,7 +22,12 @@ export const saveUserTrip = async (userId, placeId, duration, preferences) => {
     };
 
     // Step 3: Save parsed data to Firestore
-    const tripId = await createTripDocument(userId, parsedData, duration, preferences);
+    const tripId = await createTripDocument(
+      userId,
+      parsedData,
+      duration,
+      preferences
+    );
 
     // Step 4: Link the trip to the user
     await addTripToUser(userId, tripId);
