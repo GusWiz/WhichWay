@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './Home.css';
+import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -31,33 +32,28 @@ function Itinerary() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
-              <h1>Itinerary</h1>
+              <div className='createititnerary-title'>
+                <h1>Create Itinerary</h1>
 
-              <div className='itinerary-section'>
-                <h3>Food</h3>
-                <ul>
-                  {selectedFoods.map((food) => (
-                    <li key={food}>{food}</li>
-                  ))}
-                </ul>
-              </div>
+                <div className='itinerary-day'>
+                  <h1>Day 1</h1>
 
-              <div className='itinerary-section'>
-                <h3>Entertainment</h3>
-                <ul>
-                  {selectedEntertainment.map((entertainment) => (
-                    <li key={entertainment}>{entertainment}</li>
-                  ))}
-                </ul>
-              </div>
+                  <div className='itinerary-item'>
+                    <h1>9:00 AM - 12:00 PM</h1>
 
-              <div className='itinerary-section'>
-                <h3>Outdoor</h3>
-                <ul>
-                  {selectedOutdoor.map((outdoor) => (
-                    <li key={outdoor}>{outdoor}</li>
-                  ))}
-                </ul>
+                    <div className='itinerary-item-details'>
+                      <h1>Double Dave's</h1>
+                    </div>
+                  </div>
+
+                  <div className='itinerary-item'>
+                    <h1>12:00 PM - 2:00 PM</h1>
+
+                    <div className='itinerary-item-details'>
+                      <h1>Triple Dave's</h1>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
