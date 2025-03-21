@@ -3,13 +3,16 @@ import InputField from '../components/Login-Components/InputField';
 // import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
 import './Home.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { getSavedActivities, saveActivities, saveDetails } from '../backend/dataCollect'
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
-import { ToastContainer, toast } from 'react-toastify';
+import ConsoleCommands from '../components/Universal-Components/ConsoleCommands';
+
+
 function CreateTrip() {
   const logout = async () => {
     try {
@@ -302,6 +305,7 @@ function CreateTrip() {
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
+            <ConsoleCommands />
           </div>
         </div>
       </div>
