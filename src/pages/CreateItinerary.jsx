@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './Home.css';
+import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -15,6 +16,61 @@ function Itinerary() {
       console.log(error);
     }
   };
+
+  const itineraryData = [
+    {
+      day: 1,
+      items: [
+        {
+          startTime: '9:00 AM',
+          endTime: '12:00 PM',
+          location: "Double Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          location: "Triple Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '4:00 PM',
+          endTime: '6:00 PM',
+          location: "Double Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '6:00 PM',
+          endTime: '7:00 PM',
+          location: "Triple Dave's",
+          description: '',
+          budget: '',
+        },
+      ],
+    },
+    {
+      day: 2,
+      items: [
+        {
+          startTime: '2:00 PM',
+          endTime: '4:00 PM',
+          location: "Quadruple Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '4:00 PM',
+          endTime: '6:00 PM',
+          location: "Quintuple Dave's",
+          description: '',
+          budget: '',
+        },
+      ],
+    },
+  ];
 
   const location = useLocation();
   const {
@@ -31,34 +87,33 @@ function Itinerary() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
-              <h1>Itinerary</h1>
-
-              <div className='itinerary-section'>
-                <h3>Food</h3>
-                <ul>
-                  {selectedFoods.map((food) => (
-                    <li key={food}>{food}</li>
-                  ))}
-                </ul>
+              <div className='createititnerary-title'>
+                <h1>Create Itinerary</h1>
               </div>
 
-              <div className='itinerary-section'>
-                <h3>Entertainment</h3>
-                <ul>
-                  {selectedEntertainment.map((entertainment) => (
-                    <li key={entertainment}>{entertainment}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className='itinerary-section'>
-                <h3>Outdoor</h3>
-                <ul>
-                  {selectedOutdoor.map((outdoor) => (
-                    <li key={outdoor}>{outdoor}</li>
-                  ))}
-                </ul>
-              </div>
+              {itineraryData.map((dayData) => (
+                <div key={dayData.day} className='itinerary-day'>
+                  <div className='itinerary-daytitle'>
+                    <h1>Day {dayData.day}</h1>
+                  </div>
+                  <div className='itinerary-itemscontainer'>
+                    {dayData.items.map((item, index) => (
+                      <div key={index} className='itinerary-item'>
+                        <div className='itinerary-itemtime'>
+                          <h1>
+                            {item.startTime} - {item.endTime}
+                          </h1>
+                        </div>
+                        <div className='itinerary-item-details'>
+                          <h1>{item.location}</h1>
+                          <p>Here is a descrtiption of the place</p>
+                          <p>Here is the budget of the place</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
