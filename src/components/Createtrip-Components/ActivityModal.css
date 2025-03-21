@@ -66,6 +66,14 @@
   width: 100%;
 }
 
+.activity-modal-description {
+  font-size: 1rem;
+  color: #333;  /* Adjust color as needed */
+  margin-top: 10px;
+  text-align: center;  /* Center the description text */
+  padding: 0 20px;
+}
+
 
 /* Submit Button */
 .activity-modal-submit-btn {
