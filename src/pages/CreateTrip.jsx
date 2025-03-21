@@ -212,6 +212,23 @@ function CreateTrip() {
   ];
   // End of Aaron's functions
 
+  // API to send all functions from this file to ConsoleCommands 
+
+  const cmdAPI = {
+    handleSelect,
+    handleSaveActivities,
+    handleSaveDetails,
+    setDetails,
+    setDisplayedBudget,
+    setDisplayedCost,
+    selectedFoods,
+    selectedEntertainment,
+    selectedOutdoor,
+    budgetSubmit,
+    budgetTest
+  };
+  
+
   return (
     <>
       <NavigationBar />
@@ -309,7 +326,7 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      <ConsoleCommands />
+      <ConsoleCommands cmdAPI={cmdAPI} />
     </>
   );
 }
