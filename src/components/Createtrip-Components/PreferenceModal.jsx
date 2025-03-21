@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
+import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
 
 function PreferenceModal({ onClose }) {
@@ -12,14 +13,17 @@ function PreferenceModal({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
+
+    collectPreferences(
       destination,
       cuisine,
       activityType,
       budget,
       transportation,
-      moreDetails,
-    });
+      moreDetails
+    );
+
+    console.log(getPreferences());
     onClose();
   };
 
