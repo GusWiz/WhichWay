@@ -1,7 +1,8 @@
 // ActivitiesDisplay.jsx
-import React from 'react';
-import PropTypes from 'prop-types'; // For type checking (optional)
+import React, { useState } from 'react';
+import PropTypes from 'prop-types'; 
 import './ActivitiesDisplay.css';
+import Model from './ActivityModal';
 
 function ActivitiesDisplay({
   foodOptions,
@@ -14,6 +15,23 @@ function ActivitiesDisplay({
   selectedOutdoor,
   handleSelectOutdoor,
 }) {
+
+  const [showModal, setShowModal] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
+  // const [imageSrc, setImageSrc] = useState('');
+
+  const handleExpand = (item) => {
+    console.log("in handleExpand");
+    console.log(item.imgSrc)
+    setExpandedItem(item);
+    setShowModal(true); // Open the modal
+  };
+
+  const handleClose = () => {
+    setShowModal(false); // Close the modal
+  };
+
+
   return (
     <div className='activities-container'>
       <h2>Activities</h2>
@@ -27,16 +45,16 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedEntertainment.includes(item.name) ? 'selected' : ''
+                  selectedEntertainment.some(entertainment => entertainment.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='entertainment'
                   value={item.name}
-                  checked={selectedEntertainment.includes(item.name)}
+                  checked={selectedEntertainment.some(entertainment => entertainment.name === item.name)}
                   onChange={() =>
-                    handleSelectEntertainment(item.name, item.price)
+                    handleSelectEntertainment(item)
                   }
                 />
                 <img
@@ -61,7 +79,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -83,15 +104,15 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedFoods.includes(item.name) ? 'selected' : ''
+                  selectedFoods.some(food => food.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='food'
                   value={item.name}
-                  checked={selectedFoods.includes(item.name)}
-                  onChange={() => handleSelectFood(item.name, item.price)}
+                  checked={selectedEntertainment.some(food => food.name === item.name)}
+                  onChange={() => handleSelectFood(item)}
                 />
                 <img
                   src={item.imgSrc}
@@ -114,8 +135,15 @@ function ActivitiesDisplay({
                   </span>
                 </div>
 
-                {/*button for functionality */}
-                <button className='selectable-button'>
+                {/*button for functionality */} {/*LOOK HERE*/}
+                <button 
+                  className='selectable-button'
+                  onClick={() => {
+                    console.log("in onClick");
+                    console.log(item); // Log the imageSrc to the console
+                    handleExpand(item); // Pass the imageSrc to handleExpand
+                  }}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -137,15 +165,15 @@ function ActivitiesDisplay({
               <label
                 key={item.name}
                 className={`selectable-box ${
-                  selectedOutdoor.includes(item.name) ? 'selected' : ''
+                  selectedOutdoor.some(outdoor => outdoor.name === item.name) ? 'selected' : ''
                 }`}
               >
                 <input
                   type='checkbox'
                   name='outdoor'
                   value={item.name}
-                  checked={selectedOutdoor.includes(item.name)}
-                  onChange={() => handleSelectOutdoor(item.name, item.price)}
+                  checked={selectedEntertainment.some(outdoor => outdoor.name === item.name)}
+                  onChange={() => handleSelectOutdoor(item)}
                 />
                 <img
                   src={item.imgSrc}
@@ -169,7 +197,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -178,6 +209,9 @@ function ActivitiesDisplay({
                 </button>
               </label>
             ))}
+
+            <Model show={showModal} closeModal={handleClose} item = {expandedItem} /> {/*LOOK HERE*/}
+
           </div>
         </div>
 
