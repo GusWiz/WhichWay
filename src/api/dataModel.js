@@ -2,7 +2,7 @@ import { db } from './firestore'; // Import Firestore instance
 import { doc, setDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
 
 // Create a new user document in the Users collection
-export const createUserDocument = async (user) => {
+export const createUserDocument = async (Users) => {
   const userRef = doc(db, 'Users', user.uid);
   await setDoc(userRef, {
     email: user.email,
