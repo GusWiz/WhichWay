@@ -1,7 +1,8 @@
 // ActivitiesDisplay.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'; 
 import './ActivitiesDisplay.css';
+import Model from './ActivityModal';
 
 function ActivitiesDisplay({
   foodOptions,
@@ -14,6 +15,18 @@ function ActivitiesDisplay({
   selectedOutdoor,
   handleSelectOutdoor,
 }) {
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleExpand = () => {
+    setShowModal(true); // Open the modal
+  };
+
+  const handleClose = () => {
+    setShowModal(false); // Close the modal
+  };
+
+
   return (
     <div className='activities-container'>
       <h2>Activities</h2>
@@ -115,7 +128,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick={handleExpand}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -178,6 +194,9 @@ function ActivitiesDisplay({
                 </button>
               </label>
             ))}
+
+            <Model show={showModal} closeModal={handleClose} />
+
           </div>
         </div>
 
