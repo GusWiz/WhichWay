@@ -10,7 +10,7 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
-import ConsoleCommands from '../components/Universal-Components/ConsoleCommands';
+import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 
 
 function CreateTrip() {
@@ -155,7 +155,7 @@ function CreateTrip() {
         }
         break;
       case 'entertainment':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
@@ -168,7 +168,7 @@ function CreateTrip() {
         }
         break;
       case 'outdoor':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
@@ -305,10 +305,11 @@ function CreateTrip() {
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
-            <ConsoleCommands />
+            
           </div>
         </div>
       </div>
+      <ConsoleCommands />
     </>
   );
 }
