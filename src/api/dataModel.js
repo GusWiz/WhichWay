@@ -13,9 +13,25 @@ export const createUserDocument = async (Users) => {
 };
 
 // function to create a new trip document in the trips collection
-export const createTripDocument = async (trips) => {
-  const tripRef = await addDoc(collection(db, 'trips'), trips);
-  return tripRef.id;
+//refactored this code so parsing is possible and storing in firebase is easier
+export const createTripDocument = async (userId, placeData, duration, preferences) => {
+  const tripData = {
+    userId, // Link trip to user
+    place_id: placeData.place_id,
+    name: placeData.name,
+    formatted_address: placeData.formatted_address,
+    location: placeData.geometry.location, // { lat, lng }
+    rating: placeData.rating,
+    user_ratings_total: placeData.user_ratings_total,
+    types: placeData.types,
+    website: placeData.website,
+    formatted_phone_number: placeData.formatted_phone_number,
+    duration, // User input
+    preferences, // User input
+  };
+
+  const tripRef = await addDoc(collection(db, 'trips'), tripData);
+  return tripRef.id; // Return the trip ID to link to the user
 };
 
 // function to add a trup to a user's trips array
