@@ -9,16 +9,31 @@
 }
 
 .createititnerary-title {
+  text-align: center;
 }
 
 .itinerary-day {
+  margin-bottom: 25px;
 }
 
-.itinerary-item {
+.itinerary-daytitle {
+  height: 50px;
+}
+
+.itinerary-itemscontainer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+}
+.itinerary-item {
+  width: 750px;
+}
+
+.itinerary-itemtime {
+  width: 350px;
 }
 
 .itinerary-item-details {
+  width: 725px;
   border: 1px solid black;
+  padding: 5px;
 }

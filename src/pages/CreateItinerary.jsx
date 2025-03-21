@@ -17,6 +17,61 @@ function Itinerary() {
     }
   };
 
+  const itineraryData = [
+    {
+      day: 1,
+      items: [
+        {
+          startTime: '9:00 AM',
+          endTime: '12:00 PM',
+          location: "Double Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '12:00 PM',
+          endTime: '2:00 PM',
+          location: "Triple Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '4:00 PM',
+          endTime: '6:00 PM',
+          location: "Double Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '6:00 PM',
+          endTime: '7:00 PM',
+          location: "Triple Dave's",
+          description: '',
+          budget: '',
+        },
+      ],
+    },
+    {
+      day: 2,
+      items: [
+        {
+          startTime: '2:00 PM',
+          endTime: '4:00 PM',
+          location: "Quadruple Dave's",
+          description: '',
+          budget: '',
+        },
+        {
+          startTime: '4:00 PM',
+          endTime: '6:00 PM',
+          location: "Quintuple Dave's",
+          description: '',
+          budget: '',
+        },
+      ],
+    },
+  ];
+
   const location = useLocation();
   const {
     selectedFoods = [],
@@ -34,27 +89,31 @@ function Itinerary() {
             <div className='itinerary-container'>
               <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
+              </div>
 
-                <div className='itinerary-day'>
-                  <h1>Day 1</h1>
-
-                  <div className='itinerary-item'>
-                    <h1>9:00 AM - 12:00 PM</h1>
-
-                    <div className='itinerary-item-details'>
-                      <h1>Double Dave's</h1>
-                    </div>
+              {itineraryData.map((dayData) => (
+                <div key={dayData.day} className='itinerary-day'>
+                  <div className='itinerary-daytitle'>
+                    <h1>Day {dayData.day}</h1>
                   </div>
-
-                  <div className='itinerary-item'>
-                    <h1>12:00 PM - 2:00 PM</h1>
-
-                    <div className='itinerary-item-details'>
-                      <h1>Triple Dave's</h1>
-                    </div>
+                  <div className='itinerary-itemscontainer'>
+                    {dayData.items.map((item, index) => (
+                      <div key={index} className='itinerary-item'>
+                        <div className='itinerary-itemtime'>
+                          <h1>
+                            {item.startTime} - {item.endTime}
+                          </h1>
+                        </div>
+                        <div className='itinerary-item-details'>
+                          <h1>{item.location}</h1>
+                          <p>Here is a descrtiption of the place</p>
+                          <p>Here is the budget of the place</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
