@@ -12,6 +12,7 @@ import {
 import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
+import ErrorBoundary from './ErrorBoundary';
 
 const TripTable = ({
   title,
@@ -157,40 +158,42 @@ export default function TripManager() {
   );
 
   return (
-    <div className='triphome-body'>
-      <div>
-        <h1 className='h1'>Trip Dashboard</h1>
-        <TripTable
-          title='Upcoming Trips'
-          trips={upcomingTrips}
-          hide={hideUpcoming}
-          toggleHide={() => setHideUpcoming(!hideUpcoming)}
-          onRemove={handleRemove}
-        />
-        <TripTable
-          title='Past Trips'
-          trips={pastTrips}
-          hide={hidePast}
-          toggleHide={() => setHidePast(!hidePast)}
-          onView={navigate}
-        />
+    <ErrorBoundary>
+      <div className='triphome-body'>
         <div>
-          <h2 className='h2'>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
-          {['name', 'date', 'destination'].map((field) => (
-            <input
-              key={field}
-              type={field === 'date' ? 'date' : 'text'}
-              name={field}
-              value={tripDetails[field]}
-              onChange={handleInputChange}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-            />
-          ))}
-          <button className='triphome-button' onClick={handleSave}>
-            {tripId ? 'Save' : 'Add Trip'}
-          </button>
+          <h1 className='h1'>Trip Dashboard</h1>
+          <TripTable
+            title='Upcoming Trips'
+            trips={upcomingTrips}
+            hide={hideUpcoming}
+            toggleHide={() => setHideUpcoming(!hideUpcoming)}
+            onRemove={handleRemove}
+          />
+          <TripTable
+            title='Past Trips'
+            trips={pastTrips}
+            hide={hidePast}
+            toggleHide={() => setHidePast(!hidePast)}
+            onView={navigate}
+          />
+          <div>
+            <h2 className='h2'>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
+            {['name', 'date', 'destination'].map((field) => (
+              <input
+                key={field}
+                type={field === 'date' ? 'date' : 'text'}
+                name={field}
+                value={tripDetails[field]}
+                onChange={handleInputChange}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              />
+            ))}
+            <button className='triphome-button' onClick={handleSave}>
+              {tripId ? 'Save' : 'Add Trip'}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 }
