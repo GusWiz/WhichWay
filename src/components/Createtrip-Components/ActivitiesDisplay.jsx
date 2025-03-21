@@ -17,8 +17,13 @@ function ActivitiesDisplay({
 }) {
 
   const [showModal, setShowModal] = useState(false);
+  const [expandedItem, setExpandedItem] = useState(null);
+  // const [imageSrc, setImageSrc] = useState('');
 
-  const handleExpand = () => {
+  const handleExpand = (item) => {
+    console.log("in handleExpand");
+    console.log(item.imgSrc)
+    setExpandedItem(item);
     setShowModal(true); // Open the modal
   };
 
@@ -74,7 +79,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -127,10 +135,14 @@ function ActivitiesDisplay({
                   </span>
                 </div>
 
-                {/*button for functionality */}
+                {/*button for functionality */} {/*LOOK HERE*/}
                 <button 
                   className='selectable-button'
-                  onClick={handleExpand}
+                  onClick={() => {
+                    console.log("in onClick");
+                    console.log(item); // Log the imageSrc to the console
+                    handleExpand(item); // Pass the imageSrc to handleExpand
+                  }}
                 >
                   <img
                     src='/images/icons/expand.jpg'
@@ -185,7 +197,10 @@ function ActivitiesDisplay({
                 </div>
 
                 {/*button for functionality */}
-                <button className='selectable-button'>
+                <button 
+                  className='selectable-button'
+                  onClick= {() => handleExpand(item)}
+                >
                   <img
                     src='/images/icons/expand.jpg'
                     alt='icon'
@@ -195,7 +210,7 @@ function ActivitiesDisplay({
               </label>
             ))}
 
-            <Model show={showModal} closeModal={handleClose} />
+            <Model show={showModal} closeModal={handleClose} item = {expandedItem} /> {/*LOOK HERE*/}
 
           </div>
         </div>
