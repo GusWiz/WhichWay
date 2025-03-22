@@ -41,6 +41,7 @@ function CreateTrip() {
   const [details, setDetails] = useState({
     budget: '',
     cost: '0',
+    destination: '', // Add destination to the details state
   });
   const [displayedBudget, setDisplayedBudget] = useState({
     budget: 'NULL',

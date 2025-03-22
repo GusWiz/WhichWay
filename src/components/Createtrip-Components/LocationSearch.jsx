@@ -7,13 +7,16 @@ function LocationSearch({ onSelect }) {
   const [selectedPlace, setSelectedPlace] = useState(null); // Create value to store the details of the selected location
 
   // Function to handle changes in the input field
-  const handleInputChange = async (event) => {
+  const handleInputChange = (event) => {
     const value = event.target.value;
     setInput(value);
+  };
 
-    if (value) {
+  // Function to handle blur event on the input field
+  const handleInputBlur = async () => {
+    if (input) {
       // Fetch place suggestions based on the user input
-      const placeSuggestions = await getPlaceSuggestions(value);
+      const placeSuggestions = await getPlaceSuggestions(input);
       setSuggestions(placeSuggestions);
     } else {
       // Clear suggestions if the input is empty
@@ -30,6 +33,17 @@ function LocationSearch({ onSelect }) {
     setSuggestions([]);
     setInput(placeDetails.name);
     onSelect(placeDetails); // Pass the selected place details to the parent component
+
+    // Print additional information to the console
+    const { formatted_address, geometry } = placeDetails;
+    const { lat, lng } = geometry.location;
+    const currentTime = new Date().toLocaleString('en-US', {
+      timeZone: placeDetails.time_zone || 'UTC',
+    });
+
+    console.log(`Selected Place: ${formatted_address}`);
+    console.log(`Coordinates: Latitude ${lat}, Longitude ${lng}`);
+    console.log(`Current Time: ${currentTime}`);
   };
 
   return (
@@ -39,6 +53,7 @@ function LocationSearch({ onSelect }) {
         type="text"
         value={input}
         onChange={handleInputChange}
+        onBlur={handleInputBlur}
         placeholder="Enter a location"
       />
       {/* Display the list of place suggestions */}
