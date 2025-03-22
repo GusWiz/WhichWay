@@ -84,35 +84,33 @@ function CreateTrip() {
     console.log(details);
   };
 
+  const sumFunc = () => {
+    console.log("we in sumFunc");
+  }
+
   const budgetTest = () => {
+    console.log("we in here");
+
     setDisplayedBudget((prev) => {
       return { ...prev, budget: 100};
     });
 
-    setDetails((prev) => {
-      return { ...prev, budget: 100 };
+    // setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
+    // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
+    // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
+
+    setTimeout(() => {setDisplayedBudget((prev) => {
+      return { ...prev, budget: 20};
     });
-
-    budgetSubmit;
-
-    
-    setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
-    setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
-    setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
-
-    setTimeout(() => {setDetails((prev) => {
-      return { ...prev, budget: 20 };
-    });
-    budgetSubmit;
-    }, 4000);
-    
-
-    
-    
+    }, 1000);
   }
+
+  // Structure to send all relevant functions from this file to ConsoleCommands 
+  const cmdPassthru = {
+    budgetTest
+  };
   // end of Vinny's functions
 
-  // const navigate = useNavigate();
   // Aaron's functions
 
   const handleSaveActivities = () => {
@@ -212,21 +210,9 @@ function CreateTrip() {
   ];
   // End of Aaron's functions
 
-  // API to send all functions from this file to ConsoleCommands 
 
-  const cmdAPI = {
-    handleSelect,
-    handleSaveActivities,
-    handleSaveDetails,
-    setDetails,
-    setDisplayedBudget,
-    setDisplayedCost,
-    selectedFoods,
-    selectedEntertainment,
-    selectedOutdoor,
-    budgetSubmit,
-    budgetTest
-  };
+
+  
   
 
   return (
@@ -322,11 +308,11 @@ function CreateTrip() {
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
-            
+            <ConsoleCommands cmdPassThru={cmdPassthru} />
           </div>
         </div>
       </div>
-      <ConsoleCommands cmdAPI={cmdAPI} />
+      
     </>
   );
 }
