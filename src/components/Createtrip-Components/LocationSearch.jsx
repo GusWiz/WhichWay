@@ -29,5 +29,38 @@ function LocationSearch() {
         setInput(placeDetails.name);
         onselect(placeDetails);
     };
+
+
+    return (
+        <div>
+            <input
+            type="text"
+            value={input}
+            onChange={handleInputChange}
+            placeholder="Enter a location"
+        />
+        {suggestions.length > 0 && (
+            <ul>
+                {suggestions.map((suggestion) => (
+                 <li
+                    key={suggestion.place_id}
+                    onClick={() => handleSuggestionClick(suggestion.place_id)}
+                 >
+                 {suggestion.description}
+                </li>
+                ))}
+            </ul>
+        )}
+        {selectedPlace && (
+            <div>
+              <h3>SelectedPlaceDetails:</h3>
+              <p>Name: {selectedPlace.name}</p>
+              <p>Address: {selectedPlace.formatted_address}</p>
+              <p>Rating: {selectedPlace.rating}</p>
+              </div>
+        )}
+        </div>
+    );
 }
 
+export default LocationSearch;
