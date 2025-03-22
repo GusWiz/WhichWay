@@ -5,7 +5,11 @@ import './CreateTrip.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { getSavedActivities, saveActivities, saveDetails } from '../backend/dataCollect'
+import {
+  getSavedActivities,
+  saveActivities,
+  saveDetails,
+} from '../backend/dataCollect';
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
@@ -84,15 +88,11 @@ function CreateTrip() {
     console.log(details);
   };
 
-  const sumFunc = () => {
-    console.log("we in sumFunc");
-  }
-
   const budgetTest = () => {
     console.log("we in here");
 
     setDisplayedBudget((prev) => {
-      return { ...prev, budget: 100};
+      return { ...prev, budget: 100 };
     });
 
     // setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
@@ -114,41 +114,42 @@ function CreateTrip() {
   // Aaron's functions
 
   const handleSaveActivities = () => {
-    console.log("displaying current selections: ")
-    console.log(selectedEntertainment); 
-    console.log(selectedFoods); 
+    console.log('displaying current selections: ');
+    console.log(selectedEntertainment);
+    console.log(selectedFoods);
     console.log(selectedOutdoor);
 
     saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
 
     const savedActivities = getSavedActivities();
     console.log(savedActivities);
-
   };
 
-  const handleSaveDetails = () => 
-  {
-    saveDetails(name)
-  }
-  
+  const handleSaveDetails = () => {
+    saveDetails(name);
+  };
 
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, item) => {
-  
     switch (category) {
       case 'food':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedFoods.some(food => food.name === item.name)) {
+        if (
+          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
+          !selectedFoods.some((food) => food.name === item.name)
+        ) {
           return toast('Error: Cost would be more than Budget.');
         } else {
-          if (selectedFoods.some(food => food.name === item.name)) {
+          if (selectedFoods.some((food) => food.name === item.name)) {
             handleCostChange(item.price * -1);
-            setSelectedFoods(prev => prev.filter(food => food.name !== item.name));  // Remove item by name
+            setSelectedFoods((prev) =>
+              prev.filter((food) => food.name !== item.name)
+            ); // Remove item by name
           } else {
             handleCostChange(item.price);
-            setSelectedFoods(prev => [...prev, item]);  // Add the item to the selected foods
+            setSelectedFoods((prev) => [...prev, item]); // Add the item to the selected foods
           }
         }
         break;
@@ -156,12 +157,18 @@ function CreateTrip() {
         if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
-          if (selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
+          if (
+            selectedEntertainment.some(
+              (entertainment) => entertainment.name === item.name
+            )
+          ) {
             handleCostChange(item.price * -1);
-            setSelectedEntertainment(prev => prev.filter(entertainment => entertainment.name !== item.name));  // Remove item by name
+            setSelectedEntertainment((prev) =>
+              prev.filter((entertainment) => entertainment.name !== item.name)
+            ); // Remove item by name
           } else {
             handleCostChange(item.price);
-            setSelectedEntertainment(prev => [...prev, item]);  // Add the item to the selected foods
+            setSelectedEntertainment((prev) => [...prev, item]); // Add the item to the selected foods
           }
         }
         break;
@@ -169,19 +176,20 @@ function CreateTrip() {
         if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
-          if (selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
+          if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
             handleCostChange(item.price * -1);
-            setSelectedOutdoor(prev => prev.filter(outdoor => outdoor.name !== item.name));  // Remove item by name
+            setSelectedOutdoor((prev) =>
+              prev.filter((outdoor) => outdoor.name !== item.name)
+            ); // Remove item by name
           } else {
             handleCostChange(item.price);
-            setSelectedOutdoor(prev => [...prev, item]);  // Add the item to the selected foods
+            setSelectedOutdoor((prev) => [...prev, item]); // Add the item to the selected foods
           }
         }
         break;
       default:
         break;
     }
-
   };
 
   const foodOptions = [
@@ -242,9 +250,13 @@ function CreateTrip() {
               <label>Cost = $</label>
               <label id='displayedCost'>{displayedCost.cost}</label>
               <br></br>
-              <label>{displayedBudget.budget >= 0 ? "Remaining Budget = $" : ""}</label>
+              <label>
+                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+              </label>
               <label id='displayedRemainingBudget'>
-                {displayedBudget.budget >= 0 ? displayedBudget.budget - displayedCost.cost: ""}
+                {displayedBudget.budget >= 0
+                  ? displayedBudget.budget - displayedCost.cost
+                  : ''}
               </label>
               <form action='#' className='form' onSubmit={budgetSubmit}>
                 <input
@@ -255,9 +267,11 @@ function CreateTrip() {
                   onChange={handleChange}
                 />
                 <button type='submit'>Change Budget</button>
-                <button onClick={budgetTest}>{displayedBudget.budget == 103 ? "Budget Unit Test 1" : ""}</button>
+                <button onClick={budgetTest}>
+                  {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+                </button>
               </form>
-              
+
               <button
                 type='button'
                 onClick={handleSaveDetails}
@@ -271,7 +285,7 @@ function CreateTrip() {
                 foodOptions={foodOptions}
                 selectedFoods={selectedFoods}
                 handleSelectFood={(item) => {
-                  handleSelect('food', item)
+                  handleSelect('food', item);
                 }}
                 entertainmentOptions={entertainmentOptions}
                 selectedEntertainment={selectedEntertainment}
@@ -280,9 +294,7 @@ function CreateTrip() {
                 }
                 outdoorOptions={outdoorOptions}
                 selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(item) =>
-                  handleSelect('outdoor', item)
-                }
+                handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
               />
             </div>
 
@@ -302,8 +314,6 @@ function CreateTrip() {
             >
               Save Selections
             </button>
-
-            
 
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
