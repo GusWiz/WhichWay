@@ -32,4 +32,3 @@ bitbucket-pipelines.yml
 .prettierrrc
 .pre-commit-config.yaml
 .prettierrc
-*.jpg
