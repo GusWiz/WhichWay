@@ -17,7 +17,7 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
-
+import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 
 function CreateTrip() {
   const logout = async () => {
@@ -107,7 +107,7 @@ function CreateTrip() {
     }, 1000);
   }
 
-  // Structure to send all relevant functions from this file to ConsoleCommands 
+  // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
     budgetTest
   };
@@ -220,10 +220,14 @@ function CreateTrip() {
   ];
   // End of Aaron's functions
 
+// handle the place selected from LocationSearch
+const handleLocationSelect = (placeDetails) => {
+  setDetails((prev) => ({
+    ...prev,
+    destination: placeDetails.formatted_address,
+  }));
+};
 
-
-  
-  
 
   return (
     <>
@@ -239,7 +243,7 @@ function CreateTrip() {
             <div>
               <form action='#' className='form'>
                 <InputField type='text' placeholder='Trip Name' />
-                <InputField type='text' placeholder='Destination' />
+                <LocationSearch onSelect={handleLocationSelect}/>
                 <InputField type='text' placeholder='Duration' />
               </form>
               <label>
@@ -332,7 +336,7 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 }
