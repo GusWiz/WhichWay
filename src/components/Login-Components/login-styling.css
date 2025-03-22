@@ -1,0 +1,156 @@
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: hsl(201, 69%, 22%);
+}
+
+.acontainer {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  padding: 2rem 1.5rem;
+  background: hsl(0, 0%, 100%);
+  box-shadow: 0 10px 20px hsl(0, 0%, 0%);
+  border: 1px solid hsl(0, 0%, 29%);
+}
+
+.acontainer .aform-title {
+  text-align: center;
+  font-size: 1.67rem;
+  font-weight: 600;
+  margin-bottom: 1.87rem;
+}
+
+.acontainer .social-login {
+  display: flex;
+  gap: 1.31rem;
+}
+
+.social-login .social-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.81rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 425;
+  padding: 0.75rem 0;
+  border-radius: 0.31rem;
+  background: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 75%);
+  transition: 0.3s ease;
+  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+}
+
+.social-login .social-button:hover {
+  background: hsl(0, 0%, 95%);
+}
+
+.social-login .social-button:focus {
+  border-color: hsl(0, 0%, 88%);
+}
+
+.social-login .social-button .social-icon {
+  width: 23px;
+}
+
+.acontainer .aseparator {
+  text-align: center;
+  font-weight: 600;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.acontainer .aseparator span {
+  position: relative;
+  z-index: 1;
+  background: white;
+  padding: 0 0.9rem;
+  font-size: 1.06rem;
+  font-weight: 500;
+}
+
+.acontainer .aseparator::after {
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: hsl(0, 0%, 75%);
+}
+
+.aform .ainput-wrapper {
+  height: 54px;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.aform .ainput-wrapper .ainput-field {
+  height: 100%;
+  width: 100%;
+  border-radius: 0.31rem;
+  border: 1px solid hsl(0, 0%, 75%);
+  padding: 10px 10px 10px;
+  outline: none;
+  font-size: 1.06rem;
+  transition: 0.2s ease;
+  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+}
+
+.aform .ainput-wrapper .ainput-field:focus {
+  border-color: hsl(0, 0%, 88%);
+}
+
+.aform .ainput-wrapper .ainput-field:hover {
+  background: hsl(0, 0%, 95%);
+}
+
+.aform .ainput-wrapper .ainput-field::placeholder {
+  color: hsl(0, 0%, 60%);
+}
+
+.aform .forgot-pass-link {
+  display: block;
+  width: fit-content;
+  margin-top: -0.46rem;
+}
+
+.aform .abutton {
+  width: 100%;
+  height: 54px;
+  cursor: pointer;
+  outline: none;
+  color: hsl(0, 0%, 100%);
+  background: hsl(201, 69%, 22%);
+  font-size: 1.125rem;
+  font-weight: 425;
+  border-radius: 0.31rem;
+  border: 1px solid hsl(0, 0%, 75%);
+  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+  transition: 0.2s ease;
+  margin-top: 1.5rem;
+}
+
+.aform .abutton:hover {
+  background: hsl(202, 52%, 30%);
+}
+
+.acontainer .atext {
+  text-align: center;
+  font-weight: 500;
+  margin: 1.75rem 0 0.31rem;
+}
+
+.acontainer a {
+  color: hsl(201, 69%, 22%);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.acontainer a:hover {
+  text-decoration: underline;
+}
