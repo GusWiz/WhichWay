@@ -3,6 +3,7 @@ import InputField from '../components/Login-Components/InputField';
 // import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
 import './Home.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   getSavedActivities,
@@ -13,7 +14,9 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
-import { ToastContainer, toast } from 'react-toastify';
+import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
+
+
 function CreateTrip() {
   const logout = async () => {
     try {
@@ -86,36 +89,28 @@ function CreateTrip() {
   };
 
   const budgetTest = () => {
+    console.log("we in here");
+
     setDisplayedBudget((prev) => {
       return { ...prev, budget: 100 };
     });
 
-    setDetails((prev) => {
-      return { ...prev, budget: 100 };
+    // setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
+    // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
+    // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
+
+    setTimeout(() => {setDisplayedBudget((prev) => {
+      return { ...prev, budget: 20};
     });
-
-    budgetSubmit;
-
-    setTimeout(() => {
-      handleSelect('entertainment', 'Concert', '90');
     }, 1000);
-    setTimeout(() => {
-      handleSelect('entertainment', 'Movie', '25');
-    }, 2000);
-    setTimeout(() => {
-      handleSelect('entertainment', 'Theater', '50');
-    }, 3000);
+  }
 
-    setTimeout(() => {
-      setDetails((prev) => {
-        return { ...prev, budget: 20 };
-      });
-      budgetSubmit;
-    }, 4000);
+  // Structure to send all relevant functions from this file to ConsoleCommands 
+  const cmdPassthru = {
+    budgetTest
   };
   // end of Vinny's functions
 
-  // const navigate = useNavigate();
   // Aaron's functions
 
   const handleSaveActivities = () => {
@@ -159,10 +154,7 @@ function CreateTrip() {
         }
         break;
       case 'entertainment':
-        if (
-          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
-          !selectedFoods.some((food) => food.name === item.name)
-        ) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (
@@ -181,10 +173,7 @@ function CreateTrip() {
         }
         break;
       case 'outdoor':
-        if (
-          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
-          !selectedFoods.some((food) => food.name === item.name)
-        ) {
+        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
@@ -228,6 +217,11 @@ function CreateTrip() {
     { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
   // End of Aaron's functions
+
+
+
+  
+  
 
   return (
     <>
@@ -324,9 +318,11 @@ function CreateTrip() {
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
+            <ConsoleCommands cmdPassThru={cmdPassthru} />
           </div>
         </div>
       </div>
+      
     </>
   );
 }
