@@ -8,7 +8,7 @@ const GOOGLE_PLACE_DETAILS_API_URL = '';
 // Function that tries to calls Google Location API
 export const getPlaceSuggestions = async(input) => {
     try {
-        // make a GET request to the API using the input and the API Key
+        // make a GET request to the API using the input (location) and the API Key
         const response = await axious.get(GOOGLE_PLACES_API_URL, {
             params: {
                 input,
