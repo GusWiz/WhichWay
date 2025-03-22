@@ -62,6 +62,10 @@ function getPreferences() {
   return preferences;
 }
 
-export { saveActivities, getSavedActivities };
-export { collectPreferences, getPreferences };
-export { saveDetails };
+export {
+  saveActivities,
+  getSavedActivities,
+  collectPreferences,
+  getPreferences,
+  saveDetails,
+};

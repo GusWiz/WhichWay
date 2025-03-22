@@ -10,6 +10,8 @@ import {
   saveActivities,
   saveDetails,
 } from '../backend/dataCollect';
+
+import { generateItinerary } from '../backend/openAI';
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
@@ -313,6 +315,14 @@ function CreateTrip() {
               className='trip-preference-btn'
             >
               Save Selections
+            </button>
+
+            <button
+              type='button'
+              onClick={generateItinerary}
+              className='trip-preference-btn'
+            >
+              Generate Itinerary
             </button>
 
             {/* Conditionally render the modal */}
