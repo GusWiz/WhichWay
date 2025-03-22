@@ -44,6 +44,7 @@ const generateItinerary = async () => {
     const response = await openai.chat.completions.create({
       // Use the correct method for chat completions
       model: 'gpt-4', // Ensure you use the correct model name (e.g., gpt-4 or gpt-4o)
+      max_tokens: 300,
       messages: [
         { role: 'system', content: systemRules },
         { role: 'user', content: openaiRequest },
