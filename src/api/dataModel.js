@@ -53,10 +53,13 @@ export const addTripToUser = async (userId, tripId) => {
   });
 };
 
+// function that saves a user's trip to Firestore
 export const saveUserTrip = async (userId, destination, timeFrame, selectedActivities) => {
   try {
+    // saves trip date to db
     const tripId = await createTripDocument(userId, destination, timeFrame, selectedActivities);
 
+    // link the trip to the User trip array (trip array has all trips)
     await addTripToUser(userId, tripId);
     console.log('Trip saved and linked to user successfully');
   } catch (error) {
