@@ -22,22 +22,23 @@ export const createUserDocument = async (user) => {
 // Create a new trip document in the trips collection
 export const createTripDocument = async (
   userId,
-  placeData,
+  tripDetails,
   duration,
   preferences
 ) => {
   const tripData = {
     userId, // Link trip to user
-    place_id: placeData.place_id,
-    name: placeData.name,
-    formatted_address: placeData.formatted_address,
-    location: placeData.geometry.location, // { lat, lng }
-    rating: placeData.rating,
-    user_ratings_total: placeData.user_ratings_total,
-    types: placeData.types,
-    website: placeData.website,
-    formatted_phone_number: placeData.formatted_phone_number,
+    name: tripDetails.name,
+    destination: tripDetails.destination,
+    //location: placeData.geometry.location, // { lat, lng }
+    // rating: placeData.rating,
+    // user_ratings_total: placeData.user_ratings_total,
+    // types: placeData.types,
+    // website: placeData.website,
+    // formatted_phone_number: placeData.formatted_phone_number,
     duration, // User input
+    budget: tripDetails.budget,
+    location: tripDetails.location, // { lat, lng }
     preferences, // User input
   };
 
@@ -54,10 +55,10 @@ export const addTripToUser = async (userId, tripId) => {
 };
 
 // Function that saves a user's trip to Firestore
-export const saveUserTrip = async (userId, destination, timeFrame, selectedActivities) => {
+export const saveUserTrip = async (userId, tripDetails, timeFrame, selectedActivities = null) => {
   try {
     // Save trip data to Firestore
-    const tripId = await createTripDocument(userId, destination, timeFrame, selectedActivities);
+    const tripId = await createTripDocument(userId, tripDetails, timeFrame, selectedActivities);
 
     // link the trip to the User trip array (trip array has all trips)
     await addTripToUser(userId, tripId);
