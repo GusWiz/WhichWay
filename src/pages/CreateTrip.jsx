@@ -107,7 +107,7 @@ function CreateTrip() {
     }, 1000);
   }
 
-  // Structure to send all relevant functions from this file to ConsoleCommands 
+  // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
     budgetTest
   };
@@ -222,8 +222,8 @@ function CreateTrip() {
 
 
 
-  
-  
+
+
 
   return (
     <>
@@ -332,7 +332,7 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 }
