@@ -254,7 +254,10 @@ function CreateTrip() {
                     ? 'Budget = $'
                     : 'No budget entered.'}
                 </label>
-                <label id='displayedBudget'>{displayedBudget.budget}</label>
+                <label id='displayedBudget'>{displayedBudget.budget >= 0 
+                  ? displayedBudget.budget 
+                  : ""}
+                </label>
                 <br></br>
                 <label>Cost = $</label>
                 <label id='displayedCost'>{displayedCost.cost}</label>
@@ -276,9 +279,6 @@ function CreateTrip() {
                     onChange={handleChange}
                   />
                   <button type='submit'>Change Budget</button>
-                  <button onClick={budgetTest}>
-                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
-                  </button>
                 </form>
                 <button
                   type='button'
@@ -333,7 +333,7 @@ function CreateTrip() {
 
               {/* Conditionally render the modal */}
               {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-              <ToastContainer />
+              <ToastContainer position="bottom-right"/>
               <ConsoleCommands cmdPassThru={cmdPassthru} />
             </div>
           </div>
