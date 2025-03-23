@@ -1,4 +1,4 @@
-import { db } from './firestore'; // Import Firestore instance
+import { db } from '../components/firebase'; // Import Firestore instance
 import {
   doc,
   setDoc,
@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 
 // Create a new user document in the Users collection
-export const createUserDocument = async (Users) => {
+export const createUserDocument = async (user) => {
   const userRef = doc(db, 'Users', user.uid);
   await setDoc(userRef, {
     email: user.email,
@@ -53,16 +53,17 @@ export const addTripToUser = async (userId, tripId) => {
   });
 };
 
-// function that saves a user's trip to Firestore
+// Function that saves a user's trip to Firestore
 export const saveUserTrip = async (userId, destination, timeFrame, selectedActivities) => {
   try {
-    // saves trip date to db
+    // Save trip data to Firestore
     const tripId = await createTripDocument(userId, destination, timeFrame, selectedActivities);
 
     // link the trip to the User trip array (trip array has all trips)
     await addTripToUser(userId, tripId);
+
     console.log('Trip saved and linked to user successfully');
   } catch (error) {
-    console.log('Error saving user trip: ', error);
+    console.error('Error saving user trip:', error);
   }
 };
