@@ -6,6 +6,7 @@ import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
+import NavigationBar from '../Landing-Components/NavigationBar';
 
 // CSS
 import './login-styling.css';
@@ -38,6 +39,7 @@ function Login() {
   };
   return (
     <>
+      <NavigationBar />
       <div className='auth-page'>
         <div className='acontainer'>
           <h2 className='aform-title'>Log in with</h2>

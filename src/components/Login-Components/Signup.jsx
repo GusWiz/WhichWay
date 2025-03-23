@@ -11,6 +11,7 @@ import {
 import SocialLogin from './SocialLogin';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
+import NavigationBar from '../Landing-Components/NavigationBar';
 import './login-styling.css';
 
 function Signup() {
@@ -65,6 +66,7 @@ function Signup() {
   };
   return (
     <>
+      <NavigationBar />
       <div className='auth-page'>
         <div className='acontainer'>
           <h2 className='aform-title'>Signup with</h2>

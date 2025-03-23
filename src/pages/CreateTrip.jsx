@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import InputField from '../components/Login-Components/InputField';
 // import { useNavigate } from 'react-router-dom';
 import './CreateTrip.css';
@@ -18,8 +19,8 @@ import PreferenceModal from '../components/Createtrip-Components/PreferenceModal
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 
-
 function CreateTrip() {
+  const navigate = useNavigate();
   const logout = async () => {
     try {
       await signOut(auth);
@@ -91,7 +92,7 @@ function CreateTrip() {
   };
 
   const budgetTest = () => {
-    console.log("we in here");
+    console.log('we in here');
 
     setDisplayedBudget((prev) => {
       return { ...prev, budget: 100 };
@@ -101,15 +102,16 @@ function CreateTrip() {
     // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
     // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
 
-    setTimeout(() => {setDisplayedBudget((prev) => {
-      return { ...prev, budget: 20};
-    });
+    setTimeout(() => {
+      setDisplayedBudget((prev) => {
+        return { ...prev, budget: 20 };
+      });
     }, 1000);
-  }
+  };
 
-  // Structure to send all relevant functions from this file to ConsoleCommands 
+  // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
-    budgetTest
+    budgetTest,
   };
   // end of Vinny's functions
 
@@ -156,7 +158,12 @@ function CreateTrip() {
         }
         break;
       case 'entertainment':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
+        if (
+          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
+          !selectedEntertainment.some(
+            (entertainment) => entertainment.name === item.name
+          )
+        ) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (
@@ -175,7 +182,10 @@ function CreateTrip() {
         }
         break;
       case 'outdoor':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
+        if (
+          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
+          !selectedOutdoor.some((outdoor) => outdoor.name === item.name)
+        ) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
@@ -219,11 +229,6 @@ function CreateTrip() {
     { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
   // End of Aaron's functions
-
-
-
-  
-  
 
   return (
     <>
@@ -319,7 +324,7 @@ function CreateTrip() {
 
             <button
               type='button'
-              onClick={generateItinerary}
+              onClick={() => navigate('/createitinerary')}
               className='trip-preference-btn'
             >
               Generate Itinerary
@@ -332,7 +337,6 @@ function CreateTrip() {
           </div>
         </div>
       </div>
-      
     </>
   );
 }
