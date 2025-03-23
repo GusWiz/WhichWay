@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../components/Login-Components/InputField';
-// import { useNavigate } from 'react-router-dom';
+
 import './CreateTrip.css';
+import './Createitinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -237,55 +238,56 @@ function CreateTrip() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <div className='title-container'>
-              <h1>Create Trip</h1>
-            </div>
+            <div className='itinerary-container'>
+              <div className='createititnerary-title'>
+                <h1>Create Trip</h1>
+              </div>
 
-            <div>
-              <form action='#' className='form'>
-                <InputField type='text' placeholder='Trip Name' />
-                <InputField type='text' placeholder='Destination' />
-                <InputField type='text' placeholder='Duration' />
-              </form>
-              <label>
-                {displayedBudget.budget >= 0
-                  ? 'Budget = $'
-                  : 'No budget entered.'}
-              </label>
-              <label id='displayedBudget'>{displayedBudget.budget}</label>
-              <br></br>
-              <label>Cost = $</label>
-              <label id='displayedCost'>{displayedCost.cost}</label>
-              <br></br>
-              <label>
-                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-              </label>
-              <label id='displayedRemainingBudget'>
-                {displayedBudget.budget >= 0
-                  ? displayedBudget.budget - displayedCost.cost
-                  : ''}
-              </label>
-              <form action='#' className='form' onSubmit={budgetSubmit}>
-                <input
-                  type='number'
-                  name='budget'
-                  placeholder='Budget'
-                  id='budgetInput'
-                  onChange={handleChange}
-                />
-                <button type='submit'>Change Budget</button>
-                <button onClick={budgetTest}>
-                  {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+              <div className='createtrip-input'>
+                <form action='#' className='form'>
+                  <InputField type='text' placeholder='Trip Name' />
+                  <InputField type='text' placeholder='Destination' />
+                  <InputField type='text' placeholder='Duration' />
+                </form>
+                <label>
+                  {displayedBudget.budget >= 0
+                    ? 'Budget = $'
+                    : 'No budget entered.'}
+                </label>
+                <label id='displayedBudget'>{displayedBudget.budget}</label>
+                <br></br>
+                <label>Cost = $</label>
+                <label id='displayedCost'>{displayedCost.cost}</label>
+                <br></br>
+                <label>
+                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+                </label>
+                <label id='displayedRemainingBudget'>
+                  {displayedBudget.budget >= 0
+                    ? displayedBudget.budget - displayedCost.cost
+                    : ''}
+                </label>
+                <form action='#' className='form' onSubmit={budgetSubmit}>
+                  <input
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    id='budgetInput'
+                    onChange={handleChange}
+                  />
+                  <button type='submit'>Change Budget</button>
+                  <button onClick={budgetTest}>
+                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+                  </button>
+                </form>
+                <button
+                  type='button'
+                  onClick={handleSaveDetails}
+                  className='trip-preference-btn'
+                >
+                  Save Trip Details
                 </button>
-              </form>
-
-              <button
-                type='button'
-                onClick={handleSaveDetails}
-                className='trip-preference-btn'
-              >
-                Save Trip Details
-              </button>
+              </div>
 
               {/* Render ActivitiesDisplay component */}
               <ActivitiesDisplay
@@ -303,37 +305,37 @@ function CreateTrip() {
                 selectedOutdoor={selectedOutdoor}
                 handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
               />
+
+              {/* Add button to open modal */}
+              <button
+                type='button'
+                onClick={handleModalToggle}
+                className='trip-preference-btn'
+              >
+                Trip Preferences
+              </button>
+
+              <button
+                type='button'
+                onClick={handleSaveActivities}
+                className='trip-preference-btn'
+              >
+                Save Selections
+              </button>
+
+              <button
+                type='button'
+                onClick={() => navigate('/createitinerary')}
+                className='trip-preference-btn'
+              >
+                Generate Itinerary
+              </button>
+
+              {/* Conditionally render the modal */}
+              {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+              <ToastContainer />
+              <ConsoleCommands cmdPassThru={cmdPassthru} />
             </div>
-
-            {/* Add button to open modal */}
-            <button
-              type='button'
-              onClick={handleModalToggle}
-              className='trip-preference-btn'
-            >
-              Trip Preferences
-            </button>
-
-            <button
-              type='button'
-              onClick={handleSaveActivities}
-              className='trip-preference-btn'
-            >
-              Save Selections
-            </button>
-
-            <button
-              type='button'
-              onClick={() => navigate('/createitinerary')}
-              className='trip-preference-btn'
-            >
-              Generate Itinerary
-            </button>
-
-            {/* Conditionally render the modal */}
-            {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-            <ToastContainer />
-            <ConsoleCommands cmdPassThru={cmdPassthru} />
           </div>
         </div>
       </div>
