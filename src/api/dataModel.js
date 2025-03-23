@@ -52,3 +52,14 @@ export const addTripToUser = async (userId, tripId) => {
     trips: arrayUnion(tripId), // Add the trip ID to the user's trips array
   });
 };
+
+export const saveUserTrip = async (userId, destination, timeFrame, selectedActivities) => {
+  try {
+    const tripId = await createTripDocument(userId, destination, timeFrame, selectedActivities);
+
+    await addTripToUser(userId, tripId);
+    console.log('Trip saved and linked to user successfully');
+  } catch (error) {
+    console.log('Error saving user trip: ', error);
+  }
+};
