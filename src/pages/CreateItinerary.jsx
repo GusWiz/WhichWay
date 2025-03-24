@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './Home.css';
+import './Landing.css';
 import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
@@ -105,7 +106,9 @@ function Itinerary() {
                           </h1>
                         </div>
                         <div className='itinerary-item-details'>
-                          <h1>{item.location}</h1>
+                          <div className='itinerary-item-title'>
+                            <h1>{item.location}</h1>
+                          </div>
                           <p>Here is a descrtiption of the place</p>
                           <p>Here is the budget of the place</p>
                         </div>
@@ -114,6 +117,10 @@ function Itinerary() {
                   </div>
                 </div>
               ))}
+              <button className='landing-button' onClick=''>
+                {' '}
+                Regenerate Itinerary{' '}
+              </button>
             </div>
           </div>
         </div>

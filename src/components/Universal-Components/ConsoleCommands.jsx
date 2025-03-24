@@ -23,39 +23,38 @@
 //
 // in the console.
 
+import React, { useEffect } from 'react';
 
-import React, { useEffect } from "react";
+const ConsoleCommands = ({ cmdPassThru }) => {
+  useEffect(() => {
+    window.runCommand = (command, ...args) => {
+      console.log(`Command received: ${command}`);
 
-    const ConsoleCommands = ({ cmdPassThru }) => {
-    useEffect(() => {
-        window.runCommand = (command, ...args) => {
-          console.log(`Command received: ${command}`);
+      switch (command) {
+        case 'hello':
+          console.log('Hello, world!');
+          break;
+        case 'date':
+          console.log(`Today's date is: ${new Date().toLocaleDateString()}`);
+          break;
+        case 'time':
+          console.log(`Current time is: ${new Date().toLocaleTimeString()}`);
+          break;
+        case 'budgetTest':
+          cmdPassThru.budgetTest();
+          break;
 
-          switch (command) {
-            case "hello":
-              console.log("Hello, world!");
-              break;
-            case "date":
-              console.log(`Today's date is: ${new Date().toLocaleDateString()}`);
-              break;
-            case "time":
-              console.log(`Current time is: ${new Date().toLocaleTimeString()}`);
-              break;
-            case "budgetTest":
-              cmdPassThru.budgetTest();
-              break;
-
-            default:
-              if (cmdPassThru[command]) {
-                cmdPassThru[command](...args);
-              } else {
-                console.log("Unknown command");
-              }
+        default:
+          if (cmdPassThru[command]) {
+            cmdPassThru[command](...args);
+          } else {
+            console.log('Unknown command');
           }
-        };
-    }, [cmdPassThru]);
+      }
+    };
+  }, [cmdPassThru]);
 
-      return null
-}
+  return null;
+};
 
 export default ConsoleCommands;

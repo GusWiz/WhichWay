@@ -3,6 +3,7 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import LoginButton from './LoginButton';
 import InputField from './InputField';
 import './login-styling.css';
+import NavigationBar from '../Landing-Components/NavigationBar';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -24,6 +25,7 @@ function ForgotPassword() {
   };
   return (
     <>
+      <NavigationBar />
       <div className='auth-page'>
         <div className='acontainer'>
           <h2 className='aform-title'>Enter Your Email</h2>
