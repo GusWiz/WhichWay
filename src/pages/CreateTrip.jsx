@@ -354,7 +354,6 @@ function CreateTrip() {
                   {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
                 </button>
               </form>
-
               <button
                 type='button'
                 onClick={handleSaveDetails}
@@ -404,6 +403,7 @@ function CreateTrip() {
               >
                 Generate Itinerary
               </button>
+            </div>
 
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
@@ -412,6 +412,7 @@ function CreateTrip() {
           </div>
         </div>
       </div>
+    </div>
     </>
   );
 }
