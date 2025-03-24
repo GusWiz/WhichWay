@@ -13,6 +13,14 @@ function PreferenceModal({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Added console log troubleshooting to see if component states are being updated
+    // Log each input value to verify they are captured correctly
+    console.log('Destination:', destination);
+    console.log('Cuisine:', cuisine);
+    console.log('Activity Type:', activityType);
+    console.log('Budget:', budget);
+    console.log('Transportation:', transportation);
+    console.log('More Details:', moreDetails);
 
     collectPreferences(
       destination,
@@ -23,9 +31,9 @@ function PreferenceModal({ onClose }) {
       moreDetails
     );
 
-    console.log(getPreferences());
+    console.log('Collected Preferences from Backend:', getPreferences());
     onClose();
-  };
+};
 //modal ui is working properly, close and open button work fine
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
