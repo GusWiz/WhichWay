@@ -11,7 +11,7 @@ function PreferenceModal({ onClose }) {
   const [transportation, setTransportation] = useState('');
   const [moreDetails, setMoreDetails] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Added console log troubleshooting to see if component states are being updated
     // Log each input value to verify they are captured correctly
@@ -34,6 +34,26 @@ function PreferenceModal({ onClose }) {
     //added this line of code to see the string in full instead of the object call
     console.log('Collected Preferences from Backend:', JSON.stringify(getPreferences(), null, 2));
     onClose();
+
+    try {
+      console.log("Sending preferences to firestore...");
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(getPreferences()),
+      });
+
+
+      // Simulate backend response
+      const result = await response.json();
+      console.log("Response from backend:", result);
+
+      // Optional: Handle success or error states in the UI
+    } catch (error) {
+      console.error("Failed to send preferences:", error);
+    }
+
+
 };
 //modal ui is working properly, close and open button work fine
   return (
