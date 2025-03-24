@@ -62,10 +62,42 @@ function getPreferences() {
   return preferences;
 }
 
+//HANDLE ITINERARY
+
+let itineraryObj = null;
+
+function saveItineraryData(itineraryData) {
+  try {
+    if (!itineraryData) {
+      throw new Error('No itinerary data provided');
+    }
+
+    // Fix: Ensure it's a valid JSON string
+    const cleanedData = itineraryData.trim();
+
+    // Try to parse it
+    itineraryObj = JSON.parse(cleanedData);
+
+    console.log('Itinerary successfully saved:', itineraryObj);
+  } catch (error) {
+    console.error('Error parsing itinerary data:', error);
+    console.error('Received itinerary data:', itineraryData); // Debugging
+  }
+}
+
+function getItineraryData() {
+  if (!itineraryObj) {
+    console.warn('No itinerary data found!');
+  }
+  return itineraryObj;
+}
+
 export {
   saveActivities,
   getSavedActivities,
   collectPreferences,
   getPreferences,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 };
