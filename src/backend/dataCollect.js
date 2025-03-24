@@ -64,17 +64,32 @@ function getPreferences() {
 
 //HANDLE ITINERARY
 
-function saveItineraryData(itineraryData) {
-  const parsedData = JSON.parse(itineraryData);
+let itineraryObj = null;
 
-  parsedData.schedule.forEach((day) => {
-    console.log(`Date: ${day.date}`);
-    day.activities.forEach((activity) => {
-      console.log(`  Activity: ${activity.name}`);
-      console.log(`  Start Time: ${activity.start_time}`);
-      console.log(`  End Time: ${activity.end_time}`);
-    });
-  });
+function saveItineraryData(itineraryData) {
+  try {
+    if (!itineraryData) {
+      throw new Error('No itinerary data provided');
+    }
+
+    // Fix: Ensure it's a valid JSON string
+    const cleanedData = itineraryData.trim();
+
+    // Try to parse it
+    itineraryObj = JSON.parse(cleanedData);
+
+    console.log('Itinerary successfully saved:', itineraryObj);
+  } catch (error) {
+    console.error('Error parsing itinerary data:', error);
+    console.error('Received itinerary data:', itineraryData); // Debugging
+  }
+}
+
+function getItineraryData() {
+  if (!itineraryObj) {
+    console.warn('No itinerary data found!');
+  }
+  return itineraryObj;
 }
 
 export {
@@ -83,4 +98,6 @@ export {
   collectPreferences,
   getPreferences,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 };
