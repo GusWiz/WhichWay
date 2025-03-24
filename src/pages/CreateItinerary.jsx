@@ -1,3 +1,5 @@
+import { signOut } from 'firebase/auth';
+import { auth } from '../components/firebase';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
