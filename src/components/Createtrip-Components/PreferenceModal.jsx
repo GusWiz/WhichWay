@@ -26,7 +26,7 @@ function PreferenceModal({ onClose }) {
     console.log(getPreferences());
     onClose();
   };
-
+//modal ui is working properly, close and open button work fine
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
       <div className='bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full'>
