@@ -8,7 +8,7 @@
     border: 1px solid transparent; /* Invisible border by default */
     padding: 10px;
     font-size: 24px; /* Increased font size */
-    width: 400px; /* Reduced width of the textbox */
+    width: 300px; /* Reduced width of the textbox */
     outline: none; /* Remove default outline */
     transition: border-color 0.3s ease;
     white-space: nowrap; /* Prevents text from wrapping to the next line */
