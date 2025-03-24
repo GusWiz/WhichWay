@@ -21,6 +21,7 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
+import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -247,9 +248,12 @@ function CreateTrip() {
 
               <div className='createtrip-input'>
                 <form action='#' className='form'>
-                  <InputField type='text' placeholder='Trip Name' />
-                  <InputField type='text' placeholder='Destination' />
-                  <InputField type='text' placeholder='Duration' />
+                  <div className="trip-input-container">
+                    <FadingTextBox type="text" placeholder="Trip Name" />
+                    <p>to...</p>
+                    <FadingTextBox type="text" placeholder="Destination" />
+                  </div>
+                  <FadingTextBox type='text' placeholder='Duration' />
                 </form>
                 <label>
                   {displayedBudget.budget >= 0

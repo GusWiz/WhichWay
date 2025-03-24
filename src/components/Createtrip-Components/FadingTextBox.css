@@ -1,0 +1,27 @@
+.fading-textbox-container {
+    margin: 20px; /* Add margin around the container */
+    padding: 10px; /* Optional: add padding around the container */
+  }
+  
+  /* Default state: no border */
+  .fading-textbox {
+    border: 1px solid transparent; /* Invisible border by default */
+    padding: 10px;
+    font-size: 24px; /* Increased font size */
+    width: 400px; /* Reduced width of the textbox */
+    outline: none; /* Remove default outline */
+    transition: border-color 0.3s ease;
+    white-space: nowrap; /* Prevents text from wrapping to the next line */
+    overflow: hidden; /* Hides the overflowed text */
+    text-overflow: ellipsis; /* Adds the "..." when text overflows */
+  }
+  
+  /* When the textbox is focused (being edited), show the border */
+  .fading-textbox:focus {
+    border: 1px solid #4a90e2; /* Blue border when focused */
+  }
+  
+  /* Optionally, you can add a border on hover */
+  .fading-textbox:hover {
+    border: 1px solid #ccc; /* Light gray border when hovering */
+  }
