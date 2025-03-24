@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
+import { db } from '../firebase';  // Import Firestore instance
+import { collection, addDoc } from 'firebase/firestore';  // Firestore methods
 
 function PreferenceModal({ onClose }) {
   const [destination, setDestination] = useState('');
@@ -31,29 +33,18 @@ function PreferenceModal({ onClose }) {
       moreDetails
     );
 
-    //added this line of code to see the string in full instead of the object call
-    console.log('Collected Preferences from Backend:', JSON.stringify(getPreferences(), null, 2));
+    const preferencesData = getPreferences();
+    console.log('Collected Preferences:', preferencesData);
+
     onClose();
-
+    // Send preferences to Firestore
     try {
-      console.log("Sending preferences to firestore...");
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(getPreferences()),
-      });
-
-
-      // Simulate backend response
-      const result = await response.json();
-      console.log("Response from backend:", result);
-
-      // Optional: Handle success or error states in the UI
+      console.log("Sending preferences to Firestore...");
+      const docRef = await addDoc(collection(db, 'trip preferences'), preferencesData);
+      console.log('Document written with ID: ', docRef.id);
     } catch (error) {
-      console.error("Failed to send preferences:", error);
+      console.error('Error adding document: ', error);
     }
-
-
 };
 //modal ui is working properly, close and open button work fine
   return (
