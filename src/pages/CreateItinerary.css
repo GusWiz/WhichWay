@@ -14,7 +14,8 @@
 }
 
 .itinerary-day {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+  margin-left: 30px;
 }
 
 .itinerary-daytitle {
@@ -27,7 +28,8 @@
   flex-wrap: wrap;
 }
 .itinerary-item {
-  width: 750px;
+  width: 625px;
+  margin-left: 5px;
 }
 
 .itinerary-itemtime {
@@ -43,10 +45,10 @@
 }
 
 .itinerary-item-details {
-  width: 725px;
+  width: 590px;
   border: 1px solid #ccc;
   color: hsl(202, 14%, 37%);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 5px;
 }
 

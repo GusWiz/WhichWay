@@ -111,6 +111,13 @@ function Itinerary() {
                           <div className='itinerary-item-title'>
                             <h1>{item.location}</h1>
                           </div>
+                          <div className='navbar-logo'>
+                            <img
+                              src='src\assets\logo.svg'
+                              alt='Logo'
+                              className='logo-icon'
+                            />
+                          </div>
                           <p>Here is a descrtiption of the place</p>
                           <p>Here is the budget of the place</p>
                         </div>
