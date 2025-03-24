@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Location API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .input-container {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #results {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            margin-bottom: 8px;
+        }
+
+        .result-key {
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            padding: 10px;
+            background-color: #ffeeee;
+            border-radius: 4px;
+        }
+
+        .success {
+            color: green;
+            padding: 10px;
+            background-color: #eeffee;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Location API Test</h1>
+
+    <div class="input-container">
+        <label for="location-input">Enter a location:</label>
+        <input type="text" id="location-input" placeholder="Type a city name...">
+    </div>
+
+    <div id="status-message"></div>
+
+    <div id="results">
+        <p>Selected place details will appear here...</p>
+    </div>
+
+    <script>
+        // Replace with your actual Google API key
+        const GOOGLE_API_KEY = '//';
+
+        // Initialize the autocomplete once the Google Maps API is loaded
+        function initAutocomplete() {
+            const input = document.getElementById('location-input');
+            const statusMessage = document.getElementById('status-message');
+            const resultsContainer = document.getElementById('results');
+
+            statusMessage.innerHTML = '<div class="success">Google Maps API loaded successfully!</div>';
+
+            // Create the autocomplete object
+            const autocomplete = new google.maps.places.Autocomplete(input, {
+                types: ['(cities)'] // Restrict to cities
+            });
+
+            // Add event listener for place selection
+            autocomplete.addListener('place_changed', () => {
+                const place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+                    statusMessage.innerHTML = '<div class="error">No location data available for this place.</div>';
+                    return;
+                }
+
+                // Show the selected place details
+                const placeData = {
+                    name: place.name,
+                    formattedAddress: place.formatted_address,
+                    placeId: place.place_id,
+                    location: {
+                        lat: place.geometry.location.lat(),
+                        lng: place.geometry.location.lng()
+                    }
+                };
+
+                // Display the place data
+                let resultsHtml = '<h2>Selected Place:</h2>';
+                for (const [key, value] of Object.entries(placeData)) {
+                    if (typeof value === 'object') {
+                        resultsHtml += `<div class="result-item"><span class="result-key">${key}:</span> ${JSON.stringify(value)}</div>`;
+                    } else {
+                        resultsHtml += `<div class="result-item"><span class="result-key">${key}:</span> ${value}</div>`;
+                    }
+                }
+
+                // Add a sample API call section
+                resultsHtml += `
+                    <h2>Sample API Call:</h2>
+                    <div class="result-item">
+                        <p>To fetch nearby restaurants, you would call:</p>
+                        <pre>https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${placeData.location.lat},${placeData.location.lng}&radius=5000&type=restaurant&key=YOUR_API_KEY</pre>
+                    </div>
+                `;
+
+                resultsContainer.innerHTML = resultsHtml;
+                statusMessage.innerHTML = '<div class="success">Location selected successfully!</div>';
+
+                console.log('Selected place:', placeData);
+            });
+        }
+
+        // Load the Google Maps API script
+        function loadGoogleMapsScript() {
+            const script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places&callback=initAutocomplete`;
+            script.async = true;
+            script.defer = true;
+
+            // Handle script loading error
+            script.onerror = () => {
+                document.getElementById('status-message').innerHTML =
+                    '<div class="error">Failed to load Google Maps API. Check your API key and internet connection.</div>';
+            };
+
+            document.head.appendChild(script);
+        }
+
+        // Start loading the script when the page is loaded
+        window.onload = loadGoogleMapsScript;
+    </script>
+</body>
+</html>
