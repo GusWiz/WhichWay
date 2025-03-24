@@ -6,6 +6,7 @@
   /* Default state: no border */
   .fading-textbox {
     border: 1px solid transparent; /* Invisible border by default */
+    justify-content: center;
     padding: 10px;
     font-size: 24px; /* Increased font size */
     width: 300px; /* Reduced width of the textbox */
@@ -14,6 +15,7 @@
     white-space: nowrap; /* Prevents text from wrapping to the next line */
     overflow: hidden; /* Hides the overflowed text */
     text-overflow: ellipsis; /* Adds the "..." when text overflows */
+    border-radius: 8px; /* Make the border rounded */
   }
   
   /* When the textbox is focused (being edited), show the border */

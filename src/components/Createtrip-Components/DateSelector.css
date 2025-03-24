@@ -13,8 +13,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    cursor: pointer;
+    color: gray; /* Default placeholder color */
+    border-radius: 8px; /* Make the border rounded */
   }
+
+  .fading-date-text.has-date {
+    color: black; /* Change to black when a date is selected */
+  }
+
   
   .fading-date-text:hover {
     border: 1px solid #ccc;
