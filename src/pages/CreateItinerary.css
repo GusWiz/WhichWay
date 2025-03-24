@@ -3,14 +3,14 @@
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-  padding: 15px 15px 15px 40px;
-  margin: 25px 15px 15px 15px;
+  /*     top, right, bottom, left */
+  padding: 15px 15px 15px 45px;
+  margin: 25px 15px 25px 15px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .createititnerary-title {
   text-align: center;
-  padding-right: 120px;
 }
 
 .itinerary-day {
@@ -41,10 +41,38 @@
   font-size: 15px;
   color: black;
 }
+
 .itinerary-item-details {
   width: 725px;
   border: 1px solid #ccc;
   color: hsl(202, 14%, 37%);
   border-radius: 10px;
   padding: 5px;
+}
+
+.itinerary-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itinerary-button {
+  margin-right: 10px;
+  margin-top: 70px;
+  height: 54px;
+  width: 200px;
+  font-size: 1rem;
+  font-weight: 425;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  background: hsl(201, 69%, 22%);
+  border: 1px solid hsl(0, 0%, 75%);
+  color: hsl(0, 0%, 100%);
+  border-radius: 0.31rem;
+  transition: 0.2s ease;
+  outline: none;
+}
+
+.itinerary-button:hover {
+  background: hsl(202, 52%, 30%);
 }

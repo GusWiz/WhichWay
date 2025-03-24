@@ -117,10 +117,16 @@ function Itinerary() {
                   </div>
                 </div>
               ))}
-              <button className='landing-button' onClick=''>
-                {' '}
-                Regenerate Itinerary{' '}
-              </button>
+              <div className='itinerary-buttons'>
+                <button className='itinerary-button' onClick=''>
+                  {' '}
+                  Regenerate Itinerary{' '}
+                </button>
+                <button className='itinerary-button' onClick=''>
+                  {' '}
+                  Save Itinerary{' '}
+                </button>
+              </div>
             </div>
           </div>
         </div>
