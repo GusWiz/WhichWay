@@ -6,12 +6,12 @@ let tripDetails = {
   budget: null,
 };
 
-// function saveDetails(name, destination, duration, budget) {
-//   tripDetails.name = name;
-//   tripDetails.destination = destination;
-//   tripDetails.duration = duration;
-//   tripDetails.budget = budget;
-// }
+function saveDetails(name, destination, duration, budget) {
+  tripDetails.name = name;
+  tripDetails.destination = destination;
+  tripDetails.duration = duration;
+  tripDetails.budget = budget;
+}
 
 // HANDLE ACTIVITIES
 let selectedFoods = [];
@@ -67,5 +67,5 @@ export {
   getSavedActivities,
   collectPreferences,
   getPreferences,
-  //saveDetails,
+  saveDetails,
 };
