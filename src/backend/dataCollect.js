@@ -64,17 +64,40 @@ function getPreferences() {
 
 //HANDLE ITINERARY
 
-function saveItineraryData(itineraryData) {
-  const parsedData = JSON.parse(itineraryData);
+let itineraryObj = null;
 
-  parsedData.schedule.forEach((day) => {
-    console.log(`Date: ${day.date}`);
-    day.activities.forEach((activity) => {
-      console.log(`  Activity: ${activity.name}`);
-      console.log(`  Start Time: ${activity.start_time}`);
-      console.log(`  End Time: ${activity.end_time}`);
-    });
-  });
+function saveItineraryData(itineraryData) {
+  try {
+    if (!itineraryData) {
+      throw new Error('No itinerary data provided');
+    }
+
+    if (typeof itineraryData !== 'string') {
+      throw new Error(
+        'Expected itinerary data to be a string, received ' +
+          typeof itineraryData
+      );
+    }
+
+    const cleanedData = itineraryData.trim();
+
+    itineraryObj = JSON.parse(cleanedData);
+
+    console.log('Itinerary successfully saved:', itineraryObj);
+  } catch (error) {
+    console.error('Error parsing itinerary data:', error.message);
+    console.error(
+      'Received data (first 100 chars):',
+      itineraryData.slice(0, 100)
+    );
+  }
+}
+
+function getItineraryData() {
+  if (!itineraryObj) {
+    console.warn('No itinerary data found!');
+  }
+  return itineraryObj;
 }
 
 export {
@@ -83,4 +106,6 @@ export {
   collectPreferences,
   getPreferences,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 };

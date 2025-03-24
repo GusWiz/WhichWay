@@ -11,6 +11,8 @@ import {
   getSavedActivities,
   saveActivities,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 } from '../backend/dataCollect';
 
 import { generateItinerary } from '../backend/openAI';
@@ -126,10 +128,15 @@ function CreateTrip() {
       const response = await generateItinerary(); // Wait for API response
 
       if (response) {
-        navigate('/createItinerary'); // Navigate only after response is received
+        saveItineraryData(response); // Store itinerary
+        console.log('Itinerary saved:', getItineraryData()); // Debugging
+
+        navigate('/createItinerary'); // Navigate only after response is successfully stored
+      } else {
+        console.error('Failed to generate itinerary. No response received.');
       }
     } catch (error) {
-      console.error('Error generating itinerary:', error);
+      console.error('Error handling itinerary:', error);
     } finally {
       setLoading(false); // Hide loading spinner and re-enable button
     }
@@ -343,7 +350,7 @@ function CreateTrip() {
               <button
                 onClick={handleItinerary}
                 disabled={loading}
-                className='itinerary-button'
+                className='gen-itinerary-button'
               >
                 {loading ? (
                   <span className='loader'></span>
