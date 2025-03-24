@@ -31,7 +31,8 @@ function PreferenceModal({ onClose }) {
       moreDetails
     );
 
-    console.log('Collected Preferences from Backend:', getPreferences());
+    //added this line of code to see the string in full instead of the object call
+    console.log('Collected Preferences from Backend:', JSON.stringify(getPreferences(), null, 2));
     onClose();
 };
 //modal ui is working properly, close and open button work fine
