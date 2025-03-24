@@ -2,7 +2,7 @@ import { openai } from '../../config/openaiConfig';
 
 const openaiRequest = `Location: San Marcos
 Start date: 03/22/25
-End date: 03/25/25
+End date: 03/24/25
 Day Start Time: 9:00am
 Day End Time: 8:00pm
 Activity List: Chilis, Sewell Park, Double Daves, EVO, Chi Lantro, Golds Gym, Hiking trail.`;

@@ -62,6 +62,21 @@ function getPreferences() {
   return preferences;
 }
 
+//HANDLE ITINERARY
+
+function saveItineraryData(itineraryData) {
+  const parsedData = JSON.parse(itineraryData);
+
+  parsedData.schedule.forEach((day) => {
+    console.log(`Date: ${day.date}`);
+    day.activities.forEach((activity) => {
+      console.log(`  Activity: ${activity.name}`);
+      console.log(`  Start Time: ${activity.start_time}`);
+      console.log(`  End Time: ${activity.end_time}`);
+    });
+  });
+}
+
 export {
   saveActivities,
   getSavedActivities,

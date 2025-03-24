@@ -118,6 +118,23 @@ function CreateTrip() {
 
   // Aaron's functions
 
+  const [loading, setLoading] = useState(false);
+
+  const handleItinerary = async () => {
+    setLoading(true); // Disable button and show loading spinner
+    try {
+      const response = await generateItinerary(); // Wait for API response
+
+      if (response) {
+        navigate('/createItinerary'); // Navigate only after response is received
+      }
+    } catch (error) {
+      console.error('Error generating itinerary:', error);
+    } finally {
+      setLoading(false); // Hide loading spinner and re-enable button
+    }
+  };
+
   const handleSaveActivities = () => {
     console.log('displaying current selections: ');
     console.log(selectedEntertainment);
@@ -324,11 +341,15 @@ function CreateTrip() {
               </button>
 
               <button
-                type='button'
-                onClick={() => navigate('/createitinerary')}
-                className='trip-preference-btn'
+                onClick={handleItinerary}
+                disabled={loading}
+                className='itinerary-button'
               >
-                Generate Itinerary
+                {loading ? (
+                  <span className='loader'></span>
+                ) : (
+                  'Generate Itinerary'
+                )}
               </button>
 
               {/* Conditionally render the modal */}
