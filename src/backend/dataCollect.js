@@ -72,16 +72,24 @@ function saveItineraryData(itineraryData) {
       throw new Error('No itinerary data provided');
     }
 
-    // Fix: Ensure it's a valid JSON string
+    if (typeof itineraryData !== 'string') {
+      throw new Error(
+        'Expected itinerary data to be a string, received ' +
+          typeof itineraryData
+      );
+    }
+
     const cleanedData = itineraryData.trim();
 
-    // Try to parse it
     itineraryObj = JSON.parse(cleanedData);
 
     console.log('Itinerary successfully saved:', itineraryObj);
   } catch (error) {
-    console.error('Error parsing itinerary data:', error);
-    console.error('Received itinerary data:', itineraryData); // Debugging
+    console.error('Error parsing itinerary data:', error.message);
+    console.error(
+      'Received data (first 100 chars):',
+      itineraryData.slice(0, 100)
+    );
   }
 }
 

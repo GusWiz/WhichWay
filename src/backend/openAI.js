@@ -46,21 +46,37 @@ Rules:
 
 const generateItinerary = async () => {
   console.log('in generate itinerary');
+
   try {
     const response = await openai.chat.completions.create({
       model: 'gpt-4',
-      max_tokens: 100, //CHANGE THIS WHEN TESTING
+      // max_tokens: 100, // REMOVE LIMIT FOR FULL RESULTS
       messages: [
         { role: 'system', content: systemRules },
         { role: 'user', content: openaiRequest },
       ],
     });
 
-    console.log(response.choices[0].message.content);
-    return response.choices[0].message.content; // Return response for further use
+    // Check if response and choices are valid before accessing them
+    if (
+      !response ||
+      !response.choices ||
+      !response.choices[0] ||
+      !response.choices[0].message
+    ) {
+      throw new Error('Invalid response format received from OpenAI API.');
+    }
+
+    const itinerary = response.choices[0].message.content;
+    console.log(itinerary); // Debugging log for the returned itinerary
+    return itinerary; // Return the response data for further use
   } catch (error) {
-    console.error('Error generating itinerary:', error);
-    return null; // Always return something to avoid undefined issues
+    // Enhanced error logging
+    console.error('Error generating itinerary:', error.message || error); // Log error message
+    if (error.stack) {
+      console.error('Stack trace:', error.stack); // Log stack trace for detailed debugging
+    }
+    return null; // Return null to signal an error
   }
 };
 
