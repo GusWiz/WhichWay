@@ -6,7 +6,7 @@ import { db } from '../firebase';  // Import Firestore instance
 import { collection, addDoc } from 'firebase/firestore';  // Firestore methods
 
 function PreferenceModal({ onClose }) {
-  const [destination, setDestination] = useState('');
+  //destination not needed in the modal
   const [cuisine, setCuisine] = useState('');
   const [activityType, setActivityType] = useState('');
   const [budget, setBudget] = useState('');
@@ -17,7 +17,7 @@ function PreferenceModal({ onClose }) {
     e.preventDefault();
     // Added console log troubleshooting to see if component states are being updated
     // Log each input value to verify they are captured correctly
-    console.log('Destination:', destination);
+    //console.log for destination not needed
     console.log('Cuisine:', cuisine);
     console.log('Activity Type:', activityType);
     console.log('Budget:', budget);
@@ -25,7 +25,7 @@ function PreferenceModal({ onClose }) {
     console.log('More Details:', moreDetails);
 
     collectPreferences(
-      destination,
+  //deleted destination
       cuisine,
       activityType,
       budget,
@@ -71,8 +71,13 @@ function PreferenceModal({ onClose }) {
             >
               <option value=''>Select Cuisine</option>
               <option value='asian'>Asian</option>
+              <option value='italian'>Italian</option>
               <option value='mediterranean'>Mediterranean</option>
+              <option value='american'>American</option>
               <option value='latin'>Latin American</option>
+              <option value='vegan'>Vegan/Vegetarian</option>
+              <option value='dessert'>Dessert</option>
+              <option value='surprise'>Surprise Me!</option>
             </select>
           </div>
 
