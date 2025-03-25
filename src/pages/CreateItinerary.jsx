@@ -1,5 +1,6 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 
 function Itinerary() {
+  const navigate = useNavigate();
   const logout = async () => {
     try {
       await signOut(auth);
@@ -131,7 +133,10 @@ function Itinerary() {
                   {' '}
                   Regenerate Itinerary{' '}
                 </button>
-                <button className='itinerary-button' onClick=''>
+                <button
+                  className='itinerary-button'
+                  onClick={() => navigate('/home')}
+                >
                   {' '}
                   Save Itinerary{' '}
                 </button>
