@@ -25,6 +25,7 @@ import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.
 import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../api/placesService';
+import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -443,7 +444,25 @@ const handleSaveDetails = async () => {
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
 
-                {/* Add button to open modal */}
+
+
+                   {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+                
+                <label id='displayedRemainingBudget'>
+                  {displayedBudget.budget >= 0
+                    ? displayedBudget.budget - displayedCost.cost
+                    : ''}
+                </label>
+                <form action='#' className='form' onSubmit={budgetSubmit}>
+                  <input
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    id='budgetInput'
+                    onChange={handleChange}
+                  />
+                  <button type='submit'>Change Budget</button>
+                </form>
                 <button
                   type='button'
                   onClick={handleModalToggle}

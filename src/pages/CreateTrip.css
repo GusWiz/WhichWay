@@ -12,6 +12,13 @@
   width: 600px;
 }
 
+.trip-input-container {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
+  gap: 10px; /* Adds spacing between elements */
+  font-size: 24px; /* Matches the text size with input boxes */
+}
+
 .activities-container {
   display: flex;
   justify-content: center; /* Centers horizontally */
