@@ -481,13 +481,7 @@ function CreateTrip() {
                   Trip Preferences
                 </button>
 
-                <button
-                  type='button'
-                  onClick={handleSaveActivities}
-                  className='trip-preference-btn'
-                >
-                  Save Selections
-                </button>
+
 
                 <button
                   onClick={handleItinerary}
