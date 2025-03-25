@@ -237,10 +237,10 @@ function CreateTrip() {
     setSelectedLocation(placeData);
 
     // Update trip details with the location data
-    setDetails(prev => ({
+    setDetails((prev) => ({
       ...prev,
       destination: placeData.name,
-      location: placeData.location
+      location: placeData.location,
     }));
 
     // Set loading state while fetching activities
@@ -248,7 +248,9 @@ function CreateTrip() {
 
     try {
       // Fetch activities for the selected location
-      const activitiesData = await fetchActivitiesByLocation(placeData.location);
+      const activitiesData = await fetchActivitiesByLocation(
+        placeData.location
+      );
 
       // Update the activities options with the fetched data
       if (activitiesData.food?.length > 0) {
@@ -294,65 +296,75 @@ function CreateTrip() {
 
   // End of Aaron's functions
 
-// handle the place selected from LocationSearch
-const handleLocationSelect = (placeDetails) => {
-  setDetails((prev) => ({
-    ...prev,
-    destination: placeDetails.formatted_address,
-  }));
-};
+  // handle the place selected from LocationSearch
+  const handleLocationSelect = (placeDetails) => {
+    setDetails((prev) => ({
+      ...prev,
+      destination: placeDetails.formatted_address,
+    }));
+  };
 
-// Add this function to your CreateTrip component, after the other state variables
-const [tripName, setTripName] = useState('');
-const [duration, setDuration] = useState('');
+  // Add this function to your CreateTrip component, after the other state variables
+  const [tripName, setTripName] = useState('');
+  const [duration, setDuration] = useState('');
 
-const handleSaveDetails = async () => {
-  try {
-    // Check if user is authenticated
-    const currentUser = auth.currentUser;
-    if (!currentUser) {
-      toast.error("Please log in to save trip details", { position: "bottom-center" });
-      return;
+  const handleSaveDetails = async () => {
+    try {
+      // Check if user is authenticated
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        toast.error('Please log in to save trip details', {
+          position: 'bottom-center',
+        });
+        return;
+      }
+
+      // Validate required fields
+      if (!tripName) {
+        toast.error('Trip name is required', { position: 'bottom-center' });
+        return;
+      }
+
+      if (!details.destination) {
+        toast.error('Destination is required', { position: 'bottom-center' });
+        return;
+      }
+
+      // Create trip details object
+      const tripDetails = {
+        name: tripName,
+        destination: details.destination,
+        duration: duration || '1 day', // Default to 1 day if not specified
+        budget:
+          displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
+        location: details.location || null,
+      };
+
+      // Save details locally
+      saveDetails(
+        tripName,
+        details.destination,
+        duration,
+        displayedBudget.budget
+      );
+
+      // Save to Firebase
+      const tripId = await saveUserTrip(
+        currentUser.uid,
+        tripDetails,
+        duration,
+        getSavedActivities()
+      );
+
+      toast.success('Trip details saved successfully!', {
+        position: 'bottom-center',
+      });
+      console.log('Trip saved with ID:', tripId);
+    } catch (error) {
+      console.error('Error saving trip details:', error);
+      toast.error('Failed to save trip details', { position: 'bottom-center' });
     }
-
-    // Validate required fields
-    if (!tripName) {
-      toast.error("Trip name is required", { position: "bottom-center" });
-      return;
-    }
-
-    if (!details.destination) {
-      toast.error("Destination is required", { position: "bottom-center" });
-      return;
-    }
-
-    // Create trip details object
-    const tripDetails = {
-      name: tripName,
-      destination: details.destination,
-      duration: duration || '1 day', // Default to 1 day if not specified
-      budget: displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
-      location: details.location || null,
-    };
-
-    // Save details locally
-    saveDetails(tripName, details.destination, duration, displayedBudget.budget);
-
-    // Save to Firebase
-    const tripId = await saveUserTrip(
-      currentUser.uid,
-      tripDetails,
-      duration,
-      getSavedActivities()
-    );
-
-    toast.success("Trip details saved successfully!", { position: "bottom-center" });
-    console.log("Trip saved with ID:", tripId);
-  } catch (error) {
-    console.error("Error saving trip details:", error);
-    toast.error("Failed to save trip details", { position: "bottom-center" });
-  }
-};
+  };
 
   return (
     <>
@@ -365,67 +377,67 @@ const handleSaveDetails = async () => {
               <div className='createititnerary-title'>
                 <h1>Create Trip</h1>
               </div>
-            <div>
-              <form action='#' className='form'>
-                <TripInputField
-                  type='text'
-                  placeholder='Trip Name'
-                  value={tripName}
-                  onChange={e => setTripName(e.target.value)}
-                  name="tripName"
-                />
-                <LocationAutocomplete
-                  value={details.destination}
-                  onChange={handleChange}
-                  onPlaceSelected={handlePlaceSelected}
-                />
-                <TripInputField
-                  type='text'
-                  placeholder='Duration'
-                  value={duration}
-                  onChange={e => setDuration(e.target.value)}
-                  name="duration"
-                />
-              </form>
-              <label>
-                {displayedBudget.budget >= 0
-                  ? 'Budget = $'
-                  : 'No budget entered.'}
-              </label>
-              <label id='displayedBudget'>{displayedBudget.budget}</label>
-              <br></br>
-              <label>Cost = $</label>
-              <label id='displayedCost'>{displayedCost.cost}</label>
-              <br></br>
-              <label>
-                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-              </label>
-              <label id='displayedRemainingBudget'>
-                {displayedBudget.budget >= 0
-                  ? displayedBudget.budget - displayedCost.cost
-                  : ''}
-              </label>
-              <form action='#' className='form' onSubmit={budgetSubmit}>
-                <input
-                  type='number'
-                  name='budget'
-                  placeholder='Budget'
-                  id='budgetInput'
-                  onChange={handleChange}
-                />
-                <button type='submit'>Change Budget</button>
-                <button onClick={budgetTest}>
-                  {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
-                </button>
-              </form>
+              <div>
+                <form action='#' className='form'>
+                  <TripInputField
+                    type='text'
+                    placeholder='Trip Name'
+                    value={tripName}
+                    onChange={(e) => setTripName(e.target.value)}
+                    name='tripName'
+                  />
+                  <LocationAutocomplete
+                    value={details.destination}
+                    onChange={handleChange}
+                    onPlaceSelected={handlePlaceSelected}
+                  />
+                  <TripInputField
+                    type='text'
+                    placeholder='Duration'
+                    value={duration}
+                    onChange={(e) => setDuration(e.target.value)}
+                    name='duration'
+                  />
+                </form>
+                <label>
+                  {displayedBudget.budget >= 0
+                    ? 'Budget = $'
+                    : 'No budget entered.'}
+                </label>
+                <label id='displayedBudget'>{displayedBudget.budget}</label>
+                <br></br>
+                <label>Cost = $</label>
+                <label id='displayedCost'>{displayedCost.cost}</label>
+                <br></br>
+                <label>
+                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+                </label>
+                <label id='displayedRemainingBudget'>
+                  {displayedBudget.budget >= 0
+                    ? displayedBudget.budget - displayedCost.cost
+                    : ''}
+                </label>
+                <form action='#' className='form' onSubmit={budgetSubmit}>
+                  <input
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    id='budgetInput'
+                    onChange={handleChange}
+                  />
+                  <button type='submit'>Change Budget</button>
+                  <button onClick={budgetTest}>
+                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+                  </button>
+                </form>
 
-              <button
-                type='button'
-                onClick={handleSaveDetails}
-                className='trip-preference-btn'
-              >
-                Save Trip Details
-              </button>
+                <button
+                  type='button'
+                  onClick={handleSaveDetails}
+                  className='trip-preference-btn'
+                >
+                  Save Trip Details
+                </button>
 
                 {/* Render ActivitiesDisplay component */}
                 <ActivitiesDisplay
@@ -444,10 +456,8 @@ const handleSaveDetails = async () => {
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
 
+                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
 
-
-                   {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-                
                 <label id='displayedRemainingBudget'>
                   {displayedBudget.budget >= 0
                     ? displayedBudget.budget - displayedCost.cost
@@ -492,16 +502,16 @@ const handleSaveDetails = async () => {
                 </button>
               </div>
 
-            {/* Conditionally render the modal */}
-            {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-            <ToastContainer />
-            <ConsoleCommands cmdPassThru={cmdPassthru} />
+              {/* Conditionally render the modal */}
+              {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+              <ToastContainer />
+              <ConsoleCommands cmdPassThru={cmdPassthru} />
+            </div>
           </div>
         </div>
       </div>
-      </div>
       {isLoadingActivities && (
-        <div className="loading-container">
+        <div className='loading-container'>
           <p>Loading activities for {details.destination}...</p>
           {/* You can add a spinner here if you want */}
         </div>

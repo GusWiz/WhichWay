@@ -49,7 +49,7 @@ const generateItinerary = async () => {
 
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: 'gpt-4o',
       // max_tokens: 100, // REMOVE LIMIT FOR FULL RESULTS
       messages: [
         { role: 'system', content: systemRules },

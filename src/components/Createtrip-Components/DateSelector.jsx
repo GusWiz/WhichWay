@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import "./DateSelector.css"; // Import styles
+import React, { useState, useRef, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import './DateSelector.css'; // Import styles
 
 const DateSelector = () => {
   const [startDate, setStartDate] = useState(null);
@@ -19,7 +19,7 @@ const DateSelector = () => {
 
   // Function to format the display text
   const getDisplayText = () => {
-    if (!startDate) return "Select a date";
+    if (!startDate) return 'Select a date';
     if (startDate && !endDate) return `on ${startDate.toLocaleDateString()}`;
     return `from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
   };
@@ -27,26 +27,26 @@ const DateSelector = () => {
   // Close the date picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+      if (
+        datePickerRef.current &&
+        !datePickerRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
 
     // Attach event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       // Cleanup event listener on unmount
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   return (
-    <div className="date-selector-container" ref={datePickerRef}>
-      <div 
-        className="fading-date-text" 
-        onClick={() => setIsOpen(!isOpen)}
-      >
+    <div className='date-selector-container' ref={datePickerRef}>
+      <div className='fading-date-text' onClick={() => setIsOpen(!isOpen)}>
         {getDisplayText()}
       </div>
       {isOpen && (

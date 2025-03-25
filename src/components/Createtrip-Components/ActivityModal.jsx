@@ -48,37 +48,42 @@ const ActivityModal = ({ show, closeModal, item }) => {
 
         {/* New details section */}
         {item && (
-          <div className="modal-details">
+          <div className='modal-details'>
             <h2>{item.name}</h2>
 
             {/* Price and Rating Information */}
-            <div className="detail-row">
-              <div className="detail-item">
+            <div className='detail-row'>
+              <div className='detail-item'>
                 <strong>Price Range:</strong> {item.priceRange}
               </div>
-              <div className="detail-item">
+              <div className='detail-item'>
                 <strong>Price:</strong> ${item.price}
               </div>
             </div>
 
-            <div className="detail-row">
-              <div className="detail-item">
-                <strong>Rating:</strong> {item.rating !== 'N/A' ?
-                  <span>★ {item.rating} ({item.userRatingCount} reviews)</span> :
-                  'No ratings yet'}
+            <div className='detail-row'>
+              <div className='detail-item'>
+                <strong>Rating:</strong>{' '}
+                {item.rating !== 'N/A' ? (
+                  <span>
+                    ★ {item.rating} ({item.userRatingCount} reviews)
+                  </span>
+                ) : (
+                  'No ratings yet'
+                )}
               </div>
             </div>
 
             {/* Existing content */}
-            <div className="detail-row">
-              <div className="detail-item">
+            <div className='detail-row'>
+              <div className='detail-item'>
                 <strong>Location:</strong> {item.vicinity}
               </div>
             </div>
 
             {/* Group size */}
-            <div className="detail-row">
-              <div className="detail-item">
+            <div className='detail-row'>
+              <div className='detail-item'>
                 <strong>Group Size:</strong> {item.groupSize}
               </div>
             </div>

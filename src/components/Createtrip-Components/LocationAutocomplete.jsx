@@ -35,7 +35,7 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
 
       script.onload = initializeAutocomplete;
       script.onerror = () => {
-        console.error("Failed to load Google Maps API");
+        console.error('Failed to load Google Maps API');
         setIsLoading(false);
       };
 
@@ -66,9 +66,9 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
               name: place.name,
               location: {
                 lat: place.geometry.location.lat(),
-                lng: place.geometry.location.lng()
+                lng: place.geometry.location.lng(),
               },
-              placeId: place.place_id
+              placeId: place.place_id,
             };
 
             // Update input value and notify parent component
@@ -104,9 +104,11 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
     <div className='ainput-wrapper'>
       <input
         ref={inputRef}
-        type="text"
-        name="destination"
-        placeholder={isLoading ? "Loading places autocomplete..." : "Enter destination"}
+        type='text'
+        name='destination'
+        placeholder={
+          isLoading ? 'Loading places autocomplete...' : 'Enter destination'
+        }
         value={value || ''}
         onChange={onChange}
         className='ainput-field'

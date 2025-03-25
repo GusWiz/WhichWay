@@ -7,7 +7,7 @@ import '../Login-Components/login-styling.css'; // Reuse styling or create new s
  */
 const TripInputField = ({ type, placeholder, value, onChange, name }) => {
   return (
-    <div className="input-field">
+    <div className='input-field'>
       <input
         type={type}
         placeholder={placeholder}
