@@ -1,4 +1,4 @@
-import { db } from '../components/firebase';
+import { db } from './firestore'; // Import Firestore instance
 import {
   doc,
   setDoc,
@@ -6,114 +6,49 @@ import {
   collection,
   updateDoc,
   arrayUnion,
-  serverTimestamp,
 } from 'firebase/firestore';
 
 // Create a new user document in the Users collection
-export const createUserDocument = async (user) => {
-  try {
-    const userRef = doc(db, 'Users', user.uid);
-    await setDoc(
-      userRef,
-      {
-        email: user.email,
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
-        trips: [], // Array to store trip IDs
-      },
-      { merge: true }
-    );
-  } catch (error) {
-    console.error('Error creating user document:', error);
-    throw error;
-  }
+export const createUserDocument = async (Users) => {
+  const userRef = doc(db, 'Users', user.uid);
+  await setDoc(userRef, {
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    trips: [], // Array to store trip IDs
+  });
 };
 
 // Create a new trip document in the trips collection
 export const createTripDocument = async (
   userId,
-  tripDetails,
+  placeData,
   duration,
   preferences
 ) => {
-  try {
-    // Ensure we have valid data before saving
-    if (!userId) throw new Error('User ID is required');
-    if (!tripDetails) throw new Error('Trip details are required');
+  const tripData = {
+    userId, // Link trip to user
+    place_id: placeData.place_id,
+    name: placeData.name,
+    formatted_address: placeData.formatted_address,
+    location: placeData.geometry.location, // { lat, lng }
+    rating: placeData.rating,
+    user_ratings_total: placeData.user_ratings_total,
+    types: placeData.types,
+    website: placeData.website,
+    formatted_phone_number: placeData.formatted_phone_number,
+    duration, // User input
+    preferences, // User input
+  };
 
-    // Create the trip data object with all the necessary fields
-    const tripData = {
-      userId,
-      name: tripDetails.name || 'Unnamed Trip',
-      destination: tripDetails.destination || 'No destination',
-      duration: duration || tripDetails.duration || '', // Use duration parameter or fall back to tripDetails.duration
-      budget: tripDetails.budget || '0',
-      location: tripDetails.location || { lat: 0, lng: 0 },
-      preferences: preferences || {},
-      createdAt: serverTimestamp(),
-    };
-
-    console.log('Creating trip with data:', tripData);
-
-    const tripRef = await addDoc(collection(db, 'trips'), tripData);
-    console.log('Trip created with ID:', tripRef.id);
-    return tripRef.id;
-  } catch (error) {
-    console.error('Error creating trip document:', error);
-    throw error;
-  }
+  const tripRef = await addDoc(collection(db, 'trips'), tripData);
+  return tripRef.id; // Return the trip ID to link to the user
 };
 
 // Add a trip ID to a user's trips array
 export const addTripToUser = async (userId, tripId) => {
-  try {
-    if (!userId) throw new Error('User ID is required');
-    if (!tripId) throw new Error('Trip ID is required');
-
-    const userRef = doc(db, 'Users', userId);
-    await updateDoc(userRef, {
-      trips: arrayUnion(tripId),
-    });
-    console.log(`Trip ${tripId} linked to user ${userId}`);
-  } catch (error) {
-    console.error('Error adding trip to user:', error);
-    throw error;
-  }
-};
-
-// Function that saves a user's trip to Firestore
-export const saveUserTrip = async (
-  userId,
-  tripDetails,
-  timeFrame,
-  selectedActivities = null
-) => {
-  try {
-    if (!userId) throw new Error('User ID is required');
-    if (!tripDetails) throw new Error('Trip details are required');
-
-    console.log('Saving trip with details:', {
-      userId,
-      tripDetails,
-      timeFrame,
-      selectedActivities,
-    });
-
-    // Save trip data to Firestore
-    const tripId = await createTripDocument(
-      userId,
-      tripDetails,
-      timeFrame,
-      selectedActivities
-    );
-
-    // Link the trip to the User trip array
-    await addTripToUser(userId, tripId);
-
-    console.log('Trip saved and linked to user successfully');
-    return tripId;
-  } catch (error) {
-    console.error('Error saving user trip:', error);
-    throw error;
-  }
+  const userRef = doc(db, 'Users', userId);
+  await updateDoc(userRef, {
+    trips: arrayUnion(tripId), // Add the trip ID to the user's trips array
+  });
 };

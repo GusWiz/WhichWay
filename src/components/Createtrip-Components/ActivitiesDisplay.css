@@ -99,8 +99,6 @@
   align-items: flex-start; /* Align titles to the top */
   gap: 5px; /* Space between titles */
   z-index: 2; /* Ensures the titles are on top of the image */
-  flex-wrap: wrap; /* Allow wrapping for multiple items */
-  max-width: 90%; /* Limit width to prevent overflow */
 }
 
 .selectable-title {
@@ -187,21 +185,4 @@
 /* Optional: Add a hover effect for the button */
 .selectable-button:hover {
   background-color: #adadad; /* Darker green on hover */
-}
-
-/* Add these styles to your existing CSS file */
-.selectable-title.rating {
-  background-color: rgba(255, 215, 0, 0.7); /* Gold color for ratings */
-  color: #333;
-}
-
-.selectable-title.price-range {
-  background-color: rgba(0, 128, 0, 0.7); /* Green color for price */
-  color: white;
-}
-
-/* Star rating styling */
-.star-rating {
-  color: #FFD700; /* Gold color for stars */
-  margin-right: 4px;
 }

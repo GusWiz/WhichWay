@@ -62,50 +62,10 @@ function getPreferences() {
   return preferences;
 }
 
-//HANDLE ITINERARY
-
-let itineraryObj = null;
-
-function saveItineraryData(itineraryData) {
-  try {
-    if (!itineraryData) {
-      throw new Error('No itinerary data provided');
-    }
-
-    if (typeof itineraryData !== 'string') {
-      throw new Error(
-        'Expected itinerary data to be a string, received ' +
-          typeof itineraryData
-      );
-    }
-
-    const cleanedData = itineraryData.trim();
-
-    itineraryObj = JSON.parse(cleanedData);
-
-    console.log('Itinerary successfully saved:', itineraryObj);
-  } catch (error) {
-    console.error('Error parsing itinerary data:', error.message);
-    console.error(
-      'Received data (first 100 chars):',
-      itineraryData.slice(0, 100)
-    );
-  }
-}
-
-function getItineraryData() {
-  if (!itineraryObj) {
-    console.warn('No itinerary data found!');
-  }
-  return itineraryObj;
-}
-
 export {
   saveActivities,
   getSavedActivities,
   collectPreferences,
   getPreferences,
   saveDetails,
-  saveItineraryData,
-  getItineraryData,
 };

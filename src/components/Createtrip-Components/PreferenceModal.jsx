@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
-import { db } from '../firebase'; // Import Firestore instance
-import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
 
 function PreferenceModal({ onClose }) {
   const [destination, setDestination] = useState('');
@@ -13,16 +11,8 @@ function PreferenceModal({ onClose }) {
   const [transportation, setTransportation] = useState('');
   const [moreDetails, setMoreDetails] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Added console log troubleshooting to see if component states are being updated
-    // Log each input value to verify they are captured correctly
-    console.log('Destination:', destination);
-    console.log('Cuisine:', cuisine);
-    console.log('Activity Type:', activityType);
-    console.log('Budget:', budget);
-    console.log('Transportation:', transportation);
-    console.log('More Details:', moreDetails);
 
     collectPreferences(
       destination,
@@ -33,23 +23,10 @@ function PreferenceModal({ onClose }) {
       moreDetails
     );
 
-    const preferencesData = getPreferences();
-    console.log('Collected Preferences:', preferencesData);
-
+    console.log(getPreferences());
     onClose();
-    // Send preferences to Firestore
-    try {
-      console.log('Sending preferences to Firestore...');
-      const docRef = await addDoc(
-        collection(db, 'trip preferences'),
-        preferencesData
-      );
-      console.log('Document written with ID: ', docRef.id);
-    } catch (error) {
-      console.error('Error adding document: ', error);
-    }
   };
-  //modal ui is working properly, close and open button work fine
+
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
       <div className='bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full'>
