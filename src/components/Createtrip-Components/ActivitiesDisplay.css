@@ -9,11 +9,11 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 }
 
 .categories-container {
-  width: 90vw; /* Slight margin on each side */
+  width: 1299px;
   margin: 0 auto; /* Centers it */
   gap: 20px;
   /* Removed unnecessary scrolling styles from here */
@@ -115,7 +115,7 @@
 }
 
 .selectable-title-icon {
-  width: 20px; /* Adjust based on the desired icon size */
+  width: 20px;
   height: 20px; /* Adjust based on the desired icon size */
   margin-right: 8px; /* Space between icon and text */
 }
@@ -171,13 +171,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px; /* Small size */
+  width: 30px;
   height: 30px;
 }
 
 /* Icon inside the button */
 .selectable-button-icon {
-  width: 30px; /* Adjust the width as needed */
+  width: 30px;
   height: 30px; /* Adjust the height as needed */
   object-fit: contain; /* Ensures the image scales while keeping its aspect ratio */
   display: block; /* Prevents any inline display issues */

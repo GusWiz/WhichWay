@@ -8,6 +8,10 @@
   text-align: center;
 }
 
+.createtrip-input {
+  width: 600px;
+}
+
 .activities-container {
   display: flex;
   justify-content: center; /* Centers horizontally */
@@ -29,7 +33,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 150px;
+  /* width: 150px; */
   height: 180px;
   border: 3px solid #ccc;
   border-radius: 12px;
@@ -49,7 +53,7 @@
 
 /* Image inside selectable box */
 .selectable-image {
-  width: 100px;
+  /* width: 100px; */
   height: 80px;
   object-fit: cover;
   border-radius: 8px;
@@ -101,7 +105,7 @@
 }
 
 .preferences-container {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,8 +113,8 @@
 }
 
 .activity-preferences-form {
-  width: 100%;
-  max-width: 600px;
+  /* width: 100%; */
+  /* max-width: 600px; */
   background-color: #f8f8f8;
   border-radius: 10px;
   padding: 20px;
@@ -134,7 +138,7 @@
 }
 
 .input-group input {
-  width: 100%;
+  /* width: 100%; */
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -143,7 +147,7 @@
 
 .activity-preferences-form button {
   display: block;
-  width: 100%;
+  /* width: 100%; */
   padding: 10px;
   font-size: 16px;
   background-color: #007bff;
@@ -155,4 +159,35 @@
 
 .activity-preferences-form button:hover {
   background-color: #0056b3;
+}
+
+.gen-itinerary-button {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.gen-itinerary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

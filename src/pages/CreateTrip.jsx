@@ -1,14 +1,19 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
-import InputField from '../components/Login-Components/InputField';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import TripInputField from '../components/Createtrip-Components/TripInputField';
 import './CreateTrip.css';
+import './Createitinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { saveUserTrip } from '../api/dataModel.js';
+import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,
   saveActivities,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 } from '../backend/dataCollect';
 
 import { generateItinerary } from '../backend/openAI';
@@ -22,6 +27,7 @@ import LocationAutocomplete from '../components/Createtrip-Components/LocationAu
 import { fetchActivitiesByLocation } from '../api/placesService';
 
 function CreateTrip() {
+  const navigate = useNavigate();
   const logout = async () => {
     try {
       await signOut(auth);
@@ -52,16 +58,6 @@ function CreateTrip() {
     cost: '0',
   });
 
-  // const handleCostChange = (price) => {
-  //   const currCost = parseInt(displayedCost.cost);
-  //   // const activityPrice = parseInt(price);
-  //   // const sum = currCost + activityPrice;
-  //   console.log(displayedCost.cost);
-  //   setDisplayedCost((prev) => {
-  //     return { ...prev, cost: currCost + parseInt(price)};
-  //   });
-  // };
-
   const handleCostChange = (price) => {
     setDisplayedCost((prevCost) => {
       const currCost = parseInt(prevCost.cost); // Using the previous state value directly
@@ -75,7 +71,6 @@ function CreateTrip() {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
-    // console.log(details);
   };
 
   const budgetSubmit = (event) => {
@@ -88,13 +83,19 @@ function CreateTrip() {
       setDisplayedBudget((prev) => {
         return { ...prev, budget: details.budget };
       });
+
+      // Also update the tripDetails budget to match
+      setTripDetails((prev) => ({
+        ...prev,
+        budget: details.budget,
+      }));
     }
 
     console.log(details);
   };
 
   const budgetTest = () => {
-    console.log("we in here");
+    console.log('we in here');
 
     setDisplayedBudget((prev) => {
       return { ...prev, budget: 100 };
@@ -104,19 +105,43 @@ function CreateTrip() {
     // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
     // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
 
-    setTimeout(() => {setDisplayedBudget((prev) => {
-      return { ...prev, budget: 20};
-    });
+    setTimeout(() => {
+      setDisplayedBudget((prev) => {
+        return { ...prev, budget: 20 };
+      });
     }, 1000);
-  }
+  };
 
   // Structure to send all relevant functions from this file to ConsoleCommands
+  // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
-    budgetTest
+    budgetTest,
   };
   // end of Vinny's functions
 
   // Aaron's functions
+
+  const [loading, setLoading] = useState(false);
+
+  const handleItinerary = async () => {
+    setLoading(true); // Disable button and show loading spinner
+    try {
+      const response = await generateItinerary(); // Wait for API response
+
+      if (response) {
+        saveItineraryData(response); // Store itinerary
+        console.log('Itinerary saved:', getItineraryData()); // Debugging
+
+        navigate('/createItinerary'); // Navigate only after response is successfully stored
+      } else {
+        console.error('Failed to generate itinerary. No response received.');
+      }
+    } catch (error) {
+      console.error('Error handling itinerary:', error);
+    } finally {
+      setLoading(false); // Hide loading spinner and re-enable button
+    }
+  };
 
   const handleSaveActivities = () => {
     console.log('displaying current selections: ');
@@ -128,10 +153,6 @@ function CreateTrip() {
 
     const savedActivities = getSavedActivities();
     console.log(savedActivities);
-  };
-
-  const handleSaveDetails = () => {
-    saveDetails(name);
   };
 
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -156,10 +177,16 @@ function CreateTrip() {
             handleCostChange(item.price);
             setSelectedFoods((prev) => [...prev, item]); // Add the item to the selected foods
           }
+          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         }
         break;
       case 'entertainment':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedEntertainment.some(entertainment => entertainment.name === item.name)) {
+        if (
+          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
+          !selectedEntertainment.some(
+            (entertainment) => entertainment.name === item.name
+          )
+        ) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (
@@ -175,10 +202,14 @@ function CreateTrip() {
             handleCostChange(item.price);
             setSelectedEntertainment((prev) => [...prev, item]); // Add the item to the selected foods
           }
+          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         }
         break;
       case 'outdoor':
-        if (displayedBudget.budget - displayedCost.cost - item.price < 0 && !selectedOutdoor.some(outdoor => outdoor.name === item.name)) {
+        if (
+          displayedBudget.budget - displayedCost.cost - item.price < 0 &&
+          !selectedOutdoor.some((outdoor) => outdoor.name === item.name)
+        ) {
           return toast('Error: Cost would be more than Budget.');
         } else {
           if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
@@ -190,6 +221,7 @@ function CreateTrip() {
             handleCostChange(item.price);
             setSelectedOutdoor((prev) => [...prev, item]); // Add the item to the selected foods
           }
+          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         }
         break;
       default:
@@ -269,6 +301,57 @@ const handleLocationSelect = (placeDetails) => {
   }));
 };
 
+// Add this function to your CreateTrip component, after the other state variables
+const [tripName, setTripName] = useState('');
+const [duration, setDuration] = useState('');
+
+const handleSaveDetails = async () => {
+  try {
+    // Check if user is authenticated
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      toast.error("Please log in to save trip details");
+      return;
+    }
+
+    // Validate required fields
+    if (!tripName) {
+      toast.error("Trip name is required");
+      return;
+    }
+
+    if (!details.destination) {
+      toast.error("Destination is required");
+      return;
+    }
+
+    // Create trip details object
+    const tripDetails = {
+      name: tripName,
+      destination: details.destination,
+      duration: duration || '1 day', // Default to 1 day if not specified
+      budget: displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
+      location: details.location || null,
+    };
+
+    // Save details locally
+    saveDetails(tripName, details.destination, duration, displayedBudget.budget);
+
+    // Save to Firebase
+    const tripId = await saveUserTrip(
+      currentUser.uid,
+      tripDetails,
+      duration,
+      getSavedActivities()
+    );
+
+    toast.success("Trip details saved successfully!");
+    console.log("Trip saved with ID:", tripId);
+  } catch (error) {
+    console.error("Error saving trip details:", error);
+    toast.error("Failed to save trip details");
+  }
+};
 
   return (
     <>
@@ -277,19 +360,31 @@ const handleLocationSelect = (placeDetails) => {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <div className='title-container'>
-              <h1>Create Trip</h1>
-            </div>
-
+            <div className='itinerary-container'>
+              <div className='createititnerary-title'>
+                <h1>Create Trip</h1>
+              </div>
             <div>
               <form action='#' className='form'>
-                <InputField type='text' placeholder='Trip Name' />
+                <TripInputField
+                  type='text'
+                  placeholder='Trip Name'
+                  value={tripName}
+                  onChange={e => setTripName(e.target.value)}
+                  name="tripName"
+                />
                 <LocationAutocomplete
                   value={details.destination}
                   onChange={handleChange}
                   onPlaceSelected={handlePlaceSelected}
                 />
-                <InputField type='text' placeholder='Duration' />
+                <TripInputField
+                  type='text'
+                  placeholder='Duration'
+                  value={duration}
+                  onChange={e => setDuration(e.target.value)}
+                  name="duration"
+                />
               </form>
               <label>
                 {displayedBudget.budget >= 0
@@ -331,48 +426,52 @@ const handleLocationSelect = (placeDetails) => {
                 Save Trip Details
               </button>
 
-              {/* Render ActivitiesDisplay component */}
-              <ActivitiesDisplay
-                foodOptions={foodOptions}
-                selectedFoods={selectedFoods}
-                handleSelectFood={(item) => {
-                  handleSelect('food', item);
-                }}
-                entertainmentOptions={entertainmentOptions}
-                selectedEntertainment={selectedEntertainment}
-                handleSelectEntertainment={(item) =>
-                  handleSelect('entertainment', item)
-                }
-                outdoorOptions={outdoorOptions}
-                selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-              />
-            </div>
+                {/* Render ActivitiesDisplay component */}
+                <ActivitiesDisplay
+                  foodOptions={foodOptions}
+                  selectedFoods={selectedFoods}
+                  handleSelectFood={(item) => {
+                    handleSelect('food', item);
+                  }}
+                  entertainmentOptions={entertainmentOptions}
+                  selectedEntertainment={selectedEntertainment}
+                  handleSelectEntertainment={(item) =>
+                    handleSelect('entertainment', item)
+                  }
+                  outdoorOptions={outdoorOptions}
+                  selectedOutdoor={selectedOutdoor}
+                  handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
+                />
 
-            {/* Add button to open modal */}
-            <button
-              type='button'
-              onClick={handleModalToggle}
-              className='trip-preference-btn'
-            >
-              Trip Preferences
-            </button>
+                {/* Add button to open modal */}
+                <button
+                  type='button'
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
 
-            <button
-              type='button'
-              onClick={handleSaveActivities}
-              className='trip-preference-btn'
-            >
-              Save Selections
-            </button>
+                <button
+                  type='button'
+                  onClick={handleSaveActivities}
+                  className='trip-preference-btn'
+                >
+                  Save Selections
+                </button>
 
-            <button
-              type='button'
-              onClick={generateItinerary}
-              className='trip-preference-btn'
-            >
-              Generate Itinerary
-            </button>
+                <button
+                  onClick={handleItinerary}
+                  disabled={loading}
+                  className='gen-itinerary-button'
+                >
+                  {loading ? (
+                    <span className='loader'></span>
+                  ) : (
+                    'Generate Itinerary'
+                  )}
+                </button>
+              </div>
 
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
@@ -381,14 +480,13 @@ const handleLocationSelect = (placeDetails) => {
           </div>
         </div>
       </div>
-
+      </div>
       {isLoadingActivities && (
         <div className="loading-container">
           <p>Loading activities for {details.destination}...</p>
           {/* You can add a spinner here if you want */}
         </div>
       )}
-
     </>
   );
 }

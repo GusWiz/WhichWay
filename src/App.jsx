@@ -15,6 +15,8 @@ import Home from './pages/Home.jsx';
 import CreateTrip from './pages/CreateTrip.jsx';
 import CreateItinerary from './pages/CreateItinerary.jsx';
 import Landing from './pages/Landing.jsx';
+import Settings from './pages/Settings.jsx';
+import Account from './pages/Account.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -41,6 +43,8 @@ export default function App() {
           path='/createitinerary'
           element={user ? <CreateItinerary /> : <Login />}
         />
+        <Route path='/account' element={user ? <Account /> : <Login />} />
+        <Route path='/settings' element={user ? <Settings /> : <Login />} />
       </Routes>
     </Router>
   );
