@@ -67,6 +67,17 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
+                  {item.priceRange && item.priceRange !== "Unknown" && (
+                    <span className='selectable-title'>{item.priceRange}</span>
+                  )}
+
+                  {item.rating !== 'N/A' && (
+                    <span className='selectable-title'>
+                      <span className='selectable-title-text'>
+                        ★ {item.rating} ({item.userRatingCount})
+                      </span>
+                    </span>
+                  )}
 
                   <span className='selectable-title'>
                     <img
@@ -128,6 +139,17 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
+                  {item.priceRange && item.priceRange !== "Unknown" && (
+                    <span className='selectable-title'>{item.priceRange}</span>
+                  )}
+
+                  {item.rating !== 'N/A' && (
+                    <span className='selectable-title'>
+                      <span className='selectable-title-text'>
+                        ★ {item.rating} ({item.userRatingCount})
+                      </span>
+                    </span>
+                  )}
 
                   <span className='selectable-title'>
                     <img
@@ -192,6 +214,17 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
+                  {item.priceRange && item.priceRange !== "Unknown" && (
+                    <span className='selectable-title'>{item.priceRange}</span>
+                  )}
+
+                  {item.rating !== 'N/A' && (
+                    <span className='selectable-title'>
+                      <span className='selectable-title-text'>
+                        ★ {item.rating} ({item.userRatingCount})
+                      </span>
+                    </span>
+                  )}
 
                   <span className='selectable-title'>
                     <img
