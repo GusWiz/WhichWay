@@ -1,3 +1,5 @@
+import { signOut } from 'firebase/auth';
+import { auth } from '../components/firebase';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
@@ -12,6 +14,8 @@ import {
   getSavedActivities,
   saveActivities,
   saveDetails,
+  saveItineraryData,
+  getItineraryData,
 } from '../backend/dataCollect';
 
 import { generateItinerary } from '../backend/openAI';
@@ -113,6 +117,28 @@ function CreateTrip() {
   // end of Vinny's functions
 
   // Aaron's functions
+
+  const [loading, setLoading] = useState(false);
+
+  const handleItinerary = async () => {
+    setLoading(true); // Disable button and show loading spinner
+    try {
+      const response = await generateItinerary(); // Wait for API response
+
+      if (response) {
+        saveItineraryData(response); // Store itinerary
+        console.log('Itinerary saved:', getItineraryData()); // Debugging
+
+        navigate('/createItinerary'); // Navigate only after response is successfully stored
+      } else {
+        console.error('Failed to generate itinerary. No response received.');
+      }
+    } catch (error) {
+      console.error('Error handling itinerary:', error);
+    } finally {
+      setLoading(false); // Hide loading spinner and re-enable button
+    }
+  };
 
   const handleSaveActivities = () => {
     console.log('displaying current selections: ');
@@ -397,11 +423,15 @@ function CreateTrip() {
               </button>
 
               <button
-                type='button'
-                onClick={() => navigate('/createitinerary')}
-                className='trip-preference-btn'
+                onClick={handleItinerary}
+                disabled={loading}
+                className='gen-itinerary-button'
               >
-                Generate Itinerary
+                {loading ? (
+                  <span className='loader'></span>
+                ) : (
+                  'Generate Itinerary'
+                )}
               </button>
             </div>
 
