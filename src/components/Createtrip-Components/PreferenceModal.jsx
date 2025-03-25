@@ -57,20 +57,7 @@ function PreferenceModal({ onClose }) {
         <h1 className='modal-title'>Trip Preferences</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
-          {/* Destination */}
-          <div className='flex flex-col'>
-            <label htmlFor='destination' className='text-lg'>
-              Preferred Destination
-            </label>
-            <input
-              type='text'
-              id='destination'
-              placeholder='Enter destination'
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              required
-            />
-          </div>
+          {/*trouble shooted and removed reduant destination input*/}
 
           {/* Cuisine Preference (Yelp API) */}
           <div className='flex flex-col'>
