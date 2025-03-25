@@ -2,27 +2,28 @@ import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
-import { db } from '../firebase';  // Import Firestore instance
-import { collection, addDoc } from 'firebase/firestore';  // Firestore methods
+import { db } from '../firebase'; // Import Firestore instance
+import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
 
 function PreferenceModal({ onClose }) {
-  //destination not needed in the modal
   const [cuisine, setCuisine] = useState('');
   const [activityType, setActivityType] = useState('');
   const [budget, setBudget] = useState('');
   const [transportation, setTransportation] = useState('');
   const [moreDetails, setMoreDetails] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Added console log troubleshooting to see if component states are being updated
     // Log each input value to verify they are captured correctly
     //console.log for destination not needed
-    console.log('Cuisine:', cuisine);
-    console.log('Activity Type:', activityType);
-    console.log('Budget:', budget);
-    console.log('Transportation:', transportation);
-    console.log('More Details:', moreDetails);
+    if (!cuisine || !activityType || !budget || !transportation) {
+      alert("Please fill in all required fields.");
+      return;
+    }
 
     collectPreferences(
   //deleted destination
@@ -32,21 +33,29 @@ function PreferenceModal({ onClose }) {
       transportation,
       moreDetails
     );
-
     const preferencesData = getPreferences();
     console.log('Collected Preferences:', preferencesData);
 
     onClose();
-    // Send preferences to Firestore
+
     try {
-      console.log("Sending preferences to Firestore...");
+      setLoading(true);
+      setError(null); // Reset any previous errors
+      setSuccess(false); // Reset success message
+
+      // Send preferences to Firestore
+      console.log('Sending preferences to Firestore...');
       const docRef = await addDoc(collection(db, 'trip preferences'), preferencesData);
       console.log('Document written with ID: ', docRef.id);
+      setSuccess(true); // Set success to true if document is added
     } catch (error) {
       console.error('Error adding document: ', error);
+      setError("An error occurred while saving your preferences.");
+    } finally {
+      setLoading(false);
     }
-};
-//modal ui is working properly, close and open button work fine
+  };
+
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
       <div className='bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full'>
@@ -57,9 +66,6 @@ function PreferenceModal({ onClose }) {
         <h1 className='modal-title'>Trip Preferences</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
-          {/*trouble shooted and removed reduant destination input*/}
-
-          {/* Cuisine Preference (Yelp API) */}
           <div className='flex flex-col'>
             <label htmlFor='cuisine' className='text-lg'>
               Cuisine Preference
@@ -81,7 +87,6 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
-          {/* Activity Type (Google Places API) */}
           <div className='flex flex-col'>
             <label htmlFor='activityType' className='text-lg'>
               Activity Type
@@ -102,7 +107,6 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
-          {/* Budget Category (YNAB API) */}
           <div className='flex flex-col'>
             <label htmlFor='budget' className='text-lg'>
               Budget Preference
@@ -119,7 +123,6 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
-          {/* Transportation Type (Google Maps API) */}
           <div className='flex flex-col'>
             <label htmlFor='transportation' className='text-lg'>
               Transportation Preference
@@ -136,7 +139,6 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
-          {/* More Details */}
           <div className='flex flex-col'>
             <label htmlFor='moreDetails' className='text-lg'>
               Additional Details (Optional)
@@ -149,14 +151,18 @@ function PreferenceModal({ onClose }) {
             />
           </div>
 
-          {/* Submit */}
+          {/* Submit Button */}
           <button
             type='submit'
             className='submit-btn flex justify-center items-center gap-2'
+            disabled={loading}
           >
-            <CheckCircle size={20} /> Submit Preferences
+            <CheckCircle size={20} /> {loading ? 'Submitting...' : 'Submit Preferences'}
           </button>
         </form>
+
+        {error && <p className='text-red-500'>{error}</p>}
+        {success && <p className='text-green-500'>Preferences successfully submitted!</p>}
       </div>
     </div>
   );
