@@ -50,7 +50,10 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
               ? place.photos[0].getUrl({ maxWidth: 400 })
               : '/images/placeholders/noImage.jpg',
             price: place.price_level ? String(place.price_level * 20) : '25',
+            priceLevel: place.price_level || 0,
+            priceRange: getPriceRangeText(place.price_level),
             rating: place.rating || 'N/A',
+            userRatingCount: place.user_ratings_total || 0,
             vicinity: place.vicinity || 'No address available',
             placeId: place.place_id,
             groupSize: '2-4',
@@ -66,6 +69,23 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
   } catch (error) {
     console.error("Error fetching nearby places:", error);
     return [];
+  }
+};
+// function to to make the price level (that will be displayed)
+const getPriceRangeText = (priceLevel) => {
+  switch (priceLevel) {
+    case 0:
+      return "Free";
+    case 1:
+      return "$";
+    case 2:
+      return "$$";
+    case 3:
+      return "$$$";
+    case 4:
+      return "$$$$";
+    default:
+      return "Unknown";
   }
 };
 
@@ -95,6 +115,10 @@ export const fetchPlaceDetails = async (placeId) => {
                 'website', 'opening_hours', 'price_level', 'reviews']
       }, (result, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
+          // checks if result has a pricelevel
+          if (result.price_level !== undefined) {
+            result.priceRange = getPriceRangeText(result.price_level);
+          }
           resolve(result);
         } else {
           console.error(`Place details API returned status: ${status}`);
