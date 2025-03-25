@@ -6,19 +6,23 @@ import {
   collection,
   updateDoc,
   arrayUnion,
-  serverTimestamp
+  serverTimestamp,
 } from 'firebase/firestore';
 
 // Create a new user document in the Users collection
 export const createUserDocument = async (user) => {
   try {
     const userRef = doc(db, 'Users', user.uid);
-    await setDoc(userRef, {
-      email: user.email,
-      firstName: user.firstName || '',
-      lastName: user.lastName || '',
-      trips: [], // Array to store trip IDs
-    }, { merge: true });
+    await setDoc(
+      userRef,
+      {
+        email: user.email,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        trips: [], // Array to store trip IDs
+      },
+      { merge: true }
+    );
   } catch (error) {
     console.error('Error creating user document:', error);
     throw error;
@@ -26,28 +30,33 @@ export const createUserDocument = async (user) => {
 };
 
 // Create a new trip document in the trips collection
-export const createTripDocument = async (userId, tripDetails, duration, preferences) => {
+export const createTripDocument = async (
+  userId,
+  tripDetails,
+  duration,
+  preferences
+) => {
   try {
     // Ensure we have valid data before saving
-    if (!userId) throw new Error("User ID is required");
-    if (!tripDetails) throw new Error("Trip details are required");
+    if (!userId) throw new Error('User ID is required');
+    if (!tripDetails) throw new Error('Trip details are required');
 
     // Create the trip data object with all the necessary fields
     const tripData = {
       userId,
-      name: tripDetails.name || "Unnamed Trip",
-      destination: tripDetails.destination || "No destination",
-      duration: duration || tripDetails.duration || "",  // Use duration parameter or fall back to tripDetails.duration
-      budget: tripDetails.budget || "0",
+      name: tripDetails.name || 'Unnamed Trip',
+      destination: tripDetails.destination || 'No destination',
+      duration: duration || tripDetails.duration || '', // Use duration parameter or fall back to tripDetails.duration
+      budget: tripDetails.budget || '0',
       location: tripDetails.location || { lat: 0, lng: 0 },
       preferences: preferences || {},
       createdAt: serverTimestamp(),
     };
 
-    console.log("Creating trip with data:", tripData);
+    console.log('Creating trip with data:', tripData);
 
     const tripRef = await addDoc(collection(db, 'trips'), tripData);
-    console.log("Trip created with ID:", tripRef.id);
+    console.log('Trip created with ID:', tripRef.id);
     return tripRef.id;
   } catch (error) {
     console.error('Error creating trip document:', error);
@@ -58,8 +67,8 @@ export const createTripDocument = async (userId, tripDetails, duration, preferen
 // Add a trip ID to a user's trips array
 export const addTripToUser = async (userId, tripId) => {
   try {
-    if (!userId) throw new Error("User ID is required");
-    if (!tripId) throw new Error("Trip ID is required");
+    if (!userId) throw new Error('User ID is required');
+    if (!tripId) throw new Error('Trip ID is required');
 
     const userRef = doc(db, 'Users', userId);
     await updateDoc(userRef, {
@@ -73,15 +82,30 @@ export const addTripToUser = async (userId, tripId) => {
 };
 
 // Function that saves a user's trip to Firestore
-export const saveUserTrip = async (userId, tripDetails, timeFrame, selectedActivities = null) => {
+export const saveUserTrip = async (
+  userId,
+  tripDetails,
+  timeFrame,
+  selectedActivities = null
+) => {
   try {
-    if (!userId) throw new Error("User ID is required");
-    if (!tripDetails) throw new Error("Trip details are required");
+    if (!userId) throw new Error('User ID is required');
+    if (!tripDetails) throw new Error('Trip details are required');
 
-    console.log("Saving trip with details:", { userId, tripDetails, timeFrame, selectedActivities });
+    console.log('Saving trip with details:', {
+      userId,
+      tripDetails,
+      timeFrame,
+      selectedActivities,
+    });
 
     // Save trip data to Firestore
-    const tripId = await createTripDocument(userId, tripDetails, timeFrame, selectedActivities);
+    const tripId = await createTripDocument(
+      userId,
+      tripDetails,
+      timeFrame,
+      selectedActivities
+    );
 
     // Link the trip to the User trip array
     await addTripToUser(userId, tripId);

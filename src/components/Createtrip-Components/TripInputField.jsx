@@ -10,7 +10,7 @@ const TripInputField = ({
   name,
   placeholder = '',
   value = '',
-  onChange
+  onChange,
 }) => {
   return (
     <div className='ainput-wrapper'>

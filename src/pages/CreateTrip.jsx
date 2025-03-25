@@ -1,5 +1,4 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../components/firebase';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
@@ -83,9 +82,9 @@ function CreateTrip() {
       });
 
       // Also update the tripDetails budget to match
-      setTripDetails(prev => ({
+      setTripDetails((prev) => ({
         ...prev,
-        budget: details.budget
+        budget: details.budget,
       }));
     }
 
@@ -103,9 +102,10 @@ function CreateTrip() {
     // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
     // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
 
-    setTimeout(() => {setDisplayedBudget((prev) => {
-      return { ...prev, budget: 20};
-    });
+    setTimeout(() => {
+      setDisplayedBudget((prev) => {
+        return { ...prev, budget: 20 };
+      });
     }, 1000);
   };
 
@@ -270,7 +270,7 @@ function CreateTrip() {
     if (name === 'budget' && value !== '') {
       setDisplayedBudget((prev) => ({
         ...prev,
-        budget: value
+        budget: value,
       }));
     }
   };
@@ -286,7 +286,11 @@ function CreateTrip() {
       const userId = auth.currentUser.uid;
 
       // Validate required fields
-      if (!tripDetails.name || !tripDetails.destination || !tripDetails.duration) {
+      if (
+        !tripDetails.name ||
+        !tripDetails.destination ||
+        !tripDetails.duration
+      ) {
         toast.error('Please fill in trip name, destination and duration');
         return;
       }
@@ -294,10 +298,13 @@ function CreateTrip() {
       // Combine budget from both states to ensure we get the correct value
       const finalTripDetails = {
         ...tripDetails,
-        budget: tripDetails.budget || displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
+        budget:
+          tripDetails.budget || displayedBudget.budget !== 'NULL'
+            ? displayedBudget.budget
+            : '0',
       };
 
-      console.log("Saving trip details:", finalTripDetails);
+      console.log('Saving trip details:', finalTripDetails);
 
       const selectedActivities = {
         foods: selectedFoods,
@@ -305,7 +312,12 @@ function CreateTrip() {
         outdoor: selectedOutdoor,
       };
 
-      await saveUserTrip(userId, finalTripDetails, finalTripDetails.duration, selectedActivities);
+      await saveUserTrip(
+        userId,
+        finalTripDetails,
+        finalTripDetails.duration,
+        selectedActivities
+      );
       toast.success('Trip saved successfully!');
     } catch (error) {
       toast.error('Error saving trip.');
@@ -325,124 +337,124 @@ function CreateTrip() {
                 <h1>Create Trip</h1>
               </div>
 
-            <div>
-              <form action='#' className='form'>
-                <TripInputField
-                  type='text'
-                  name='name'
-                  placeholder='Trip Name'
-                  value={tripDetails.name}
-                  onChange={handleInputChange}
-                />
-                <TripInputField
-                  type='text'
-                  name='destination'
-                  placeholder='Destination'
-                  value={tripDetails.destination}
-                  onChange={handleInputChange}
-                />
-                <TripInputField
-                  type='text'
-                  name='duration'
-                  placeholder='Duration'
-                  value={tripDetails.duration}
-                  onChange={handleInputChange}
-                />
-                <TripInputField
-                  type='number'
-                  name='budget'
-                  placeholder='Budget'
-                  value={tripDetails.budget}
-                  onChange={handleInputChange}
-                />
-              </form>
-              <label>
-                {displayedBudget.budget >= 0
-                  ? 'Budget = $'
-                  : 'No budget entered.'}
-              </label>
-              <label id='displayedBudget'>{displayedBudget.budget}</label>
-              <br></br>
-              <label>Cost = $</label>
-              <label id='displayedCost'>{displayedCost.cost}</label>
-              <br></br>
-              <label>
-                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-              </label>
-              <label id='displayedRemainingBudget'>
-                {displayedBudget.budget >= 0
-                  ? displayedBudget.budget - displayedCost.cost
-                  : ''}
-              </label>
-              <form action='#' className='form' onSubmit={budgetSubmit}>
-                <button type='submit'>Change Budget</button>
-                <button onClick={budgetTest}>
-                  {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+              <div>
+                <form action='#' className='form'>
+                  <TripInputField
+                    type='text'
+                    name='name'
+                    placeholder='Trip Name'
+                    value={tripDetails.name}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='text'
+                    name='destination'
+                    placeholder='Destination'
+                    value={tripDetails.destination}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='text'
+                    name='duration'
+                    placeholder='Duration'
+                    value={tripDetails.duration}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    value={tripDetails.budget}
+                    onChange={handleInputChange}
+                  />
+                </form>
+                <label>
+                  {displayedBudget.budget >= 0
+                    ? 'Budget = $'
+                    : 'No budget entered.'}
+                </label>
+                <label id='displayedBudget'>{displayedBudget.budget}</label>
+                <br></br>
+                <label>Cost = $</label>
+                <label id='displayedCost'>{displayedCost.cost}</label>
+                <br></br>
+                <label>
+                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+                </label>
+                <label id='displayedRemainingBudget'>
+                  {displayedBudget.budget >= 0
+                    ? displayedBudget.budget - displayedCost.cost
+                    : ''}
+                </label>
+                <form action='#' className='form' onSubmit={budgetSubmit}>
+                  <button type='submit'>Change Budget</button>
+                  <button onClick={budgetTest}>
+                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
+                  </button>
+                </form>
+                <button
+                  type='button'
+                  onClick={handleSaveDetails}
+                  className='trip-preference-btn'
+                >
+                  Save Trip Details
                 </button>
-              </form>
-              <button
-                type='button'
-                onClick={handleSaveDetails}
-                className='trip-preference-btn'
-              >
-                Save Trip Details
-              </button>
 
-              {/* Render ActivitiesDisplay component */}
-              <ActivitiesDisplay
-                foodOptions={foodOptions}
-                selectedFoods={selectedFoods}
-                handleSelectFood={(item) => {
-                  handleSelect('food', item);
-                }}
-                entertainmentOptions={entertainmentOptions}
-                selectedEntertainment={selectedEntertainment}
-                handleSelectEntertainment={(item) =>
-                  handleSelect('entertainment', item)
-                }
-                outdoorOptions={outdoorOptions}
-                selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-              />
+                {/* Render ActivitiesDisplay component */}
+                <ActivitiesDisplay
+                  foodOptions={foodOptions}
+                  selectedFoods={selectedFoods}
+                  handleSelectFood={(item) => {
+                    handleSelect('food', item);
+                  }}
+                  entertainmentOptions={entertainmentOptions}
+                  selectedEntertainment={selectedEntertainment}
+                  handleSelectEntertainment={(item) =>
+                    handleSelect('entertainment', item)
+                  }
+                  outdoorOptions={outdoorOptions}
+                  selectedOutdoor={selectedOutdoor}
+                  handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
+                />
 
-              {/* Add button to open modal */}
-              <button
-                type='button'
-                onClick={handleModalToggle}
-                className='trip-preference-btn'
-              >
-                Trip Preferences
-              </button>
+                {/* Add button to open modal */}
+                <button
+                  type='button'
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
 
-              <button
-                type='button'
-                onClick={handleSaveActivities}
-                className='trip-preference-btn'
-              >
-                Save Selections
-              </button>
+                <button
+                  type='button'
+                  onClick={handleSaveActivities}
+                  className='trip-preference-btn'
+                >
+                  Save Selections
+                </button>
 
-              <button
-                onClick={handleItinerary}
-                disabled={loading}
-                className='gen-itinerary-button'
-              >
-                {loading ? (
-                  <span className='loader'></span>
-                ) : (
-                  'Generate Itinerary'
-                )}
-              </button>
+                <button
+                  onClick={handleItinerary}
+                  disabled={loading}
+                  className='gen-itinerary-button'
+                >
+                  {loading ? (
+                    <span className='loader'></span>
+                  ) : (
+                    'Generate Itinerary'
+                  )}
+                </button>
+              </div>
+
+              {/* Conditionally render the modal */}
+              {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
+              <ToastContainer />
+              <ConsoleCommands cmdPassThru={cmdPassthru} />
             </div>
-
-            {/* Conditionally render the modal */}
-            {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-            <ToastContainer />
-            <ConsoleCommands cmdPassThru={cmdPassthru} />
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }
