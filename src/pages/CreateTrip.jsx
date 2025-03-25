@@ -86,7 +86,7 @@ function CreateTrip() {
       });
 
       // Also update the tripDetails budget to match
-      setTripDetails((prev) => ({
+      setDetails((prev) => ({
         ...prev,
         budget: details.budget,
       }));
