@@ -377,124 +377,101 @@ function CreateTrip() {
               <div className='createititnerary-title'>
                 <h1>Create Trip</h1>
               </div>
-              <div>
-                <form action='#' className='form'>
-                  <TripInputField
-                    type='text'
-                    placeholder='Trip Name'
-                    value={tripName}
-                    onChange={(e) => setTripName(e.target.value)}
-                    name='tripName'
-                  />
-                  <LocationAutocomplete
-                    value={details.destination}
-                    onChange={handleChange}
-                    onPlaceSelected={handlePlaceSelected}
-                  />
-                  <TripInputField
-                    type='text'
-                    placeholder='Duration'
-                    value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
-                    name='duration'
-                  />
-                </form>
-                <label>
-                  {displayedBudget.budget >= 0
-                    ? 'Budget = $'
-                    : 'No budget entered.'}
-                </label>
-                <label id='displayedBudget'>{displayedBudget.budget}</label>
-                <br></br>
-                <label>Cost = $</label>
-                <label id='displayedCost'>{displayedCost.cost}</label>
-                <br></br>
-                <label>
-                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-                </label>
-                <label id='displayedRemainingBudget'>
-                  {displayedBudget.budget >= 0
-                    ? displayedBudget.budget - displayedCost.cost
-                    : ''}
-                </label>
-                <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
-                  <button type='submit'>Change Budget</button>
-                  <button onClick={budgetTest}>
-                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
-                  </button>
-                </form>
+              <div className="form-container">
 
-                <button
-                  type='button'
-                  onClick={handleSaveDetails}
-                  className='trip-preference-btn'
-                >
-                  Save Trip Details
-                </button>
+  <form action='#' className='form'>
+    <TripInputField
+      type='text'
+      placeholder='Trip Name'
+      value={tripName}
+      onChange={(e) => setTripName(e.target.value)}
+      name='tripName'
+    />
+    <LocationAutocomplete
+      value={details.destination}
+      onChange={handleChange}
+      onPlaceSelected={handlePlaceSelected}
+    />
+    <TripInputField
+      type='text'
+      placeholder='Duration'
+      value={duration}
+      onChange={(e) => setDuration(e.target.value)}
+      name='duration'
+    />
+  </form>
+  <label>
+    {displayedBudget.budget >= 0 ? 'Budget = $' : 'No budget entered.'}
+  </label>
+  <label id='displayedBudget'>{displayedBudget.budget}</label>
+  <br></br>
+  <label>Cost = $</label>
+  <label id='displayedCost'>{displayedCost.cost}</label>
+  <br></br>
+  <label>
+    {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+  </label>
+  <label id='displayedRemainingBudget'>
+    {displayedBudget.budget >= 0 ? displayedBudget.budget - displayedCost.cost : ''}
+  </label>
+  <form action='#' className='form' onSubmit={budgetSubmit}>
+    <input
+      type='number'
+      name='budget'
+      placeholder='Budget'
+      id='budgetInput'
+      onChange={handleChange}
+    />
+    <button type='submit'>Change Budget</button>
+  </form>
 
-                {/* Render ActivitiesDisplay component */}
-                <ActivitiesDisplay
-                  foodOptions={foodOptions}
-                  selectedFoods={selectedFoods}
-                  handleSelectFood={(item) => {
-                    handleSelect('food', item);
-                  }}
-                  entertainmentOptions={entertainmentOptions}
-                  selectedEntertainment={selectedEntertainment}
-                  handleSelectEntertainment={(item) =>
-                    handleSelect('entertainment', item)
-                  }
-                  outdoorOptions={outdoorOptions}
-                  selectedOutdoor={selectedOutdoor}
-                  handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-                />
+  <button
+    onClick={handleModalToggle}
+    className='trip-preference-btn'
+  >
+    Trip Preferences
+  </button>
 
-                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+  <button
+    type='button'
+    onClick={handleSaveDetails}
+    className='trip-preference-btn save-trip-btn'
+  >
+    Save Trip Details
+  </button>
 
-                <label id='displayedRemainingBudget'>
-                  {displayedBudget.budget >= 0
-                    ? displayedBudget.budget - displayedCost.cost
-                    : ''}
-                </label>
-                <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
-                  <button type='submit'>Change Budget</button>
-                </form>
-                <button
-                  type='button'
-                  onClick={handleModalToggle}
-                  className='trip-preference-btn'
-                >
-                  Trip Preferences
-                </button>
+  <button
+    onClick={handleItinerary}
+    disabled={loading}
+    className='gen-itinerary-button'
+  >
+    {loading ? (
+      <span className='loader'></span>
+    ) : (
+      'Generate Itinerary'
+    )}
+  </button>
+
+  {/* Render ActivitiesDisplay component */}
+  <ActivitiesDisplay
+    foodOptions={foodOptions}
+    selectedFoods={selectedFoods}
+    handleSelectFood={(item) => {
+      handleSelect('food', item);
+    }}
+    entertainmentOptions={entertainmentOptions}
+    selectedEntertainment={selectedEntertainment}
+    handleSelectEntertainment={(item) =>
+      handleSelect('entertainment', item)
+    }
+    outdoorOptions={outdoorOptions}
+    selectedOutdoor={selectedOutdoor}
+    handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
+  />
+</div>
 
 
 
-                <button
-                  onClick={handleItinerary}
-                  disabled={loading}
-                  className='gen-itinerary-button'
-                >
-                  {loading ? (
-                    <span className='loader'></span>
-                  ) : (
-                    'Generate Itinerary'
-                  )}
-                </button>
-              </div>
 
               {/* Conditionally render the modal */}
               {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
