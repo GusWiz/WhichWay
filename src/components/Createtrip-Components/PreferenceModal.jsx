@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
-import { db } from '../firebase'; // Import Firestore instance
-import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
+import { db } from '../firebase';
+import { collection, addDoc } from 'firebase/firestore';
 
 function PreferenceModal({ onClose }) {
   const [cuisine, setCuisine] = useState('');
@@ -15,45 +15,68 @@ function PreferenceModal({ onClose }) {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
+  // Options for surprise me selections (only for cuisine and activity)
+  const surpriseOptions = {
+    cuisine: ['asian', 'italian', 'mediterranean', 'american', 'latin', 'vegan', 'dessert'],
+    activityType: ['adventure', 'entertainment', 'cultural', 'relaxation', 'nightlife', 'shopping']
+  };
+
+  const getRandomOption = (field) => {
+    const options = surpriseOptions[field];
+    return options[Math.floor(Math.random() * options.length)];
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Added console log troubleshooting to see if component states are being updated
-    // Log each input value to verify they are captured correctly
-    //console.log for destination not needed
+
     if (!cuisine || !activityType || !budget || !transportation) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    collectPreferences(
-  //deleted destination
-      cuisine,
-      activityType,
+    // Generate random selections only for cuisine and activity if "surprise" was chosen
+    const actualSelections = {
+      cuisine: cuisine === 'surprise' ? getRandomOption('cuisine') : cuisine,
+      activityType: activityType === 'surprise' ? getRandomOption('activityType') : activityType,
       budget,
       transportation,
       moreDetails
+    };
+
+    collectPreferences(
+      actualSelections.cuisine,
+      actualSelections.activityType,
+      actualSelections.budget,
+      actualSelections.transportation,
+      actualSelections.moreDetails
     );
+
     const preferencesData = getPreferences();
     console.log('Collected Preferences:', preferencesData);
 
-    onClose();
-
     try {
       setLoading(true);
-      setError(null); // Reset any previous errors
-      setSuccess(false); // Reset success message
+      setError(null);
+      setSuccess(false);
 
-      // Send preferences to Firestore
-      console.log('Sending preferences to Firestore...');
-      const docRef = await addDoc(collection(db, 'trip preferences'), preferencesData);
+      const docRef = await addDoc(collection(db, 'trip preferences'), {
+        ...preferencesData,
+        wasSurprise: {
+          cuisine: cuisine === 'surprise',
+          activityType: activityType === 'surprise'
+        }
+      });
+
       console.log('Document written with ID: ', docRef.id);
-      setSuccess(true); // Set success to true if document is added
+      setSuccess(true);
     } catch (error) {
       console.error('Error adding document: ', error);
       setError("An error occurred while saving your preferences.");
     } finally {
       setLoading(false);
     }
+
+    onClose();
   };
 
   return (
@@ -66,6 +89,7 @@ function PreferenceModal({ onClose }) {
         <h1 className='modal-title'>Trip Preferences</h1>
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
+          {/* Cuisine Preference with Surprise Me option */}
           <div className='flex flex-col'>
             <label htmlFor='cuisine' className='text-lg'>
               Cuisine Preference
@@ -74,6 +98,7 @@ function PreferenceModal({ onClose }) {
               id='cuisine'
               value={cuisine}
               onChange={(e) => setCuisine(e.target.value)}
+              required
             >
               <option value=''>Select Cuisine</option>
               <option value='asian'>Asian</option>
@@ -87,6 +112,7 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
+          {/* Activity Type with Surprise Me option */}
           <div className='flex flex-col'>
             <label htmlFor='activityType' className='text-lg'>
               Activity Type
@@ -95,6 +121,7 @@ function PreferenceModal({ onClose }) {
               id='activityType'
               value={activityType}
               onChange={(e) => setActivityType(e.target.value)}
+              required
             >
               <option value=''>Select Activity</option>
               <option value='adventure'>Adventure (Hiking, Scuba Diving)</option>
@@ -107,6 +134,7 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
+          {/* Budget Preference (no Surprise Me option) */}
           <div className='flex flex-col'>
             <label htmlFor='budget' className='text-lg'>
               Budget Preference
@@ -115,6 +143,7 @@ function PreferenceModal({ onClose }) {
               id='budget'
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
+              required
             >
               <option value=''>Select Budget</option>
               <option value='low'>Budget-Friendly ($)</option>
@@ -123,6 +152,7 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
+          {/* Transportation Preference (no Surprise Me option) */}
           <div className='flex flex-col'>
             <label htmlFor='transportation' className='text-lg'>
               Transportation Preference
@@ -131,6 +161,7 @@ function PreferenceModal({ onClose }) {
               id='transportation'
               value={transportation}
               onChange={(e) => setTransportation(e.target.value)}
+              required
             >
               <option value=''>Select Transportation</option>
               <option value='public'>Public Transport</option>
@@ -139,6 +170,7 @@ function PreferenceModal({ onClose }) {
             </select>
           </div>
 
+          {/* Additional Details */}
           <div className='flex flex-col'>
             <label htmlFor='moreDetails' className='text-lg'>
               Additional Details (Optional)
