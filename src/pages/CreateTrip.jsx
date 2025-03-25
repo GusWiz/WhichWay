@@ -22,14 +22,10 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
-<<<<<<< HEAD
-import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
-import DateSelector from '../components/Createtrip-Components/DateSelector';
-=======
 import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../api/placesService';
->>>>>>> 150610a70e98234c52654c43eeb82053fe76e3be
+import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -423,48 +419,6 @@ const handleSaveDetails = async () => {
                 </button>
               </form>
 
-<<<<<<< HEAD
-              <div className='createtrip-input'>
-                <form action='#' className='form'>
-                  <div className="trip-input-container">
-                    <FadingTextBox type="text" placeholder="Trip Name" />
-                    <p>to...</p>
-                    <FadingTextBox type="text" placeholder="Destination" />
-                    <DateSelector />
-                  </div>
-                </form>
-                <label>
-                  {displayedBudget.budget >= 0
-                    ? 'Budget = $'
-                    : 'No budget entered.'}
-                </label>
-                <label id='displayedBudget'>{displayedBudget.budget >= 0 
-                  ? displayedBudget.budget 
-                  : ""}
-                </label>
-                <br></br>
-                <label>Cost = $</label>
-                <label id='displayedCost'>{displayedCost.cost}</label>
-                <br></br>
-                <label>
-                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-                </label>
-                <label id='displayedRemainingBudget'>
-                  {displayedBudget.budget >= 0
-                    ? displayedBudget.budget - displayedCost.cost
-                    : ''}
-                </label>
-                <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
-                  <button type='submit'>Change Budget</button>
-                </form>
-=======
               <button
                 type='button'
                 onClick={handleSaveDetails}
@@ -490,8 +444,25 @@ const handleSaveDetails = async () => {
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
 
-                {/* Add button to open modal */}
->>>>>>> 150610a70e98234c52654c43eeb82053fe76e3be
+
+
+                   {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
+                
+                <label id='displayedRemainingBudget'>
+                  {displayedBudget.budget >= 0
+                    ? displayedBudget.budget - displayedCost.cost
+                    : ''}
+                </label>
+                <form action='#' className='form' onSubmit={budgetSubmit}>
+                  <input
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    id='budgetInput'
+                    onChange={handleChange}
+                  />
+                  <button type='submit'>Change Budget</button>
+                </form>
                 <button
                   type='button'
                   onClick={handleModalToggle}
@@ -521,60 +492,10 @@ const handleSaveDetails = async () => {
                 </button>
               </div>
 
-<<<<<<< HEAD
-              {/* Render ActivitiesDisplay component */}
-              <ActivitiesDisplay
-                foodOptions={foodOptions}
-                selectedFoods={selectedFoods}
-                handleSelectFood={(item) => {
-                  handleSelect('food', item);
-                }}
-                entertainmentOptions={entertainmentOptions}
-                selectedEntertainment={selectedEntertainment}
-                handleSelectEntertainment={(item) =>
-                  handleSelect('entertainment', item)
-                }
-                outdoorOptions={outdoorOptions}
-                selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-              />
-
-              {/* Add button to open modal */}
-              <button
-                type='button'
-                onClick={handleModalToggle}
-                className='trip-preference-btn'
-              >
-                Trip Preferences
-              </button>
-
-              <button
-                type='button'
-                onClick={handleSaveActivities}
-                className='trip-preference-btn'
-              >
-                Save Selections
-              </button>
-
-              <button
-                type='button'
-                onClick={() => navigate('/createitinerary')}
-                className='trip-preference-btn'
-              >
-                Generate Itinerary
-              </button>
-
-              {/* Conditionally render the modal */}
-              {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-              <ToastContainer position="bottom-right"/>
-              <ConsoleCommands cmdPassThru={cmdPassthru} />
-            </div>
-=======
             {/* Conditionally render the modal */}
             {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
             <ToastContainer />
             <ConsoleCommands cmdPassThru={cmdPassthru} />
->>>>>>> 150610a70e98234c52654c43eeb82053fe76e3be
           </div>
         </div>
       </div>
