@@ -34,7 +34,6 @@ function getSavedActivities() {
 
 //HANDLE ACTIVITY PREFERENCES
 let preferences = {
-  destination: null,
   cuisine: null,
   activityType: null,
   budget: null,
@@ -43,14 +42,12 @@ let preferences = {
 };
 
 function collectPreferences(
-  destination,
   cuisine,
   activityType,
   budget,
   transportation,
   moreDetails
 ) {
-  preferences.destination = destination;
   preferences.cuisine = cuisine;
   preferences.activityType = activityType;
   preferences.budget = budget;

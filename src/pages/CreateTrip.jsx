@@ -311,18 +311,18 @@ const handleSaveDetails = async () => {
     // Check if user is authenticated
     const currentUser = auth.currentUser;
     if (!currentUser) {
-      toast.error("Please log in to save trip details");
+      toast.error("Please log in to save trip details", { position: "bottom-center" });
       return;
     }
 
     // Validate required fields
     if (!tripName) {
-      toast.error("Trip name is required");
+      toast.error("Trip name is required", { position: "bottom-center" });
       return;
     }
 
     if (!details.destination) {
-      toast.error("Destination is required");
+      toast.error("Destination is required", { position: "bottom-center" });
       return;
     }
 
@@ -346,11 +346,11 @@ const handleSaveDetails = async () => {
       getSavedActivities()
     );
 
-    toast.success("Trip details saved successfully!");
+    toast.success("Trip details saved successfully!", { position: "bottom-center" });
     console.log("Trip saved with ID:", tripId);
   } catch (error) {
     console.error("Error saving trip details:", error);
-    toast.error("Failed to save trip details");
+    toast.error("Failed to save trip details", { position: "bottom-center" });
   }
 };
 

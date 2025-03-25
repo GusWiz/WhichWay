@@ -134,7 +134,11 @@ export default function TripManager() {
     setTripDetails((prev) => ({ ...prev, [name]: value }));
 
   const handleSave = async () => {
-    if (Object.values(tripDetails).some((v) => !v)) return;
+    if (!tripDetails.name.trim() || !tripDetails.date || !tripDetails.destination.trim()) {
+      alert('Please fill in all fields correctly.');
+      return;
+    }
+    // Save only after validation passes
     if (tripId) {
       await updateDoc(doc(db, 'trips', tripId), tripDetails);
     } else {
@@ -144,6 +148,7 @@ export default function TripManager() {
     setTripId(null);
     setTripDetails({ name: '', date: '', destination: '' });
   };
+
 
   const handleRemove = async (id) => {
     await deleteDoc(doc(db, 'trips', id));
