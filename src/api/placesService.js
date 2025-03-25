@@ -112,7 +112,7 @@ export const fetchPlaceDetails = async (placeId) => {
       service.getDetails({
         placeId: placeId,
         fields: ['name', 'rating', 'formatted_phone_number', 'formatted_address',
-                'website', 'opening_hours', 'price_level', 'reviews']
+                'website', 'opening_hours', 'price_level', 'reviews', 'user_ratings_total']
       }, (result, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           // checks if result has a pricelevel
