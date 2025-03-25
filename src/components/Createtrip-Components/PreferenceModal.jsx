@@ -92,15 +92,13 @@ function PreferenceModal({ onClose }) {
               onChange={(e) => setActivityType(e.target.value)}
             >
               <option value=''>Select Activity</option>
-              <option value='adventure'>
-                Adventure (Hiking, Scuba Diving)
-              </option>
-              <option value='entertainment'>
-                Entertainment (Concerts, Theme Parks)
-              </option>
-              <option value='cultural'>
-                Cultural (Museums, Historical Sites)
-              </option>
+              <option value='adventure'>Adventure (Hiking, Scuba Diving)</option>
+              <option value='entertainment'>Entertainment (Concerts, Theme Parks)</option>
+              <option value='cultural'>Cultural (Museums, Historical Sites)</option>
+              <option value='relaxation'>Relaxation (Beaches, Spas)</option>
+              <option value='nightlife'>Nightlife (Bars, Clubs)</option>
+              <option value='shopping'>Shopping (Markets, Malls)</option>
+              <option value='surprise'>Surprise Me!</option>
             </select>
           </div>
 
@@ -145,7 +143,7 @@ function PreferenceModal({ onClose }) {
             </label>
             <textarea
               id='moreDetails'
-              placeholder='Add any extra preferences'
+              placeholder='Add any extra preferences...'
               value={moreDetails}
               onChange={(e) => setMoreDetails(e.target.value)}
             />
