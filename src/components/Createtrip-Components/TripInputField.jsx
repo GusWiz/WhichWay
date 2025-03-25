@@ -5,23 +5,16 @@ import '../Login-Components/login-styling.css'; // Reuse styling or create new s
  * Input field component designed specifically for trip creation forms.
  * Properly handles name, value, and other essential input properties.
  */
-const TripInputField = ({
-  type = 'text',
-  name,
-  placeholder = '',
-  value = '',
-  onChange,
-}) => {
+const TripInputField = ({ type, placeholder, value, onChange, name }) => {
   return (
-    <div className='ainput-wrapper'>
+    <div className="input-field">
       <input
         type={type}
-        name={name}
         placeholder={placeholder}
         value={value}
-        className='ainput-field'
-        required
         onChange={onChange}
+        name={name}
+        required
       />
     </div>
   );

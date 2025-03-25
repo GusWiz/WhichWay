@@ -1,4 +1,4 @@
-import { getPlaceDetails } from './googleLocationAPI';
+import { getPlaceDetails } from './googleLocationApi';
 import { createTripDocument, addTripToUser } from './dataModel';
 
 // Save a user's trip data to Firestore
