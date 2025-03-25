@@ -67,7 +67,7 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
-                  {item.priceRange && item.priceRange !== "Unknown" && (
+                  {item.priceRange && item.priceRange !== 'Unknown' && (
                     <span className='selectable-title'>{item.priceRange}</span>
                   )}
 
@@ -139,7 +139,7 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
-                  {item.priceRange && item.priceRange !== "Unknown" && (
+                  {item.priceRange && item.priceRange !== 'Unknown' && (
                     <span className='selectable-title'>{item.priceRange}</span>
                   )}
 
@@ -214,7 +214,7 @@ function ActivitiesDisplay({
                 <div className='selectable-title-container'>
                   <span className='selectable-title'>{item.name}</span>
                   <span className='selectable-title'>${item.price}</span>
-                  {item.priceRange && item.priceRange !== "Unknown" && (
+                  {item.priceRange && item.priceRange !== 'Unknown' && (
                     <span className='selectable-title'>{item.priceRange}</span>
                   )}
 

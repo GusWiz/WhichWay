@@ -17,8 +17,23 @@ function PreferenceModal({ onClose }) {
 
   // Options for surprise me selections (only for cuisine and activity)
   const surpriseOptions = {
-    cuisine: ['asian', 'italian', 'mediterranean', 'american', 'latin', 'vegan', 'dessert'],
-    activityType: ['adventure', 'entertainment', 'cultural', 'relaxation', 'nightlife', 'shopping']
+    cuisine: [
+      'asian',
+      'italian',
+      'mediterranean',
+      'american',
+      'latin',
+      'vegan',
+      'dessert',
+    ],
+    activityType: [
+      'adventure',
+      'entertainment',
+      'cultural',
+      'relaxation',
+      'nightlife',
+      'shopping',
+    ],
   };
 
   const getRandomOption = (field) => {
@@ -30,17 +45,20 @@ function PreferenceModal({ onClose }) {
     e.preventDefault();
 
     if (!cuisine || !activityType || !budget || !transportation) {
-      alert("Please fill in all required fields.");
+      alert('Please fill in all required fields.');
       return;
     }
 
     // Generate random selections only for cuisine and activity if "surprise" was chosen
     const actualSelections = {
       cuisine: cuisine === 'surprise' ? getRandomOption('cuisine') : cuisine,
-      activityType: activityType === 'surprise' ? getRandomOption('activityType') : activityType,
+      activityType:
+        activityType === 'surprise'
+          ? getRandomOption('activityType')
+          : activityType,
       budget,
       transportation,
-      moreDetails
+      moreDetails,
     };
 
     collectPreferences(
@@ -63,15 +81,15 @@ function PreferenceModal({ onClose }) {
         ...preferencesData,
         wasSurprise: {
           cuisine: cuisine === 'surprise',
-          activityType: activityType === 'surprise'
-        }
+          activityType: activityType === 'surprise',
+        },
       });
 
       console.log('Document written with ID: ', docRef.id);
       setSuccess(true);
     } catch (error) {
       console.error('Error adding document: ', error);
-      setError("An error occurred while saving your preferences.");
+      setError('An error occurred while saving your preferences.');
     } finally {
       setLoading(false);
     }
@@ -124,9 +142,15 @@ function PreferenceModal({ onClose }) {
               required
             >
               <option value=''>Select Activity</option>
-              <option value='adventure'>Adventure (Hiking, Scuba Diving)</option>
-              <option value='entertainment'>Entertainment (Concerts, Theme Parks)</option>
-              <option value='cultural'>Cultural (Museums, Historical Sites)</option>
+              <option value='adventure'>
+                Adventure (Hiking, Scuba Diving)
+              </option>
+              <option value='entertainment'>
+                Entertainment (Concerts, Theme Parks)
+              </option>
+              <option value='cultural'>
+                Cultural (Museums, Historical Sites)
+              </option>
               <option value='relaxation'>Relaxation (Beaches, Spas)</option>
               <option value='nightlife'>Nightlife (Bars, Clubs)</option>
               <option value='shopping'>Shopping (Markets, Malls)</option>
@@ -189,12 +213,15 @@ function PreferenceModal({ onClose }) {
             className='submit-btn flex justify-center items-center gap-2'
             disabled={loading}
           >
-            <CheckCircle size={20} /> {loading ? 'Submitting...' : 'Submit Preferences'}
+            <CheckCircle size={20} />{' '}
+            {loading ? 'Submitting...' : 'Submit Preferences'}
           </button>
         </form>
 
         {error && <p className='text-red-500'>{error}</p>}
-        {success && <p className='text-green-500'>Preferences successfully submitted!</p>}
+        {success && (
+          <p className='text-green-500'>Preferences successfully submitted!</p>
+        )}
       </div>
     </div>
   );

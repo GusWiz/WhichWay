@@ -27,7 +27,7 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
     // Create search parameters
     const request = {
       location: new google.maps.LatLng(location.lat, location.lng),
-      radius: radius
+      radius: radius,
     };
 
     // Handle single vs. multiple types
@@ -44,11 +44,12 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
           // Format results for the application
-          const formattedResults = results.map(place => ({
+          const formattedResults = results.map((place) => ({
             name: place.name,
-            imgSrc: place.photos && place.photos.length > 0
-              ? place.photos[0].getUrl({ maxWidth: 400 })
-              : '/images/placeholders/noImage.jpg',
+            imgSrc:
+              place.photos && place.photos.length > 0
+                ? place.photos[0].getUrl({ maxWidth: 400 })
+                : '/images/placeholders/noImage.jpg',
             price: place.price_level ? String(place.price_level * 20) : '25',
             priceLevel: place.price_level || 0,
             priceRange: getPriceRangeText(place.price_level),
@@ -67,7 +68,7 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
       });
     });
   } catch (error) {
-    console.error("Error fetching nearby places:", error);
+    console.error('Error fetching nearby places:', error);
     return [];
   }
 };
@@ -75,17 +76,17 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
 const getPriceRangeText = (priceLevel) => {
   switch (priceLevel) {
     case 0:
-      return "Free";
+      return 'Free';
     case 1:
-      return "$";
+      return '$';
     case 2:
-      return "$$";
+      return '$$';
     case 3:
-      return "$$$";
+      return '$$$';
     case 4:
-      return "$$$$";
+      return '$$$$';
     default:
-      return "Unknown";
+      return 'Unknown';
   }
 };
 
@@ -109,25 +110,37 @@ export const fetchPlaceDetails = async (placeId) => {
     return new Promise((resolve) => {
       const service = new google.maps.places.PlacesService(mapDiv);
 
-      service.getDetails({
-        placeId: placeId,
-        fields: ['name', 'rating', 'formatted_phone_number', 'formatted_address',
-                'website', 'opening_hours', 'price_level', 'reviews', 'user_ratings_total']
-      }, (result, status) => {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          // checks if result has a pricelevel
-          if (result.price_level !== undefined) {
-            result.priceRange = getPriceRangeText(result.price_level);
+      service.getDetails(
+        {
+          placeId: placeId,
+          fields: [
+            'name',
+            'rating',
+            'formatted_phone_number',
+            'formatted_address',
+            'website',
+            'opening_hours',
+            'price_level',
+            'reviews',
+            'user_ratings_total',
+          ],
+        },
+        (result, status) => {
+          if (status === google.maps.places.PlacesServiceStatus.OK) {
+            // checks if result has a pricelevel
+            if (result.price_level !== undefined) {
+              result.priceRange = getPriceRangeText(result.price_level);
+            }
+            resolve(result);
+          } else {
+            console.error(`Place details API returned status: ${status}`);
+            resolve(null);
           }
-          resolve(result);
-        } else {
-          console.error(`Place details API returned status: ${status}`);
-          resolve(null);
         }
-      });
+      );
     });
   } catch (error) {
-    console.error("Error fetching place details:", error);
+    console.error('Error fetching place details:', error);
     return null;
   }
 };
@@ -141,20 +154,26 @@ export const fetchPlaceDetails = async (placeId) => {
 export const fetchActivitiesByLocation = async (location) => {
   try {
     const restaurants = await fetchNearbyPlaces(location, 'restaurant');
-    const entertainment = await fetchNearbyPlaces(location, 'amusement_park,museum,movie_theater');
-    const outdoor = await fetchNearbyPlaces(location, 'park,campground,natural_feature,beach');
+    const entertainment = await fetchNearbyPlaces(
+      location,
+      'amusement_park,museum,movie_theater'
+    );
+    const outdoor = await fetchNearbyPlaces(
+      location,
+      'park,campground,natural_feature,beach'
+    );
 
     return {
       food: restaurants.slice(0, 5),
       entertainment: entertainment.slice(0, 5),
-      outdoor: outdoor.slice(0, 5)
+      outdoor: outdoor.slice(0, 5),
     };
   } catch (error) {
-    console.error("Error fetching activities:", error);
+    console.error('Error fetching activities:', error);
     return {
       food: [],
       entertainment: [],
-      outdoor: []
+      outdoor: [],
     };
   }
 };

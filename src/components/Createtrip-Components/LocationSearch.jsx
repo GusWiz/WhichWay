@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { getPlaceSuggestions, getPlaceDetails } from '../../api/googleLocationApi';
+import {
+  getPlaceSuggestions,
+  getPlaceDetails,
+} from '../../api/googleLocationApi';
 
 function LocationSearch({ onSelect }) {
   const [input, setInput] = useState(''); // Create value to store user input
@@ -50,11 +53,11 @@ function LocationSearch({ onSelect }) {
     <div>
       {/* Input field for entering a location */}
       <input
-        type="text"
+        type='text'
         value={input}
         onChange={handleInputChange}
         onBlur={handleInputBlur}
-        placeholder="Enter a location"
+        placeholder='Enter a location'
       />
       {/* Display the list of place suggestions */}
       {suggestions.length > 0 && (

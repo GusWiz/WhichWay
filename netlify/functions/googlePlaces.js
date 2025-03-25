@@ -13,7 +13,9 @@ exports.handler = async (event, context) => {
     if (data.status !== 'OK') {
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: `Error fetching places: ${data.status}` }),
+        body: JSON.stringify({
+          error: `Error fetching places: ${data.status}`,
+        }),
       };
     }
 

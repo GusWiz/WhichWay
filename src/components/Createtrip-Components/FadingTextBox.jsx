@@ -9,10 +9,10 @@ const FadingTextBox = ({ type, placeholder }) => {
   };
 
   return (
-    <div className="fading-textbox-container">
+    <div className='fading-textbox-container'>
       <input
         value={text}
-        className="fading-textbox"
+        className='fading-textbox'
         type={type}
         placeholder={placeholder}
         required

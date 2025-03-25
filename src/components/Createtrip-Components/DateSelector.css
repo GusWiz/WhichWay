@@ -1,42 +1,40 @@
 .date-selector-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .fading-date-text {
-    border: 1px solid transparent; /* Same as FadingTextBox */
-    padding: 10px;
-    font-size: 24px;
-    width: 400px;
-    outline: none;
-    transition: border-color 0.3s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: gray; /* Default placeholder color */
-    border-radius: 8px; /* Make the border rounded */
-  }
+  position: relative;
+  display: inline-block;
+}
 
-  .fading-date-text.has-date {
-    color: black; /* Change to black when a date is selected */
-  }
+.fading-date-text {
+  border: 1px solid transparent; /* Same as FadingTextBox */
+  padding: 10px;
+  font-size: 24px;
+  width: 400px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: gray; /* Default placeholder color */
+  border-radius: 8px; /* Make the border rounded */
+}
 
-  
-  .fading-date-text:hover {
-    border: 1px solid #ccc;
-  }
-  
-  .fading-date-text:focus,
-  .date-selector-container:focus-within .fading-date-text {
-    border: 1px solid #4a90e2; /* Match the focused look */
-  }
-  
-  .react-datepicker {
-    position: absolute;
-    top: 40px;
-    left: 0;
-    z-index: 1000;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
+.fading-date-text.has-date {
+  color: black; /* Change to black when a date is selected */
+}
+
+.fading-date-text:hover {
+  border: 1px solid #ccc;
+}
+
+.fading-date-text:focus,
+.date-selector-container:focus-within .fading-date-text {
+  border: 1px solid #4a90e2; /* Match the focused look */
+}
+
+.react-datepicker {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}

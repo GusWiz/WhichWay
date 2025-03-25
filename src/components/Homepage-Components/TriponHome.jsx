@@ -134,7 +134,11 @@ export default function TripManager() {
     setTripDetails((prev) => ({ ...prev, [name]: value }));
 
   const handleSave = async () => {
-    if (!tripDetails.name.trim() || !tripDetails.date || !tripDetails.destination.trim()) {
+    if (
+      !tripDetails.name.trim() ||
+      !tripDetails.date ||
+      !tripDetails.destination.trim()
+    ) {
       alert('Please fill in all fields correctly.');
       return;
     }
@@ -148,7 +152,6 @@ export default function TripManager() {
     setTripId(null);
     setTripDetails({ name: '', date: '', destination: '' });
   };
-
 
   const handleRemove = async (id) => {
     await deleteDoc(doc(db, 'trips', id));

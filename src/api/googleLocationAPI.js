@@ -1,8 +1,10 @@
 // Importing axios to handle HTTP requests
 import axios from 'axios';
 
-const GOOGLE_PLACES_API_URL = 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-const GOOGLE_PLACES_DETAILS_API_URL = 'https://maps.googleapis.com/maps/api/place/details/json';
+const GOOGLE_PLACES_API_URL =
+  'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+const GOOGLE_PLACES_DETAILS_API_URL =
+  'https://maps.googleapis.com/maps/api/place/details/json';
 
 // Function that calls Google Places API to get place suggestions
 export const getPlaceSuggestions = async (input) => {
