@@ -11,7 +11,7 @@ export const getPlaceSuggestions = async (input) => {
     const response = await axios.get(GOOGLE_PLACES_API_URL, {
       params: {
         input, // The user input for place suggestions
-        key: process.env.REACT_APP_GOOGLE_API_KEY, // The API key from the environment variables
+        key: import.meta.env.VITE_GOOGLE_API_KEY, // The API key from the environment variables
       },
     });
     return response.data.predictions; // Return API response of the list of places
@@ -28,7 +28,7 @@ export const getPlaceDetails = async (placeId) => {
     const response = await axios.get(GOOGLE_PLACES_DETAILS_API_URL, {
       params: {
         place_id: placeId, // The place ID for the specific place
-        key: process.env.REACT_APP_GOOGLE_API_KEY, // The API key from the environment variables
+        key: import.meta.env.VITE_GOOGLE_API_KEY, // The API key from the environment variables
       },
     });
     return response.data.result;
