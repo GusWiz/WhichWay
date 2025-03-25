@@ -1,14 +1,14 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../components/firebase';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InputField from '../components/Login-Components/InputField';
+import TripInputField from '../components/Createtrip-Components/TripInputField';
 
 import './CreateTrip.css';
 import './Createitinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
-
+import { saveUserTrip } from '../api/dataModel.js';
+import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,
   saveActivities,
@@ -55,16 +55,6 @@ function CreateTrip() {
     cost: '0',
   });
 
-  // const handleCostChange = (price) => {
-  //   const currCost = parseInt(displayedCost.cost);
-  //   // const activityPrice = parseInt(price);
-  //   // const sum = currCost + activityPrice;
-  //   console.log(displayedCost.cost);
-  //   setDisplayedCost((prev) => {
-  //     return { ...prev, cost: currCost + parseInt(price)};
-  //   });
-  // };
-
   const handleCostChange = (price) => {
     setDisplayedCost((prevCost) => {
       const currCost = parseInt(prevCost.cost); // Using the previous state value directly
@@ -78,7 +68,6 @@ function CreateTrip() {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
-    // console.log(details);
   };
 
   const budgetSubmit = (event) => {
@@ -91,6 +80,12 @@ function CreateTrip() {
       setDisplayedBudget((prev) => {
         return { ...prev, budget: details.budget };
       });
+
+      // Also update the tripDetails budget to match
+      setTripDetails((prev) => ({
+        ...prev,
+        budget: details.budget,
+      }));
     }
 
     console.log(details);
@@ -114,6 +109,7 @@ function CreateTrip() {
     }, 1000);
   };
 
+  // Structure to send all relevant functions from this file to ConsoleCommands
   // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
     budgetTest,
@@ -154,10 +150,6 @@ function CreateTrip() {
 
     const savedActivities = getSavedActivities();
     console.log(savedActivities);
-  };
-
-  const handleSaveDetails = () => {
-    saveDetails(name);
   };
 
   const [selectedFoods, setSelectedFoods] = useState([]);
@@ -255,7 +247,83 @@ function CreateTrip() {
     { name: 'Vinny Rosy River', imgSrc: 'river.jpg', price: '10' },
     { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
   ];
-  // End of Aaron's functions
+
+  const [userId, setUserId] = useState(null);
+  const [tripDetails, setTripDetails] = useState({
+    name: '',
+    destination: '',
+    duration: '',
+    budget: '',
+    location: { lat: 0, lng: 0 },
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    // Update tripDetails as before
+    setTripDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+
+    // Also update displayedBudget if the field is budget
+    if (name === 'budget' && value !== '') {
+      setDisplayedBudget((prev) => ({
+        ...prev,
+        budget: value,
+      }));
+    }
+  };
+
+  const handleSaveDetails = async () => {
+    try {
+      // Make sure user is logged in
+      if (!auth.currentUser) {
+        toast.error('Please log in to save trip details');
+        return;
+      }
+
+      const userId = auth.currentUser.uid;
+
+      // Validate required fields
+      if (
+        !tripDetails.name ||
+        !tripDetails.destination ||
+        !tripDetails.duration
+      ) {
+        toast.error('Please fill in trip name, destination and duration');
+        return;
+      }
+
+      // Combine budget from both states to ensure we get the correct value
+      const finalTripDetails = {
+        ...tripDetails,
+        budget:
+          tripDetails.budget || displayedBudget.budget !== 'NULL'
+            ? displayedBudget.budget
+            : '0',
+      };
+
+      console.log('Saving trip details:', finalTripDetails);
+
+      const selectedActivities = {
+        foods: selectedFoods,
+        entertainment: selectedEntertainment,
+        outdoor: selectedOutdoor,
+      };
+
+      await saveUserTrip(
+        userId,
+        finalTripDetails,
+        finalTripDetails.duration,
+        selectedActivities
+      );
+      toast.success('Trip saved successfully!');
+    } catch (error) {
+      toast.error('Error saving trip.');
+      console.error('Error saving trip:', error);
+    }
+  };
 
   return (
     <>
@@ -269,11 +337,36 @@ function CreateTrip() {
                 <h1>Create Trip</h1>
               </div>
 
-              <div className='createtrip-input'>
+              <div>
                 <form action='#' className='form'>
-                  <InputField type='text' placeholder='Trip Name' />
-                  <InputField type='text' placeholder='Destination' />
-                  <InputField type='text' placeholder='Duration' />
+                  <TripInputField
+                    type='text'
+                    name='name'
+                    placeholder='Trip Name'
+                    value={tripDetails.name}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='text'
+                    name='destination'
+                    placeholder='Destination'
+                    value={tripDetails.destination}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='text'
+                    name='duration'
+                    placeholder='Duration'
+                    value={tripDetails.duration}
+                    onChange={handleInputChange}
+                  />
+                  <TripInputField
+                    type='number'
+                    name='budget'
+                    placeholder='Budget'
+                    value={tripDetails.budget}
+                    onChange={handleInputChange}
+                  />
                 </form>
                 <label>
                   {displayedBudget.budget >= 0
@@ -294,13 +387,6 @@ function CreateTrip() {
                     : ''}
                 </label>
                 <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
                   <button type='submit'>Change Budget</button>
                   <button onClick={budgetTest}>
                     {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
@@ -313,53 +399,53 @@ function CreateTrip() {
                 >
                   Save Trip Details
                 </button>
+
+                {/* Render ActivitiesDisplay component */}
+                <ActivitiesDisplay
+                  foodOptions={foodOptions}
+                  selectedFoods={selectedFoods}
+                  handleSelectFood={(item) => {
+                    handleSelect('food', item);
+                  }}
+                  entertainmentOptions={entertainmentOptions}
+                  selectedEntertainment={selectedEntertainment}
+                  handleSelectEntertainment={(item) =>
+                    handleSelect('entertainment', item)
+                  }
+                  outdoorOptions={outdoorOptions}
+                  selectedOutdoor={selectedOutdoor}
+                  handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
+                />
+
+                {/* Add button to open modal */}
+                <button
+                  type='button'
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
+
+                <button
+                  type='button'
+                  onClick={handleSaveActivities}
+                  className='trip-preference-btn'
+                >
+                  Save Selections
+                </button>
+
+                <button
+                  onClick={handleItinerary}
+                  disabled={loading}
+                  className='gen-itinerary-button'
+                >
+                  {loading ? (
+                    <span className='loader'></span>
+                  ) : (
+                    'Generate Itinerary'
+                  )}
+                </button>
               </div>
-
-              {/* Render ActivitiesDisplay component */}
-              <ActivitiesDisplay
-                foodOptions={foodOptions}
-                selectedFoods={selectedFoods}
-                handleSelectFood={(item) => {
-                  handleSelect('food', item);
-                }}
-                entertainmentOptions={entertainmentOptions}
-                selectedEntertainment={selectedEntertainment}
-                handleSelectEntertainment={(item) =>
-                  handleSelect('entertainment', item)
-                }
-                outdoorOptions={outdoorOptions}
-                selectedOutdoor={selectedOutdoor}
-                handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-              />
-
-              {/* Add button to open modal */}
-              <button
-                type='button'
-                onClick={handleModalToggle}
-                className='trip-preference-btn'
-              >
-                Trip Preferences
-              </button>
-
-              <button
-                type='button'
-                onClick={handleSaveActivities}
-                className='trip-preference-btn'
-              >
-                Save Selections
-              </button>
-
-              <button
-                onClick={handleItinerary}
-                disabled={loading}
-                className='gen-itinerary-button'
-              >
-                {loading ? (
-                  <span className='loader'></span>
-                ) : (
-                  'Generate Itinerary'
-                )}
-              </button>
 
               {/* Conditionally render the modal */}
               {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}

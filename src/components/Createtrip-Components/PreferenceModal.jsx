@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { X, CheckCircle } from 'lucide-react';
 import { collectPreferences, getPreferences } from '../../backend/dataCollect';
 import './PreferenceModal.css';
-import { db } from '../firebase';  // Import Firestore instance
-import { collection, addDoc } from 'firebase/firestore';  // Firestore methods
+import { db } from '../firebase'; // Import Firestore instance
+import { collection, addDoc } from 'firebase/firestore'; // Firestore methods
 
 function PreferenceModal({ onClose }) {
   const [destination, setDestination] = useState('');
@@ -39,14 +39,17 @@ function PreferenceModal({ onClose }) {
     onClose();
     // Send preferences to Firestore
     try {
-      console.log("Sending preferences to Firestore...");
-      const docRef = await addDoc(collection(db, 'trip preferences'), preferencesData);
+      console.log('Sending preferences to Firestore...');
+      const docRef = await addDoc(
+        collection(db, 'trip preferences'),
+        preferencesData
+      );
       console.log('Document written with ID: ', docRef.id);
     } catch (error) {
       console.error('Error adding document: ', error);
     }
-};
-//modal ui is working properly, close and open button work fine
+  };
+  //modal ui is working properly, close and open button work fine
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
       <div className='bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full'>
