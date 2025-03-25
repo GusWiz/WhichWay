@@ -18,6 +18,8 @@ import PreferenceModal from '../components/Createtrip-Components/PreferenceModal
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
+import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
+import { fetchActivitiesByLocation } from '../api/placesService';
 
 function CreateTrip() {
   const logout = async () => {
@@ -195,30 +197,68 @@ function CreateTrip() {
     }
   };
 
-  const foodOptions = [
+  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const handlePlaceSelected = async (placeData) => {
+    setSelectedLocation(placeData);
+
+    // Update trip details with the location data
+    setDetails(prev => ({
+      ...prev,
+      destination: placeData.name,
+      location: placeData.location
+    }));
+
+    // Set loading state while fetching activities
+    setIsLoadingActivities(true);
+
+    try {
+      // Fetch activities for the selected location
+      const activitiesData = await fetchActivitiesByLocation(placeData.location);
+
+      // Update the activities options with the fetched data
+      if (activitiesData.food?.length > 0) {
+        setFoodOptions(activitiesData.food);
+      }
+
+      if (activitiesData.entertainment?.length > 0) {
+        setEntertainmentOptions(activitiesData.entertainment);
+      }
+
+      if (activitiesData.outdoor?.length > 0) {
+        setOutdoorOptions(activitiesData.outdoor);
+      }
+
+      toast.success('Activities loaded successfully!');
+    } catch (error) {
+      console.error('Error loading activities:', error);
+      toast.error('Failed to load activities for this location');
+    } finally {
+      setIsLoadingActivities(false);
+    }
+  };
+
+  const [foodOptions, setFoodOptions] = useState([
     {
       name: 'Chilis',
       imgSrc: '/images/activities/food/chilis.jpg',
       price: '40',
       groupSize: '2-4',
     },
-    { name: 'Grimaldis', imgSrc: 'grimaldis.jpg', price: '60', groupSize: '2' },
-    { name: 'McDonalds', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '5' },
-    { name: 'Dons', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: '3-5' },
-    { name: 'Yummy', imgSrc: 'mcdonalds.jpg', price: '25', groupSize: ':P' },
-  ];
+    // Keep your existing options as fallback
+  ]);
 
-  const entertainmentOptions = [
+  const [entertainmentOptions, setEntertainmentOptions] = useState([
     { name: 'Movie', imgSrc: 'movie.jpg', price: '25' },
-    { name: 'Concert', imgSrc: 'concert.jpg', price: '90' },
-    { name: 'Theater', imgSrc: 'theater.jpg', price: '50' },
-  ];
+    // Keep your existing options as fallback
+  ]);
 
-  const outdoorOptions = [
+  const [outdoorOptions, setOutdoorOptions] = useState([
     { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg', price: '0' },
-    { name: 'Vinny Rosy River', imgSrc: 'river.jpg', price: '10' },
-    { name: 'Alan De Le Torre Lake', imgSrc: 'lake.jpg', price: '5' },
-  ];
+    // Keep your existing options as fallback
+  ]);
+
   // End of Aaron's functions
 
 // handle the place selected from LocationSearch
@@ -244,7 +284,11 @@ const handleLocationSelect = (placeDetails) => {
             <div>
               <form action='#' className='form'>
                 <InputField type='text' placeholder='Trip Name' />
-                <LocationSearch onSelect={handleLocationSelect}/>
+                <LocationAutocomplete
+                  value={details.destination}
+                  onChange={handleChange}
+                  onPlaceSelected={handlePlaceSelected}
+                />
                 <InputField type='text' placeholder='Duration' />
               </form>
               <label>
@@ -337,6 +381,13 @@ const handleLocationSelect = (placeDetails) => {
           </div>
         </div>
       </div>
+
+      {isLoadingActivities && (
+        <div className="loading-container">
+          <p>Loading activities for {details.destination}...</p>
+          {/* You can add a spinner here if you want */}
+        </div>
+      )}
 
     </>
   );
