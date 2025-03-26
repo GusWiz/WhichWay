@@ -86,7 +86,7 @@ function CreateTrip() {
       });
 
       // Also update the tripDetails budget to match
-      setTripDetails((prev) => ({
+      setDetails((prev) => ({
         ...prev,
         budget: details.budget,
       }));
@@ -377,7 +377,7 @@ function CreateTrip() {
               <div className='createititnerary-title'>
                 <h1>Create Trip</h1>
               </div>
-              <div>
+              <div className='form-container'>
                 <form action='#' className='form'>
                   <TripInputField
                     type='text'
@@ -426,17 +426,33 @@ function CreateTrip() {
                     onChange={handleChange}
                   />
                   <button type='submit'>Change Budget</button>
-                  <button onClick={budgetTest}>
-                    {displayedBudget.budget == 103 ? 'Budget Unit Test 1' : ''}
-                  </button>
                 </form>
+
+                <button
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
 
                 <button
                   type='button'
                   onClick={handleSaveDetails}
-                  className='trip-preference-btn'
+                  className='trip-preference-btn save-trip-btn'
                 >
                   Save Trip Details
+                </button>
+
+                <button
+                  onClick={handleItinerary}
+                  disabled={loading}
+                  className='gen-itinerary-button'
+                >
+                  {loading ? (
+                    <span className='loader'></span>
+                  ) : (
+                    'Generate Itinerary'
+                  )}
                 </button>
 
                 {/* Render ActivitiesDisplay component */}
@@ -455,51 +471,6 @@ function CreateTrip() {
                   selectedOutdoor={selectedOutdoor}
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
-
-                {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-
-                <label id='displayedRemainingBudget'>
-                  {displayedBudget.budget >= 0
-                    ? displayedBudget.budget - displayedCost.cost
-                    : ''}
-                </label>
-                <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
-                  <button type='submit'>Change Budget</button>
-                </form>
-                <button
-                  type='button'
-                  onClick={handleModalToggle}
-                  className='trip-preference-btn'
-                >
-                  Trip Preferences
-                </button>
-
-                <button
-                  type='button'
-                  onClick={handleSaveActivities}
-                  className='trip-preference-btn'
-                >
-                  Save Selections
-                </button>
-
-                <button
-                  onClick={handleItinerary}
-                  disabled={loading}
-                  className='gen-itinerary-button'
-                >
-                  {loading ? (
-                    <span className='loader'></span>
-                  ) : (
-                    'Generate Itinerary'
-                  )}
-                </button>
               </div>
 
               {/* Conditionally render the modal */}
