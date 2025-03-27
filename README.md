@@ -522,4 +522,4 @@ npm install openai
     
     - 
     
-![Image](READMEimg/BurnupChart2.png)
+![Burnup Chart Sprint 2](docs\READMEimg\BurnupChart.png)
