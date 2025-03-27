@@ -28,7 +28,7 @@ provide you with extra information about the different activities found. This no
 
 ## General Information
 
-![Image](READMEimg/whichwayart.png)
+![WhichWay Art](whichway/docs/whichwayart.png)
 
 ## Technologies Used
 
@@ -325,7 +325,7 @@ npm install openai
 
   - **Aldo**: Communicate with my team more efficiently and learn more deeply how React and Firebase can work together.
 
-![Image](READMEimg/BurnupChart.png)
+![Burnup Chart Sprint 1](whichway/docs/BurnupChart.png)
 
 ---
 # Sprint 2
@@ -522,4 +522,4 @@ npm install openai
     
     - 
     
-![Burnup Chart Sprint 2](docs\READMEimg\BurnupChart.png)
+![Burnup Chart Sprint 2](whichway\docs\BurnupChart2.png)
