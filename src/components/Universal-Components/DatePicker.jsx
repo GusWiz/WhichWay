@@ -1,19 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-function DatePickerInput(){
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    HandleDateChange = (date) => {
-        setSelectedDate(date);
-    }
+// funuction that returns a input box that allows Users to pick/choose a date.
+// Once selected it shows the user their input in format MM/DD/YYYY
+function DatePickerInput({selectedDate, onDateChange, placeholderText}){
     return(
         <DatePicker
         selected={selectedDate}
-        onChange={HandleDateChange}
+        onChange={onDateChange}
         dateFormat="MM/DD/YYYY"
+        placeholderText={placeholderText}
         />
     )
 }

@@ -26,6 +26,7 @@ import LocationSearch from '../components/Createtrip-Components/LocationSearch.j
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../api/placesService';
 import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
+import DatePickerInput from '../components/Universal-Components/DatePicker.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -307,6 +308,7 @@ function CreateTrip() {
   // Add this function to your CreateTrip component, after the other state variables
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const handleSaveDetails = async () => {
     try {
@@ -338,6 +340,7 @@ function CreateTrip() {
         budget:
           displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
         location: details.location || null,
+        date: selectedDate ? selectedDate.toISOString(): null,
       };
 
       // Save details locally
@@ -390,6 +393,11 @@ function CreateTrip() {
                     value={details.destination}
                     onChange={handleChange}
                     onPlaceSelected={handlePlaceSelected}
+                  />
+                  <DatePickerInput
+                    selectedDate={selectedDate}
+                    onDateChange={(date) => setSelectedDate(date)}
+                    placeholderText="Select Date"
                   />
                   <TripInputField
                     type='text'
