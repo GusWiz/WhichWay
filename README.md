@@ -325,7 +325,7 @@ npm install openai
 
   - **Aldo**: Communicate with my team more efficiently and learn more deeply how React and Firebase can work together.
 
-![Burnup Chart Sprint 1](whichway/docs/BurnupChart.png)
+![Burnup Chart Sprint 1](docs/BurnupChart.png)
 
 ---
 # Sprint 2
@@ -522,4 +522,4 @@ npm install openai
     
     - 
     
-![Burnup Chart Sprint 2](whichway\docs\BurnupChart2.png)
+![Burnup Chart Sprint 2](docs/BurnupChart2.png)
