@@ -300,7 +300,7 @@ npm install openai
   - **Alan**: I got a good grasp of react and firebase, and I was able to provide a lot of support to my team on various things
   - **Aaron**: Near the beginning of the sprint it was very difficult to get a grasp on the structure and flow of React, making my progress slow at the beginning.
   - **Gustavo**: During the sprint I had to learn and understand HTML, CSS, React, and Firestore which was a bigger hurtle than anticipated. But once I got over it, I was able to explain Firestore and React OOP structure to my teammates.
-  - **Aldo**:  Write test cases for each class I develop, including those in React and Firebase, and document them. The test cases and documentation will be located in a test directory for verification.
+  - **Aldo**: I should have written test cases for each class I developed, including those in React and Firebase. This would've helped the team debug.
 
 ### What Might Be Impeding Us from Performing Better?
 
@@ -403,25 +403,33 @@ npm install openai
     - [WW-23](https://cs3398-betazoids-spring.atlassian.net/browse/WW-23)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-23-task-3-implement-backend-data-mode)
 
-### **Aldo Guerrero ** "Built UI and backend functionality for the Trip Dashbaord using React components, helped configure Firebase and Firestore, and made the page interactive to make Trip name, destination, and date.
-  - Task 4 : Implement Frontend to Display Metadata:
-    - [WW-22]https://cs3398-betazoids-spring.atlassian.net/browse/WW-22
-    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-22-task-4-implement-frontend-to-display-metadata
+### **Aldo Guerrero ** Developed and managed input logic for Trip Preferences, parsed user input data, and troubleshooted issues.
+  - Task 1: Develop Input Handling Logic:
+    - [WW-11]https://cs3398-betazoids-spring.atlassian.net/browse/WW-11
+    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/40
 
-  - Task 2: Implement Backend Data Model & API for Recent Trips:
-    - [WW-21]https://cs3398-betazoids-spring.atlassian.net/browse/WW-21
-    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-21-task-2-implement-backend-data-model-api-for-recent-trips
+  - Task 2: Parse and Store from Location API:
+    - [WW-47]https://cs3398-betazoids-spring.atlassian.net/browse/WW-47
+    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/51
 
-  - Task 1 : Implement Frontend to Display Metadata:
-    - [WW-20]https://cs3398-betazoids-spring.atlassian.net/browse/WW-20
-    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-20-task-1-design-the-recent-trips-ui
+  - Task 2: Troubleshoot issues with selected activities:
+    - [WW-73]https://cs3398-betazoids-spring.atlassian.net/browse/WW-73
+    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/69
+
+  - Task 4: Troubleshoot issues with request:
+    - [WW-75]https://cs3398-betazoids-spring.atlassian.net/browse/WW-75
+    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/62
+
+  - Task 5: Troubleshoot issues with response and handle response data:
+    - [WW-76]https://cs3398-betazoids-spring.atlassian.net/browse/WW-76
+    [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/67
 
 ## Next steps
 
 ### **Vinny**:
-  - 
-  - 
-  - 
+  -
+  -
+  -
 
 ### **Alan**:
   - Research and learn how to properly deploy the application.
@@ -430,19 +438,20 @@ npm install openai
   - Help fix bugs in create trip page.
 
 ### **Aaron**:
-  - 
-  - 
+  -
+  -
 
 ### **Gustavo**:
-  - 
-  - 
-  - 
-  - 
+  -
+  -
+  -
+  -
 
 ### **Aldo**:
-  - 
-  - 
-  - 
+  - Assist Gustavo and Aaron parse data being sent and recieved by OpenAI, Google Places and other APIs.
+  - Configure and finalize firestore structure so data is linked to the correct collections and documents.
+  - Assist in completing unit testing and troubleshooting for frontend/backend.
+  - Implement other travel features the webapp should have (Travel Trips, Notifications, etc.)
 
 ## Retrospective
 
@@ -451,75 +460,74 @@ npm install openai
   **Team**:
 
   - I think we did the main things that we wanted to achieve which was have create trip and create itinerary pages working. But I think we waited too long to get these things working properly
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
+
+  - The team started with good momentum and managed to finish all of our tasks on time. The quality of our project is a little less than ideal but it is functional.
+
+  -
+
+  -
+
+  -
 
   **Individual**:
 
-  - **Vinny**: 
-  
+  - **Vinny**:
+
   - **Alan**: Planning early and having a good set of tasks helped out a lot and we stayed organized for the most part.
-  
-  - **Aaron**: 
-  
-  - **Gustavo**: 
-  
-  - **Aldo**:  
+
+  - **Aaron**:
+
+  - **Gustavo**:
+
+  - **Aldo**: Communication, the sharing of ideas, and helping one another was a big improvement this sprint. One thing I can work on is fully understanding the parsing of data, firestore, and any backend functionalities.
 
 ## What Might Be Impeding Us from Performing Better?
 
    **Team**:
-   
+
   - We need to lower procrastination, although we have other things to take care of we still need to make sure to start early on our tasks.
 
-  - 
+  - We often underestimate our tasks. We need to plan and edit our tasks more effectively.
+  -
 
-  - 
-  
-  - 
-  
-  - 
-  
+  -
+
+  -
+
 ## What Can I do to Improve?
 
    **Individual**:
 
-  - **Vinny**: 
+  - **Vinny**:
 
   - **Alan**: I need to dedicate appropriate time for challenging tasks and also relay useful information to my team.
 
-  - **Aaron**: 
-  
-  - **Gustavo**: 
+  - **Aaron**:
 
-  - **Aldo**: 
-  
+  - **Gustavo**:
+
+  - **Aldo**: I can improve the quality of my work by talking to my team more often and encourage constructive criticism from them. In addition, I need to dedicate more time on my tasks.
+
 ### AI:
-  - **Description**: AI mostly helps us create and correct code when we experience issues like not being familiar with a language 
-    and syntax or knowing what we want to achieve but not knowing exactly how or the best way to do it. One experience I recall is 
-    when we were creating a button for the create trip page, we knew we needed the button to 1. Change the ability for the button 
-    to be clicked many times as that will trigger uncessary API calls 2. Make the API call to OpenAI so it can generate an 
+  - **Description**: AI mostly helps us create and correct code when we experience issues like not being familiar with a language
+    and syntax or knowing what we want to achieve but not knowing exactly how or the best way to do it. One experience I recall is
+    when we were creating a button for the create trip page, we knew we needed the button to 1. Change the ability for the button
+    to be clicked many times as that will trigger uncessary API calls 2. Make the API call to OpenAI so it can generate an
     itinerary 3. Navigate to the create itinerary page so it can display the newly created itinerary.
-    
+
 
   - **Examples of what AI is good at**:
     - AI is good at syntax and fixing small bugs like such.
-    
-    - 
-    
-    - 
-    
+
+    - AI was good at explaining how data parsing works. This information was useful when completing our tasks.
+
+    -
+
   - **Examples of when we needed to be careful using AI**:
     - Making UI for pages. I tried using AI for html/css but I just did not like the output. You have to be extremely specific. I prefer to watch youtube tutorials instead.
-    
-    - 
-    
-    - 
-    
+
+    - AI was not effective at helping understand how data fetching and firestore work together. The code either didn't work or it wasn't relevant. Online forums were much more helpful.
+
+    -
+
 ![Burnup Chart Sprint 2](docs/BurnupChart2.png)
