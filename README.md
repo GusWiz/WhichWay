@@ -28,7 +28,7 @@ provide you with extra information about the different activities found. This no
 
 ## General Information
 
-![WhichWay Art](whichway/docs/whichwayart.png)
+![WhichWay Art](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/alan-retrospective/docs/BurnupChart.png)
 
 ## Technologies Used
 
