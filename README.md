@@ -172,87 +172,87 @@ npm install openai
 ## Contributions:
 ### **Alan**: "Built UI and backend functionality for login, signup, & forgot password pages, users can signup with or without google, login, and remain logged in. Built a side bar for homepage"
 
-  - `Jira Task: Design the Authentication UI
+  - Jira Task: Design the Authentication UI
     - [WW-4](https://cs3398-betazoids-spring.atlassian.net/browse/WW-4),
       [BitBucket](https://bitbucket.org/%7B89569452-9506-45bd-9610-41c9a67ad57b%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/pull-requests/4) Got Deleted On Accident
 
-  - `Jira Task: Implement Authentication
+  - Jira Task: Implement Authentication
     - [WW-5](https://cs3398-betazoids-spring.atlassian.net/browse/WW-5),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-5-task-2-implement-authentication/)
 
-  - `Jira Task: Implement User Session Management
+  - Jira Task: Implement User Session Management
     - [WW-6](https://cs3398-betazoids-spring.atlassian.net/browse/WW-6),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-6-task-3-implement-user-session-manag/)
 
-  - `Jira Task: Integrate Error Handling & Notifications
+  - Jira Task: Integrate Error Handling & Notifications
     - [WW-7](https://cs3398-betazoids-spring.atlassian.net/browse/WW-7),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-7-task-4-integrate-error-handling-not/)
 
-  - `Jira Task: Setup Database for Logged In Users
+  - Jira Task: Setup Database for Logged In Users
     - [WW-8](https://cs3398-betazoids-spring.atlassian.net/browse/WW-8),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-8-task-5-setup-database-for-logged-in/)
 
-  - `Jira Task: Implement Sidebar for Homepage
+  - Jira Task: Implement Sidebar for Homepage
     - [WW-40](https://cs3398-betazoids-spring.atlassian.net/browse/WW-40),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-40-task-5-implement-sidebar-for-homep/)
 
 ### **Vinny**: Created a budget and cost handling system and worked with Gustavo to create a navigation bar.
 
-  - `Task 3: Develop Interactive UI Elements
+  - Task 3: Develop Interactive UI Elements
     - [WW-38](https://cs3398-betazoids-spring.atlassian.net/browse/WW-38),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-38-task-3-develop-interactive-ui-elem)
 
-  - `Task 1: Research JavaScript and React
+  - Task 1: Research JavaScript and React
     - [WW-64](https://cs3398-betazoids-spring.atlassian.net/browse/WW-64),
     No commit - Research task
 
-  - `Task 2: Frontend Input for Budget and Cost Updates
+  - Task 2: Frontend Input for Budget and Cost Updates
     - [WW-65](https://cs3398-betazoids-spring.atlassian.net/browse/WW-65),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-65-task-2-frontend-input-for-budget-a/)
 
-  - `Task 3: Storing Budgets and Costs
+  - Task 3: Storing Budgets and Costs
     - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
 
 ### **Aaron**: Designed and implemented page UI for the 'Create Trip' page where users will be able to create their trips with unique seletions/modifications. Created functionality of selecting activities to add to a user itinerary.
 
-  - `Task 1: Create the Trip Input Page UI (Frontend - React):
+  - Task 1: Create the Trip Input Page UI (Frontend - React):
     - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
 
-  - `Task 5: Enable Navigation to the Itinerary Page:
+  - Task 5: Enable Navigation to the Itinerary Page:
     - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
-  - `Task 3: Build the Activity Selection Component:
+  - Task 3: Build the Activity Selection Component:
     - [WW-48](https://cs3398-betazoids-spring.atlassian.net/browse/WW-48)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-48-task-3-build-the-activity-selectio)
 
-  - `Task 4: Adding visual representation of current activity selections:
+  - Task 4: Adding visual representation of current activity selections:
     - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
 
 ### **Gustavo**: Designed the initial wireframe and implemented React components and UI elements for the Home/Routing page. Also created the Data model for User's and Trips.
-  - `Task 1: Create Wireframes and UI Mockups:
+  - Task 1: Create Wireframes and UI Mockups:
     - [WW-36](https://cs3398-betazoids-spring.atlassian.net/browse/WW-36)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/feature/WW-36-task-1-create-wireframes-and-ui-mo)
-  - `Task 2: Implement Navigation and Layout Components:
+  - Task 2: Implement Navigation and Layout Components:
     - [WW-37](https://cs3398-betazoids-spring.atlassian.net/browse/WW-37)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-37_MergeConflictsWithFix-WW-93)
-  - `Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
+  - Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
     - [WW-23](https://cs3398-betazoids-spring.atlassian.net/browse/WW-23)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-23-task-3-implement-backend-data-mode)
 
 ### **Aldo Guerrero ** "Built UI and backend functionality for the Trip Dashbaord using React components, helped configure Firebase and Firestore, and made the page interactive to make Trip name, destination, and date.
-  - `Task 4 : Implement Frontend to Display Metadata:
+  - Task 4 : Implement Frontend to Display Metadata:
     - [WW-22]https://cs3398-betazoids-spring.atlassian.net/browse/WW-22
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-22-task-4-implement-frontend-to-display-metadata
 
-  - `Task 2: Implement Backend Data Model & API for Recent Trips:
+  - Task 2: Implement Backend Data Model & API for Recent Trips:
     - [WW-21]https://cs3398-betazoids-spring.atlassian.net/browse/WW-21
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-21-task-2-implement-backend-data-model-api-for-recent-trips
 
-  - `Task 1 : Implement Frontend to Display Metadata:
+  - Task 1 : Implement Frontend to Display Metadata:
     - [WW-20]https://cs3398-betazoids-spring.atlassian.net/browse/WW-20
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-20-task-1-design-the-recent-trips-ui
 
@@ -332,87 +332,87 @@ npm install openai
 ## Contributions:
 ### **Alan**: "Did major refactoring to home pages, specified private and public routes, built UI for create itinerary page, and organized the repository files."
 
-  - `Jira Task: Implement fronted
+  - Jira Task: Implement fronted
     - [WW-32](https://cs3398-betazoids-spring.atlassian.net/browse/WW-32),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/58)
 
-  - `Jira Task: Troubleshoot issues
+  - Jira Task: Troubleshoot issues
     - [WW-34](https://cs3398-betazoids-spring.atlassian.net/browse/WW-34),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/60)
 
-  - `Jira Task: Orginize styling and files
+  - Jira Task: Orginize styling and files
     - [WW-52](https://cs3398-betazoids-spring.atlassian.net/browse/WW-52),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/39)
 
-  - `Jira Task: Create private and public routes
+  - Jira Task: Create private and public routes
     - [WW-53](https://cs3398-betazoids-spring.atlassian.net/browse/WW-53),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/41)
 
-  - `Jira Task: Build UI for create itinerary
+  - Jira Task: Build UI for create itinerary
     - [WW-55](https://cs3398-betazoids-spring.atlassian.net/browse/WW-55),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/52)
 
-  - `Jira Task: Refactor other pages
+  - Jira Task: Refactor other pages
     - [WW-56](https://cs3398-betazoids-spring.atlassian.net/browse/WW-56),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/46)
 
 ### **Vinny**: Created a budget and cost handling system and worked with Gustavo to create a navigation bar.
 
-  - `Task 3: Develop Interactive UI Elements
+  - Task 3: Develop Interactive UI Elements
     - [WW-38](https://cs3398-betazoids-spring.atlassian.net/browse/WW-38),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-38-task-3-develop-interactive-ui-elem)
 
-  - `Task 1: Research JavaScript and React
+  - Task 1: Research JavaScript and React
     - [WW-64](https://cs3398-betazoids-spring.atlassian.net/browse/WW-64),
     No commit - Research task
 
-  - `Task 2: Frontend Input for Budget and Cost Updates
+  - Task 2: Frontend Input for Budget and Cost Updates
     - [WW-65](https://cs3398-betazoids-spring.atlassian.net/browse/WW-65),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-65-task-2-frontend-input-for-budget-a/)
 
-  - `Task 3: Storing Budgets and Costs
+  - Task 3: Storing Budgets and Costs
     - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
 
 ### **Aaron**: Designed and implemented page UI for the 'Create Trip' page where users will be able to create their trips with unique seletions/modifications. Created functionality of selecting activities to add to a user itinerary.
 
-  - `Task 1: Create the Trip Input Page UI (Frontend - React):
+  - Task 1: Create the Trip Input Page UI (Frontend - React):
     - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
 
-  - `Task 5: Enable Navigation to the Itinerary Page:
+  - Task 5: Enable Navigation to the Itinerary Page:
     - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
-  - `Task 3: Build the Activity Selection Component:
+  - Task 3: Build the Activity Selection Component:
     - [WW-48](https://cs3398-betazoids-spring.atlassian.net/browse/WW-48)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-48-task-3-build-the-activity-selectio)
 
-  - `Task 4: Adding visual representation of current activity selections:
+  - Task 4: Adding visual representation of current activity selections:
     - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
 
 ### **Gustavo**: Designed the initial wireframe and implemented React components and UI elements for the Home/Routing page. Also created the Data model for User's and Trips.
-  - `Task 1: Create Wireframes and UI Mockups:
+  - Task 1: Create Wireframes and UI Mockups:
     - [WW-36](https://cs3398-betazoids-spring.atlassian.net/browse/WW-36)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/feature/WW-36-task-1-create-wireframes-and-ui-mo)
-  - `Task 2: Implement Navigation and Layout Components:
+  - Task 2: Implement Navigation and Layout Components:
     - [WW-37](https://cs3398-betazoids-spring.atlassian.net/browse/WW-37)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-37_MergeConflictsWithFix-WW-93)
-  - `Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
+  - Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
     - [WW-23](https://cs3398-betazoids-spring.atlassian.net/browse/WW-23)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-23-task-3-implement-backend-data-mode)
 
 ### **Aldo Guerrero ** "Built UI and backend functionality for the Trip Dashbaord using React components, helped configure Firebase and Firestore, and made the page interactive to make Trip name, destination, and date.
-  - `Task 4 : Implement Frontend to Display Metadata:
+  - Task 4 : Implement Frontend to Display Metadata:
     - [WW-22]https://cs3398-betazoids-spring.atlassian.net/browse/WW-22
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-22-task-4-implement-frontend-to-display-metadata
 
-  - `Task 2: Implement Backend Data Model & API for Recent Trips:
+  - Task 2: Implement Backend Data Model & API for Recent Trips:
     - [WW-21]https://cs3398-betazoids-spring.atlassian.net/browse/WW-21
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-21-task-2-implement-backend-data-model-api-for-recent-trips
 
-  - `Task 1 : Implement Frontend to Display Metadata:
+  - Task 1 : Implement Frontend to Display Metadata:
     - [WW-20]https://cs3398-betazoids-spring.atlassian.net/browse/WW-20
     [BitBucket]https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-20-task-1-design-the-recent-trips-ui
 
