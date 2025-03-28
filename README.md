@@ -374,23 +374,31 @@ npm install openai
     - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
 
-### **Aaron**: Designed and implemented page UI for the 'Create Trip' page where users will be able to create their trips with unique seletions/modifications. Created functionality of selecting activities to add to a user itinerary.
+### **Aaron**: "Expanded activity UI to show more information to users, gathered all relevant user/trip info to save to database, and implemented openai api call to create an itinerary for the user."  
 
-  - Task 1: Create the Trip Input Page UI (Frontend - React):
-    - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
+  - Jira Task: Integrate APIs for Itinerary Generation
+    - [WW-12](https://cs3398-betazoids-spring.atlassian.net/browse/WW-12)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-12-task-2-integrate-apis-for-itinerar)
 
-  - Task 5: Enable Navigation to the Itinerary Page:
-    - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
+  - Jira Task: Make data flow
+    - [WW-30](https://cs3398-betazoids-spring.atlassian.net/browse/WW-30)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
-  - Task 3: Build the Activity Selection Component:
-    - [WW-48](https://cs3398-betazoids-spring.atlassian.net/browse/WW-48)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-48-task-3-build-the-activity-selectio)
+  - Jira Task: Implement Error Handling and Logging
+    - [WW-15](https://cs3398-betazoids-spring.atlassian.net/browse/WW-15)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-15-task-5-implement-error-handling-an)
 
-  - Task 4: Adding visual representation of current activity selections:
-    - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
+  - Jira Task: Process and Optimize API Responses
+    - [WW-13](https://cs3398-betazoids-spring.atlassian.net/browse/WW-13)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-13-task-3-process-and-optimize-api-re)
+  
+  - Jira Task: Gather parameters (user input)
+    - [WW-72](https://cs3398-betazoids-spring.atlassian.net/browse/WW-72)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-72-task-1-gather-parameters-user-inpu)
+  
+  - Jira Task: Create UI wireframes
+    - [WW-31](https://cs3398-betazoids-spring.atlassian.net/browse/WW-31)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-31-task-2-create-ui-wireframes)
 
 ### **Gustavo**: Designed the initial wireframe and implemented React components and UI elements for the Home/Routing page. Also created the Data model for User's and Trips.
   - Task 1: Create Wireframes and UI Mockups:
@@ -438,8 +446,10 @@ npm install openai
   - Help fix bugs in create trip page.
 
 ### **Aaron**:
-  -
-  -
+  - Integrate Openai itinerary generation with user data and selections. 
+  - Assist Aldo and Gustavo with to parse data recieved by API calls in order to further integrate with the activity selections.
+  - Create/implement an organization plan for the database to store data in a way that is secure and efficient. 
+  - Further integrate Google Places API with the activity UI to properly display activity data. 
 
 ### **Gustavo**:
   -
@@ -463,9 +473,9 @@ npm install openai
 
   - The team started with good momentum and managed to finish all of our tasks on time. The quality of our project is a little less than ideal but it is functional.
 
-  -
+  - 
 
-  -
+  - I am satisfied with the overall structure of the app and I think that we have a lot of functional components working as intended. However there are some clashing ideas that interrupt the flow of user interaction with the app. 
 
   -
 
@@ -475,7 +485,7 @@ npm install openai
 
   - **Alan**: Planning early and having a good set of tasks helped out a lot and we stayed organized for the most part.
 
-  - **Aaron**:
+  - **Aaron**: My individual research of the Openai API helped a lot and gave me good insight into how I wanted to implement it into our application. 
 
   - **Gustavo**:
 
@@ -488,9 +498,10 @@ npm install openai
   - We need to lower procrastination, although we have other things to take care of we still need to make sure to start early on our tasks.
 
   - We often underestimate our tasks. We need to plan and edit our tasks more effectively.
+  
   -
 
-  -
+  - We need better communication on the expectations of our own work and others so we are all working towards the same vision.
 
   -
 
@@ -502,7 +513,7 @@ npm install openai
 
   - **Alan**: I need to dedicate appropriate time for challenging tasks and also relay useful information to my team.
 
-  - **Aaron**:
+  - **Aaron**: I plan to carefully anaylyze all of my tasks before starting to work. This will allow me to lay out an order and timeline for how I will complete the next sprint, making me a more reliable team member.   
 
   - **Gustavo**:
 
