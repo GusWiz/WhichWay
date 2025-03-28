@@ -356,23 +356,23 @@ npm install openai
     - [WW-56](https://cs3398-betazoids-spring.atlassian.net/browse/WW-56),
       [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/46)
 
-### **Vinny**: Created a budget and cost handling system and worked with Gustavo to create a navigation bar.
+### **Vinny**: Refactored UI and fixed bugs pertaining to the Create Trip page, as well as added a new Console Commands feature
 
-  - Task 3: Develop Interactive UI Elements
-    - [WW-38](https://cs3398-betazoids-spring.atlassian.net/browse/WW-38),
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-38-task-3-develop-interactive-ui-elem)
+  - Task 3: Refactor create trip page UI
+    - [WW-54](https://cs3398-betazoids-spring.atlassian.net/browse/WW-54),
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-54-task-3-refactor-create-trip-page)
 
-  - Task 1: Research JavaScript and React
-    - [WW-64](https://cs3398-betazoids-spring.atlassian.net/browse/WW-64),
-    No commit - Research task
+  - Create file that holds all console commands
+    - [WW-94](https://cs3398-betazoids-spring.atlassian.net/browse/WW-94),
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-94-create-file-that-holds-console-commands)
 
-  - Task 2: Frontend Input for Budget and Cost Updates
-    - [WW-65](https://cs3398-betazoids-spring.atlassian.net/browse/WW-65),
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-65-task-2-frontend-input-for-budget-a/)
+  - Task 5: Error Handling and Integration Testing
+    - [WW-68](https://cs3398-betazoids-spring.atlassian.net/browse/WW-68),
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-68-task-5-error-handling-and-integration)
 
-  - Task 3: Storing Budgets and Costs
-    - [WW-66](https://cs3398-betazoids-spring.atlassian.net/browse/WW-66),
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/src/WW-66-task-3-storing-budgets-and-costs/)
+  - Task 4: Budget Validation and Error Handling
+    - [WW-67](https://cs3398-betazoids-spring.atlassian.net/browse/WW-67),
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-67-budget-error-validation-post-activities-change)
 
 ### **Aaron**: "Expanded activity UI to show more information to users, gathered all relevant user/trip info to save to database, and implemented openai api call to create an itinerary for the user."  
 
@@ -438,9 +438,9 @@ npm install openai
 ## Next steps
 
 ### **Vinny**:
-  -
-  -
-  -
+  - Take price estimates from google API and use that to affect budget.
+  - Help with storing and retrieving data from firestore so that Create Trip and Home page are integrated.
+  - Work with my teammates to do more unit testing and fix bugs that way.
 
 ### **Alan**:
   - Research and learn how to properly deploy the application.
@@ -480,11 +480,11 @@ npm install openai
 
   - I am satisfied with the overall structure of the app and I think that we have a lot of functional components working as intended. However there are some clashing ideas that interrupt the flow of user interaction with the app. 
 
-  -
+  - We did a good job working within each others code. We all have a good grasp of which section is "ours" but we still do well working in new code spaces.
 
   **Individual**:
 
-  - **Vinny**:
+  - **Vinny**: I managed to estimate my tasks pretty well this time, they never felt too long or too short.
 
   - **Alan**: Planning early and having a good set of tasks helped out a lot and we stayed organized for the most part.
 
@@ -534,6 +534,8 @@ npm install openai
     - AI is good at syntax and fixing small bugs like such.
 
     - AI was good at explaining how data parsing works. This information was useful when completing our tasks.
+    
+    - AI was good at creating a base template of a file that could be modified to better suit more specific needs.
 
     - AI allowed us to start getting proper libraries/dependencies for our tasks. It suggested axious for API calls, and assisted with debuging code not saving to Firestore properly.
 
@@ -543,5 +545,7 @@ npm install openai
     - AI was not effective at helping understand how data fetching and firestore work together. The code either didn't work or it wasn't relevant. Online forums were much more helpful.
 
     - AI sometimes took over our code, and started implementing complex solutions, when solutions should have been simple.
+    
+    - AI had trouble seeing the bigger picture, often forgetting that we have multiple files for a reason and often resorting to placing code in the most recent file it could remember rather than the most relevant file.
 
 ![Burnup Chart Sprint 2](docs/BurnupChart2.png)
