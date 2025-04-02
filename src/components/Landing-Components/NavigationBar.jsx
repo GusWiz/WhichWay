@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import logo from '../images/logo.svg';
 import './NavigationBar.css';
 
 function NavigationBar() {
@@ -8,7 +8,7 @@ function NavigationBar() {
       <header className='navbar-header'>
         <div className='navbar-container'>
           <div className='navbar-logo'>
-            <img src='src\assets\logo.svg' alt='Logo' className='logo-icon' />
+            <img src={logo} alt='Logo' className='logo-icon' />
           </div>
           <div className='navbar-title'>
             <h1>WhichWay</h1>

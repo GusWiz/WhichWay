@@ -167,6 +167,21 @@ npm install axios
 npm install openai
 ```
 
+### Build and Test:
+
+- Made changes? You should first do:
+
+```
+npm run dev
+```
+
+- If those changes look good:
+
+```
+npm run build
+firebase deploy
+```
+
 ---
 # Sprint 1
 ## Contributions:
