@@ -65,26 +65,33 @@ export const createTripDocument = async (
 };
 
 //creating the new data model of how to save the itinerary to the db.
-export const createItineraryModel = async (
-  tripId, //
-  itineraryDetails
-) => {
+export const createItineraryModel = async (tripId) => {
   try {
-    // ensure we have valid data before saving
+    // check if tripID is correct
     if (!tripId) throw new Error('Trip ID is required');
-    if (!itineraryDetails) throw new Error('Itinerary details are required');
 
-    // create the itinerary data object with consistent field patterns
+    //using aaron's dataCollect.js, get all data from dataCollect.js
+    const itineraryDetails = {
+      name: tripDetails.name,               //from saveDetails()
+      days: getItineraryData()?.days || [], //from saveItineraryData()
+      activities: getSavedActivities(),      //from saveActivities()
+      budget: tripDetails.budget,           //from saveDetails()
+      preferences: getPreferences()         //from collectPreferences()
+    };
+
+    // creates a doc in with this datamodel structure
     const itineraryData = {
       tripId,
       name: itineraryDetails.name || 'Unnamed Itinerary',
-      days: itineraryDetails.days || [],
-      activities: itineraryDetails.activities || {},
+      days: itineraryDetails.days,
+      activities: itineraryDetails.activities,
       budget: itineraryDetails.budget || '0',
       preferences: itineraryDetails.preferences || {},
-      createdAt: serverTimestamp(), // Same timestamp approach as trips
+      createdAt: serverTimestamp()
     };
-
+    console.log('Creating itinerary with data:', itineraryData);
+  }
+};
 
 
 // Add a trip ID to a user's trips array
