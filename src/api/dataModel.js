@@ -90,6 +90,13 @@ export const createItineraryModel = async (tripId) => {
       createdAt: serverTimestamp()
     };
     console.log('Creating itinerary with data:', itineraryData);
+    //need to start saving this data, according to Jira task description
+    const itineraryRef = await addDoc(collection(db, 'itineraries'), itineraryData);
+    console.log('Itinerary created with ID:', itineraryRef.id);
+    return itineraryRef.id;
+  } catch (error) {
+    console.error('Error creating itinerary document:', error);
+    throw error;
   }
 };
 
