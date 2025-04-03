@@ -43,13 +43,18 @@ function Itinerary() {
 
     const pdf = new jsPDF(
       {
-        orientation: "portrait",
+        orientation: "landscape",
         unit: "px",
         format: "a4"
       }
     );
 
-    pdf.addImage(data, "PNG", 0, 0, 100, 100)
+    const imageProperties = pdf.getImageProperties(data)
+    const pdfWidth = pdf.internal.pageSize.getWidth()
+    const pdfHeight = (imageProperties.height * pdfWidth) / imageProperties.width
+
+
+    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight)
     pdf.save("Itinerary.pdf")
 
 
