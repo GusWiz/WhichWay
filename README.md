@@ -165,6 +165,8 @@ npm install lucide-react
 npm install react-toastify
 npm install axios
 npm install openai
+npm install jspdf
+npm install html2canvas
 ```
 
 ### Build and Test:
