@@ -3,6 +3,7 @@ import { auth } from '../components/firebase';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { jsPDF } from "jspdf";
 
 import './Home.css';
 import './Landing.css';
@@ -11,6 +12,8 @@ import './CreateItinerary.css';
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import logo from '../components/images/logo.svg';
+import html2canvas from 'html2canvas';
+import { Portrait } from '@mui/icons-material';
 
 function Itinerary() {
   const navigate = useNavigate();
@@ -25,10 +28,31 @@ function Itinerary() {
 
   const printRef = React.useRef(null);
 
-  const handleDownloadPDF = () =>
+  const handleDownloadPDF = async () =>
   {
     const element = printRef.current
+
+    if(!element)
+    {
+      return;
+    }
     console.log(element)
+
+    const canvas = await html2canvas(element)
+    const data = canvas.toDataURL('/image/png')
+
+    const pdf = new jsPDF(
+      {
+        orientation: "portrait",
+        unit: "px",
+        format: "a4"
+      }
+    );
+
+    pdf.addImage(data, "PNG", 0, 0, 100, 100)
+    pdf.save("Itinerary.pdf")
+
+
   }
 
   const itineraryData = [
@@ -100,13 +124,13 @@ function Itinerary() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <div className='itinerary-container'>
+            <div ref = {printRef} className='itinerary-container'>
               <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
               </div>
 
               {itineraryData.map((dayData) => (
-                <div ref = {printRef} key={dayData.day} className='itinerary-day'>
+                <div key={dayData.day} className='itinerary-day'>
                   <div className='itinerary-daytitle'>
                     <h1>Day {dayData.day}</h1>
                   </div>
