@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
 import './CreateTrip.css';
-import './Createitinerary.css';
+import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { saveUserTrip } from '../api/dataModel.js';
+import { saveUserTrip } from '../components/api/dataModel.js';
 import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,
@@ -24,7 +24,7 @@ import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDis
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
-import { fetchActivitiesByLocation } from '../api/placesService';
+import { fetchActivitiesByLocation } from '../components/api/placesService.js';
 import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
 
 function CreateTrip() {
