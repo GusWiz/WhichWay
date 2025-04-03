@@ -3,7 +3,7 @@ import { auth } from '../components/firebase';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { jsPDF } from "jspdf";
+import { jsPDF } from 'jspdf';
 
 import './Home.css';
 import './Landing.css';
@@ -28,37 +28,31 @@ function Itinerary() {
 
   const printRef = React.useRef(null);
 
-  const handleDownloadPDF = async () =>
-  {
-    const element = printRef.current
+  const handleDownloadPDF = async () => {
+    const element = printRef.current;
 
-    if(!element)
-    {
+    if (!element) {
       return;
     }
-    console.log(element)
+    console.log(element);
 
-    const canvas = await html2canvas(element)
-    const data = canvas.toDataURL('/image/png')
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('/image/png');
 
-    const pdf = new jsPDF(
-      {
-        orientation: "landscape",
-        unit: "px",
-        format: "a4"
-      }
-    );
+    const pdf = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      format: 'a4',
+    });
 
-    const imageProperties = pdf.getImageProperties(data)
-    const pdfWidth = pdf.internal.pageSize.getWidth()
-    const pdfHeight = (imageProperties.height * pdfWidth) / imageProperties.width
+    const imageProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight =
+      (imageProperties.height * pdfWidth) / imageProperties.width;
 
-
-    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight)
-    pdf.save("Itinerary.pdf")
-
-
-  }
+    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('Itinerary.pdf');
+  };
 
   const itineraryData = [
     {
@@ -129,7 +123,7 @@ function Itinerary() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <div ref = {printRef} className='itinerary-container'>
+            <div ref={printRef} className='itinerary-container'>
               <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
               </div>
@@ -174,8 +168,11 @@ function Itinerary() {
                   {' '}
                   Save Itinerary{' '}
                 </button>
-                <button className="itinerary-button" onClick={handleDownloadPDF}>
-                Download Itinerary
+                <button
+                  className='itinerary-button'
+                  onClick={handleDownloadPDF}
+                >
+                  Download Itinerary
                 </button>
               </div>
             </div>
