@@ -23,6 +23,14 @@ function Itinerary() {
     }
   };
 
+  const printRef = React.useRef(null);
+
+  const handleDownloadPDF = () =>
+  {
+    const element = printRef.current
+    console.log(element)
+  }
+
   const itineraryData = [
     {
       day: 1,
@@ -98,7 +106,7 @@ function Itinerary() {
               </div>
 
               {itineraryData.map((dayData) => (
-                <div key={dayData.day} className='itinerary-day'>
+                <div ref = {printRef} key={dayData.day} className='itinerary-day'>
                   <div className='itinerary-daytitle'>
                     <h1>Day {dayData.day}</h1>
                   </div>
@@ -136,6 +144,9 @@ function Itinerary() {
                 >
                   {' '}
                   Save Itinerary{' '}
+                </button>
+                <button className="itinerary-button" onClick={handleDownloadPDF}>
+                Download Itinerary
                 </button>
               </div>
             </div>
