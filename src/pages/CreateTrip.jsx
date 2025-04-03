@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
 import './CreateTrip.css';
-import './Createitinerary.css';
+import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { saveUserTrip } from '../api/dataModel.js';

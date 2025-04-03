@@ -72,11 +72,11 @@ export const createItineraryModel = async (tripId) => {
 
     //using aaron's dataCollect.js, get all data from dataCollect.js
     const itineraryDetails = {
-      name: tripDetails.name,               //from saveDetails()
+      name: tripDetails.name, //from saveDetails()
       days: getItineraryData()?.days || [], //from saveItineraryData()
-      activities: getSavedActivities(),      //from saveActivities()
-      budget: tripDetails.budget,           //from saveDetails()
-      preferences: getPreferences()         //from collectPreferences()
+      activities: getSavedActivities(), //from saveActivities()
+      budget: tripDetails.budget, //from saveDetails()
+      preferences: getPreferences(), //from collectPreferences()
     };
 
     // creates a doc in with this datamodel structure
@@ -87,11 +87,14 @@ export const createItineraryModel = async (tripId) => {
       activities: itineraryDetails.activities,
       budget: itineraryDetails.budget || '0',
       preferences: itineraryDetails.preferences || {},
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     };
     console.log('Creating itinerary with data:', itineraryData);
     //need to start saving this data, according to Jira task description
-    const itineraryRef = await addDoc(collection(db, 'itineraries'), itineraryData);
+    const itineraryRef = await addDoc(
+      collection(db, 'itineraries'),
+      itineraryData
+    );
     console.log('Itinerary created with ID:', itineraryRef.id);
     return itineraryRef.id;
   } catch (error) {
@@ -99,7 +102,6 @@ export const createItineraryModel = async (tripId) => {
     throw error;
   }
 };
-
 
 // Add a trip ID to a user's trips array
 export const addTripToUser = async (userId, tripId) => {
