@@ -25,7 +25,7 @@ function Account() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='home-card'>
-              <p>Coming Soon</p>
+              <p>Coming Soon Maybe</p>
             </div>
           </div>
         </div>

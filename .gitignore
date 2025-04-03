@@ -90,3 +90,7 @@ dist-ssr
 *.sw?
 
 package-lock.json
+.firebase/
+.firebaseserc
+build/
+dist/
