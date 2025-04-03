@@ -91,6 +91,6 @@ dist-ssr
 
 package-lock.json
 .firebase/
-.firebaseserc
+.firebaserc
 build/
 dist/
