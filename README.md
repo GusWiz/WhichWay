@@ -181,6 +181,12 @@ npm run dev
 npm run deploy
 ```
 
+- You might need to run this command if you just pulled for the first time:
+
+```
+firebase use whichway-9040f
+```
+
 ---
 # Sprint 1
 ## Contributions:
