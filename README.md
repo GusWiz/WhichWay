@@ -174,6 +174,10 @@ npm install openai
 ```
 npm run dev
 ```
+or
+```
+npm run preview
+```
 
 - If those changes look good:
 
