@@ -178,8 +178,13 @@ npm run dev
 - If those changes look good:
 
 ```
-npm run build
-firebase deploy
+npm run deploy
+```
+
+- You might need to run this command if you just pulled for the first time:
+
+```
+firebase use whichway-9040f
 ```
 
 ---
