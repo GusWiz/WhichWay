@@ -564,3 +564,5 @@ firebase deploy
     - AI had trouble seeing the bigger picture, often forgetting that we have multiple files for a reason and often resorting to placing code in the most recent file it could remember rather than the most relevant file.
 
 ![Burnup Chart Sprint 2](docs/BurnupChart2.png)
+
+---
