@@ -44,8 +44,8 @@ Rules:
 - Ensure there are no additional spaces, characters, or notes outside the JSON.
 `;
 
-const generateItinerary = async () => {
-  console.log('in generate itinerary');
+const generateItinerary = async (openaiRequest) => {
+  console.log('Generating itinerary with OpenAI amazing AI capabilites');
 
   try {
     const response = await openai.chat.completions.create({
