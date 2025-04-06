@@ -24,7 +24,7 @@ function Settings() {
   const [measurementUnits, setMeasurementUnits] = useState('metric');
 
   const handleSaveSettings = () => {
-    //Ad
+    //Add later
   };
 
   const logout = async () => {
