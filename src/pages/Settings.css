@@ -96,8 +96,8 @@
   max-width: 600px;
 }
 
-.save-button {
-  background-color: #3498db;
+save-button {
+  background-color: #3498db; /* Blue color matching edit button */
   color: white;
   border: none;
   padding: 0.8rem 1.8rem;
@@ -108,10 +108,12 @@
   font-weight: 500;
   width: 100%;
   max-width: 200px;
+  display: block;
+  margin: 0 auto; /* Centers the button */
 }
 
 .save-button:hover {
-  background-color: #2980b9;
+  background-color: #2980b9; /* Slightly darker blue on hover */
 }
 
 /* Responsive adjustments */
