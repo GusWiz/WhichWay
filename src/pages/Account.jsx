@@ -125,19 +125,6 @@ function Account({ user }) {
                   )}
                 </div>
               </div>
-
-              {/* Deactivate Account Section - Correctly placed after Profile Section */}
-              <div className="account-section danger-zone">
-                <h3><FaUserSlash /> Deactivate Account</h3>
-                <div className="form-group">
-                  <button className="deactivate-button">
-                    <FaUserSlash /> Deactivate Account
-                  </button>
-                  <p className="warning-text">
-                    This will disable your login access until reactivation.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
