@@ -22,68 +22,47 @@ function Itinerary() {
       console.log(error);
     }
   };
-
-  const itineraryData = [
-    {
-      day: 1,
-      items: [
-        {
-          startTime: '9:00 AM',
-          endTime: '12:00 PM',
-          location: "Double Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '12:00 PM',
-          endTime: '2:00 PM',
-          location: "Triple Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '4:00 PM',
-          endTime: '6:00 PM',
-          location: "Double Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '6:00 PM',
-          endTime: '7:00 PM',
-          location: "Triple Dave's",
-          description: '',
-          budget: '',
-        },
-      ],
-    },
-    {
-      day: 2,
-      items: [
-        {
-          startTime: '2:00 PM',
-          endTime: '4:00 PM',
-          location: "Quadruple Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '4:00 PM',
-          endTime: '6:00 PM',
-          location: "Quintuple Dave's",
-          description: '',
-          budget: '',
-        },
-      ],
-    },
-  ];
-
   const location = useLocation();
+  const [itineraryData, setItineraryData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const {
+    location: tripLocation,
+    startDate,
+    endDate,
+    dayStartTime = '09:00',
+    dayEndTime = '20:00',
     selectedFoods = [],
     selectedEntertainment = [],
     selectedOutdoor = [],
   } = location.state || {};
+
+  const activities = [
+    ...selectedFoods.map((food) => food.name),
+    ...selectedEntertainment.map((entertainment) => entertainment.name),
+    ...selectedOutdoor.map((outdoor) => outdoor.name),
+  ];
+
+  const handleRegenerateItinerary = async () => {
+    setLoading(true);
+    try {
+      const newItinerary = await generateItineraryService({
+        location: tripLocation,
+        startDate,
+        endDate,
+        dayStartTime,
+        dayEndTime,
+        activities,
+      });
+
+      setItineraryData(newItinerary.schedule || []);
+      console.log('New itinerary generated:', newItinerary);
+    } catch (error) {
+      console.error('Error regenerating itinerary:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>

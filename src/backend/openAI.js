@@ -68,15 +68,15 @@ const generateItinerary = async (openaiRequest) => {
     }
 
     const itinerary = response.choices[0].message.content;
-    console.log(itinerary); // Debugging log for the returned itinerary
     return itinerary; // Return the response data for further use
   } catch (error) {
-    // Enhanced error logging
-    console.error('Error generating itinerary:', error.message || error); // Log error message
-    if (error.stack) {
-      console.error('Stack trace:', error.stack); // Log stack trace for detailed debugging
-    }
-    return null; // Return null to signal an error
+    // // Enhanced error logging
+    // console.error('Error generating itinerary:', error.message || error); // Log error message
+    // if (error.stack) {
+    //   console.error('Stack trace:', error.stack); // Log stack trace for detailed debugging
+    // }
+    // return null; // Return null to signal an error
+    console.error('Error generating itinerary:', error.message || error);
   }
 };
 
