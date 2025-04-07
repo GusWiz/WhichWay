@@ -101,19 +101,12 @@ function CreateTrip() {
     setDisplayedBudget((prev) => {
       return { ...prev, budget: 100 };
     });
-
-    // setTimeout(() => {handleSelect('entertainment', 'Concert', '90')}, 1000);
-    // setTimeout(() => {handleSelect('entertainment', 'Movie', '25')}, 2000);
-    // setTimeout(() => {handleSelect('entertainment', 'Theater', '50')}, 3000);
-
     setTimeout(() => {
       setDisplayedBudget((prev) => {
         return { ...prev, budget: 20 };
       });
     }, 1000);
   };
-
-  // Structure to send all relevant functions from this file to ConsoleCommands
   // Structure to send all relevant functions from this file to ConsoleCommands
   const cmdPassthru = {
     budgetTest,
@@ -425,7 +418,7 @@ function CreateTrip() {
                     id='budgetInput'
                     onChange={handleChange}
                   />
-                  <button type='submit'>Change Budget</button>
+                  <button type='submit' className='trip-preference-btn'>Change Budget</button>
                 </form>
 
                 <button
@@ -446,7 +439,7 @@ function CreateTrip() {
                 <button
                   onClick={handleItinerary}
                   disabled={loading}
-                  className='gen-itinerary-button'
+                  className='trip-preference-btn'
                 >
                   {loading ? (
                     <span className='loader'></span>
