@@ -127,13 +127,47 @@ function CreateTrip() {
   const handleItinerary = async () => {
     setLoading(true); // Disable button and show loading spinner
     try {
-      const response = await generateItinerary(); // Wait for API response
+      // Create activities array from selected items
+      const activityList = [
+        ...selectedFoods.map(food => food.name),
+        ...selectedEntertainment.map(entertainment => entertainment.name),
+        ...selectedOutdoor.map(outdoor => outdoor.name)
+      ];
+
+      // Ensure we have a location and fallback values
+      const tripLocation = details.destination || 'San Marcos';
+      const tripStartDate = startDate || '2025-05-22'; // Use your date picker value if available
+      const tripDuration = duration || '5 days';
+
+      // Construct the OpenAI request content
+      const openaiRequest = `
+Location: ${tripLocation}
+Start date: ${tripStartDate}
+Duration: ${tripDuration}
+Activity List:
+${activityList.map(activity => `- ${activity}`).join('\n')}
+`;
+
+      console.log('OpenAI Request:', openaiRequest); // Debugging
+
+      // Pass the openaiRequest to generateItinerary
+      const response = await generateItinerary(openaiRequest);
 
       if (response) {
         saveItineraryData(response); // Store itinerary
         console.log('Itinerary saved:', getItineraryData()); // Debugging
 
-        navigate('/createItinerary'); // Navigate only after response is successfully stored
+        // Pass relevant data to the itinerary page
+        navigate('/createItinerary', {
+          state: {
+            location: tripLocation,
+            startDate: tripStartDate,
+            duration: tripDuration,
+            selectedFoods,
+            selectedEntertainment,
+            selectedOutdoor
+          }
+        });
       } else {
         console.error('Failed to generate itinerary. No response received.');
       }
@@ -307,6 +341,7 @@ function CreateTrip() {
   // Add this function to your CreateTrip component, after the other state variables
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
+  const [startDate, setStartDate] = useState(null);
 
   const handleSaveDetails = async () => {
     try {

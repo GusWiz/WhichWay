@@ -1,7 +1,7 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import './Home.css';
@@ -11,6 +11,7 @@ import './CreateItinerary.css';
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 import logo from '../components/images/logo.svg';
+import { duration } from '@mui/material';
 
 function Itinerary() {
   const navigate = useNavigate();
@@ -29,40 +30,62 @@ function Itinerary() {
   const {
     location: tripLocation,
     startDate,
-    endDate,
-    dayStartTime = '09:00',
-    dayEndTime = '20:00',
+    duration,
     selectedFoods = [],
     selectedEntertainment = [],
     selectedOutdoor = [],
   } = location.state || {};
 
-  const activities = [
-    ...selectedFoods.map((food) => food.name),
-    ...selectedEntertainment.map((entertainment) => entertainment.name),
-    ...selectedOutdoor.map((outdoor) => outdoor.name),
+const handleRegenerateItinerary = async () => {
+  setLoading(true);
+  // Create activities array from selected items
+  const activityList = [
+    ...selectedFoods.map(food => food.name),
+    ...selectedEntertainment.map(entertainment => entertainment.name),
+    ...selectedOutdoor.map(outdoor => outdoor.name)
   ];
+  try {
+    // Ensure all required variables have fallback values
+    const location = tripLocation || 'Austin';
+    const startDateValue = startDate || '2025-05-22';
+    const durationValue = duration || '10 days';
+    const activityList = activities.length > 0 ? activities : [
+      'Chilis',
+      'Sewell Park',
+      'Double Daves',
+      'EVO',
+      'Chi Lantro',
+      'Golds Gym',
+      'Hiking trail',
+    ];
 
-  const handleRegenerateItinerary = async () => {
-    setLoading(true);
-    try {
-      const newItinerary = await generateItineraryService({
-        location: tripLocation,
-        startDate,
-        endDate,
-        dayStartTime,
-        dayEndTime,
-        activities,
-      });
+    // Construct the OpenAI request content
+    const openaiRequest = `
+Location: ${location}
+Start date: ${startDateValue}
+Duration: ${durationValue}
+Activity List:
+${activityList.map((activity) => `- ${activity}`).join('\n')}
+`;
 
-      setItineraryData(newItinerary.schedule || []);
-      console.log('New itinerary generated:', newItinerary);
-    } catch (error) {
-      console.error('Error regenerating itinerary:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    console.log('OpenAI Request:', openaiRequest); // Debugging the request
+
+    // Call the itinerary generation service
+    const newItinerary = await generateItineraryService({
+      location,
+      startDate: startDateValue,
+      duration: durationValue,
+      activities: activityList,
+    });
+
+    setItineraryData(newItinerary.schedule || []);
+    console.log('New itinerary generated:', newItinerary);
+  } catch (error) {
+    console.error('Error regenerating itinerary:', error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>
@@ -76,45 +99,60 @@ function Itinerary() {
                 <h1>Create Itinerary</h1>
               </div>
 
-              {itineraryData.map((dayData) => (
-                <div key={dayData.day} className='itinerary-day'>
-                  <div className='itinerary-daytitle'>
-                    <h1>Day {dayData.day}</h1>
-                  </div>
-                  <div className='itinerary-itemscontainer'>
-                    {dayData.items.map((item, index) => (
-                      <div key={index} className='itinerary-item'>
-                        <div className='itinerary-itemtime'>
-                          <h1>
-                            {item.startTime} - {item.endTime}
-                          </h1>
-                        </div>
-                        <div className='itinerary-item-details'>
-                          <div className='itinerary-item-title'>
-                            <h1>{item.location}</h1>
-                          </div>
-                          <div className='navbar-logo'>
-                            <img src={logo} alt='Logo' className='logo-icon' />
-                          </div>
-                          <p>Here is a descrtiption of the place</p>
-                          <p>Here is the budget of the place</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              {/* Display loading spinner or itinerary data */}
+              {loading ? (
+                <div className='loading-container'>
+                  <p>Loading itinerary...</p>
                 </div>
-              ))}
+              ) : itineraryData.length > 0 ? (
+                itineraryData.map((dayData, dayIndex) => (
+                  <div key={dayIndex} className='itinerary-day'>
+                    <div className='itinerary-daytitle'>
+                      <h2>Day {dayIndex + 1}</h2>
+                    </div>
+                    <div className='itinerary-itemscontainer'>
+                      {dayData.activities.map((activity, activityIndex) => (
+                        <div key={activityIndex} className='itinerary-item'>
+                          <div className='itinerary-itemtime'>
+                            <h3>
+                              {activity.start_time} - {activity.end_time}
+                            </h3>
+                          </div>
+                          <div className='itinerary-item-details'>
+                            <div className='itinerary-item-title'>
+                              <h3>{activity.name}</h3>
+                            </div>
+                            <p>
+                              {activity.description ||
+                                'No description available'}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>
+                  No itinerary data available. Click "Regenerate Itinerary" to
+                  create one.
+                </p>
+              )}
+
+              {/* Buttons for regenerating and saving the itinerary */}
               <div className='itinerary-buttons'>
-                <button className='itinerary-button' onClick=''>
-                  {' '}
-                  Regenerate Itinerary{' '}
+                <button
+                  className='itinerary-button'
+                  onClick={handleRegenerateItinerary}
+                  disabled={loading}
+                >
+                  {loading ? 'Regenerating...' : 'Regenerate Itinerary'}
                 </button>
                 <button
                   className='itinerary-button'
                   onClick={() => navigate('/home')}
                 >
-                  {' '}
-                  Save Itinerary{' '}
+                  Save Itinerary
                 </button>
               </div>
             </div>
