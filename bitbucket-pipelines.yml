@@ -2,7 +2,7 @@ image: node:22
 
 pipelines:
   branches:
-    WW-93-development-create-development-branch-with-standard-file-structure:
+    WW-93-development-create-development-branch-with-standardized-file-structure:
       - step:
           name: Deploy to Firebase Hosting
           script:
