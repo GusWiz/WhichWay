@@ -1,185 +1,185 @@
 /* Account.css - Matches Settings page style */
 
 .account-page {
-    width: 100%;
-    min-height: calc(100vh - 120px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 1rem;
-    background-color: white;
-    color: #333;
-  }
+  width: 100%;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  background-color: white;
+  color: #333;
+}
 
-  .account-page h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
-    font-weight: 600;
-    text-align: center;
-  }
+.account-page h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  text-align: center;
+}
 
-  .account-section {
-    background: hsla(201, 70%, 22%, 0.101);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid #eaeaea8a;
-    width: 100%;
-    max-width: 600px;
-  }
+.account-section {
+  background: hsla(201, 70%, 22%, 0.101);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eaeaea8a;
+  width: 100%;
+  max-width: 600px;
+}
 
-  .account-section h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1.2rem;
-    color: #3498db;
-    font-weight: 500;
-  }
+.account-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.2rem;
+  color: #3498db;
+  font-weight: 500;
+}
 
-  .profile-details {
-    display: grid;
-    gap: 1.2rem;
-  }
+.profile-details {
+  display: grid;
+  gap: 1.2rem;
+}
 
-  .detail-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid #eee;
-  }
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #eee;
+}
 
-  .detail-item:last-child {
-    border-bottom: none;
-  }
+.detail-item:last-child {
+  border-bottom: none;
+}
 
-  .detail-item .label {
-    font-weight: 500;
-    color: #444;
-  }
+.detail-item .label {
+  font-weight: 500;
+  color: #444;
+}
 
-  .form-group {
-    margin-bottom: 1.2rem;
-  }
+.form-group {
+  margin-bottom: 1.2rem;
+}
 
-  .form-group label {
-    display: block;
-    margin-bottom: 0.6rem;
-    font-weight: 500;
-    color: #444;
-  }
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 500;
+  color: #444;
+}
 
-  .form-group input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: white;
-    transition: all 0.2s ease;
-  }
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: white;
+  transition: all 0.2s ease;
+}
 
-  .form-group input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.edit-button,
+.save-button,
+.cancel-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.edit-button {
+  background-color: #0d8fec;
+  color: rgb(240, 242, 245);
+}
+
+.save-button {
+  background-color: #3498db; /* Blue color matching edit button */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+  width: 100%;
+  max-width: 200px;
+  display: block;
+  margin: 0 auto; /* Centers the button */
+}
+
+.save-button:hover {
+  background-color: #2980b9; /* Slightly darker blue on hover */
+}
+
+.cancel-button {
+  background-color: white;
+  color: #e74c3c;
+  border: 1px solid #ddd;
+}
+
+.edit-button:hover {
+  background-color: #33628b;
+}
+
+.cancel-button:hover {
+  background-color: #f5f5f5;
+}
+
+.account-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  gap: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .account-page {
+    padding: 1rem;
   }
 
   .section-header {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .account-actions {
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 1.2rem;
   }
 
   .edit-button,
   .save-button,
   .cancel-button {
-    padding: 0.6rem 1.2rem;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .edit-button {
-    background-color: #0d8fec;
-    color: rgb(240, 242, 245);
-  }
-
-  .save-button {
-    background-color: #3498db; /* Blue color matching edit button */
-    color: white;
-    border: none;
-    padding: 0.8rem 1.8rem;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    font-weight: 500;
     width: 100%;
-    max-width: 200px;
-    display: block;
-    margin: 0 auto; /* Centers the button */
-  }
-
-  .save-button:hover {
-    background-color: #2980b9; /* Slightly darker blue on hover */
-  }
-
-  .cancel-button {
-    background-color: white;
-    color: #e74c3c;
-    border: 1px solid #ddd;
-  }
-
-  .edit-button:hover {
-    background-color: #33628b;
-  }
-
-  .cancel-button:hover {
-    background-color: #f5f5f5;
-  }
-
-  .account-actions {
-    display: flex;
     justify-content: center;
-    margin-top: 1.5rem;
-    width: 100%;
-    max-width: 600px;
-    gap: 0.8rem;
   }
 
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .account-page {
-      padding: 1rem;
-    }
-
-    .section-header {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .account-actions {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .edit-button,
-    .save-button,
-    .cancel-button {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .detail-item {
-      flex-direction: column;
-      gap: 0.3rem;
-    }
+  .detail-item {
+    flex-direction: column;
+    gap: 0.3rem;
   }
+}
