@@ -16,6 +16,7 @@ import TripInputField from '../components/Createtrip-Components/TripInputField';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
+import { generateItinerary } from '../backend/openAI';
 
 function EditTrip() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function EditTrip() {
   const [entertainmentOptions, setEntertainmentOptions] = useState([]);
   const [outdoorOptions, setOutdoorOptions] = useState([]);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
+  const [loadingItinerary, setLoadingItinerary] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -121,31 +123,23 @@ function EditTrip() {
     }
   };
 
-  const handleUpdateTrip = async () => {
-    console.log(tripId);
-    console.log(editingTrip);
-    if (!tripId) return;
+  const handleGenerateItinerary = async () => {
+    setLoadingItinerary(true);
     try {
-      const tripDocRef = doc(db, 'trips', tripId);
-      console.log(tripId);
-      console.log(editingTrip);
-      await updateDoc(tripDocRef, {
-        name: tripName,
-        duration: duration,
-        budget: details.budget,
-        destination: details.destination,
-        location: details.location,
-        preferences: {
+      const itineraryData = await generateItinerary();
+      navigate('/createItinerary', {
+        state: {
+          itineraryData: itineraryData,
           selectedFoods,
           selectedEntertainment,
           selectedOutdoor,
         },
       });
-      toast.success('Trip updated successfully!');
-      navigate('/home');
     } catch (error) {
-      console.error('Error updating trip:', error);
-      toast.error('Failed to update trip.');
+      console.error('Error generating itinerary:', error);
+      toast.error('Failed to generate itinerary.');
+    } finally {
+      setLoadingItinerary(false);
     }
   };
 
@@ -177,7 +171,6 @@ function EditTrip() {
   };
 
   const handleSelect = (category, item) => {
-    // ... (Your handleSelect logic here)
     const costCheck = displayedBudget.budget - displayedCost.cost - item.price;
     if (
       costCheck < 0 &&
@@ -326,7 +319,14 @@ function EditTrip() {
                         handleSelect('outdoor', item)
                       }
                     />
-                    <button onClick={handleUpdateTrip}>Save Changes</button>
+                    <button
+                      onClick={handleGenerateItinerary}
+                      disabled={loadingItinerary}
+                    >
+                      {loadingItinerary
+                        ? 'Generating...'
+                        : 'Generate Itinerary'}
+                    </button>
                     <button onClick={handleCancelEdit}>Cancel</button>
                   </div>
                 </>
