@@ -367,6 +367,12 @@ function CreateTrip() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
+                <button
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
               <div className='createititnerary-title'>
                 <h1>Create Trip</h1>
               </div>
@@ -392,12 +398,26 @@ function CreateTrip() {
                     name='duration'
                   />
                 </form>
+
+                <button
+                  type='button'
+                  onClick={handleSaveDetails}
+                  className='trip-preference-btn save-trip-btn'
+                >
+                  Save Trip Details
+                </button>
+
+                <br />
+
                 <label>
                   {displayedBudget.budget >= 0
                     ? 'Budget = $'
                     : 'No budget entered.'}
                 </label>
-                <label id='displayedBudget'>{displayedBudget.budget}</label>
+                <label id='displayedBudget'>{displayedBudget.budget >= 0 
+                  ? displayedBudget.budget 
+                  : ""}
+                </label>
                 <br></br>
                 <label>Cost = $</label>
                 <label id='displayedCost'>{displayedCost.cost}</label>
@@ -410,6 +430,7 @@ function CreateTrip() {
                     ? displayedBudget.budget - displayedCost.cost
                     : ''}
                 </label>
+                
                 <form action='#' className='form' onSubmit={budgetSubmit}>
                   <input
                     type='number'
@@ -420,33 +441,9 @@ function CreateTrip() {
                   />
                   <button type='submit' className='trip-preference-btn'>Change Budget</button>
                 </form>
+                
 
-                <button
-                  onClick={handleModalToggle}
-                  className='trip-preference-btn'
-                >
-                  Trip Preferences
-                </button>
-
-                <button
-                  type='button'
-                  onClick={handleSaveDetails}
-                  className='trip-preference-btn save-trip-btn'
-                >
-                  Save Trip Details
-                </button>
-
-                <button
-                  onClick={handleItinerary}
-                  disabled={loading}
-                  className='trip-preference-btn'
-                >
-                  {loading ? (
-                    <span className='loader'></span>
-                  ) : (
-                    'Generate Itinerary'
-                  )}
-                </button>
+                
 
                 {/* Render ActivitiesDisplay component */}
                 <ActivitiesDisplay
@@ -464,6 +461,18 @@ function CreateTrip() {
                   selectedOutdoor={selectedOutdoor}
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
+
+                <button
+                  onClick={handleItinerary}
+                  disabled={loading}
+                  className='trip-preference-btn'
+                >
+                  {loading ? (
+                    <span className='loader'></span>
+                  ) : (
+                    'Generate Itinerary'
+                  )}
+                </button>
               </div>
 
               {/* Conditionally render the modal */}
