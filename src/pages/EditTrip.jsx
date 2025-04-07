@@ -24,7 +24,6 @@ function EditTrip() {
   const [tripsData, setTripsData] = useState([]);
   const [editingTrip, setEditingTrip] = useState(null);
 
-  // States for editing form
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [details, setDetails] = useState({
