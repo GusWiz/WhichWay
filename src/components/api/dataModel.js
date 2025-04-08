@@ -127,7 +127,7 @@ export const saveUserTrip = async (
   timeFrame,
   selectedActivities = null,
   tripId = null,
-  setTripId // <-- Add this as a parameter for state setter
+  setTripId = null // <- Make this parameter optional with a default value of null
 ) => {
   try {
     if (!userId) throw new Error('User ID is required');
@@ -168,7 +168,11 @@ export const saveUserTrip = async (
       });
       finalTripId = tripRef.id;
 
-      setTripId(finalTripId); // <-- Use finalTripId here
+      // Only call setTripId if it's a function
+      if (setTripId && typeof setTripId === 'function') {
+        setTripId(finalTripId);
+      }
+
       localStorage.setItem('tripId', finalTripId); // <-- persist!
 
       console.log('[saveUserTrip] New trip created with ID:', finalTripId);

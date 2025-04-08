@@ -35,7 +35,7 @@ function EditTrip() {
   });
   // const [displayedBudget, setDisplayedBudget] = useState({ budget: 'NULL' });
   // const [displayedCost, setDisplayedCost] = useState({ cost: '0' });
-  // const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
   const [foodOptions, setFoodOptions] = useState([]);

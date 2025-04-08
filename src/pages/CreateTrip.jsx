@@ -23,10 +23,8 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
-import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
-import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -45,6 +43,7 @@ function CreateTrip() {
   const [startDate, setStartDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tripId, setTripId] = useState(null);
 
   // State for place/destination details
   const [details, setDetails] = useState({
@@ -62,6 +61,35 @@ function CreateTrip() {
   const [loadingItinerary, setLoadingItinerary] = useState(false);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
 
+  // Initial default options for activities
+  const [foodOptions, setFoodOptions] = useState([
+    {
+      name: 'Chilis',
+      imgSrc: '/images/activities/food/chilis.jpg',
+      groupSize: '2-4',
+    },
+  ]);
+
+  const [entertainmentOptions, setEntertainmentOptions] = useState([
+    { name: 'Movie', imgSrc: 'movie.jpg' },
+  ]);
+
+  const [outdoorOptions, setOutdoorOptions] = useState([
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
+  ]);
+
+  // Debug console commands
+  const cmdPassthru = {};
+
+  useEffect(() => {
+    const storedTripId = localStorage.getItem('tripId');
+    if (storedTripId) {
+      setTripId(storedTripId); // Update the state with tripId from localStorage
+    } else {
+      setTripId(null); // In case tripId is null in localStorage
+    }
+  }, []);
+
   // Toggle the preference modal
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
@@ -75,62 +103,6 @@ function CreateTrip() {
       return { ...prev, [name]: value };
     });
   };
-
-  // Handle selection of activities
-  // const budgetSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (details.budget < 0) {
-  //     return toast('Error: Invalid Budget Entered.');
-  //   } else if (details.budget < displayedCost.cost) {
-  //     return toast('Error: Budget would be less than Cost.');
-  //   } else {
-  //     setDisplayedBudget((prev) => {
-  //       return { ...prev, budget: details.budget };
-  //     });
-
-  //     // Also update the tripDetails budget to match
-  //     setDetails((prev) => ({
-  //       ...prev,
-  //       budget: details.budget,
-  //     }));
-  //   }
-
-  //   console.log(details);
-  // };
-
-  // const budgetTest = () => {
-  //   console.log('we in here');
-
-  //   setDisplayedBudget((prev) => {
-  //     return { ...prev, budget: 100 };
-  //   });
-  //   setTimeout(() => {
-  //     setDisplayedBudget((prev) => {
-  //       return { ...prev, budget: 20 };
-  //     });
-  //   }, 1000);
-  // };
-  // Structure to send all relevant functions from this file to ConsoleCommands
-  const cmdPassthru = {
-    // budgetTest,
-  };
-
-  const [tripId, setTripId] = useState(null);
-
-  useEffect(() => {
-    const storedTripId = localStorage.getItem('tripId');
-    if (storedTripId) {
-      setTripId(storedTripId); // Update the state with tripId from localStorage
-    } else {
-      setTripId(null); // In case tripId is null in localStorage
-    }
-  }, []);
-
-  // end of Vinny's functions
-
-  // Aaron's functions
-
-  const [loading, setLoading] = useState(false);
 
   const handleItinerary = async () => {
     setLoading(true); // Disable button and show loading spinner
@@ -163,10 +135,6 @@ function CreateTrip() {
     const savedActivities = getSavedActivities();
     console.log(savedActivities);
   };
-
-  const [selectedFoods, setSelectedFoods] = useState([]);
-  const [selectedEntertainment, setSelectedEntertainment] = useState([]);
-  const [selectedOutdoor, setSelectedOutdoor] = useState([]);
 
   const handleSelect = (category, item) => {
     switch (category) {
@@ -249,32 +217,7 @@ function CreateTrip() {
     }
   };
 
-  // Initial default options for activities
-  const [foodOptions, setFoodOptions] = useState([
-    {
-      name: 'Chilis',
-      imgSrc: '/images/activities/food/chilis.jpg',
-      groupSize: '2-4',
-    },
-  ]);
-
-  const [entertainmentOptions, setEntertainmentOptions] = useState([
-    { name: 'Movie', imgSrc: 'movie.jpg' },
-  ]);
-
-  const [outdoorOptions, setOutdoorOptions] = useState([
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
-  ]);
-
-  // Save the trip details to Firestore
-  const handleSaveTrip = async () => {
-    try {
-      setIsSubmitting(true);
-
-      // Check if user is authenticated
-  // End of Aaron's functions
-
-  // handle the place selected from LocationSearch
+  // Handle the place selected from LocationSearch
   const handleLocationSelect = (placeDetails) => {
     setDetails((prev) => ({
       ...prev,
@@ -282,12 +225,12 @@ function CreateTrip() {
     }));
   };
 
-  // Add this function to your CreateTrip component, after the other state variables
-  const [tripName, setTripName] = useState('');
-  const [duration, setDuration] = useState('');
-
-  const handleSaveDetails = async () => {
+  // Save the trip details to Firestore
+  const handleSaveTrip = async () => {
     try {
+      setIsSubmitting(true);
+
+      // Check if user is authenticated
       const currentUser = auth.currentUser;
       if (!currentUser) {
         toast.error('Please log in to save trip details');
@@ -320,7 +263,7 @@ function CreateTrip() {
         duration
       );
 
-      // Pass setTripId to saveUserTrip to update the tripId in CreateTrip.jsx
+      // Save to Firebase
       const savedTripId = await saveUserTrip(
         currentUser.uid,
         tripDetails,
@@ -332,8 +275,9 @@ function CreateTrip() {
         }
       );
 
+      setTripId(savedTripId);
       toast.success('Trip saved successfully!');
-      console.log('Trip saved with ID:', tripId);
+      console.log('Trip saved with ID:', savedTripId);
     } catch (error) {
       console.error('Error saving trip:', error);
       toast.error('Failed to save trip details');
@@ -349,16 +293,19 @@ function CreateTrip() {
       // Validate required fields first
       if (!tripName) {
         toast.error('Please enter a trip name');
+        setLoadingItinerary(false);
         return;
       }
 
       if (!details.destination) {
         toast.error('Please enter a trip location');
+        setLoadingItinerary(false);
         return;
       }
 
       if (!duration) {
         toast.error('Please enter a trip duration');
+        setLoadingItinerary(false);
         return;
       }
 
@@ -397,17 +344,28 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         throw new Error('Failed to generate a valid itinerary');
       }
 
+      // Extract JSON from the response if it contains markdown code blocks
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+          console.log('Extracted JSON string:', jsonString);
+        }
+      }
+
       // Parse the JSON response
-      const parsedItinerary = JSON.parse(itineraryResponse);
+      const parsedItinerary = JSON.parse(jsonString);
 
       if (!parsedItinerary || !parsedItinerary.schedule) {
         throw new Error('Invalid itinerary format received');
       }
 
-      // First save the trip to get a tripId
-      let tripId = null;
-      if (auth.currentUser) {
-        const savedTripId = await saveUserTrip(
+      // First save the trip to get a tripId if not already set
+      let savedTripId = tripId;
+      if (auth.currentUser && !tripId) {
+        savedTripId = await saveUserTrip(
           auth.currentUser.uid,
           {
             name: tripName,
@@ -422,7 +380,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
             selectedOutdoor
           }
         );
-        tripId = savedTripId;
+        setTripId(savedTripId);
         toast.success('Trip saved successfully!');
       }
 
@@ -436,7 +394,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           selectedEntertainment,
           selectedOutdoor,
           tripName,
-          tripId,
+          tripId: savedTripId,
           itineraryData: parsedItinerary.schedule || []
         }
       });
@@ -448,9 +406,6 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
       setLoadingItinerary(false);
     }
   };
-
-  // Pass functions to ConsoleCommands (for debugging)
-  const cmdPassthru = {};
 
   return (
     <>
