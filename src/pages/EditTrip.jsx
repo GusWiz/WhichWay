@@ -126,18 +126,54 @@ function EditTrip() {
   const handleGenerateItinerary = async () => {
     setLoadingItinerary(true);
     try {
-      const itineraryData = await generateItinerary();
+      // Create activities array from selected items
+      const activityList = [
+        ...selectedFoods.map(food => food.name),
+        ...selectedEntertainment.map(entertainment => entertainment.name),
+        ...selectedOutdoor.map(outdoor => outdoor.name)
+      ];
+
+      // Ensure we have at least some activities
+      if (activityList.length === 0) {
+        toast.warning('Please select at least one activity before generating an itinerary');
+        setLoadingItinerary(false);
+        return;
+      }
+
+      // Construct the OpenAI request content
+      const openaiRequest = `
+Location: ${details.destination}
+Start date: ${new Date().toISOString().split('T')[0]}
+Duration: ${duration}
+Activity List:
+${activityList.map((activity) => `- ${activity}`).join('\n')}
+`;
+
+      console.log('OpenAI Request:', openaiRequest);
+
+      // Call the generateItinerary function directly
+      const itineraryResponse = await generateItinerary(openaiRequest);
+
+      if (!itineraryResponse) {
+        throw new Error('Failed to generate a valid itinerary');
+      }
+
       navigate('/createItinerary', {
         state: {
-          itineraryData: itineraryData,
+          location: details.destination,
+          startDate: new Date().toISOString().split('T')[0],
+          duration: duration,
           selectedFoods,
           selectedEntertainment,
           selectedOutdoor,
-        },
+          tripName,
+          tripId: editingTrip.id,
+          itineraryData: JSON.parse(itineraryResponse).schedule || []
+        }
       });
     } catch (error) {
       console.error('Error generating itinerary:', error);
-      toast.error('Failed to generate itinerary.');
+      toast.error('Failed to generate itinerary. Please try again.');
     } finally {
       setLoadingItinerary(false);
     }
