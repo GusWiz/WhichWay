@@ -111,6 +111,16 @@ function CreateTrip() {
   const cmdPassthru = {
     // budgetTest,
   };
+
+  const [tripId, setTripId] = useState(null);
+
+  React.useEffect(() => {
+    const storedTripId = localStorage.getItem('tripId');
+    if (storedTripId) {
+      setTripId(storedTripId);
+    }
+  }, []);
+
   // end of Vinny's functions
 
   // Aaron's functions
@@ -342,17 +352,20 @@ function CreateTrip() {
       );
 
       // Save to Firebase
-      const tripId = await saveUserTrip(
+      const savedTripId = await saveUserTrip(
         currentUser.uid,
         tripDetails,
         duration,
-        getSavedActivities()
+        getSavedActivities(),
+        tripId // <-- pass it here!
       );
 
+      // 🔥 Store the ID so future saves reuse it
+      if (!tripId) setTripId(savedTripId);
       toast.success('Trip details saved successfully!', {
         position: 'bottom-center',
       });
-      console.log('Trip saved with ID:', tripId);
+      console.log('Trip saved with ID:', savedTripId);
     } catch (error) {
       console.error('Error saving trip details:', error);
       toast.error('Failed to save trip details', { position: 'bottom-center' });
