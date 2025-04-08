@@ -1,29 +1,21 @@
-image: python:3.9
-
-clone:
-  depth: full              # SonarQube Cloud scanner needs the full history to assign issues properly
-
-definitions:
-  caches:
-    sonar: ~/.sonar/cache # Caching SonarQube Cloud artifacts will speed up your build
-  steps:
-    - step: &build-test-sonarcloud
-        name: Build, test and analyze on SonarQube Cloud
-        caches:
-          - sonar
-        script:
-          - pipe: sonarsource/sonarcloud-scan:3.0.0
-    - step: &check-quality-gate-sonarcloud
-        name: Check the Quality Gate on SonarQube Cloud
-        script:
-          - pipe: sonarsource/sonarcloud-quality-gate:0.1.6
+image: node:22
 
 pipelines:
   branches:
-    master:
-      - step: *build-test-sonarcloud
-      - step: *check-quality-gate-sonarcloud
+    WW-93-development-create-development-branch-with-standardized-file-structure:
+      - step:
+          name: Deploy to Firebase Hosting
+          script:
+            - npm install -g firebase-tools
+            - firebase deploy --token="$FIREBASE_TOKEN" --project="whichway-9040f"
   pull-requests:
     '**':
-      - step: *build-test-sonarcloud
-      - step: *check-quality-gate-sonarcloud
+      - step:
+          name: Install Dependencies and Build
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run build
+          artifacts:
+            - build/**

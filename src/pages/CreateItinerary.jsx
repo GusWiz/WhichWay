@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
-import { generateItineraryService } from '../api/itineraryFunctions';
+// Import directly from backend instead of through api layer
+import { generateItinerary } from '../backend/openAI';
 
 import './Home.css';
 import './Landing.css';
@@ -17,8 +20,7 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 function Itinerary() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [itineraryData, setItineraryData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const printRef = useRef(null);
 
   // Get data from location state or use defaults
   const {
@@ -28,8 +30,14 @@ function Itinerary() {
     selectedFoods = [],
     selectedEntertainment = [],
     selectedOutdoor = [],
-    tripName = 'My Trip'
+    tripName = 'My Trip',
+    tripId = null,
+    itineraryData: initialItineraryData = []
   } = location.state || {};
+
+  // Use the provided itinerary data if available
+  const [itineraryData, setItineraryData] = useState(initialItineraryData);
+  const [loading, setLoading] = useState(false);
 
   const logout = async () => {
     try {
@@ -40,8 +48,42 @@ function Itinerary() {
     }
   };
 
-  // Function to generate itinerary with OpenAI
-  const handleRegenerateItinerary = async () => {
+  // Function to download itinerary as PDF
+  const handleDownloadPDF = async () => {
+    const element = printRef.current;
+
+    if (!element) {
+      toast.error('No content to download');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element);
+      const data = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: 'a4',
+      });
+
+      const imageProperties = pdf.getImageProperties(data);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight =
+        (imageProperties.height * pdfWidth) / imageProperties.width;
+
+      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('Itinerary.pdf');
+      toast.success('PDF downloaded successfully!');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to download PDF');
+    }
+  };
+
+  // Function to generate itinerary with OpenAI directly
+  // Uses the same approach as in EditTrip.jsx
+  const handleGenerateItinerary = async () => {
     setLoading(true);
     try {
       // Create activities array from selected items
@@ -55,7 +97,7 @@ function Itinerary() {
       const finalActivityList = activityList.length > 0 ? activityList : [
         'Chilis',
         'Sewell Park',
-        'test',
+        'Double Daves',
         'EVO',
         'Chi Lantro',
         'Golds Gym',
@@ -73,50 +115,28 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
 
       console.log('OpenAI Request:', openaiRequest);
 
-      // Call the itinerary generation service
-      const newItinerary = await generateItineraryService({
-        location: tripLocation,
-        startDate: startDateValue,
-        duration: durationValue,
-        activities: finalActivityList,
-      });
+      // Call the generateItinerary function directly
+      const itineraryResponse = await generateItinerary(openaiRequest);
 
-      if (!newItinerary || !newItinerary.schedule) {
+      if (!itineraryResponse) {
         throw new Error('Failed to generate a valid itinerary');
       }
 
-      setItineraryData(newItinerary.schedule || []);
+      // Parse the JSON response
+      const parsedItinerary = JSON.parse(itineraryResponse);
+
+      if (!parsedItinerary || !parsedItinerary.schedule) {
+        throw new Error('Invalid itinerary format received');
+      }
+
+      setItineraryData(parsedItinerary.schedule || []);
       toast.success('Itinerary generated successfully!');
     } catch (error) {
-      console.error('Error regenerating itinerary:', error);
+      console.error('Error generating itinerary:', error);
       toast.error('Failed to generate itinerary. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
-
-  // Test function with custom parameters
-  const testWithCustomParams = () => {
-    const testParams = {
-      location: 'New York City',
-      startDate: '2025-06-15',
-      duration: '7 days',
-      selectedFoods: [{ name: 'Pizza' }, { name: 'Bagels' }],
-      selectedEntertainment: [{ name: 'Broadway Show' }, { name: 'Central Park' }],
-      selectedOutdoor: [{ name: 'High Line' }]
-    };
-
-    // Update component state with test parameters
-    Object.keys(testParams).forEach(key => {
-      // Use this approach to avoid directly mutating location.state
-      window.history.replaceState(
-        { ...location.state, [key]: testParams[key] },
-        document.title
-      );
-    });
-
-    // Call the regenerate function
-    handleRegenerateItinerary();
   };
 
   return (
@@ -126,7 +146,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         <div className="home-container">
           <Sidebar logout={logout} />
           <div className="home-contents">
-            <div className="itinerary-container">
+            <div ref={printRef} className="itinerary-container">
               <div className="createititnerary-title">
                 <h1>Create Itinerary</h1>
                 <h2>for {tripLocation}</h2>
@@ -177,25 +197,24 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
               <div className="itinerary-buttons">
                 <button
                   className="itinerary-button"
-                  onClick={handleRegenerateItinerary}
+                  onClick={handleGenerateItinerary}
                   disabled={loading}
                 >
                   {loading ? "Generating..." : "Generate Itinerary"}
                 </button>
-{/* The commented code adds a button that tests the regenerate with Aaron custome parameters*/}
-                {/* <button
-                  className="itinerary-button"
-                  onClick={testWithCustomParams}
-                  disabled={loading}
-                >
-                  Test Custom Params
-                </button> */}
 
                 <button
                   className="itinerary-button"
                   onClick={() => navigate('/home')}
                 >
                   Back to Home
+                </button>
+                <button
+                  className="itinerary-button"
+                  onClick={handleDownloadPDF}
+                  disabled={!itineraryData.length}
+                >
+                  Download Itinerary
                 </button>
               </div>
             </div>

@@ -165,6 +165,8 @@ npm install lucide-react
 npm install react-toastify
 npm install axios
 npm install openai
+npm install html2canvas
+npm install jspdf
 ```
 
 ### Build and Test:
@@ -173,6 +175,10 @@ npm install openai
 
 ```
 npm run dev
+```
+or
+```
+npm run preview
 ```
 
 - If those changes look good:

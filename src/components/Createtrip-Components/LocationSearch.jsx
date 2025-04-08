@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  getPlaceSuggestions,
-  getPlaceDetails,
-} from '../../api/googleLocationApi';
+import { getPlaceSuggestions, getPlaceDetails } from '../api/googleLocationAPI';
 
 function LocationSearch({ onSelect }) {
   const [input, setInput] = useState(''); // Create value to store user input
