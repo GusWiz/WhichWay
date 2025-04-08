@@ -6,6 +6,7 @@ import './CreateTrip.css';
 import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { saveUserTrip } from '../components/api/dataModel.js';
 import { auth } from '../components/firebase.js';
 import {
@@ -38,34 +39,35 @@ function CreateTrip() {
     }
   };
 
-  //Aldo's updated itinerary modal
+  // State variables for trip details
+  const [tripName, setTripName] = useState('');
+  const [duration, setDuration] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // State for place/destination details
+  const [details, setDetails] = useState({
+    destination: '',
+    location: null,
+  });
+
+  // States for selected activities
+  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedEntertainment, setSelectedEntertainment] = useState([]);
+  const [selectedOutdoor, setSelectedOutdoor] = useState([]);
+
+  // States for loading states
+  const [loading, setLoading] = useState(false);
+  const [loadingItinerary, setLoadingItinerary] = useState(false);
+  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
+
+  // Toggle the preference modal
   const handleModalToggle = () => {
-    setIsModalOpen(!isModalOpen); // Toggle the modal visibility
+    setIsModalOpen(!isModalOpen);
   };
 
-  //Vinny's functions
-
-  const [details, setDetails] = useState({
-    // budget: '',
-    // cost: '0',
-    destination: '', // Add destination to the details state
-  });
-  // const [displayedBudget, setDisplayedBudget] = useState({
-  //   budget: 'NULL',
-  // });
-  // const [displayedCost, setDisplayedCost] = useState({
-  //   cost: '0',
-  // });
-
-  // const handleCostChange = (price) => {
-  //   setDisplayedCost((prevCost) => {
-  //     const currCost = parseInt(prevCost.cost); // Using the previous state value directly
-  //     return { ...prevCost, cost: currCost + parseInt(price) };
-  //   });
-  // };
-
+  // Handle input changes
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -74,6 +76,7 @@ function CreateTrip() {
     });
   };
 
+  // Handle selection of activities
   // const budgetSubmit = (event) => {
   //   event.preventDefault();
   //   if (details.budget < 0) {
@@ -168,79 +171,46 @@ function CreateTrip() {
   const handleSelect = (category, item) => {
     switch (category) {
       case 'food':
-        // if (
-        //   displayedBudget.budget - displayedCost.cost - item.price < 0 &&
-        //   !selectedFoods.some((food) => food.name === item.name)
-        // ) {
-        //   return toast('Error: Cost would be more than Budget.');
-        // } else {
         if (selectedFoods.some((food) => food.name === item.name)) {
-          // handleCostChange(item.price * -1);
           setSelectedFoods((prev) =>
             prev.filter((food) => food.name !== item.name)
-          ); // Remove item by name
+          );
         } else {
-          // handleCostChange(item.price);
-          setSelectedFoods((prev) => [...prev, item]); // Add the item to the selected foods
+          setSelectedFoods((prev) => [...prev, item]);
         }
         saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
-        // }
         break;
       case 'entertainment':
-        // if (
-        //   displayedBudget.budget - displayedCost.cost - item.price < 0 &&
-        //   !selectedEntertainment.some(
-        //     (entertainment) => entertainment.name === item.name
-        //   )
-        // ) {
-        //   return toast('Error: Cost would be more than Budget.');
-        // } else {
         if (
           selectedEntertainment.some(
             (entertainment) => entertainment.name === item.name
           )
         ) {
-          // handleCostChange(item.price * -1);
           setSelectedEntertainment((prev) =>
             prev.filter((entertainment) => entertainment.name !== item.name)
-          ); // Remove item by name
+          );
         } else {
-          // handleCostChange(item.price);
-          setSelectedEntertainment((prev) => [...prev, item]); // Add the item to the selected foods
+          setSelectedEntertainment((prev) => [...prev, item]);
         }
         saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
-        // }
         break;
       case 'outdoor':
-        // if (
-        //   displayedBudget.budget - displayedCost.cost - item.price < 0 &&
-        //   !selectedOutdoor.some((outdoor) => outdoor.name === item.name)
-        // ) {
-        //   return toast('Error: Cost would be more than Budget.');
-        // } else {
         if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
-          // handleCostChange(item.price * -1);
           setSelectedOutdoor((prev) =>
             prev.filter((outdoor) => outdoor.name !== item.name)
-          ); // Remove item by name
+          );
         } else {
-          // handleCostChange(item.price);
-          setSelectedOutdoor((prev) => [...prev, item]); // Add the item to the selected foods
+          setSelectedOutdoor((prev) => [...prev, item]);
         }
         saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
-        // }
         break;
       default:
         break;
     }
   };
 
-  const [isLoadingActivities, setIsLoadingActivities] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-
+  // Handle location selection
   const handlePlaceSelected = async (placeData) => {
-    setSelectedLocation(placeData);
-
     // Update trip details with the location data
     setDetails((prev) => ({
       ...prev,
@@ -279,26 +249,29 @@ function CreateTrip() {
     }
   };
 
+  // Initial default options for activities
   const [foodOptions, setFoodOptions] = useState([
     {
       name: 'Chilis',
       imgSrc: '/images/activities/food/chilis.jpg',
-      // price: '40',
       groupSize: '2-4',
     },
-    // Keep your existing options as fallback
   ]);
 
   const [entertainmentOptions, setEntertainmentOptions] = useState([
-    { name: 'Movie', imgSrc: 'movie.jpg' /*, price: '25'*/ },
-    // Keep your existing options as fallback
+    { name: 'Movie', imgSrc: 'movie.jpg' },
   ]);
 
   const [outdoorOptions, setOutdoorOptions] = useState([
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' /*, price: '0'*/ },
-    // Keep your existing options as fallback
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
   ]);
 
+  // Save the trip details to Firestore
+  const handleSaveTrip = async () => {
+    try {
+      setIsSubmitting(true);
+
+      // Check if user is authenticated
   // End of Aaron's functions
 
   // handle the place selected from LocationSearch
@@ -317,20 +290,18 @@ function CreateTrip() {
     try {
       const currentUser = auth.currentUser;
       if (!currentUser) {
-        toast.error('Please log in to save trip details', {
-          position: 'bottom-center',
-        });
+        toast.error('Please log in to save trip details');
         return;
       }
 
       // Validate required fields
       if (!tripName) {
-        toast.error('Trip name is required', { position: 'bottom-center' });
+        toast.error('Trip name is required');
         return;
       }
 
       if (!details.destination) {
-        toast.error('Destination is required', { position: 'bottom-center' });
+        toast.error('Destination is required');
         return;
       }
 
@@ -338,34 +309,148 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
-        duration: duration || '1 day',
-        location: details.location || null,
+        duration: duration || '1 day', // Default to 1 day if not specified
+        location: details.location || { lat: 0, lng: 0 },
       };
 
       // Save details locally
-      saveDetails(tripName, details.destination, duration);
+      saveDetails(
+        tripName,
+        details.destination,
+        duration
+      );
 
       // Pass setTripId to saveUserTrip to update the tripId in CreateTrip.jsx
       const savedTripId = await saveUserTrip(
         currentUser.uid,
         tripDetails,
         duration,
-        getSavedActivities(),
-        tripId, // <-- pass it here!
-        setTripId // <-- pass the setTripId function here!
+        {
+          selectedFoods,
+          selectedEntertainment,
+          selectedOutdoor
+        }
       );
 
-      // 🔥 Store the ID so future saves reuse it
-      if (!tripId) setTripId(savedTripId);
-      toast.success('Trip details saved successfully!', {
-        position: 'bottom-center',
-      });
-      console.log('Trip saved with ID:', savedTripId);
+      toast.success('Trip saved successfully!');
+      console.log('Trip saved with ID:', tripId);
     } catch (error) {
-      console.error('Error saving trip details:', error);
-      toast.error('Failed to save trip details', { position: 'bottom-center' });
+      console.error('Error saving trip:', error);
+      toast.error('Failed to save trip details');
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  // Function to generate an itinerary and navigate to the itinerary page
+  const handleGenerateItinerary = async () => {
+    setLoadingItinerary(true);
+    try {
+      // Validate required fields first
+      if (!tripName) {
+        toast.error('Please enter a trip name');
+        return;
+      }
+
+      if (!details.destination) {
+        toast.error('Please enter a trip location');
+        return;
+      }
+
+      if (!duration) {
+        toast.error('Please enter a trip duration');
+        return;
+      }
+
+      // Create activities array from selected items
+      const activityList = [
+        ...selectedFoods.map(food => food.name),
+        ...selectedEntertainment.map(entertainment => entertainment.name),
+        ...selectedOutdoor.map(outdoor => outdoor.name)
+      ];
+
+      // Use default activities if activityList is empty
+      const finalActivityList = activityList.length > 0 ? activityList : [
+        'Restaurant',
+        'Park',
+        'Museum',
+        'Cafe',
+        'Historic Site',
+        'Local Attraction'
+      ];
+
+      // Construct the OpenAI request content
+      const openaiRequest = `
+Location: ${details.destination}
+Start date: ${startDate || new Date().toISOString().split('T')[0]}
+Duration: ${duration}
+Activity List:
+${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
+`;
+
+      console.log('OpenAI Request:', openaiRequest);
+
+      // Call the generateItinerary function directly
+      const itineraryResponse = await generateItinerary(openaiRequest);
+
+      if (!itineraryResponse) {
+        throw new Error('Failed to generate a valid itinerary');
+      }
+
+      // Parse the JSON response
+      const parsedItinerary = JSON.parse(itineraryResponse);
+
+      if (!parsedItinerary || !parsedItinerary.schedule) {
+        throw new Error('Invalid itinerary format received');
+      }
+
+      // First save the trip to get a tripId
+      let tripId = null;
+      if (auth.currentUser) {
+        const savedTripId = await saveUserTrip(
+          auth.currentUser.uid,
+          {
+            name: tripName,
+            destination: details.destination,
+            location: details.location || { lat: 0, lng: 0 },
+            budget: "0"
+          },
+          duration,
+          {
+            selectedFoods,
+            selectedEntertainment,
+            selectedOutdoor
+          }
+        );
+        tripId = savedTripId;
+        toast.success('Trip saved successfully!');
+      }
+
+      // Navigate to the itinerary page with all the data
+      navigate('/createItinerary', {
+        state: {
+          location: details.destination,
+          startDate: startDate || new Date().toISOString().split('T')[0],
+          duration: duration,
+          selectedFoods,
+          selectedEntertainment,
+          selectedOutdoor,
+          tripName,
+          tripId,
+          itineraryData: parsedItinerary.schedule || []
+        }
+      });
+
+    } catch (error) {
+      console.error('Error generating itinerary:', error);
+      toast.error('Failed to generate itinerary. Please try again.');
+    } finally {
+      setLoadingItinerary(false);
+    }
+  };
+
+  // Pass functions to ConsoleCommands (for debugging)
+  const cmdPassthru = {};
 
   return (
     <>
@@ -407,48 +492,23 @@ function CreateTrip() {
                   />
                 </form>
 
-                <button
-                  type='button'
-                  onClick={handleSaveDetails}
-                  className='trip-preference-btn save-trip-btn'
-                >
-                  Save Trip Details
-                </button>
+                <div className="create-trip-buttons">
+                  <button
+                    className="trip-preference-btn"
+                    onClick={handleSaveTrip}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Saving...' : 'Save Trip'}
+                  </button>
 
-                <br />
-
-                {/* <label>
-                  {displayedBudget.budget >= 0
-                    ? 'Budget = $'
-                    : 'No budget entered.'}
-                </label> */}
-                {/* <label id='displayedBudget'>{displayedBudget.budget >= 0
-                  ? displayedBudget.budget
-                  : ""}
-                </label> */}
-                {/* <br></br>
-                <label>Cost = $</label>
-                <label id='displayedCost'>{displayedCost.cost}</label>
-                <br></br> */}
-                {/* <label>
-                  {displayedBudget.budget >= 0 ? 'Remaining Budget = $' : ''}
-                </label>
-                <label id='displayedRemainingBudget'>
-                  {displayedBudget.budget >= 0
-                    ? displayedBudget.budget - displayedCost.cost
-                    : ''}
-                </label> */}
-
-                {/* <form action='#' className='form' onSubmit={budgetSubmit}>
-                  <input
-                    type='number'
-                    name='budget'
-                    placeholder='Budget'
-                    id='budgetInput'
-                    onChange={handleChange}
-                  />
-                  <button type='submit' className='trip-preference-btn'>Change Budget</button>
-                </form> */}
+                  <button
+                    className="trip-preference-btn"
+                    onClick={handleGenerateItinerary}
+                    disabled={loadingItinerary || isSubmitting}
+                  >
+                    {loadingItinerary ? 'Generating...' : 'Generate Itinerary'}
+                  </button>
+                </div>
 
                 {/* Render ActivitiesDisplay component */}
                 <ActivitiesDisplay
@@ -466,18 +526,6 @@ function CreateTrip() {
                   selectedOutdoor={selectedOutdoor}
                   handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
                 />
-
-                <button
-                  onClick={handleItinerary}
-                  disabled={loading}
-                  className='trip-preference-btn'
-                >
-                  {loading ? (
-                    <span className='loader'></span>
-                  ) : (
-                    'Generate Itinerary'
-                  )}
-                </button>
               </div>
 
               {/* Conditionally render the modal */}
@@ -491,7 +539,7 @@ function CreateTrip() {
       {isLoadingActivities && (
         <div className='loading-container'>
           <p>Loading activities for {details.destination}...</p>
-          {/* You can add a spinner here if you want */}
+          <div className="spinner"></div>
         </div>
       )}
     </>

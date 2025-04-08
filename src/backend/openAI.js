@@ -25,7 +25,7 @@ Always return a response in the following JSON structure:
         {
           "name": "Activity Name",
           "start_time": "HH:MM",
-          "end_time": "HH:MM"
+          "Duration": "# Days"
         }
       ]
     }
@@ -44,13 +44,18 @@ Rules:
 - Ensure there are no additional spaces, characters, or notes outside the JSON.
 `;
 
-const generateItinerary = async () => {
-  console.log('in generate itinerary');
+const generateItinerary = async (openaiRequest) => {
+  console.log('Generating itinerary with OpenAI amazing AI capabilities');
 
   try {
+    // Validate openaiRequest parameter
+    if (!openaiRequest) {
+      console.error('Invalid openaiRequest:', openaiRequest);
+      throw new Error('Missing openaiRequest parameter');
+    }
+
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
-      // max_tokens: 100, // REMOVE LIMIT FOR FULL RESULTS
       messages: [
         { role: 'system', content: systemRules },
         { role: 'user', content: openaiRequest },
@@ -68,15 +73,10 @@ const generateItinerary = async () => {
     }
 
     const itinerary = response.choices[0].message.content;
-    console.log(itinerary); // Debugging log for the returned itinerary
     return itinerary; // Return the response data for further use
   } catch (error) {
-    // Enhanced error logging
-    console.error('Error generating itinerary:', error.message || error); // Log error message
-    if (error.stack) {
-      console.error('Stack trace:', error.stack); // Log stack trace for detailed debugging
-    }
-    return null; // Return null to signal an error
+    console.error('Error generating itinerary:', error.message || error);
+    throw error; // Make sure to throw the error for proper handling
   }
 };
 
