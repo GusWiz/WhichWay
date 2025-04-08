@@ -3,14 +3,14 @@ let tripDetails = {
   name: null,
   destination: null,
   duration: null,
-  budget: null,
+  // budget: null,
 };
 
-function saveDetails(name, destination, duration, budget) {
+function saveDetails(name, destination, duration/*, budget*/) {
   tripDetails.name = name;
   tripDetails.destination = destination;
   tripDetails.duration = duration;
-  tripDetails.budget = budget;
+  // tripDetails.budget = budget;
 }
 
 // HANDLE ACTIVITIES
@@ -36,7 +36,7 @@ function getSavedActivities() {
 let preferences = {
   cuisine: null,
   activityType: null,
-  budget: null,
+  // budget: null,
   transportation: null,
   moreDetails: null,
 };
@@ -44,13 +44,13 @@ let preferences = {
 function collectPreferences(
   cuisine,
   activityType,
-  budget,
+  // budget,
   transportation,
   moreDetails
 ) {
   preferences.cuisine = cuisine;
   preferences.activityType = activityType;
-  preferences.budget = budget;
+  // preferences.budget = budget;
   preferences.transportation = transportation;
   preferences.moreDetails = moreDetails;
 }
