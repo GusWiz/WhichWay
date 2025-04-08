@@ -162,16 +162,16 @@ function CreateTrip() {
         // ) {
         //   return toast('Error: Cost would be more than Budget.');
         // } else {
-          if (selectedFoods.some((food) => food.name === item.name)) {
-            // handleCostChange(item.price * -1);
-            setSelectedFoods((prev) =>
-              prev.filter((food) => food.name !== item.name)
-            ); // Remove item by name
-          } else {
-            // handleCostChange(item.price);
-            setSelectedFoods((prev) => [...prev, item]); // Add the item to the selected foods
-          }
-          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        if (selectedFoods.some((food) => food.name === item.name)) {
+          // handleCostChange(item.price * -1);
+          setSelectedFoods((prev) =>
+            prev.filter((food) => food.name !== item.name)
+          ); // Remove item by name
+        } else {
+          // handleCostChange(item.price);
+          setSelectedFoods((prev) => [...prev, item]); // Add the item to the selected foods
+        }
+        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         // }
         break;
       case 'entertainment':
@@ -183,20 +183,20 @@ function CreateTrip() {
         // ) {
         //   return toast('Error: Cost would be more than Budget.');
         // } else {
-          if (
-            selectedEntertainment.some(
-              (entertainment) => entertainment.name === item.name
-            )
-          ) {
-            // handleCostChange(item.price * -1);
-            setSelectedEntertainment((prev) =>
-              prev.filter((entertainment) => entertainment.name !== item.name)
-            ); // Remove item by name
-          } else {
-            // handleCostChange(item.price);
-            setSelectedEntertainment((prev) => [...prev, item]); // Add the item to the selected foods
-          }
-          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        if (
+          selectedEntertainment.some(
+            (entertainment) => entertainment.name === item.name
+          )
+        ) {
+          // handleCostChange(item.price * -1);
+          setSelectedEntertainment((prev) =>
+            prev.filter((entertainment) => entertainment.name !== item.name)
+          ); // Remove item by name
+        } else {
+          // handleCostChange(item.price);
+          setSelectedEntertainment((prev) => [...prev, item]); // Add the item to the selected foods
+        }
+        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         // }
         break;
       case 'outdoor':
@@ -206,16 +206,16 @@ function CreateTrip() {
         // ) {
         //   return toast('Error: Cost would be more than Budget.');
         // } else {
-          if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
-            // handleCostChange(item.price * -1);
-            setSelectedOutdoor((prev) =>
-              prev.filter((outdoor) => outdoor.name !== item.name)
-            ); // Remove item by name
-          } else {
-            // handleCostChange(item.price);
-            setSelectedOutdoor((prev) => [...prev, item]); // Add the item to the selected foods
-          }
-          saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
+          // handleCostChange(item.price * -1);
+          setSelectedOutdoor((prev) =>
+            prev.filter((outdoor) => outdoor.name !== item.name)
+          ); // Remove item by name
+        } else {
+          // handleCostChange(item.price);
+          setSelectedOutdoor((prev) => [...prev, item]); // Add the item to the selected foods
+        }
+        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
         // }
         break;
       default:
@@ -278,12 +278,12 @@ function CreateTrip() {
   ]);
 
   const [entertainmentOptions, setEntertainmentOptions] = useState([
-    { name: 'Movie', imgSrc: 'movie.jpg'/*, price: '25'*/ },
+    { name: 'Movie', imgSrc: 'movie.jpg' /*, price: '25'*/ },
     // Keep your existing options as fallback
   ]);
 
   const [outdoorOptions, setOutdoorOptions] = useState([
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg'/*, price: '0'*/ },
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' /*, price: '0'*/ },
     // Keep your existing options as fallback
   ]);
 
@@ -337,7 +337,7 @@ function CreateTrip() {
       saveDetails(
         tripName,
         details.destination,
-        duration,
+        duration
         // displayedBudget.budget
       );
 
@@ -367,12 +367,12 @@ function CreateTrip() {
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
-                <button
-                  onClick={handleModalToggle}
-                  className='trip-preference-btn'
-                >
-                  Trip Preferences
-                </button>
+              <button
+                onClick={handleModalToggle}
+                className='trip-preference-btn'
+              >
+                Trip Preferences
+              </button>
               <div className='createititnerary-title'>
                 <h1>Create Trip</h1>
               </div>
@@ -414,8 +414,8 @@ function CreateTrip() {
                     ? 'Budget = $'
                     : 'No budget entered.'}
                 </label> */}
-                {/* <label id='displayedBudget'>{displayedBudget.budget >= 0 
-                  ? displayedBudget.budget 
+                {/* <label id='displayedBudget'>{displayedBudget.budget >= 0
+                  ? displayedBudget.budget
                   : ""}
                 </label> */}
                 {/* <br></br>
@@ -430,7 +430,7 @@ function CreateTrip() {
                     ? displayedBudget.budget - displayedCost.cost
                     : ''}
                 </label> */}
-                
+
                 {/* <form action='#' className='form' onSubmit={budgetSubmit}>
                   <input
                     type='number'
@@ -441,9 +441,6 @@ function CreateTrip() {
                   />
                   <button type='submit' className='trip-preference-btn'>Change Budget</button>
                 </form> */}
-                
-
-                
 
                 {/* Render ActivitiesDisplay component */}
                 <ActivitiesDisplay
