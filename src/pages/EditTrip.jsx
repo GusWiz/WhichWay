@@ -28,14 +28,14 @@ function EditTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [details, setDetails] = useState({
-    budget: '',
-    cost: '0',
+    // budget: '',
+    // cost: '0',
     destination: '',
     location: null,
   });
-  const [displayedBudget, setDisplayedBudget] = useState({ budget: 'NULL' });
-  const [displayedCost, setDisplayedCost] = useState({ cost: '0' });
-  const [selectedFoods, setSelectedFoods] = useState([]);
+  // const [displayedBudget, setDisplayedBudget] = useState({ budget: 'NULL' });
+  // const [displayedCost, setDisplayedCost] = useState({ cost: '0' });
+  // const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
   const [foodOptions, setFoodOptions] = useState([]);
@@ -95,11 +95,11 @@ function EditTrip() {
             setTripName(tripData.name);
             setDuration(tripData.duration);
             setDetails({
-              budget: tripData.budget,
+              // budget: tripData.budget,
               destination: tripData.destination,
               location: tripData.location,
             });
-            setDisplayedBudget({ budget: tripData.budget });
+            // setDisplayedBudget({ budget: tripData.budget });
             setSelectedFoods(tripData.preferences?.selectedFoods || []);
             setSelectedEntertainment(
               tripData.preferences?.selectedEntertainment || []
@@ -147,12 +147,12 @@ function EditTrip() {
     setEditingTrip(null);
   };
 
-  const handleCostChange = (price) => {
-    setDisplayedCost((prevCost) => {
-      const currCost = parseInt(prevCost.cost);
-      return { ...prevCost, cost: currCost + parseInt(price) };
-    });
-  };
+  // const handleCostChange = (price) => {
+  //   setDisplayedCost((prevCost) => {
+  //     const currCost = parseInt(prevCost.cost);
+  //     return { ...prevCost, cost: currCost + parseInt(price) };
+  //   });
+  // };
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -160,37 +160,37 @@ function EditTrip() {
     setDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const budgetSubmit = (event) => {
-    event.preventDefault();
-    if (details.budget < 0 || details.budget < displayedCost.cost) {
-      toast.error('Invalid budget');
-      return;
-    }
-    setDisplayedBudget({ budget: details.budget });
-    setDetails((prev) => ({ ...prev, budget: details.budget }));
-  };
+  // const budgetSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (details.budget < 0 || details.budget < displayedCost.cost) {
+  //     toast.error('Invalid budget');
+  //     return;
+  //   }
+  //   setDisplayedBudget({ budget: details.budget });
+  //   setDetails((prev) => ({ ...prev, budget: details.budget }));
+  // };
 
   const handleSelect = (category, item) => {
-    const costCheck = displayedBudget.budget - displayedCost.cost - item.price;
-    if (
-      costCheck < 0 &&
-      !editingTrip?.preferences?.[
-        `selected${category.charAt(0).toUpperCase() + category.slice(1)}`
-      ]?.some((selectedItem) => selectedItem.name === item.name)
-    ) {
-      toast.error('Cost exceeds budget');
-      return;
-    }
+    // const costCheck = displayedBudget.budget - displayedCost.cost - item.price;
+    // if (
+    //   costCheck < 0 &&
+    //   !editingTrip?.preferences?.[
+    //     `selected${category.charAt(0).toUpperCase() + category.slice(1)}`
+    //   ]?.some((selectedItem) => selectedItem.name === item.name)
+    // ) {
+    //   toast.error('Cost exceeds budget');
+    //   return;
+    // }
 
     switch (category) {
       case 'food':
         if (selectedFoods.some((food) => food.name === item.name)) {
-          handleCostChange(item.price * -1);
+          // handleCostChange(item.price * -1);
           setSelectedFoods((prev) =>
             prev.filter((food) => food.name !== item.name)
           );
         } else {
-          handleCostChange(item.price);
+          // handleCostChange(item.price);
           setSelectedFoods((prev) => [...prev, item]);
         }
         break;
@@ -200,23 +200,23 @@ function EditTrip() {
             (entertainment) => entertainment.name === item.name
           )
         ) {
-          handleCostChange(item.price * -1);
+          // handleCostChange(item.price * -1);
           setSelectedEntertainment((prev) =>
             prev.filter((entertainment) => entertainment.name !== item.name)
           );
         } else {
-          handleCostChange(item.price);
+          // handleCostChange(item.price);
           setSelectedEntertainment((prev) => [...prev, item]);
         }
         break;
       case 'outdoor':
         if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
-          handleCostChange(item.price * -1);
+          // handleCostChange(item.price * -1);
           setSelectedOutdoor((prev) =>
             prev.filter((outdoor) => outdoor.name !== item.name)
           );
         } else {
-          handleCostChange(item.price);
+          // handleCostChange(item.price);
           setSelectedOutdoor((prev) => [...prev, item]);
         }
         break;
@@ -285,15 +285,15 @@ function EditTrip() {
                         name='duration'
                       />
                     </form>
-                    <label>Budget = ${displayedBudget.budget}</label>
+                    {/* <label>Budget = ${displayedBudget.budget}</label>
                     <br />
                     <label>Cost = ${displayedCost.cost}</label>
                     <br />
                     <label>
                       Remaining Budget = $
                       {displayedBudget.budget - displayedCost.cost}
-                    </label>
-                    <br />
+                    </label> */}
+                    {/* <br />
                     <form className='form' onSubmit={budgetSubmit}>
                       <input
                         type='number'
@@ -303,7 +303,7 @@ function EditTrip() {
                         value={details.budget}
                       />
                       <button type='submit'>Change Budget</button>
-                    </form>
+                    </form> */}
                     <ActivitiesDisplay
                       foodOptions={foodOptions}
                       selectedFoods={selectedFoods}
