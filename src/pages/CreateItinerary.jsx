@@ -182,7 +182,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 >
                   {loading ? "Generating..." : "Generate Itinerary"}
                 </button>
-
+{/* The commented code adds a button that tests the regenerate with Aaron custome parameters*/}
                 {/* <button
                   className="itinerary-button"
                   onClick={testWithCustomParams}
