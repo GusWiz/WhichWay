@@ -42,6 +42,11 @@ Rules:
 - Do not add any extra text or explanations outside the JSON response.
 - Always return the JSON exactly in the format specified, without deviation.
 - Ensure there are no additional spaces, characters, or notes outside the JSON.
+- Please generate a detailed itinerary with the following requirements:
+1. Include brief but meaningful descriptions for each activity (1-2 sentences)
+2. Ensure logical timing between activities, accounting for travel time
+3. Balance activities throughout the day
+4. Include meal times at appropriate restaurants from the activity list
 `;
 
 const generateItinerary = async (openaiRequest) => {
