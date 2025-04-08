@@ -343,11 +343,7 @@ function CreateTrip() {
       };
 
       // Save details locally
-      saveDetails(
-        tripName,
-        details.destination,
-        duration
-      );
+      saveDetails(tripName, details.destination, duration);
 
       // Pass setTripId to saveUserTrip to update the tripId in CreateTrip.jsx
       const savedTripId = await saveUserTrip(
@@ -370,7 +366,6 @@ function CreateTrip() {
       toast.error('Failed to save trip details', { position: 'bottom-center' });
     }
   };
-
 
   return (
     <>

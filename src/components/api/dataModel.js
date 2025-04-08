@@ -181,4 +181,3 @@ export const saveUserTrip = async (
     throw error;
   }
 };
-
