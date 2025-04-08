@@ -4,6 +4,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HikingIcon from '@mui/icons-material/Hiking';
+import EditIcon from '@mui/icons-material/Edit';
 
 export const getSidebarData = (logout) => {
   if (typeof logout != 'function') {
@@ -20,6 +21,11 @@ export const getSidebarData = (logout) => {
       title: 'Create Trip',
       icon: <HikingIcon />,
       link: '/createtrip',
+    },
+    {
+      title: 'Edit a Trip',
+      icon: <EditIcon />,
+      link: '/edittrip',
     },
     {
       title: 'Account',
