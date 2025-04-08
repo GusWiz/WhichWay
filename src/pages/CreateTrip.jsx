@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
 import './CreateTrip.css';
@@ -114,10 +114,12 @@ function CreateTrip() {
 
   const [tripId, setTripId] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const storedTripId = localStorage.getItem('tripId');
     if (storedTripId) {
-      setTripId(storedTripId);
+      setTripId(storedTripId); // Update the state with tripId from localStorage
+    } else {
+      setTripId(null); // In case tripId is null in localStorage
     }
   }, []);
 
@@ -313,7 +315,6 @@ function CreateTrip() {
 
   const handleSaveDetails = async () => {
     try {
-      // Check if user is authenticated
       const currentUser = auth.currentUser;
       if (!currentUser) {
         toast.error('Please log in to save trip details', {
@@ -337,9 +338,7 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
-        duration: duration || '1 day', // Default to 1 day if not specified
-        // budget:
-        //   displayedBudget.budget !== 'NULL' ? displayedBudget.budget : '0',
+        duration: duration || '1 day',
         location: details.location || null,
       };
 
@@ -348,16 +347,16 @@ function CreateTrip() {
         tripName,
         details.destination,
         duration
-        // displayedBudget.budget
       );
 
-      // Save to Firebase
+      // Pass setTripId to saveUserTrip to update the tripId in CreateTrip.jsx
       const savedTripId = await saveUserTrip(
         currentUser.uid,
         tripDetails,
         duration,
         getSavedActivities(),
-        tripId // <-- pass it here!
+        tripId, // <-- pass it here!
+        setTripId // <-- pass the setTripId function here!
       );
 
       // 🔥 Store the ID so future saves reuse it
@@ -371,6 +370,7 @@ function CreateTrip() {
       toast.error('Failed to save trip details', { position: 'bottom-center' });
     }
   };
+
 
   return (
     <>
