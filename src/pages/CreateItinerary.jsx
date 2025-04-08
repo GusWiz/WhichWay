@@ -5,6 +5,9 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { jsPDF } from 'jspdf';
 
+import { saveUserItinerary } from '../components/api/dataModel';
+import { getItineraryData } from '../backend/dataCollect';
+
 import './Home.css';
 import './Landing.css';
 import './CreateItinerary.css';
@@ -14,6 +17,7 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import logo from '../components/images/logo.svg';
 import html2canvas from 'html2canvas';
 import { Portrait } from '@mui/icons-material';
+import { saveItineraryData } from '../backend/dataCollect';
 
 function Itinerary() {
   const navigate = useNavigate();
@@ -52,6 +56,11 @@ function Itinerary() {
 
     pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
     pdf.save('Itinerary.pdf');
+  };
+
+  const itineraryToDb = async () => {
+    console.log('in itinerary to db');
+    saveUserItinerary(getItineraryData());
   };
 
   const itineraryData = [
@@ -163,7 +172,7 @@ function Itinerary() {
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={() => navigate('/home')} // add save itinerary to db
+                  onClick={itineraryToDb} // add save itinerary to db
                 >
                   {' '}
                   Save Itinerary{' '}

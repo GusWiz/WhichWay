@@ -30,6 +30,7 @@ export const createUserDocument = async (user) => {
 };
 
 export const createItineraryDocument = async (itineraryData) => {
+  console.log('in create itinerary document');
   try {
     if (!itineraryData) throw new Error('Trip details are required');
 
@@ -83,8 +84,6 @@ export const createTripDocument = async (
     throw error;
   }
 };
-
-
 
 // Add a trip ID to a user's trips array
 export const addTripToUser = async (userId, tripId) => {
@@ -140,26 +139,17 @@ export const saveUserTrip = async (
   }
 };
 
-export const saveUserItinerary = async (userId,tripId, itineraryData) =>
-{
-  try
-  {
-    if (!userId) throw new Error('User ID is required');
+export const saveUserItinerary = async (itineraryData) => {
+  console.log('in save user itinerary');
+  try {
     if (!itineraryData) throw new Error('Trip details are required');
 
-    const itineraryID = await createItineraryDocument(itineraryData);
-
-
-
-
-
+    await createItineraryDocument(itineraryData);
   } catch (error) {
     console.error('Error saving itinerary:', error);
     throw error;
   }
-
-}
-
+};
 
 //creating the new data model of how to save the itinerary to the db.
 // export const createItineraryModel = async (tripId) => {
