@@ -29,6 +29,25 @@ export const createUserDocument = async (user) => {
   }
 };
 
+export const createItineraryDocument = async (itineraryData) => {
+  try {
+    if (!itineraryData) throw new Error('Trip details are required');
+
+    console.log('creating itinerary with data: ', itineraryData);
+
+    const itineraryRef = await addDoc(
+      collection(db, 'Itineraries'),
+      itineraryData
+    );
+    console.log('Itinerary created with ID:', itineraryRef.id);
+
+    return itineraryRef.id;
+  } catch (error) {
+    console.error('Error creating itinerary document:', error);
+    throw error;
+  }
+};
+
 // Create a new trip document in the trips collection
 export const createTripDocument = async (
   userId,
@@ -51,6 +70,7 @@ export const createTripDocument = async (
       location: tripDetails.location || { lat: 0, lng: 0 },
       preferences: preferences || {},
       createdAt: serverTimestamp(),
+      itineraryID: '',
     };
 
     console.log('Creating trip with data:', tripData);
@@ -60,45 +80,6 @@ export const createTripDocument = async (
     return tripRef.id;
   } catch (error) {
     console.error('Error creating trip document:', error);
-    throw error;
-  }
-};
-
-//creating the new data model of how to save the itinerary to the db.
-export const createItineraryModel = async (tripId) => {
-  try {
-    // check if tripID is correct
-    if (!tripId) throw new Error('Trip ID is required');
-
-    //using aaron's dataCollect.js, get all data from dataCollect.js
-    const itineraryDetails = {
-      name: tripDetails.name, //from saveDetails()
-      days: getItineraryData()?.days || [], //from saveItineraryData()
-      activities: getSavedActivities(), //from saveActivities()
-      budget: tripDetails.budget, //from saveDetails()
-      preferences: getPreferences(), //from collectPreferences()
-    };
-
-    // creates a doc in with this datamodel structure
-    const itineraryData = {
-      tripId,
-      name: itineraryDetails.name || 'Unnamed Itinerary',
-      days: itineraryDetails.days,
-      activities: itineraryDetails.activities,
-      budget: itineraryDetails.budget || '0',
-      preferences: itineraryDetails.preferences || {},
-      createdAt: serverTimestamp(),
-    };
-    console.log('Creating itinerary with data:', itineraryData);
-    //need to start saving this data, according to Jira task description
-    const itineraryRef = await addDoc(
-      collection(db, 'itineraries'),
-      itineraryData
-    );
-    console.log('Itinerary created with ID:', itineraryRef.id);
-    return itineraryRef.id;
-  } catch (error) {
-    console.error('Error creating itinerary document:', error);
     throw error;
   }
 };
@@ -156,3 +137,54 @@ export const saveUserTrip = async (
     throw error;
   }
 };
+
+export const saveUserItinerary = async (userId, tripId, itineraryData) => {
+  try {
+    if (!userId) throw new Error('User ID is required');
+    if (!itineraryData) throw new Error('Trip details are required');
+
+    const itineraryID = await createItineraryDocument(itineraryData);
+  } catch (error) {
+    console.error('Error saving itinerary:', error);
+    throw error;
+  }
+};
+
+//creating the new data model of how to save the itinerary to the db.
+// export const createItineraryModel = async (tripId) => {
+//   try {
+//     // check if tripID is correct
+//     if (!tripId) throw new Error('Trip ID is required');
+
+//     //using aaron's dataCollect.js, get all data from dataCollect.js
+//     const itineraryDetails = {
+//       name: tripDetails.name, //from saveDetails()
+//       days: getItineraryData()?.days || [], //from saveItineraryData()
+//       activities: getSavedActivities(), //from saveActivities()
+//       budget: tripDetails.budget, //from saveDetails()
+//       preferences: getPreferences(), //from collectPreferences()
+//     };
+
+//     // creates a doc in with this datamodel structure
+//     const itineraryData = {
+//       tripId,
+//       name: itineraryDetails.name || 'Unnamed Itinerary',
+//       days: itineraryDetails.days,
+//       activities: itineraryDetails.activities,
+//       budget: itineraryDetails.budget || '0',
+//       preferences: itineraryDetails.preferences || {},
+//       createdAt: serverTimestamp(),
+//     };
+//     console.log('Creating itinerary with data:', itineraryData);
+//     //need to start saving this data, according to Jira task description
+//     const itineraryRef = await addDoc(
+//       collection(db, 'itineraries'),
+//       itineraryData
+//     );
+//     console.log('Itinerary created with ID:', itineraryRef.id);
+//     return itineraryRef.id;
+//   } catch (error) {
+//     console.error('Error creating itinerary document:', error);
+//     throw error;
+//   }
+// };

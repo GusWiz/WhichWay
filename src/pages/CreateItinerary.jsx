@@ -163,7 +163,7 @@ function Itinerary() {
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={() => navigate('/home')}
+                  onClick={() => navigate('/home')} // add save itinerary to db
                 >
                   {' '}
                   Save Itinerary{' '}
