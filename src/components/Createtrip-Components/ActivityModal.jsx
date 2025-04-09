@@ -38,7 +38,7 @@ const ActivityModal = ({ show, closeModal, item }) => {
             <strong>Group Size:</strong> {item?.groupSize || fallbackGroupSize}
           </li>
           <li>
-            <strong>Price:</strong> {item?.price || fallbackPrice}
+            {/* <strong>Price:</strong> {item?.price || fallbackPrice} */}
           </li>
           <li>
             <strong>Atmosphere:</strong>{' '}
@@ -56,9 +56,9 @@ const ActivityModal = ({ show, closeModal, item }) => {
               <div className='detail-item'>
                 <strong>Price Range:</strong> {item.priceRange}
               </div>
-              <div className='detail-item'>
+              {/* <div className='detail-item'>
                 <strong>Price:</strong> ${item.price}
-              </div>
+              </div> */}
             </div>
 
             <div className='detail-row'>

@@ -137,15 +137,20 @@ function EditTrip() {
 
       navigate('/createItinerary', {
         state: {
-          itineraryData: itineraryData,
+          location: details.destination,
+          startDate: new Date().toISOString().split('T')[0],
+          duration: duration,
           selectedFoods,
           selectedEntertainment,
           selectedOutdoor,
+          tripName,
+          tripId: editingTrip.id,
+          itineraryData: JSON.parse(itineraryResponse).schedule || [],
         },
       });
     } catch (error) {
       console.error('Error generating itinerary:', error);
-      toast.error('Failed to generate itinerary.');
+      toast.error('Failed to generate itinerary. Please try again.');
     } finally {
       setLoading(false);
     }
