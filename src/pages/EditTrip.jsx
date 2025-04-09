@@ -277,7 +277,7 @@ function EditTrip() {
                     <button
                       onClick={handleGenerateItinerary}
                       disabled={loading}
-                      className='gen-itinerary-button'
+                      className='itinerary-button'
                     >
                       {loading ? (
                         <span className='loader'></span>
@@ -285,7 +285,12 @@ function EditTrip() {
                         'Generate New Itinerary'
                       )}
                     </button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <button
+                      className='itinerary-button'
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </>
               ) : (
