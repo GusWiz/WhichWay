@@ -37,10 +37,9 @@ provide you with extra information about the different activities found. This no
 - JavaScript - ES15
 - React - version 18.2.0
 - Python - version 3.11.2
-- Flask - version 2.2.5
-- SQL - SQL:2023
-- Google Authenticator App - version 2.36.0
-- DeekSeek - version 2.5
+- Firebase Hosting
+- Firebase Authentication
+- Firebase Firestore DB
 
 ## Features
 

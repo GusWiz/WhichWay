@@ -1,14 +1,17 @@
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../components/firebase';
-import { useNavigate, useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'; // Import deleteDoc
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './Home.css';
 import './Landing.css';
 import './CreateItinerary.css';
+import './CreateTrip.css';
+import './Account.css';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import FaTrash
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -20,7 +23,6 @@ import { generateItinerary } from '../backend/openAI';
 
 function EditTrip() {
   const navigate = useNavigate();
-  const { tripId } = useParams();
   const [user, setUser] = useState(null);
   const [tripsData, setTripsData] = useState([]);
   const [editingTrip, setEditingTrip] = useState(null);
@@ -28,13 +30,9 @@ function EditTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [details, setDetails] = useState({
-    // budget: '',
-    // cost: '0',
     destination: '',
     location: null,
   });
-  // const [displayedBudget, setDisplayedBudget] = useState({ budget: 'NULL' });
-  // const [displayedCost, setDisplayedCost] = useState({ cost: '0' });
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedEntertainment, setSelectedEntertainment] = useState([]);
   const [selectedOutdoor, setSelectedOutdoor] = useState([]);
@@ -42,7 +40,7 @@ function EditTrip() {
   const [entertainmentOptions, setEntertainmentOptions] = useState([]);
   const [outdoorOptions, setOutdoorOptions] = useState([]);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
-  const [loadingItinerary, setLoadingItinerary] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -85,21 +83,18 @@ function EditTrip() {
 
   useEffect(() => {
     const fetchTripToEdit = async () => {
-      if (tripId) {
+      if (editingTrip) {
         try {
-          const tripDocRef = doc(db, 'trips', tripId);
+          const tripDocRef = doc(db, 'trips', editingTrip.id);
           const tripDocSnap = await getDoc(tripDocRef);
           if (tripDocSnap.exists()) {
             const tripData = tripDocSnap.data();
-            setEditingTrip({ id: tripId, ...tripData });
             setTripName(tripData.name);
             setDuration(tripData.duration);
             setDetails({
-              // budget: tripData.budget,
               destination: tripData.destination,
               location: tripData.location,
             });
-            // setDisplayedBudget({ budget: tripData.budget });
             setSelectedFoods(tripData.preferences?.selectedFoods || []);
             setSelectedEntertainment(
               tripData.preferences?.selectedEntertainment || []
@@ -112,7 +107,7 @@ function EditTrip() {
       }
     };
     fetchTripToEdit();
-  }, [tripId]);
+  }, [editingTrip]);
 
   const logout = async () => {
     try {
@@ -124,41 +119,54 @@ function EditTrip() {
   };
 
   const handleGenerateItinerary = async () => {
-    setLoadingItinerary(true);
+    setLoading(true);
     try {
-      // Create activities array from selected items
-      const activityList = [
-        ...selectedFoods.map((food) => food.name),
-        ...selectedEntertainment.map((entertainment) => entertainment.name),
-        ...selectedOutdoor.map((outdoor) => outdoor.name),
-      ];
-
-      // Ensure we have at least some activities
-      if (activityList.length === 0) {
-        toast.warning(
-          'Please select at least one activity before generating an itinerary'
-        );
-        setLoadingItinerary(false);
-        return;
-      }
-
-      // Construct the OpenAI request content
       const openaiRequest = `
-Location: ${details.destination}
-Start date: ${new Date().toISOString().split('T')[0]}
-Duration: ${duration}
-Activity List:
-${activityList.map((activity) => `- ${activity}`).join('\n')}
-`;
+      Location: ${details.destination}
+      Start date: ${new Date().toISOString().split('T')[0]}
+      Duration: ${duration}
+      Activity List:
+      ${[
+        ...selectedFoods.map((food) => `- ${food.name}`),
+        ...selectedEntertainment.map(
+          (entertainment) => `- ${entertainment.name}`
+        ),
+        ...selectedOutdoor.map((outdoor) => `- ${outdoor.name}`),
+      ].join('\n')}
+      `;
 
-      console.log('OpenAI Request:', openaiRequest);
-
-      // Call the generateItinerary function directly
       const itineraryResponse = await generateItinerary(openaiRequest);
 
       if (!itineraryResponse) {
         throw new Error('Failed to generate a valid itinerary');
       }
+
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+        }
+      }
+
+      const parsedItinerary = JSON.parse(jsonString);
+
+      if (!parsedItinerary || !parsedItinerary.schedule) {
+        throw new Error('Invalid itinerary format received');
+      }
+
+      await updateDoc(doc(db, 'trips', editingTrip.id), {
+        name: tripName,
+        duration: duration,
+        destination: details.destination,
+        location: details.location,
+        preferences: {
+          selectedFoods,
+          selectedEntertainment,
+          selectedOutdoor,
+        },
+      });
 
       navigate('/createItinerary', {
         state: {
@@ -170,14 +178,14 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
           selectedOutdoor,
           tripName,
           tripId: editingTrip.id,
-          itineraryData: JSON.parse(itineraryResponse).schedule || [],
+          itineraryData: parsedItinerary.schedule || [],
         },
       });
     } catch (error) {
       console.error('Error generating itinerary:', error);
       toast.error('Failed to generate itinerary. Please try again.');
     } finally {
-      setLoadingItinerary(false);
+      setLoading(false);
     }
   };
 
@@ -185,50 +193,20 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
     setEditingTrip(null);
   };
 
-  // const handleCostChange = (price) => {
-  //   setDisplayedCost((prevCost) => {
-  //     const currCost = parseInt(prevCost.cost);
-  //     return { ...prevCost, cost: currCost + parseInt(price) };
-  //   });
-  // };
-
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  // const budgetSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (details.budget < 0 || details.budget < displayedCost.cost) {
-  //     toast.error('Invalid budget');
-  //     return;
-  //   }
-  //   setDisplayedBudget({ budget: details.budget });
-  //   setDetails((prev) => ({ ...prev, budget: details.budget }));
-  // };
-
   const handleSelect = (category, item) => {
-    // const costCheck = displayedBudget.budget - displayedCost.cost - item.price;
-    // if (
-    //   costCheck < 0 &&
-    //   !editingTrip?.preferences?.[
-    //     `selected${category.charAt(0).toUpperCase() + category.slice(1)}`
-    //   ]?.some((selectedItem) => selectedItem.name === item.name)
-    // ) {
-    //   toast.error('Cost exceeds budget');
-    //   return;
-    // }
-
     switch (category) {
       case 'food':
         if (selectedFoods.some((food) => food.name === item.name)) {
-          // handleCostChange(item.price * -1);
           setSelectedFoods((prev) =>
             prev.filter((food) => food.name !== item.name)
           );
         } else {
-          // handleCostChange(item.price);
           setSelectedFoods((prev) => [...prev, item]);
         }
         break;
@@ -238,23 +216,19 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
             (entertainment) => entertainment.name === item.name
           )
         ) {
-          // handleCostChange(item.price * -1);
           setSelectedEntertainment((prev) =>
             prev.filter((entertainment) => entertainment.name !== item.name)
           );
         } else {
-          // handleCostChange(item.price);
           setSelectedEntertainment((prev) => [...prev, item]);
         }
         break;
       case 'outdoor':
         if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
-          // handleCostChange(item.price * -1);
           setSelectedOutdoor((prev) =>
             prev.filter((outdoor) => outdoor.name !== item.name)
           );
         } else {
-          // handleCostChange(item.price);
           setSelectedOutdoor((prev) => [...prev, item]);
         }
         break;
@@ -285,6 +259,17 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
       toast.error('Failed to load activities');
     } finally {
       setIsLoadingActivities(false);
+    }
+  };
+
+  const handleDeleteTrip = async (tripId) => {
+    try {
+      await deleteDoc(doc(db, 'trips', tripId));
+      setTripsData(tripsData.filter((trip) => trip.id !== tripId));
+      toast.success('Trip deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+      toast.error('Failed to delete trip.');
     }
   };
 
@@ -323,25 +308,6 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
                         name='duration'
                       />
                     </form>
-                    {/* <label>Budget = ${displayedBudget.budget}</label>
-                    <br />
-                    <label>Cost = ${displayedCost.cost}</label>
-                    <br />
-                    <label>
-                      Remaining Budget = $
-                      {displayedBudget.budget - displayedCost.cost}
-                    </label> */}
-                    {/* <br />
-                    <form className='form' onSubmit={budgetSubmit}>
-                      <input
-                        type='number'
-                        name='budget'
-                        placeholder='Budget'
-                        onChange={handleChange}
-                        value={details.budget}
-                      />
-                      <button type='submit'>Change Budget</button>
-                    </form> */}
                     <ActivitiesDisplay
                       foodOptions={foodOptions}
                       selectedFoods={selectedFoods}
@@ -359,13 +325,21 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
                     />
                     <button
                       onClick={handleGenerateItinerary}
-                      disabled={loadingItinerary}
+                      disabled={loading}
+                      className='itinerary-button'
                     >
-                      {loadingItinerary
-                        ? 'Generating...'
-                        : 'Generate Itinerary'}
+                      {loading ? (
+                        <span className='loader'></span>
+                      ) : (
+                        'Generate New Itinerary'
+                      )}
                     </button>
-                    <button onClick={handleCancelEdit}>Cancel</button>
+                    <button
+                      className='itinerary-button'
+                      onClick={handleCancelEdit}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </>
               ) : (
@@ -405,8 +379,17 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
                             </td>
                             <td>{trip.createdAt?.toLocaleDateString()}</td>
                             <td>
-                              <button onClick={() => setEditingTrip(trip)}>
-                                Edit
+                              <button
+                                className='edit-button'
+                                onClick={() => setEditingTrip(trip)}
+                              >
+                                <FaEdit /> Edit
+                              </button>
+                              <button
+                                className='delete-button'
+                                onClick={() => handleDeleteTrip(trip.id)}
+                              >
+                                <FaTrash /> Delete
                               </button>
                             </td>
                           </tr>
