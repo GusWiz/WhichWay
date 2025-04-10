@@ -44,10 +44,10 @@ function PreferenceModal({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!cuisine || !activityType || !budget || !transportation) {
-      alert('Please fill in all required fields.');
-      return;
-    }
+    // if (!cuisine || !activityType || !budget || !transportation) {
+    //   alert('Please fill in all required fields.');
+    //   return;
+    // }
 
     // Generate random selections only for cuisine and activity if "surprise" was chosen
     const actualSelections = {
@@ -116,7 +116,7 @@ function PreferenceModal({ onClose }) {
               id='cuisine'
               value={cuisine}
               onChange={(e) => setCuisine(e.target.value)}
-              required
+              //required
             >
               <option value=''>Select Cuisine</option>
               <option value='asian'>Asian</option>
@@ -139,7 +139,7 @@ function PreferenceModal({ onClose }) {
               id='activityType'
               value={activityType}
               onChange={(e) => setActivityType(e.target.value)}
-              required
+              //required
             >
               <option value=''>Select Activity</option>
               <option value='adventure'>
@@ -167,7 +167,7 @@ function PreferenceModal({ onClose }) {
               id='budget'
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
-              required
+              //required
             >
               <option value=''>Select Budget</option>
               <option value='low'>Budget-Friendly ($)</option>
@@ -185,7 +185,7 @@ function PreferenceModal({ onClose }) {
               id='transportation'
               value={transportation}
               onChange={(e) => setTransportation(e.target.value)}
-              required
+              //required
             >
               <option value=''>Select Transportation</option>
               <option value='public'>Public Transport</option>

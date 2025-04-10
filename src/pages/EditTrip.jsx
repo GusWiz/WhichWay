@@ -40,7 +40,7 @@ function EditTrip() {
   const [entertainmentOptions, setEntertainmentOptions] = useState([]);
   const [outdoorOptions, setOutdoorOptions] = useState([]);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
-  //const [loadingItinerary, setLoadingItinerary] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -118,11 +118,44 @@ function EditTrip() {
     }
   };
 
-  const [loading, setLoading] = useState(false);
   const handleGenerateItinerary = async () => {
     setLoading(true);
     try {
-      const itineraryData = await generateItinerary();
+      const openaiRequest = `
+      Location: ${details.destination}
+      Start date: ${new Date().toISOString().split('T')[0]}
+      Duration: ${duration}
+      Activity List:
+      ${[
+        ...selectedFoods.map((food) => `- ${food.name}`),
+        ...selectedEntertainment.map(
+          (entertainment) => `- ${entertainment.name}`
+        ),
+        ...selectedOutdoor.map((outdoor) => `- ${outdoor.name}`),
+      ].join('\n')}
+      `;
+
+      const itineraryResponse = await generateItinerary(openaiRequest);
+
+      if (!itineraryResponse) {
+        throw new Error('Failed to generate a valid itinerary');
+      }
+
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+        }
+      }
+
+      const parsedItinerary = JSON.parse(jsonString);
+
+      if (!parsedItinerary || !parsedItinerary.schedule) {
+        throw new Error('Invalid itinerary format received');
+      }
+
       await updateDoc(doc(db, 'trips', editingTrip.id), {
         name: tripName,
         duration: duration,
@@ -137,15 +170,20 @@ function EditTrip() {
 
       navigate('/createItinerary', {
         state: {
-          itineraryData: itineraryData,
+          location: details.destination,
+          startDate: new Date().toISOString().split('T')[0],
+          duration: duration,
           selectedFoods,
           selectedEntertainment,
           selectedOutdoor,
+          tripName,
+          tripId: editingTrip.id,
+          itineraryData: parsedItinerary.schedule || [],
         },
       });
     } catch (error) {
       console.error('Error generating itinerary:', error);
-      toast.error('Failed to generate itinerary.');
+      toast.error('Failed to generate itinerary. Please try again.');
     } finally {
       setLoading(false);
     }
