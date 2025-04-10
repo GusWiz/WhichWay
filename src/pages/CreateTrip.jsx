@@ -354,6 +354,10 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         }
       }
 
+      saveItineraryData(jsonString);
+
+      console.log('after save itinerary data');
+
       // Parse the JSON response
       const parsedItinerary = JSON.parse(jsonString);
 

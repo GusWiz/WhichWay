@@ -10,12 +10,18 @@ import html2canvas from 'html2canvas';
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
 
+import { saveUserItinerary } from '../components/api/dataModel';
+import { getItineraryData } from '../backend/dataCollect';
+
 import './Home.css';
 import './Landing.css';
 import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
+import logo from '../components/images/logo.svg';
+import { Portrait } from '@mui/icons-material';
+import { saveItineraryData } from '../backend/dataCollect';
 
 function Itinerary() {
   const navigate = useNavigate();
@@ -79,6 +85,12 @@ function Itinerary() {
       console.error('Error generating PDF:', error);
       toast.error('Failed to download PDF');
     }
+  };
+
+  const itineraryToDb = async () => {
+    console.log('in itinerary to db');
+    await saveUserItinerary(getItineraryData());
+    navigate('/home');
   };
 
   // Function to generate itinerary with OpenAI directly
@@ -206,14 +218,11 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   onClick={handleGenerateItinerary}
                   disabled={loading}
                 >
-                  {loading ? 'Generating...' : 'Generate Itinerary'}
+                  {loading ? 'Generating...' : 'Regenerate Itinerary'}
                 </button>
 
-                <button
-                  className='itinerary-button'
-                  onClick={() => navigate('/home')}
-                >
-                  Back to Home
+                <button className='itinerary-button' onClick={itineraryToDb}>
+                  Save Itinerary
                 </button>
                 <button
                   className='itinerary-button'
