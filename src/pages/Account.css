@@ -110,12 +110,16 @@
 .edit-button {
   background-color: #0d8fec;
   color: rgb(240, 242, 245);
+  justify-content: center;
+  width: 110px;
 }
 
 .delete-button {
+  justify-content: center;
   margin-top: 5px;
   background-color: #ae0c0c;
   color: rgb(240, 242, 245);
+  width: 110px;
 }
 
 .save-button {
