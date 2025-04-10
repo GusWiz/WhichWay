@@ -172,25 +172,29 @@ export const saveUserTrip = async (
 export const saveGeneratedItinerary = async (tripId, itineraryData) => {
   try {
     if (!tripId) throw new Error('Trip ID is required');
-    if (!itineraryData || !itineraryData.schedule) throw new Error('Valid itinerary data is required');
+    if (!itineraryData || !itineraryData.schedule)
+      throw new Error('Valid itinerary data is required');
 
     // Create the itinerary data object
     const firestoreData = {
       tripId,
       name: itineraryData.name || 'Generated Itinerary',
       schedule: itineraryData.schedule,
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     };
 
     console.log('Saving generated itinerary:', firestoreData);
 
     // Save to Firestore
-    const itineraryRef = await addDoc(collection(db, 'itineraries'), firestoreData);
+    const itineraryRef = await addDoc(
+      collection(db, 'itineraries'),
+      firestoreData
+    );
 
     // Update the trip to reference this itinerary
     await updateDoc(doc(db, 'trips', tripId), {
       itineraryId: itineraryRef.id,
-      lastUpdated: serverTimestamp()
+      lastUpdated: serverTimestamp(),
     });
 
     console.log('Itinerary saved with ID:', itineraryRef.id);

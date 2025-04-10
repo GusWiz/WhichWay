@@ -128,14 +128,16 @@ function EditTrip() {
     try {
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Ensure we have at least some activities
       if (activityList.length === 0) {
-        toast.warning('Please select at least one activity before generating an itinerary');
+        toast.warning(
+          'Please select at least one activity before generating an itinerary'
+        );
         setLoadingItinerary(false);
         return;
       }
@@ -168,8 +170,8 @@ ${activityList.map((activity) => `- ${activity}`).join('\n')}
           selectedOutdoor,
           tripName,
           tripId: editingTrip.id,
-          itineraryData: JSON.parse(itineraryResponse).schedule || []
-        }
+          itineraryData: JSON.parse(itineraryResponse).schedule || [],
+        },
       });
     } catch (error) {
       console.error('Error generating itinerary:', error);

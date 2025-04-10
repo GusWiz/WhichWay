@@ -38,7 +38,7 @@ function Itinerary() {
     selectedOutdoor = [],
     tripName = 'My Trip',
     tripId = null,
-    itineraryData: initialItineraryData = []
+    itineraryData: initialItineraryData = [],
   } = location.state || {};
 
   // Use the provided itinerary data if available
@@ -89,9 +89,9 @@ function Itinerary() {
 
   const itineraryToDb = async () => {
     console.log('in itinerary to db');
-    saveUserItinerary(getItineraryData());
+    await saveUserItinerary(getItineraryData());
+    navigate('/home');
   };
-
 
   // Function to generate itinerary with OpenAI directly
   // Uses the same approach as in EditTrip.jsx
@@ -100,21 +100,24 @@ function Itinerary() {
     try {
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Use default activities if activityList is empty
-      const finalActivityList = activityList.length > 0 ? activityList : [
-        'Chilis',
-        'Sewell Park',
-        'Double Daves',
-        'EVO',
-        'Chi Lantro',
-        'Golds Gym',
-        'Hiking trail',
-      ];
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Chilis',
+              'Sewell Park',
+              'Double Daves',
+              'EVO',
+              'Chi Lantro',
+              'Golds Gym',
+              'Hiking trail',
+            ];
 
       // Construct the OpenAI request content
       const openaiRequest = `
@@ -154,38 +157,41 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
   return (
     <>
       <NavigationBar />
-      <div className="home-page">
-        <div className="home-container">
+      <div className='home-page'>
+        <div className='home-container'>
           <Sidebar logout={logout} />
-          <div className="home-contents">
-            <div ref={printRef} className="itinerary-container">
-              <div className="createititnerary-title">
+          <div className='home-contents'>
+            <div ref={printRef} className='itinerary-container'>
+              <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
                 <h2>for {tripLocation}</h2>
               </div>
 
               {/* Display loading spinner or itinerary data */}
               {loading ? (
-                <div className="loading-container">
+                <div className='loading-container'>
                   <p>Loading itinerary...</p>
-                  <div className="spinner"></div>
+                  <div className='spinner'></div>
                 </div>
               ) : itineraryData.length > 0 ? (
                 itineraryData.map((dayData, dayIndex) => (
-                  <div key={dayIndex} className="itinerary-day">
-                    <div className="itinerary-daytitle">
-                      <h2>Day {dayIndex + 1}: {dayData.date}</h2>
+                  <div key={dayIndex} className='itinerary-day'>
+                    <div className='itinerary-daytitle'>
+                      <h2>
+                        Day {dayIndex + 1}: {dayData.date}
+                      </h2>
                     </div>
-                    <div className="itinerary-itemscontainer">
+                    <div className='itinerary-itemscontainer'>
                       {dayData.activities.map((activity, activityIndex) => (
-                        <div key={activityIndex} className="itinerary-item">
-                          <div className="itinerary-itemtime">
+                        <div key={activityIndex} className='itinerary-item'>
+                          <div className='itinerary-itemtime'>
                             <h3>
-                              {activity.start_time} - {activity.end_time || 'TBD'}
+                              {activity.start_time} -{' '}
+                              {activity.end_time || 'TBD'}
                             </h3>
                           </div>
-                          <div className="itinerary-item-details">
-                            <div className="itinerary-item-title">
+                          <div className='itinerary-item-details'>
+                            <div className='itinerary-item-title'>
                               <h3>{activity.name}</h3>
                             </div>
                             <p>
@@ -206,23 +212,20 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
               )}
 
               {/* Buttons for managing itinerary */}
-              <div className="itinerary-buttons">
+              <div className='itinerary-buttons'>
                 <button
-                  className="itinerary-button"
+                  className='itinerary-button'
                   onClick={handleGenerateItinerary}
                   disabled={loading}
                 >
-                  {loading ? "Generating..." : "Generate Itinerary"}
+                  {loading ? 'Generating...' : 'Regenerate Itinerary'}
                 </button>
 
-                <button
-                  className="itinerary-button"
-                  onClick={() => navigate('/home')}
-                >
-                  Back to Home
+                <button className='itinerary-button' onClick={itineraryToDb}>
+                  Save Itinerary
                 </button>
                 <button
-                  className="itinerary-button"
+                  className='itinerary-button'
                   onClick={handleDownloadPDF}
                   disabled={!itineraryData.length}
                 >
@@ -233,7 +236,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           </div>
         </div>
       </div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position='bottom-center' />
     </>
   );
 }

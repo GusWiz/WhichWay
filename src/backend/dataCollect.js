@@ -64,6 +64,7 @@ function getPreferences() {
 let itineraryObj = null;
 
 function saveItineraryData(itineraryData) {
+  console.log('saving itinerary data locally');
   try {
     if (!itineraryData) {
       throw new Error('No itinerary data provided');
