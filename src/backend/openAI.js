@@ -25,6 +25,7 @@ Always return a response in the following JSON structure:
         {
           "name": "Activity Name",
           "start_time": "HH:MM",
+          "end_time": "HH:MM,
           "Duration": "# Days"
         }
       ]
@@ -35,10 +36,12 @@ Always return a response in the following JSON structure:
 Rules:
 - Never repeat activities within the schedule.
 - Ensure each activity has a start and end time.
+- Ensure each activities start and end is a normal duration for that activity
+- Ensure start times are after the locations opening time
 - Adjust time slots to fit within the user's specified day start and end times.
 - Distribute activities evenly across the provided date range.
 - If the number of activities does not evenly fit into the days, distribute them as logically as possible.
-- Use 24-hour time format (HH:MM).
+- Use 12-hour time format (HH:MM PM/AM).
 - Do not add any extra text or explanations outside the JSON response.
 - Always return the JSON exactly in the format specified, without deviation.
 - Ensure there are no additional spaces, characters, or notes outside the JSON.

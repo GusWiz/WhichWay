@@ -257,11 +257,7 @@ function CreateTrip() {
       };
 
       // Save details locally
-      saveDetails(
-        tripName,
-        details.destination,
-        duration
-      );
+      saveDetails(tripName, details.destination, duration);
 
       // Save to Firebase
       const savedTripId = await saveUserTrip(
@@ -271,7 +267,7 @@ function CreateTrip() {
         {
           selectedFoods,
           selectedEntertainment,
-          selectedOutdoor
+          selectedOutdoor,
         }
       );
 
@@ -311,20 +307,23 @@ function CreateTrip() {
 
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Use default activities if activityList is empty
-      const finalActivityList = activityList.length > 0 ? activityList : [
-        'Restaurant',
-        'Park',
-        'Museum',
-        'Cafe',
-        'Historic Site',
-        'Local Attraction'
-      ];
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Restaurant',
+              'Park',
+              'Museum',
+              'Cafe',
+              'Historic Site',
+              'Local Attraction',
+            ];
 
       // Construct the OpenAI request content
       const openaiRequest = `
@@ -355,6 +354,10 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         }
       }
 
+      saveItineraryData(jsonString);
+
+      console.log('after save itinerary data');
+
       // Parse the JSON response
       const parsedItinerary = JSON.parse(jsonString);
 
@@ -371,13 +374,13 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
             name: tripName,
             destination: details.destination,
             location: details.location || { lat: 0, lng: 0 },
-            budget: "0"
+            budget: '0',
           },
           duration,
           {
             selectedFoods,
             selectedEntertainment,
-            selectedOutdoor
+            selectedOutdoor,
           }
         );
         setTripId(savedTripId);
@@ -395,10 +398,9 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           selectedOutdoor,
           tripName,
           tripId: savedTripId,
-          itineraryData: parsedItinerary.schedule || []
-        }
+          itineraryData: parsedItinerary.schedule || [],
+        },
       });
-
     } catch (error) {
       console.error('Error generating itinerary:', error);
       toast.error('Failed to generate itinerary. Please try again.');
@@ -447,9 +449,9 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   />
                 </form>
 
-                <div className="create-trip-buttons">
+                <div className='create-trip-buttons'>
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleSaveTrip}
                     disabled={isSubmitting}
                   >
@@ -457,7 +459,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   </button>
 
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleGenerateItinerary}
                     disabled={loadingItinerary || isSubmitting}
                   >
@@ -494,7 +496,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
       {isLoadingActivities && (
         <div className='loading-container'>
           <p>Loading activities for {details.destination}...</p>
-          <div className="spinner"></div>
+          <div className='spinner'></div>
         </div>
       )}
     </>
