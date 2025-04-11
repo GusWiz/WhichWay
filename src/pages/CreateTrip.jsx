@@ -265,12 +265,14 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
+        startDate: startDate || '',
+        endDate: endDate || '',
         duration: duration || '1 day', // Default to 1 day if not specified
         location: details.location || { lat: 0, lng: 0 },
       };
 
       // Save details locally
-      saveDetails(tripName, details.destination, duration);
+      saveDetails(tripName, details.destination, duration, startDate, endDate);
 
       // Save to Firebase
       const savedTripId = await saveUserTrip(
@@ -342,6 +344,7 @@ function CreateTrip() {
       const openaiRequest = `
 Location: ${details.destination}
 Start date: ${startDate || new Date().toISOString().split('T')[0]}
+End date: ${endDate || new Date().toISOString().split('T')[0]}
 Duration: ${duration}
 Activity List:
 ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
