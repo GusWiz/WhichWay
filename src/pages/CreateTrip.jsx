@@ -25,6 +25,8 @@ import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDis
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
+import DateSelector from '../components/Createtrip-Components/DateSelector';
+import DatePickerInput from '../components/Createtrip-Components/DatePicker';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -41,6 +43,7 @@ function CreateTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tripId, setTripId] = useState(null);
@@ -443,7 +446,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   <DatePickerInput
                     selectedDate={selectedDate}
                     onDateChange={(date) => setSelectedDate(date)}
-                    placeholderText="Select Date"
+                    placeholderText='Select Date'
                   />
                   <TripInputField
                     type='text'

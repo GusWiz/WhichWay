@@ -8,7 +8,7 @@ const DateSelector = ({
   onDateRangeChange,
   initialStartDate = null,
   initialEndDate = null,
-  dateFormat = "MM/DD/YYYY"
+  dateFormat = 'MM/DD/YYYY',
 }) => {
   const [startDate, setStartDate] = useState(initialStartDate);
   const [endDate, setEndDate] = useState(initialEndDate);
@@ -23,7 +23,7 @@ const DateSelector = ({
     setIsOpen(false); // Close calendar after selection
 
     if (onDateRangeChange) {
-      onDateRangeChange({ startDate: start, endDate: end});
+      onDateRangeChange({ startDate: start, endDate: end });
     }
   };
 
