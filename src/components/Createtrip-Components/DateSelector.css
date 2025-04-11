@@ -1,40 +1,111 @@
 .date-selector-container {
   position: relative;
-  display: inline-block;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem; /* Reduced from 2.5rem to 1rem */
+  height: 40px;
 }
 
+/* Match the login form style */
 .fading-date-text {
-  border: 1px solid transparent; /* Same as FadingTextBox */
+  height: 100%;
+  width: 100%;
+  border-radius: 0.31rem;
+  border: 1px solid hsl(0, 0%, 75%);
   padding: 10px;
-  font-size: 24px;
-  width: 400px;
   outline: none;
-  transition: border-color 0.3s ease;
+  font-size: 1.06rem;
+  transition: 0.2s ease;
+  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+  color: hsl(0, 0%, 40%); /* Placeholder color */
+  background: hsl(0, 0%, 100%);
+  cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: gray; /* Default placeholder color */
-  border-radius: 8px; /* Make the border rounded */
 }
 
 .fading-date-text.has-date {
-  color: black; /* Change to black when a date is selected */
+  color: #000; /* Text is black when a date is selected */
+}
+
+.fading-date-text.selecting-end {
+  color: hsl(201, 69%, 22%); /* Highlight when selecting end date */
+  font-weight: 500;
 }
 
 .fading-date-text:hover {
-  border: 1px solid #ccc;
+  background: hsl(0, 0%, 95%);
 }
 
 .fading-date-text:focus,
 .date-selector-container:focus-within .fading-date-text {
-  border: 1px solid #4a90e2; /* Match the focused look */
+  border-color: hsl(0, 0%, 88%);
 }
 
+/* Style the calendar popup */
 .react-datepicker {
   position: absolute;
-  top: 40px;
+  top: 58px;
   left: 0;
   z-index: 1000;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 20px hsl(0, 0%, 0%, 0.2);
+  border: 1px solid hsl(0, 0%, 75%);
+  background: hsl(0, 0%, 100%);
+  font-family: inherit;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__month-container {
+  padding: 5px;
+  background-color: white;
+  background: white;
+}
+
+.react-datepicker__header {
+  background-color: hsl(0, 0%, 98%);
+  border-bottom: 1px solid hsl(0, 0%, 75%);
+  padding-top: 10px;
+}
+
+.react-datepicker__current-month {
+  font-weight: 500;
+  font-size: 1rem;
+  color: hsl(201, 69%, 22%);
+  color: hsl(201, 69%, 22%);
+}
+
+.react-datepicker__day-name {
+  color: hsl(0, 0%, 50%);
+  margin: 5px;
+  color: hsl(0, 0%, 50%);
+}
+
+.react-datepicker__day {
+  margin: 5px;
+  border-radius: 0.31rem;
+}
+
+/* Style the dates in the calendar */
+.react-datepicker__day--selected,
+.react-datepicker__day--in-selecting-range,
+.react-datepicker__day--in-range {
+  background-color: hsl(201, 69%, 22%);
+  color: white;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: hsl(201, 69%, 40%);
+}
+
+.react-datepicker__day:hover {
+  background-color: hsl(201, 69%, 90%);
+}
+
+.react-datepicker__navigation {
+  top: 12px;
 }

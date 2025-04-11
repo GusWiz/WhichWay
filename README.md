@@ -537,7 +537,7 @@ firebase use whichway-9040f
 
    **Individual**:
 
-  - **Vinny**:
+  - **Vinny**: I feel like I still procrastinated my tasks a little too hard thinking they would be longer than they were. I want to trust my estimates more.
 
   - **Alan**: I need to dedicate appropriate time for challenging tasks and also relay useful information to my team.
 
