@@ -37,7 +37,7 @@ const DateSelector = ({
       if (onDateRangeChange) {
         onDateRangeChange({
           startDate: date < startDate ? date : startDate,
-          endDate: date < startDate ? startDate : date
+          endDate: date < startDate ? startDate : date,
         });
       }
     }
@@ -45,13 +45,17 @@ const DateSelector = ({
 
   const getDisplayText = () => {
     if (!startDate) return 'Select travel dates';
-    if (!endDate) return `From: ${startDate.toLocaleDateString()} (select end date)`;
+    if (!endDate)
+      return `From: ${startDate.toLocaleDateString()} (select end date)`;
     return `${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+      if (
+        datePickerRef.current &&
+        !datePickerRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
         if (selectingEnd) {
           setSelectingEnd(false);
@@ -87,7 +91,7 @@ const DateSelector = ({
           inline
           dateFormat={dateFormat}
           monthsShown={1}
-          calendarClassName="date-picker-calendar"
+          calendarClassName='date-picker-calendar'
           // Highlight the date range in the calendar
           highlightDates={selectingEnd && startDate ? [startDate] : []}
         />

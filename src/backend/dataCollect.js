@@ -6,7 +6,13 @@ let tripDetails = {
   // budget: null,
 };
 
-function saveDetails(name, destination, duration, startDate, endDate /*, budget*/) {
+function saveDetails(
+  name,
+  destination,
+  duration,
+  startDate,
+  endDate /*, budget*/
+) {
   tripDetails.name = name;
   tripDetails.destination = destination;
   tripDetails.duration = duration;
