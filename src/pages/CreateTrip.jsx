@@ -25,6 +25,7 @@ import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDis
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ function CreateTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tripId, setTripId] = useState(null);
@@ -102,6 +104,17 @@ function CreateTrip() {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+
+  const handleDaterangeChange = ({ startDate, endDate }) => {
+    setStartDate(startDate ? startDate.toISOString().split('T')[0] : '');
+    setEndDate(endDate ? endDate.toISOString().split('T')[0] : '');
+
+    if (startDate && endDate) {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      setDuration(`${diffDays} days`);
+    }
   };
 
   const handleItinerary = async () => {
@@ -252,12 +265,14 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
+        startDate: startDate || '',
+        endDate: endDate || '',
         duration: duration || '1 day', // Default to 1 day if not specified
         location: details.location || { lat: 0, lng: 0 },
       };
 
       // Save details locally
-      saveDetails(tripName, details.destination, duration);
+      saveDetails(tripName, details.destination, duration, startDate, endDate);
 
       // Save to Firebase
       const savedTripId = await saveUserTrip(
@@ -329,6 +344,7 @@ function CreateTrip() {
       const openaiRequest = `
 Location: ${details.destination}
 Start date: ${startDate || new Date().toISOString().split('T')[0]}
+End date: ${endDate || new Date().toISOString().split('T')[0]}
 Duration: ${duration}
 Activity List:
 ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
@@ -439,6 +455,11 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     value={details.destination}
                     onChange={handleChange}
                     onPlaceSelected={handlePlaceSelected}
+                  />
+                  <DateSelector
+                    onDateRangeChange={handleDaterangeChange}
+                    initialStartDate={startDate ? new Date(startDate) : null}
+                    initialEndDate={endDate ? new Date(endDate) : null}
                   />
                   <TripInputField
                     type='text'

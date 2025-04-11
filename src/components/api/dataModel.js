@@ -67,6 +67,8 @@ export const createTripDocument = async (
       name: tripDetails.name || 'Unnamed Trip',
       destination: tripDetails.destination || 'No destination',
       duration: duration || tripDetails.duration || '', // Use duration parameter or fall back to tripDetails.duration
+      startDate: tripDetails.startDate || '',
+      endDate: tripDetails.endDate || '',
       budget: tripDetails.budget || '0',
       location: tripDetails.location || { lat: 0, lng: 0 },
       preferences: preferences || {},
@@ -128,6 +130,8 @@ export const saveUserTrip = async (
       name: tripDetails.name || 'Unnamed Trip',
       destination: tripDetails.destination || 'No destination',
       duration: timeFrame || tripDetails.duration || '',
+      startDate: tripDetails.startDate || '',
+      endDate: tripDetails.endDate || '',
       budget: tripDetails.budget || '0',
       location: tripDetails.location || { lat: 0, lng: 0 },
       preferences: selectedActivities || {},
