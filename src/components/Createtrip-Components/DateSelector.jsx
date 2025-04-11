@@ -1,11 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
+import DatePickerInput from './DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateSelector.css'; // Import styles
 
-const DateSelector = () => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+const DateSelector = ({
+  onDateRangeChange,
+  initialStartDate = null,
+  initialEndDate = null,
+  dateFormat = "MM/DD/YYYY"
+}) => {
+  const [startDate, setStartDate] = useState(initialStartDate);
+  const [endDate, setEndDate] = useState(initialEndDate);
   const [isOpen, setIsOpen] = useState(false);
   const datePickerRef = useRef(null);
 
@@ -15,6 +21,10 @@ const DateSelector = () => {
     setStartDate(start);
     setEndDate(end);
     setIsOpen(false); // Close calendar after selection
+
+    if (onDateRangeChange) {
+      onDateRangeChange({ startDate: start, endDate: end});
+    }
   };
 
   // Function to format the display text
@@ -46,7 +56,10 @@ const DateSelector = () => {
 
   return (
     <div className='date-selector-container' ref={datePickerRef}>
-      <div className='fading-date-text' onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={`fading-date-text ${startDate ? 'has-date' : ''}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {getDisplayText()}
       </div>
       {isOpen && (
