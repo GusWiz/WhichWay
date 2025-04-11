@@ -37,10 +37,9 @@ provide you with extra information about the different activities found. This no
 - JavaScript - ES15
 - React - version 18.2.0
 - Python - version 3.11.2
-- Flask - version 2.2.5
-- SQL - SQL:2023
-- Google Authenticator App - version 2.36.0
-- DeekSeek - version 2.5
+- Firebase Hosting
+- Firebase Authentication
+- Firebase Firestore DB
 
 ## Features
 
@@ -165,6 +164,32 @@ npm install lucide-react
 npm install react-toastify
 npm install axios
 npm install openai
+npm install html2canvas
+npm install jspdf
+```
+
+### Build and Test:
+
+- Made changes? You should first do:
+
+```
+npm run dev
+```
+or
+```
+npm run preview
+```
+
+- If those changes look good:
+
+```
+npm run deploy
+```
+
+- You might need to run this command if you just pulled for the first time:
+
+```
+firebase use whichway-9040f
 ```
 
 ---
@@ -374,34 +399,45 @@ npm install openai
     - [WW-67](https://cs3398-betazoids-spring.atlassian.net/browse/WW-67),
     [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-67-budget-error-validation-post-activities-change)
 
-### **Aaron**: Designed and implemented page UI for the 'Create Trip' page where users will be able to create their trips with unique seletions/modifications. Created functionality of selecting activities to add to a user itinerary.
+### **Aaron**: "Expanded activity UI to show more information to users, gathered all relevant user/trip info to save to database, and implemented openai api call to create an itinerary for the user."
 
-  - Task 1: Create the Trip Input Page UI (Frontend - React):
-    - [WW-46](https://cs3398-betazoids-spring.atlassian.net/browse/WW-46)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-46-task-1-create-the-trip-input-page)
+  - Jira Task: Integrate APIs for Itinerary Generation
+    - [WW-12](https://cs3398-betazoids-spring.atlassian.net/browse/WW-12)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-12-task-2-integrate-apis-for-itinerar)
 
-  - Task 5: Enable Navigation to the Itinerary Page:
-    - [WW-50](https://cs3398-betazoids-spring.atlassian.net/browse/WW-50)
+  - Jira Task: Make data flow
+    - [WW-30](https://cs3398-betazoids-spring.atlassian.net/browse/WW-30)
     [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-50-task-5-enable-navigation-to-the-it)
 
-  - Task 3: Build the Activity Selection Component:
-    - [WW-48](https://cs3398-betazoids-spring.atlassian.net/browse/WW-48)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-48-task-3-build-the-activity-selectio)
+  - Jira Task: Implement Error Handling and Logging
+    - [WW-15](https://cs3398-betazoids-spring.atlassian.net/browse/WW-15)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-15-task-5-implement-error-handling-an)
 
-  - Task 4: Adding visual representation of current activity selections:
-    - [WW-39](https://cs3398-betazoids-spring.atlassian.net/browse/WW-39)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-39-task-4-adding-visual-representatio)
+  - Jira Task: Process and Optimize API Responses
+    - [WW-13](https://cs3398-betazoids-spring.atlassian.net/browse/WW-13)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-13-task-3-process-and-optimize-api-re)
 
-### **Gustavo**: Designed the initial wireframe and implemented React components and UI elements for the Home/Routing page. Also created the Data model for User's and Trips.
-  - Task 1: Create Wireframes and UI Mockups:
-    - [WW-36](https://cs3398-betazoids-spring.atlassian.net/browse/WW-36)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/feature/WW-36-task-1-create-wireframes-and-ui-mo)
-  - Task 2: Implement Navigation and Layout Components:
-    - [WW-37](https://cs3398-betazoids-spring.atlassian.net/browse/WW-37)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-37_MergeConflictsWithFix-WW-93)
-  - Task 3: Implement Backend Data Model for Other MetaData ($ Spent, Places Visited, Miles Travelled, etcc.):
-    - [WW-23](https://cs3398-betazoids-spring.atlassian.net/browse/WW-23)
-    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-23-task-3-implement-backend-data-mode)
+  - Jira Task: Gather parameters (user input)
+    - [WW-72](https://cs3398-betazoids-spring.atlassian.net/browse/WW-72)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-72-task-1-gather-parameters-user-inpu)
+
+  - Jira Task: Create UI wireframes
+    - [WW-31](https://cs3398-betazoids-spring.atlassian.net/browse/WW-31)
+    [BitBucket](https://bitbucket.org/%7B%7D/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-31-task-2-create-ui-wireframes)
+
+### **Gustavo**: Integrate Google Location API to request location specific(destination) data. Allowing us to show the user's near by activities. While having data and user input saved in Firestore. .
+  - Task 5: Error Handling for Backend & Frontend:
+    - [WW-24](https://cs3398-betazoids-spring.atlassian.net/browse/WW-24)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-24-ErrorHandlingFrontandBackends)
+  - Task 3: Send API request:
+    - [WW-74](https://cs3398-betazoids-spring.atlassian.net/browse/WW-74)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-74-task-3-send-api-request)
+  - Task 4: Implement Data Persistence with Firebase:
+    - [WW-49](https://cs3398-betazoids-spring.atlassian.net/browse/WW-49)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/branch/WW-49-task-4-implement-data-persistence-)
+  - Task 4: Implement backend:
+    - [WW-33](https://cs3398-betazoids-spring.atlassian.net/browse/WW-33)
+    [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/%7B90ef6dc6-a3fc-42bd-84dc-3ab912f8ab2d%7D/branch/WW-33-task-4-implement-backend)
 
 ### **Aldo Guerrero ** Developed and managed input logic for Trip Preferences, parsed user input data, and troubleshooted issues.
   - Task 1: Develop Input Handling Logic:
@@ -438,14 +474,16 @@ npm install openai
   - Help fix bugs in create trip page.
 
 ### **Aaron**:
-  -
-  -
+  - Integrate Openai itinerary generation with user data and selections.
+  - Assist Aldo and Gustavo with to parse data recieved by API calls in order to further integrate with the activity selections.
+  - Create/implement an organization plan for the database to store data in a way that is secure and efficient.
+  - Further integrate Google Places API with the activity UI to properly display activity data.
 
 ### **Gustavo**:
-  -
-  -
-  -
-  -
+  - Debug selected activites in the create trip.
+  - Choose what data will be seen/shown to the user.
+  - Create functions that request document information from firestore to create itenerary, after a user selects and types information of a trip.
+  - Assist Aaron with incorporating OpenAI and the Trip data/details from Firestore to generate an itenerary.
 
 ### **Aldo**:
   - Assist Gustavo and Aaron parse data being sent and recieved by OpenAI, Google Places and other APIs.
@@ -463,11 +501,11 @@ npm install openai
 
   - The team started with good momentum and managed to finish all of our tasks on time. The quality of our project is a little less than ideal but it is functional.
 
+  - The team started off strong but we let off our foot from the pedal the beginning of the last week of the sprint. We were able to complete many important tasks, and features for the web app.
+
+  - I am satisfied with the overall structure of the app and I think that we have a lot of functional components working as intended. However there are some clashing ideas that interrupt the flow of user interaction with the app.
+
   - We did a good job working within each others code. We all have a good grasp of which section is "ours" but we still do well working in new code spaces.
-
-  -
-
-  -
 
   **Individual**:
 
@@ -475,9 +513,9 @@ npm install openai
 
   - **Alan**: Planning early and having a good set of tasks helped out a lot and we stayed organized for the most part.
 
-  - **Aaron**:
+  - **Aaron**: My individual research of the Openai API helped a lot and gave me good insight into how I wanted to implement it into our application.
 
-  - **Gustavo**:
+  - **Gustavo**: I was able to learn and understand Google Location API. While implementing functions that actively request data given a location. I must work on working on my tasks on time and not blocking others tasks.
 
   - **Aldo**: Communication, the sharing of ideas, and helping one another was a big improvement this sprint. One thing I can work on is fully understanding the parsing of data, firestore, and any backend functionalities.
 
@@ -488,10 +526,10 @@ npm install openai
   - We need to lower procrastination, although we have other things to take care of we still need to make sure to start early on our tasks.
 
   - We often underestimate our tasks. We need to plan and edit our tasks more effectively.
-  
-  - The order of tasks being completes should be discussed more. Some tasks would be completed and then immediately made obsolete by a refactor.
 
-  -
+  - We need to work on starting on tasks late and not effectively communicating with each others of our completed tasks.
+
+  - We need better communication on the expectations of our own work and others so we are all working towards the same vision.
 
   -
 
@@ -503,9 +541,9 @@ npm install openai
 
   - **Alan**: I need to dedicate appropriate time for challenging tasks and also relay useful information to my team.
 
-  - **Aaron**:
+  - **Aaron**: I plan to carefully anaylyze all of my tasks before starting to work. This will allow me to lay out an order and timeline for how I will complete the next sprint, making me a more reliable team member.
 
-  - **Gustavo**:
+  - **Gustavo**: I must stop procrastinating my tasks. I pushed off completing the Google Location API, which was more difficult than imagined.
 
   - **Aldo**: I can improve the quality of my work by talking to my team more often and encourage constructive criticism from them. In addition, I need to dedicate more time on my tasks.
 
@@ -524,10 +562,14 @@ npm install openai
 
     - AI was good at creating a base template of a file that could be modified to better suit more specific needs.
 
+    - AI allowed us to start getting proper libraries/dependencies for our tasks. It suggested axious for API calls, and assisted with debuging code not saving to Firestore properly.
+
   - **Examples of when we needed to be careful using AI**:
     - Making UI for pages. I tried using AI for html/css but I just did not like the output. You have to be extremely specific. I prefer to watch youtube tutorials instead.
 
     - AI was not effective at helping understand how data fetching and firestore work together. The code either didn't work or it wasn't relevant. Online forums were much more helpful.
+
+    - AI sometimes took over our code, and started implementing complex solutions, when solutions should have been simple.
 
     - AI had trouble seeing the bigger picture, often forgetting that we have multiple files for a reason and often resorting to placing code in the most recent file it could remember rather than the most relevant file.
 

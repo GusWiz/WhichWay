@@ -1,8 +1,17 @@
+import React, { useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
-import { useNavigate } from 'react-router-dom';
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
+// Import directly from backend instead of through api layer
+import { generateItinerary } from '../backend/openAI';
+
+import { saveUserItinerary } from '../components/api/dataModel';
+import { getItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -10,9 +19,32 @@ import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
+import logo from '../components/images/logo.svg';
+import { Portrait } from '@mui/icons-material';
+import { saveItineraryData } from '../backend/dataCollect';
 
 function Itinerary() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const printRef = useRef(null);
+
+  // Get data from location state or use defaults
+  const {
+    location: tripLocation = 'San Marcos',
+    startDate: startDateValue = '2025-04-15',
+    duration: durationValue = '3 days',
+    selectedFoods = [],
+    selectedEntertainment = [],
+    selectedOutdoor = [],
+    tripName = 'My Trip',
+    tripId = null,
+    itineraryData: initialItineraryData = [],
+  } = location.state || {};
+
+  // Use the provided itinerary data if available
+  const [itineraryData, setItineraryData] = useState(initialItineraryData);
+  const [loading, setLoading] = useState(false);
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -22,67 +54,105 @@ function Itinerary() {
     }
   };
 
-  const itineraryData = [
-    {
-      day: 1,
-      items: [
-        {
-          startTime: '9:00 AM',
-          endTime: '12:00 PM',
-          location: "Double Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '12:00 PM',
-          endTime: '2:00 PM',
-          location: "Triple Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '4:00 PM',
-          endTime: '6:00 PM',
-          location: "Double Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '6:00 PM',
-          endTime: '7:00 PM',
-          location: "Triple Dave's",
-          description: '',
-          budget: '',
-        },
-      ],
-    },
-    {
-      day: 2,
-      items: [
-        {
-          startTime: '2:00 PM',
-          endTime: '4:00 PM',
-          location: "Quadruple Dave's",
-          description: '',
-          budget: '',
-        },
-        {
-          startTime: '4:00 PM',
-          endTime: '6:00 PM',
-          location: "Quintuple Dave's",
-          description: '',
-          budget: '',
-        },
-      ],
-    },
-  ];
+  // Function to download itinerary as PDF
+  const handleDownloadPDF = async () => {
+    const element = printRef.current;
 
-  const location = useLocation();
-  const {
-    selectedFoods = [],
-    selectedEntertainment = [],
-    selectedOutdoor = [],
-  } = location.state || {};
+    if (!element) {
+      toast.error('No content to download');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element);
+      const data = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: 'a4',
+      });
+
+      const imageProperties = pdf.getImageProperties(data);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight =
+        (imageProperties.height * pdfWidth) / imageProperties.width;
+
+      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('Itinerary.pdf');
+      toast.success('PDF downloaded successfully!');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      toast.error('Failed to download PDF');
+    }
+  };
+
+  const itineraryToDb = async () => {
+    console.log('in itinerary to db');
+    await saveUserItinerary(getItineraryData());
+    navigate('/home');
+  };
+
+  // Function to generate itinerary with OpenAI directly
+  // Uses the same approach as in EditTrip.jsx
+  const handleGenerateItinerary = async () => {
+    setLoading(true);
+    try {
+      // Create activities array from selected items
+      const activityList = [
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
+      ];
+
+      // Use default activities if activityList is empty
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Chilis',
+              'Sewell Park',
+              'Double Daves',
+              'EVO',
+              'Chi Lantro',
+              'Golds Gym',
+              'Hiking trail',
+            ];
+
+      // Construct the OpenAI request content
+      const openaiRequest = `
+Location: ${tripLocation}
+Start date: ${startDateValue}
+Duration: ${durationValue}
+Activity List:
+${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
+`;
+
+      console.log('OpenAI Request:', openaiRequest);
+
+      // Call the generateItinerary function directly
+      const itineraryResponse = await generateItinerary(openaiRequest);
+
+      if (!itineraryResponse) {
+        throw new Error('Failed to generate a valid itinerary');
+      }
+
+      // Parse the JSON response
+      const parsedItinerary = JSON.parse(itineraryResponse);
+
+      if (!parsedItinerary || !parsedItinerary.schedule) {
+        throw new Error('Invalid itinerary format received');
+      }
+
+      setItineraryData(parsedItinerary.schedule || []);
+      toast.success('Itinerary generated successfully!');
+    } catch (error) {
+      console.error('Error generating itinerary:', error);
+      toast.error('Failed to generate itinerary. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -91,60 +161,82 @@ function Itinerary() {
         <div className='home-container'>
           <Sidebar logout={logout} />
           <div className='home-contents'>
-            <div className='itinerary-container'>
+            <div ref={printRef} className='itinerary-container'>
               <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
+                <h2>for {tripLocation}</h2>
               </div>
 
-              {itineraryData.map((dayData) => (
-                <div key={dayData.day} className='itinerary-day'>
-                  <div className='itinerary-daytitle'>
-                    <h1>Day {dayData.day}</h1>
-                  </div>
-                  <div className='itinerary-itemscontainer'>
-                    {dayData.items.map((item, index) => (
-                      <div key={index} className='itinerary-item'>
-                        <div className='itinerary-itemtime'>
-                          <h1>
-                            {item.startTime} - {item.endTime}
-                          </h1>
-                        </div>
-                        <div className='itinerary-item-details'>
-                          <div className='itinerary-item-title'>
-                            <h1>{item.location}</h1>
-                          </div>
-                          <div className='navbar-logo'>
-                            <img
-                              src='src\assets\logo.svg'
-                              alt='Logo'
-                              className='logo-icon'
-                            />
-                          </div>
-                          <p>Here is a descrtiption of the place</p>
-                          <p>Here is the budget of the place</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              {/* Display loading spinner or itinerary data */}
+              {loading ? (
+                <div className='loading-container'>
+                  <p>Loading itinerary...</p>
+                  <div className='spinner'></div>
                 </div>
-              ))}
+              ) : itineraryData.length > 0 ? (
+                itineraryData.map((dayData, dayIndex) => (
+                  <div key={dayIndex} className='itinerary-day'>
+                    <div className='itinerary-daytitle'>
+                      <h2>
+                        Day {dayIndex + 1}: {dayData.date}
+                      </h2>
+                    </div>
+                    <div className='itinerary-itemscontainer'>
+                      {dayData.activities.map((activity, activityIndex) => (
+                        <div key={activityIndex} className='itinerary-item'>
+                          <div className='itinerary-itemtime'>
+                            <h3>
+                              {activity.start_time} -{' '}
+                              {activity.end_time || 'TBD'}
+                            </h3>
+                          </div>
+                          <div className='itinerary-item-details'>
+                            <div className='itinerary-item-title'>
+                              <h3>{activity.name}</h3>
+                            </div>
+                            <p>
+                              {activity.description ||
+                                'No description available'}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>
+                  No itinerary data available. Click "Generate Itinerary" to
+                  create one.
+                </p>
+              )}
+
+              {/* Buttons for managing itinerary */}
               <div className='itinerary-buttons'>
-                <button className='itinerary-button' onClick=''>
-                  {' '}
-                  Regenerate Itinerary{' '}
+                <button
+                  className='itinerary-button'
+                  onClick={handleGenerateItinerary}
+                  disabled={loading}
+                >
+                  {loading ? 'Generating...' : 'Regenerate Itinerary'}
+                </button>
+
+                <button className='itinerary-button' onClick={itineraryToDb}>
+                  Save Itinerary
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={() => navigate('/home')}
+                  onClick={handleDownloadPDF}
+                  disabled={!itineraryData.length}
                 >
-                  {' '}
-                  Save Itinerary{' '}
+                  Download Itinerary
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer position='bottom-center' />
     </>
   );
 }

@@ -1,0 +1,49 @@
+# Unit Testing Plan - WhichWay
+
+Project: WhichWay
+Team: Aldo Guerrero,
+
+1. Overview
+
+This document outlines the unit testing we did on seperate parts of our WhichWay Project. The tests will verify the correct behavior of methods, including field usage and return object validation.
+
+2. Feature and Code Selection
+
+The following functions from WhichWay will be unit tested:
+
+    Aldo Guerrero:
+    * `createUserDocument(user)`: Creates a user document in the 'Users' collection.
+    *
+    *
+
+    Aaron:
+    *
+    *
+    *
+
+    Alan:
+    *
+    *
+    *
+
+    Vinny:
+    *
+    *
+    *
+
+    Gustavo:
+    *
+    *
+    *
+
+
+3. Unit Test Cases
+
+1.1. createUserDocument(user)
+    * Description: Verifies successful user document creation.
+    * Fields Used: user.uid, user.email, user.firstName, user.lastName.
+    * Return: Resolves without error.
+
+
+4. Test Execution and Results
+*

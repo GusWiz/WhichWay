@@ -25,7 +25,8 @@ Always return a response in the following JSON structure:
         {
           "name": "Activity Name",
           "start_time": "HH:MM",
-          "end_time": "HH:MM"
+          "end_time": "HH:MM,
+          "Duration": "# Days"
         }
       ]
     }
@@ -35,22 +36,29 @@ Always return a response in the following JSON structure:
 Rules:
 - Never repeat activities within the schedule.
 - Ensure each activity has a start and end time.
+- Ensure each activities start and end is a normal duration for that activity
+- Ensure start times are after the locations opening time
 - Adjust time slots to fit within the user's specified day start and end times.
 - Distribute activities evenly across the provided date range.
 - If the number of activities does not evenly fit into the days, distribute them as logically as possible.
-- Use 24-hour time format (HH:MM).
+- Use 12-hour time format (HH:MM PM/AM).
 - Do not add any extra text or explanations outside the JSON response.
 - Always return the JSON exactly in the format specified, without deviation.
 - Ensure there are no additional spaces, characters, or notes outside the JSON.
 `;
 
-const generateItinerary = async () => {
-  console.log('in generate itinerary');
+const generateItinerary = async (openaiRequest) => {
+  console.log('Generating itinerary with OpenAI amazing AI capabilities');
 
   try {
+    // Validate openaiRequest parameter
+    if (!openaiRequest) {
+      console.error('Invalid openaiRequest:', openaiRequest);
+      throw new Error('Missing openaiRequest parameter');
+    }
+
     const response = await openai.chat.completions.create({
       model: 'gpt-4o',
-      // max_tokens: 100, // REMOVE LIMIT FOR FULL RESULTS
       messages: [
         { role: 'system', content: systemRules },
         { role: 'user', content: openaiRequest },
@@ -68,15 +76,10 @@ const generateItinerary = async () => {
     }
 
     const itinerary = response.choices[0].message.content;
-    console.log(itinerary); // Debugging log for the returned itinerary
     return itinerary; // Return the response data for further use
   } catch (error) {
-    // Enhanced error logging
-    console.error('Error generating itinerary:', error.message || error); // Log error message
-    if (error.stack) {
-      console.error('Stack trace:', error.stack); // Log stack trace for detailed debugging
-    }
-    return null; // Return null to signal an error
+    console.error('Error generating itinerary:', error.message || error);
+    throw error; // Make sure to throw the error for proper handling
   }
 };
 

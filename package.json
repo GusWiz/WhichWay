@@ -4,10 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "make fmt && vite",
+    "build": "make fmt && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -17,6 +18,8 @@
     "axios": "^1.8.4",
     "dotenv": "^16.4.7",
     "firebase": "^11.3.1",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.477.0",
     "openai": "^4.89.0",
     "react": "^19.0.0",
@@ -36,6 +39,7 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
+    "file-loader": "^6.2.0",
     "globals": "^15.14.0",
     "prettier": "3.5.0",
     "react-router-dom": "^7.2.0",

@@ -33,3 +33,7 @@ bitbucket-pipelines.yml
 .pre-commit-config.yaml
 .prettierrc
 *.jpg
+.firebase/
+.firebaseserc
+build/
+firebase.json
