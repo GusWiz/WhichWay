@@ -4,6 +4,8 @@ import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 
+const jestGlobals = globals.jest;
+
 export default [
   { ignores: ['dist'] },
   {
@@ -33,6 +35,16 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+    },
+  },
+
+  {
+    files: ['**/*.test.{js,jsx}', '**/*.spec.{js,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...jestGlobals,
+      },
     },
   },
 ];

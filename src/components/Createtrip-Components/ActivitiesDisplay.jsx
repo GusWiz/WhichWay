@@ -36,7 +36,7 @@ function ActivitiesDisplay({
 
       <div className='categories-container'>
         {/* Entertainment Selection */}
-        <div className='category'>
+        <div className='category' data-testid = "entertainment-section">
           <h2 className='form-title'>Entertainment</h2>
           <div className='selectable-container'>
             {entertainmentOptions.map((item) => (
@@ -110,7 +110,7 @@ function ActivitiesDisplay({
         <br />
 
         {/* Food Selection */}
-        <div className='category'>
+        <div className='category' data-testid = "food-section">
           <h2 className='form-title'>Food</h2>
           <div className='selectable-container'>
             {foodOptions.map((item) => (
@@ -185,7 +185,7 @@ function ActivitiesDisplay({
         <br />
 
         {/* Outdoor Selection */}
-        <div className='category'>
+        <div className='category' data-testid="outdoor-section">
           <h2 className='form-title'>Outdoor</h2>
           <div className='selectable-container'>
             {outdoorOptions.map((item) => (
