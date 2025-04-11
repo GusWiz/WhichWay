@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
 import DatePickerInput from './DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './DateSelector.css'; // Import styles
+import './DateSelector.css';
 
 const DateSelector = ({
   onDateRangeChange,
@@ -13,63 +12,84 @@ const DateSelector = ({
   const [startDate, setStartDate] = useState(initialStartDate);
   const [endDate, setEndDate] = useState(initialEndDate);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectingEnd, setSelectingEnd] = useState(false);
   const datePickerRef = useRef(null);
 
-  // Function to handle date selection
-  const handleChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-    setIsOpen(false); // Close calendar after selection
+  // New approach: handle dates separately
+  const handleDateChange = (date) => {
+    if (!selectingEnd) {
+      // Setting start date
+      setStartDate(date);
+      setEndDate(null);
+      setSelectingEnd(true);
+    } else {
+      // Setting end date
+      // Ensure end date is not before start date
+      if (date < startDate) {
+        setEndDate(startDate);
+        setStartDate(date);
+      } else {
+        setEndDate(date);
+      }
+      setSelectingEnd(false);
+      setIsOpen(false);
 
-    if (onDateRangeChange) {
-      onDateRangeChange({ startDate: start, endDate: end });
+      if (onDateRangeChange) {
+        onDateRangeChange({
+          startDate: date < startDate ? date : startDate,
+          endDate: date < startDate ? startDate : date
+        });
+      }
     }
   };
 
-  // Function to format the display text
   const getDisplayText = () => {
-    if (!startDate) return 'Select a date';
-    if (startDate && !endDate) return `on ${startDate.toLocaleDateString()}`;
-    return `from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+    if (!startDate) return 'Select travel dates';
+    if (!endDate) return `From: ${startDate.toLocaleDateString()} (select end date)`;
+    return `${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
   };
 
-  // Close the date picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        datePickerRef.current &&
-        !datePickerRef.current.contains(event.target)
-      ) {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
         setIsOpen(false);
+        if (selectingEnd) {
+          setSelectingEnd(false);
+        }
       }
     };
 
-    // Attach event listener
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
-      // Cleanup event listener on unmount
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [selectingEnd]);
 
   return (
     <div className='date-selector-container' ref={datePickerRef}>
       <div
-        className={`fading-date-text ${startDate ? 'has-date' : ''}`}
-        onClick={() => setIsOpen(!isOpen)}
+        className={`fading-date-text ${startDate ? 'has-date' : ''} ${selectingEnd ? 'selecting-end' : ''}`}
+        onClick={() => {
+          setIsOpen(!isOpen);
+          if (!isOpen) {
+            setSelectingEnd(false);
+          }
+        }}
       >
         {getDisplayText()}
       </div>
       {isOpen && (
-        <DatePicker
-          selected={startDate}
-          onChange={handleChange}
+        <DatePickerInput
+          selected={selectingEnd ? endDate : startDate}
+          onChange={handleDateChange}
           startDate={startDate}
           endDate={endDate}
-          selectsRange
           inline
+          dateFormat={dateFormat}
+          monthsShown={1}
+          calendarClassName="date-picker-calendar"
+          // Highlight the date range in the calendar
+          highlightDates={selectingEnd && startDate ? [startDate] : []}
         />
       )}
     </div>

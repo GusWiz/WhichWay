@@ -25,8 +25,7 @@ import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDis
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
-import DateSelector from '../components/Createtrip-Components/DateSelector';
-import DatePickerInput from '../components/Createtrip-Components/DatePicker';
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -105,6 +104,17 @@ function CreateTrip() {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+
+  const handleDaterangeChange = ({ startDate, endDate }) => {
+    setStartDate(startDate ? startDate.toISOString().split('T')[0] : '');
+    setEndDate(endDate ? endDate.toISOString().split('T')[0] : '');
+
+    if (startDate && endDate) {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      setDuration(`${diffDays} days`);
+    }
   };
 
   const handleItinerary = async () => {
@@ -443,10 +453,10 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     onChange={handleChange}
                     onPlaceSelected={handlePlaceSelected}
                   />
-                  <DatePickerInput
-                    selectedDate={selectedDate}
-                    onDateChange={(date) => setSelectedDate(date)}
-                    placeholderText='Select Date'
+                  <DateSelector
+                    onDateRangeChange={handleDaterangeChange}
+                    initialStartDate={startDate ? new Date(startDate) : null}
+                    initialEndDate={endDate ? new Date(endDate) : null}
                   />
                   <TripInputField
                     type='text'
