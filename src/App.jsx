@@ -44,7 +44,7 @@ export default function App() {
           path='/createitinerary'
           element={user ? <CreateItinerary /> : <Login />}
         />
-        <Route path='/account' element={user ? <Account /> : <Login />} />
+        <Route path='/account' element={user ? <Account user={user} /> : <Login />} />
         <Route path='/settings' element={user ? <Settings /> : <Login />} />
         <Route path='/edittrip' element={user ? <EditTrip /> : <Login />} />
       </Routes>

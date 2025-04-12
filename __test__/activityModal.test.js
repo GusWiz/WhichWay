@@ -20,7 +20,9 @@ describe('ActivityModal', () => {
     render(<ActivityModal show={true} closeModal={() => {}} item={mockItem} />);
 
     expect(screen.getAllByText('Sunset Hike').length).toBeGreaterThan(0);
-    expect(screen.getByText('A peaceful hike during sunset.')).toBeInTheDocument();
+    expect(
+      screen.getByText('A peaceful hike during sunset.')
+    ).toBeInTheDocument();
     expect(screen.getAllByText(/Group Size:/)).toHaveLength(2); // Appears twice
     expect(screen.getByText(/4.8/)).toBeInTheDocument();
     expect(screen.getByText(/Hill Country, TX/)).toBeInTheDocument();
@@ -28,7 +30,9 @@ describe('ActivityModal', () => {
 
   it('calls closeModal when close button is clicked', () => {
     const mockClose = jest.fn();
-    render(<ActivityModal show={true} closeModal={mockClose} item={mockItem} />);
+    render(
+      <ActivityModal show={true} closeModal={mockClose} item={mockItem} />
+    );
 
     const buttons = screen.getAllByRole('button', { name: /×|close/i });
     fireEvent.click(buttons[0]);
@@ -36,7 +40,9 @@ describe('ActivityModal', () => {
   });
 
   it('does not render when show is false', () => {
-    render(<ActivityModal show={false} closeModal={() => {}} item={mockItem} />);
+    render(
+      <ActivityModal show={false} closeModal={() => {}} item={mockItem} />
+    );
     expect(screen.queryByText('Sunset Hike')).not.toBeInTheDocument();
   });
 });
