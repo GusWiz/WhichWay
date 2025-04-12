@@ -220,9 +220,10 @@ export const saveGeneratedItinerary = async (tripId, itineraryData) => {
 export const saveUserItinerary = async (itineraryData, tripId) => {
   console.log('in save user itinerary');
   try {
+    if (!tripId) throw new Error('Trip ID is required');
     if (!itineraryData) throw new Error('Trip details are required');
 
-    await createItineraryDocument(tripId, itineraryData);
+    return await saveGeneratedItinerary(tripId, itineraryData);
   } catch (error) {
     console.error('Error saving itinerary:', error);
     throw error;
