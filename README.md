@@ -168,7 +168,21 @@ npm install html2canvas
 npm install jspdf
 ```
 
-### Build and Test:
+### Test:
+
+```
+npm install
+```
+then
+```
+npm test
+```
+see coverage
+```
+npm run coverage
+```
+
+### Build:
 
 - Made changes? You should first do:
 
