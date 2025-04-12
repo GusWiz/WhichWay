@@ -89,8 +89,23 @@ function Itinerary() {
 
   const itineraryToDb = async () => {
     console.log('in itinerary to db');
-    await saveUserItinerary(getItineraryData());
-    navigate('/home');
+    try {
+      if(!tripId) {
+        toast.error('No trip ID found. Cannot save itinerary.');
+        return;
+      }
+      const itineraryData = getItineraryData();
+      if (!itineraryData) {
+        toast.error('No itinerary data to save');
+        return;
+      }
+      await saveUserItinerary(itineraryData, tripId);
+      toast.success('Itinerary saved successfully!')
+      navigate('/home');
+    } catch (error) {
+      console.error('Error saving itinerary', error);
+      toast.error('Failed to save itinerary, try again.')
+    }
   };
 
   // Function to generate itinerary with OpenAI directly
