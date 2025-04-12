@@ -23,16 +23,16 @@
         <div class='clearfix'>
 
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.88% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/9</span>
+                <span class='fraction'>9/9</span>
             </div>
 
 
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">64.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/14</span>
+                <span class='fraction'>9/14</span>
             </div>
 
 
@@ -44,9 +44,9 @@
 
 
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>8/8</span>
             </div>
 
 
@@ -168,16 +168,16 @@
 <a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,9 +277,9 @@ const fallbackPrice = 'Price not available'; // Fallback for price
 const fallbackAtmosphere = 'Atmosphere not specified'; // Fallback for atmosphere
 &nbsp;
 const ActivityModal = ({ show, closeModal, item }) =&gt; {
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (!show) return null;
+  if (!show) return null;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className='activity-modal-overlay'&gt;
       &lt;div className='activity-modal-content'&gt;
         &lt;button className='activity-modal-close-button' onClick={closeModal}&gt;
@@ -288,7 +288,7 @@ const ActivityModal = ({ show, closeModal, item }) =&gt; {
 &nbsp;
         {/* Image with fallback */}
         &lt;img
-          src={item?.imgSrc || fallbackImage} // Use fallback image if imgSrc is missing
+          src={item?.imgSrc || <span class="branch-1 cbranch-no" title="branch not covered" >fallbackImage}</span> // Use fallback image if imgSrc is missing
           alt='Activity'
           className='activity-modal-image'
         /&gt;
@@ -298,20 +298,20 @@ const ActivityModal = ({ show, closeModal, item }) =&gt; {
 &nbsp;
         {/* Description with fallback */}
         &lt;p className='activity-modal-description'&gt;
-          {item?.description || fallbackDescription}
+          {item?.description || <span class="branch-1 cbranch-no" title="branch not covered" >fallbackDescription}</span>
         &lt;/p&gt;
 &nbsp;
         {/* List of features */}
         &lt;ul className='activity-modal-features'&gt;
           &lt;li&gt;
-            &lt;strong&gt;Group Size:&lt;/strong&gt; {item?.groupSize || fallbackGroupSize}
+            &lt;strong&gt;Group Size:&lt;/strong&gt; {item?.groupSize || <span class="branch-1 cbranch-no" title="branch not covered" >fallbackGroupSize}</span>
           &lt;/li&gt;
           &lt;li&gt;
             {/* &lt;strong&gt;Price:&lt;/strong&gt; {item?.price || fallbackPrice} */}
           &lt;/li&gt;
           &lt;li&gt;
             &lt;strong&gt;Atmosphere:&lt;/strong&gt;{' '}
-            {item?.atmosphere || fallbackAtmosphere}
+            {item?.atmosphere || <span class="branch-1 cbranch-no" title="branch not covered" >fallbackAtmosphere}</span>
           &lt;/li&gt;
         &lt;/ul&gt;
 &nbsp;
@@ -338,7 +338,7 @@ const ActivityModal = ({ show, closeModal, item }) =&gt; {
                     ★ {item.rating} ({item.userRatingCount} reviews)
                   &lt;/span&gt;
                 ) : (
-                  'No ratings yet'
+<span class="branch-1 cbranch-no" title="branch not covered" >                  'No ratings yet'</span>
                 )}
               &lt;/div&gt;
             &lt;/div&gt;
@@ -376,7 +376,7 @@ export default ActivityModal;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-11T22:10:09.550Z
+                at 2025-04-12T21:27:45.954Z
             </div>
         <script src="../prettify.js"></script>
         <script>

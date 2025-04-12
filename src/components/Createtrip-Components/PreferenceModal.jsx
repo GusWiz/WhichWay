@@ -97,10 +97,11 @@ function PreferenceModal({ onClose }) {
     onClose();
   };
 
+  //on line 104, i added an id so that it doesn't confuse what button is being clicked. it know the button based on the id
   return (
     <div className='fixed bg-black backdrop-blur-sm'>
       <div className='bg-white rounded-xl px-8 py-10 flex flex-col gap-5 items-center w-full'>
-        <button className='close-btn' onClick={onClose}>
+        <button className='close-btn' data-testid="close-btn" onClick={onClose}>
           <X size={30} />
         </button>
 
