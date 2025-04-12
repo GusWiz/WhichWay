@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "coverage": "jest --coverage",
     "test": "jest",
     "dev": "make fmt && vite",
     "build": "make fmt && vite build",

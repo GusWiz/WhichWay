@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744406727669" clover="3.2.0">
-  <project timestamp="1744406727670" name="All files">
+<coverage generated="1744407341803" clover="3.2.0">
+  <project timestamp="1744407341803" name="All files">
     <metrics statements="36" coveredstatements="15" conditionals="35" coveredconditionals="13" methods="19" coveredmethods="4" elements="90" coveredelements="32" complexity="0" loc="36" ncloc="36" packages="1" files="2" classes="2"/>
-    <file name="ActivitiesDisplay.jsx" path="C:\Users\asiem\OneDrive\Desktop\Spring2025\SoftwareEngineering\Project\main\src\components\Createtrip-Components\ActivitiesDisplay.jsx">
+    <file name="ActivitiesDisplay.jsx" path="C:\Users\Allan\Desktop\cs3398\whichway\src\components\Createtrip-Components\ActivitiesDisplay.jsx">
       <metrics statements="28" coveredstatements="8" conditionals="21" coveredconditionals="12" methods="18" coveredmethods="3"/>
       <line num="18" count="1" type="stmt"/>
       <line num="19" count="1" type="stmt"/>
@@ -33,7 +33,7 @@
       <line num="244" count="0" type="stmt"/>
       <line num="269" count="1" type="stmt"/>
     </file>
-    <file name="ActivityModal.jsx" path="C:\Users\asiem\OneDrive\Desktop\Spring2025\SoftwareEngineering\Project\main\src\components\Createtrip-Components\ActivityModal.jsx">
+    <file name="ActivityModal.jsx" path="C:\Users\Allan\Desktop\cs3398\whichway\src\components\Createtrip-Components\ActivityModal.jsx">
       <metrics statements="8" coveredstatements="7" conditionals="14" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <line num="4" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
