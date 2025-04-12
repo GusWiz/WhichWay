@@ -29,17 +29,25 @@ export const createUserDocument = async (user) => {
   }
 };
 
-export const createItineraryDocument = async (itineraryData) => {
+export const createItineraryDocument = async (tripId, itineraryData) => {
   console.log('in create itinerary document');
   try {
+    if (!tripId) throw new Error('Trip ID is requqired')
     if (!itineraryData) throw new Error('Trip details are required');
 
     console.log('creating itinerary with data: ', itineraryData);
 
-    const itineraryRef = await addDoc(
-      collection(db, 'Itineraries'),
-      itineraryData
-    );
+    const itineraryWithTripId = {
+      ...itineraryData,
+      tripId,
+      createdAt: serverTimestamp(),
+    };
+
+    const itineraryRef = doc(db, 'trips', tripId);
+    await updateDoc(tripRef, {
+      itineraryID: itineraryRef.id,
+      lastUpdated: serverTimestamp()
+    });
     console.log('Itinerary created with ID:', itineraryRef.id);
 
     return itineraryRef.id;
@@ -209,12 +217,12 @@ export const saveGeneratedItinerary = async (tripId, itineraryData) => {
   }
 };
 
-export const saveUserItinerary = async (itineraryData) => {
+export const saveUserItinerary = async (itineraryData, tripId) => {
   console.log('in save user itinerary');
   try {
     if (!itineraryData) throw new Error('Trip details are required');
 
-    await createItineraryDocument(itineraryData);
+    await createItineraryDocument(tripId, itineraryData);
   } catch (error) {
     console.error('Error saving itinerary:', error);
     throw error;
