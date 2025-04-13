@@ -3,6 +3,7 @@ import {
   doc,
   setDoc,
   addDoc,
+  getDoc,
   collection,
   updateDoc,
   arrayUnion,
@@ -20,6 +21,7 @@ export const createUserDocument = async (user) => {
         firstName: user.firstName || '',
         lastName: user.lastName || '',
         trips: [], // Array to store trip IDs
+        itineraries: [],
       },
       { merge: true }
     );
@@ -187,9 +189,26 @@ export const saveGeneratedItinerary = async (tripId, itineraryData, tripName = n
     if (!itineraryData || !itineraryData.schedule)
       throw new Error('Valid itinerary data is required');
 
+    const tripRef = doc(db, 'trips', tripId);
+    const tripDoc = await getDoc(tripRef);
+    let userId = null;
+
+    if (tripDoc.exists()) {
+      userId = tripDoc.data().userId;
+    }
+    if (!userId) {
+      console.log('No userId found in the trip document. Trying to current user as fallback');
+      const auth = (await import('../firebase.js')).auth;
+      userId = auth.currentUser?.uid;
+    }
+
+    if (!userId) {
+      throw new Error('Cannot determine user ID for the itinerary');
+    }
     // Create the itinerary data object
     const firestoreData = {
       tripId,
+      userId: userId || 'NO ID',
       name: tripName || itineraryData.name || 'Generated Itinerary',
       schedule: itineraryData.schedule,
       createdAt: serverTimestamp(),
@@ -208,6 +227,8 @@ export const saveGeneratedItinerary = async (tripId, itineraryData, tripName = n
       itineraryId: itineraryRef.id,
       lastUpdated: serverTimestamp(),
     });
+
+    await addItineraryToUser(userId, itineraryRef.id);
 
     console.log('Itinerary saved with ID:', itineraryRef.id);
     return itineraryRef.id;
@@ -230,6 +251,35 @@ export const saveUserItinerary = async (itineraryData, tripId, tripName = null) 
   }
 };
 
+export const addItineraryToUser = async (userId, itineraryId) => {
+  try {
+    if (!userId) throw new Error('user ID is required');
+    if (!itineraryId) throw new Error('Itinerary ID is required');
+    console.log(`Adding itinerary ${itineraryId} to user ${userId}`);
+
+    const userRef = doc(db, 'Users', userId);
+    const userDoc = await getDoc(userRef);
+
+    const userData = userDoc.data();
+    if (!userData.itineraries) {
+      console.log(`Itineraries field doesn't exist in user document, creating it`);
+      // The field doesn't exist, so we need to create it with merge
+      await setDoc(userRef, {
+        itineraries: [itineraryId]
+      }, { merge: true });
+    } else {
+      // The field exists, so use arrayUnion to add the new ID
+      await updateDoc(userRef, {
+        itineraries: arrayUnion(itineraryId)
+      });
+    }
+
+    console.log(`Successfully added Itinerary ${itineraryId} to user ${userId}`);
+    return true;
+  } catch (error) {
+    console.error('Error adding itinerary to user:' , error);
+  }
+}
 //creating the new data model of how to save the itinerary to the db.
 // export const createItineraryModel = async (tripId) => {
 //   try {
