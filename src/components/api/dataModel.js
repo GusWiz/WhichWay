@@ -32,7 +32,7 @@ export const createUserDocument = async (user) => {
 export const createItineraryDocument = async (tripId, itineraryData) => {
   console.log('in create itinerary document');
   try {
-    if (!tripId) throw new Error('Trip ID is requqired')
+    if (!tripId) throw new Error('Trip ID is requqired');
     if (!itineraryData) throw new Error('Trip details are required');
 
     console.log('creating itinerary with data: ', itineraryData);
@@ -46,7 +46,7 @@ export const createItineraryDocument = async (tripId, itineraryData) => {
     const itineraryRef = doc(db, 'trips', tripId);
     await updateDoc(tripRef, {
       itineraryID: itineraryRef.id,
-      lastUpdated: serverTimestamp()
+      lastUpdated: serverTimestamp(),
     });
     console.log('Itinerary created with ID:', itineraryRef.id);
 

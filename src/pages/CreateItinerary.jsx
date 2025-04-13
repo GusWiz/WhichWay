@@ -90,7 +90,7 @@ function Itinerary() {
   const itineraryToDb = async () => {
     console.log('in itinerary to db');
     try {
-      if(!tripId) {
+      if (!tripId) {
         toast.error('No trip ID found. Cannot save itinerary.');
         return;
       }
@@ -100,11 +100,11 @@ function Itinerary() {
         return;
       }
       await saveUserItinerary(itineraryData, tripId);
-      toast.success('Itinerary saved successfully!')
+      toast.success('Itinerary saved successfully!');
       navigate('/home');
     } catch (error) {
       console.error('Error saving itinerary', error);
-      toast.error('Failed to save itinerary, try again.')
+      toast.error('Failed to save itinerary, try again.');
     }
   };
 
