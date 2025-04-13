@@ -9,9 +9,8 @@ import html2canvas from 'html2canvas';
 
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
-
 import { saveUserItinerary } from '../components/api/dataModel';
-import { getItineraryData } from '../backend/dataCollect';
+import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -19,9 +18,6 @@ import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
-import logo from '../components/images/logo.svg';
-import { Portrait } from '@mui/icons-material';
-import { saveItineraryData } from '../backend/dataCollect';
 
 function Itinerary() {
   const navigate = useNavigate();
@@ -85,6 +81,17 @@ function Itinerary() {
       console.error('Error generating PDF:', error);
       toast.error('Failed to download PDF');
     }
+  };
+
+  const getItineraryData = () => {
+    if (!itineraryData || itineraryData.length === 0) {
+      return null;
+    }
+
+    return {
+      name: tripName,
+      schedule: itineraryData
+    };
   };
 
   const itineraryToDb = async () => {
@@ -156,8 +163,18 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         throw new Error('Failed to generate a valid itinerary');
       }
 
-      // Parse the JSON response
-      const parsedItinerary = JSON.parse(itineraryResponse);
+      // Extract JSON from the response if it contains markdown code blocks
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+        }
+      }
+
+      // Now parse the cleaned JSON
+      const parsedItinerary = JSON.parse(jsonString);
 
       if (!parsedItinerary || !parsedItinerary.schedule) {
         throw new Error('Invalid itinerary format received');
@@ -230,18 +247,28 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </p>
               )}
 
-              {/* Buttons for managing itinerary */}
-              <div className='itinerary-buttons'>
+              <div className = 'itinerary-buttons'>
+                <button
+                className='itinerary-button'
+                onClick={itineraryToDb}
+                disabled={loading}
+                >
+                  {loading ? 'Saving' : "Save Itinerary"}
+
+                </button>
                 <button
                   className='itinerary-button'
                   onClick={handleGenerateItinerary}
                   disabled={loading}
                 >
-                  {loading ? 'Generating...' : 'Regenerate Itinerary'}
+                  {loading ? 'Generating...' : 'Generate Itinerary'}
                 </button>
 
-                <button className='itinerary-button' onClick={itineraryToDb}>
-                  Save Itinerary
+                <button
+                  className='itinerary-button'
+                  onClick={() => navigate('/home')}
+                >
+                  Back to Home
                 </button>
                 <button
                   className='itinerary-button'
