@@ -26,16 +26,34 @@ function Account({ user }) {
       const defaultData = {
         name: user.displayName || 'User Name',
         email: user.email || 'user@example.com',
-        location: 'New York, USA',
-        joinDate:
-          new Date(user.metadata?.creationTime).toLocaleDateString('en-US', {
+        location: 'Locating...',
+        joinDate: new Date(user.metadata?.creationTime).toLocaleDateString(
+          'en-US',
+          {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
-          }) || 'Joined recently',
+          }
+        ),
       };
+
       setUserData(defaultData);
       setTempData(defaultData);
+
+      //use their IP for their location
+      fetch('https://ipapi.co/json/')
+        .then((res) => res.json())
+        .then((data) => {
+          const city = data.city || 'Unknown city';
+          const country = data.country_name || 'Unknown country';
+          const updatedLocation = `${city}, ${country}`;
+
+          setUserData((prev) => ({ ...prev, location: updatedLocation }));
+          setTempData((prev) => ({ ...prev, location: updatedLocation }));
+        })
+        .catch((error) => {
+          console.log('IP location fetch failed:', error);
+        });
     }
   }, [user]);
 
