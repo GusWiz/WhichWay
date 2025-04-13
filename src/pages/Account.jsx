@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaUser,
   FaEnvelope,
@@ -17,15 +17,29 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 
 function Account({ user }) {
-  const [userData, setUserData] = useState({
-    name: user?.displayName || 'User Name',
-    email: user?.email || 'user@example.com',
-    location: 'New York, USA',
-    joinDate: 'Joined January 2023',
-  });
-
+  const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [tempData, setTempData] = useState({ ...userData });
+  const [tempData, setTempData] = useState({});
+
+  useEffect(() => {
+    if (user) {
+      const defaultData = {
+        name: user.displayName || 'User Name',
+        email: user.email || 'user@example.com',
+        location: 'New York, USA',
+        joinDate:
+          new Date(user.metadata?.creationTime).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }) || 'Joined recently',
+      };
+      setUserData(defaultData);
+      setTempData(defaultData);
+    }
+  }, [user]);
+
+  if (!userData) return <div>Loading...</div>;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
