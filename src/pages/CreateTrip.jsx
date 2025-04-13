@@ -7,7 +7,10 @@ import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { saveUserTrip, saveUserItinerary } from '../components/api/dataModel.js';
+import {
+  saveUserTrip,
+  saveUserItinerary,
+} from '../components/api/dataModel.js';
 import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,

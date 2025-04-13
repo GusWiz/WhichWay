@@ -90,7 +90,7 @@ function Itinerary() {
 
     return {
       name: tripName,
-      schedule: itineraryData
+      schedule: itineraryData,
     };
   };
 
@@ -247,14 +247,13 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </p>
               )}
 
-              <div className = 'itinerary-buttons'>
+              <div className='itinerary-buttons'>
                 <button
-                className='itinerary-button'
-                onClick={itineraryToDb}
-                disabled={loading}
+                  className='itinerary-button'
+                  onClick={itineraryToDb}
+                  disabled={loading}
                 >
-                  {loading ? 'Saving' : "Save Itinerary"}
-
+                  {loading ? 'Saving' : 'Save Itinerary'}
                 </button>
                 <button
                   className='itinerary-button'
