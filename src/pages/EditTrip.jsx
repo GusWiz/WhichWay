@@ -2,7 +2,7 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../components/firebase';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
-import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'; // Import deleteDoc
+import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -11,7 +11,7 @@ import './Landing.css';
 import './CreateItinerary.css';
 import './CreateTrip.css';
 import './Account.css';
-import { FaEdit, FaTrash } from 'react-icons/fa'; // Import FaTrash
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -20,6 +20,7 @@ import LocationAutocomplete from '../components/Createtrip-Components/LocationAu
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
 import { generateItinerary } from '../backend/openAI';
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx'; // Import DateSelector
 
 function EditTrip() {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ function EditTrip() {
 
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [details, setDetails] = useState({
     destination: '',
     location: null,
@@ -91,6 +94,8 @@ function EditTrip() {
             const tripData = tripDocSnap.data();
             setTripName(tripData.name);
             setDuration(tripData.duration);
+            setStartDate(tripData.startDate || '');
+            setEndDate(tripData.endDate || '');
             setDetails({
               destination: tripData.destination,
               location: tripData.location,
@@ -123,7 +128,8 @@ function EditTrip() {
     try {
       const openaiRequest = `
       Location: ${details.destination}
-      Start date: ${new Date().toISOString().split('T')[0]}
+      Start date: ${startDate || new Date().toISOString().split('T')[0]}
+      End date: ${endDate || new Date().toISOString().split('T')[0]}
       Duration: ${duration}
       Activity List:
       ${[
@@ -159,6 +165,8 @@ function EditTrip() {
       await updateDoc(doc(db, 'trips', editingTrip.id), {
         name: tripName,
         duration: duration,
+        startDate: startDate || '',
+        endDate: endDate || '',
         destination: details.destination,
         location: details.location,
         preferences: {
@@ -171,7 +179,7 @@ function EditTrip() {
       navigate('/createItinerary', {
         state: {
           location: details.destination,
-          startDate: new Date().toISOString().split('T')[0],
+          startDate: startDate || new Date().toISOString().split('T')[0],
           duration: duration,
           selectedFoods,
           selectedEntertainment,
@@ -197,6 +205,17 @@ function EditTrip() {
     const name = event.target.name;
     const value = event.target.value;
     setDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleDaterangeChange = ({ startDate, endDate }) => {
+    setStartDate(startDate ? startDate.toISOString().split('T')[0] : '');
+    setEndDate(endDate ? endDate.toISOString().split('T')[0] : '');
+
+    if (startDate && endDate) {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      setDuration(`${diffDays} days`);
+    }
   };
 
   const handleSelect = (category, item) => {
@@ -299,6 +318,13 @@ function EditTrip() {
                         value={details.destination}
                         onChange={handleChange}
                         onPlaceSelected={handlePlaceSelected}
+                      />
+                      <DateSelector
+                        onDateRangeChange={handleDaterangeChange}
+                        initialStartDate={
+                          startDate ? new Date(startDate) : null
+                        }
+                        initialEndDate={endDate ? new Date(endDate) : null}
                       />
                       <TripInputField
                         type='text'
