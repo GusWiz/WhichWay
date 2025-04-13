@@ -155,7 +155,7 @@ function Account({ user }) {
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Location:</span>
-                        <span>{userData.location}</span>
+                        <span>{userData.location} (auto-detected)</span>
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Member Since:</span>
