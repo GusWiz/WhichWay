@@ -99,7 +99,11 @@ function Itinerary() {
         toast.error('No itinerary data to save');
         return;
       }
-      await saveUserItinerary(itineraryData, tripId);
+      // if (!itineraryData.name && tripName) {
+      //   itineraryData.name = tripName;
+      //   console.log('Saving itinerary with name:', itineraryData.name);
+      // }
+      await saveUserItinerary(itineraryData, tripId, tripName);
       toast.success('Itinerary saved successfully!');
       navigate('/home');
     } catch (error) {
