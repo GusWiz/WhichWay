@@ -168,7 +168,7 @@ npm install html2canvas
 npm install jspdf
 ```
 
-### Test:
+### Unit Tests:
 
 ```
 npm install
@@ -181,6 +181,15 @@ see coverage
 ```
 npm run coverage
 ```
+To view in your browser:
+```
+# On Mac
+open coverage/lcov-report/index.html
+
+# On Windows
+start coverage/lcov-report/index.html
+```
+
 
 ### Build:
 
