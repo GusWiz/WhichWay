@@ -45,8 +45,9 @@ function Account({ user }) {
         .then((res) => res.json())
         .then((data) => {
           const city = data.city || 'Unknown city';
+          const region = data.region || 'Unknown state';
           const country = data.country_name || 'Unknown country';
-          const updatedLocation = `${city}, ${country}`;
+          const updatedLocation = `${city}, ${region}, ${country}`;
 
           setUserData((prev) => ({ ...prev, location: updatedLocation }));
           setTempData((prev) => ({ ...prev, location: updatedLocation }));
