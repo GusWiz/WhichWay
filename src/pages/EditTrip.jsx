@@ -1,10 +1,19 @@
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../components/firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useEffect, useState, useRef } from 'react';
-import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  setDoc,
+  collection,
+} from 'firebase/firestore';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import './Home.css';
 import './Landing.css';
@@ -20,10 +29,11 @@ import LocationAutocomplete from '../components/Createtrip-Components/LocationAu
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
 import { generateItinerary } from '../backend/openAI';
-import DateSelector from '../components/Createtrip-Components/DateSelector.jsx'; // Import DateSelector
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
 
 function EditTrip() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [tripsData, setTripsData] = useState([]);
   const [editingTrip, setEditingTrip] = useState(null);
@@ -44,6 +54,8 @@ function EditTrip() {
   const [outdoorOptions, setOutdoorOptions] = useState([]);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [itineraryData, setItineraryData] = useState(null);
+  const [showItinerary, setShowItinerary] = useState(false); // New state variable
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -105,6 +117,17 @@ function EditTrip() {
               tripData.preferences?.selectedEntertainment || []
             );
             setSelectedOutdoor(tripData.preferences?.selectedOutdoor || []);
+            if (tripData.itineraryId) {
+              const itineraryDocRef = doc(
+                db,
+                'Itineraries',
+                tripData.itineraryId
+              );
+              const itineraryDocSnap = await getDoc(itineraryDocRef);
+              if (itineraryDocSnap.exists()) {
+                setItineraryData(itineraryDocSnap.data().schedule);
+              }
+            }
           }
         } catch (error) {
           console.error('Error fetching trip to edit:', error);
@@ -162,6 +185,29 @@ function EditTrip() {
         throw new Error('Invalid itinerary format received');
       }
 
+      setItineraryData(parsedItinerary.schedule);
+      setShowItinerary(true); // Show itinerary
+    } catch (error) {
+      console.error('Error generating itinerary:', error);
+      toast.error('Failed to generate itinerary. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveItinerary = async () => {
+    try {
+      if (!itineraryData) {
+        toast.error('No itinerary data to save.');
+        return;
+      }
+
+      const itineraryDocRef = editingTrip.itineraryId
+        ? doc(db, 'Itineraries', editingTrip.itineraryId)
+        : doc(collection(db, 'Itineraries'));
+
+      await setDoc(itineraryDocRef, { schedule: itineraryData });
+
       await updateDoc(doc(db, 'trips', editingTrip.id), {
         name: tripName,
         duration: duration,
@@ -174,31 +220,21 @@ function EditTrip() {
           selectedEntertainment,
           selectedOutdoor,
         },
+        itineraryId: itineraryDocRef.id,
       });
 
-      navigate('/createItinerary', {
-        state: {
-          location: details.destination,
-          startDate: startDate || new Date().toISOString().split('T')[0],
-          duration: duration,
-          selectedFoods,
-          selectedEntertainment,
-          selectedOutdoor,
-          tripName,
-          tripId: editingTrip.id,
-          itineraryData: parsedItinerary.schedule || [],
-        },
-      });
+      toast.success('Itinerary saved!');
+      navigate('/home');
     } catch (error) {
-      console.error('Error generating itinerary:', error);
-      toast.error('Failed to generate itinerary. Please try again.');
-    } finally {
-      setLoading(false);
+      console.error('Error saving itinerary:', error);
+      toast.error('Failed to save itinerary.');
     }
   };
 
   const handleCancelEdit = () => {
     setEditingTrip(null);
+    setItineraryData(null);
+    setShowItinerary(false); // Hide itinerary
   };
 
   const handleChange = (event) => {
@@ -306,66 +342,144 @@ function EditTrip() {
                     <h1>Edit Trip</h1>
                   </div>
                   <div className='form-container'>
-                    <form className='form' onSubmit={(e) => e.preventDefault()}>
-                      <TripInputField
-                        type='text'
-                        placeholder='Trip Name'
-                        value={tripName}
-                        onChange={(e) => setTripName(e.target.value)}
-                        name='tripName'
-                      />
-                      <LocationAutocomplete
-                        value={details.destination}
-                        onChange={handleChange}
-                        onPlaceSelected={handlePlaceSelected}
-                      />
-                      <DateSelector
-                        onDateRangeChange={handleDaterangeChange}
-                        initialStartDate={
-                          startDate ? new Date(startDate) : null
-                        }
-                        initialEndDate={endDate ? new Date(endDate) : null}
-                      />
-                      <TripInputField
-                        type='text'
-                        placeholder='Duration'
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        name='duration'
-                      />
-                    </form>
-                    <ActivitiesDisplay
-                      foodOptions={foodOptions}
-                      selectedFoods={selectedFoods}
-                      handleSelectFood={(item) => handleSelect('food', item)}
-                      entertainmentOptions={entertainmentOptions}
-                      selectedEntertainment={selectedEntertainment}
-                      handleSelectEntertainment={(item) =>
-                        handleSelect('entertainment', item)
-                      }
-                      outdoorOptions={outdoorOptions}
-                      selectedOutdoor={selectedOutdoor}
-                      handleSelectOutdoor={(item) =>
-                        handleSelect('outdoor', item)
-                      }
-                    />
-                    <button
-                      onClick={handleGenerateItinerary}
-                      disabled={loading}
-                      className='itinerary-button'
-                    >
-                      {loading ? (
-                        <span className='loader'></span>
-                      ) : (
-                        'Generate New Itinerary'
-                      )}
-                    </button>
-                    <button
-                      className='itinerary-button'
-                      onClick={handleCancelEdit}
-                    >
-                      Cancel
-                    </button>
+                    {showItinerary ? (
+                      <div>
+                        {/* Display Itinerary Data */}
+                        {itineraryData.map((dayData, dayIndex) => (
+                          <div key={dayIndex} className='itinerary-day'>
+                            <div className='itinerary-daytitle'>
+                              <h2>
+                                Day {dayIndex + 1}: {dayData.date}
+                              </h2>
+                            </div>
+                            <div className='itinerary-itemscontainer'>
+                              {dayData.activities.map(
+                                (activity, activityIndex) => (
+                                  <div
+                                    key={activityIndex}
+                                    className='itinerary-item'
+                                  >
+                                    <div className='itinerary-itemtime'>
+                                      <h3>
+                                        {activity.start_time} -{' '}
+                                        {activity.end_time || 'TBD'}
+                                      </h3>
+                                    </div>
+                                    <div className='itinerary-item-details'>
+                                      <div className='itinerary-item-title'>
+                                        <h3>{activity.name}</h3>
+                                      </div>
+                                      <p>
+                                        {activity.description ||
+                                          'No description available'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                        <div className='itinerary-buttons'>
+                          <button
+                            onClick={handleGenerateItinerary}
+                            disabled={loading}
+                            className='itinerary-button'
+                          >
+                            {loading ? (
+                              <span className='loader'></span>
+                            ) : (
+                              'Regenerate'
+                            )}
+                          </button>
+                          <button
+                            onClick={handleSaveItinerary}
+                            className='itinerary-button'
+                          >
+                            Save
+                          </button>
+                          <button className='itinerary-button'>
+                            Download PDF
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className='itinerary-button'
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <form
+                          className='form'
+                          onSubmit={(e) => e.preventDefault()}
+                        >
+                          <TripInputField
+                            type='text'
+                            placeholder='Trip Name'
+                            value={tripName}
+                            onChange={(e) => setTripName(e.target.value)}
+                            name='tripName'
+                          />
+                          <LocationAutocomplete
+                            value={details.destination}
+                            onChange={handleChange}
+                            onPlaceSelected={handlePlaceSelected}
+                          />
+                          <DateSelector
+                            onDateRangeChange={handleDaterangeChange}
+                            initialStartDate={
+                              startDate ? new Date(startDate) : null
+                            }
+                            initialEndDate={endDate ? new Date(endDate) : null}
+                          />
+                          <TripInputField
+                            type='text'
+                            placeholder='Duration'
+                            value={duration}
+                            onChange={(e) => setDuration(e.target.value)}
+                            name='duration'
+                          />
+                        </form>
+                        <ActivitiesDisplay
+                          foodOptions={foodOptions}
+                          selectedFoods={selectedFoods}
+                          handleSelectFood={(item) =>
+                            handleSelect('food', item)
+                          }
+                          entertainmentOptions={entertainmentOptions}
+                          selectedEntertainment={selectedEntertainment}
+                          handleSelectEntertainment={(item) =>
+                            handleSelect('entertainment', item)
+                          }
+                          outdoorOptions={outdoorOptions}
+                          selectedOutdoor={selectedOutdoor}
+                          handleSelectOutdoor={(item) =>
+                            handleSelect('outdoor', item)
+                          }
+                        />
+                        <div className='create-trip-buttons'>
+                          <button
+                            onClick={handleGenerateItinerary}
+                            disabled={loading}
+                            className='trip-preference-btn'
+                          >
+                            {loading ? (
+                              <span className='loader'></span>
+                            ) : (
+                              'Generate New Itinerary'
+                            )}
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className='trip-preference-btn'
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </>
               ) : (
