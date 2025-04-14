@@ -19,10 +19,8 @@ function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log('User logged in Successfully');
       window.location.href = '/home';
     } catch (error) {
-      console.log(error.message);
       const errorMessage = error.message;
       alert(errorMessage);
     }
