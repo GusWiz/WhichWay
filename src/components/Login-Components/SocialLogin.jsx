@@ -1,3 +1,4 @@
+import React from 'react';
 import './login-styling.css';
 import googlesvg from '../images/google.svg';
 

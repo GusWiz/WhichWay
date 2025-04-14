@@ -37,10 +37,9 @@ provide you with extra information about the different activities found. This no
 - JavaScript - ES15
 - React - version 18.2.0
 - Python - version 3.11.2
-- Flask - version 2.2.5
-- SQL - SQL:2023
-- Google Authenticator App - version 2.36.0
-- DeekSeek - version 2.5
+- Firebase Hosting
+- Firebase Authentication
+- Firebase Firestore DB
 
 ## Features
 
@@ -169,7 +168,30 @@ npm install html2canvas
 npm install jspdf
 ```
 
-### Build and Test:
+### Unit Tests:
+
+```
+npm install
+```
+then
+```
+npm test
+```
+see coverage
+```
+npm run coverage
+```
+To view in your browser:
+```
+# On Mac
+open coverage/lcov-report/index.html
+
+# On Windows
+start coverage/lcov-report/index.html
+```
+
+
+### Build:
 
 - Made changes? You should first do:
 
@@ -538,7 +560,7 @@ firebase use whichway-9040f
 
    **Individual**:
 
-  - **Vinny**:
+  - **Vinny**: I feel like I still procrastinated my tasks a little too hard thinking they would be longer than they were. I want to trust my estimates more.
 
   - **Alan**: I need to dedicate appropriate time for challenging tasks and also relay useful information to my team.
 

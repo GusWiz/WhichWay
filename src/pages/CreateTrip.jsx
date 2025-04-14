@@ -7,7 +7,10 @@ import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { saveUserTrip } from '../components/api/dataModel.js';
+import {
+  saveUserTrip,
+  saveUserItinerary,
+} from '../components/api/dataModel.js';
 import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,
@@ -25,6 +28,7 @@ import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDis
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -41,6 +45,7 @@ function CreateTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tripId, setTripId] = useState(null);
@@ -102,6 +107,17 @@ function CreateTrip() {
     setDetails((prev) => {
       return { ...prev, [name]: value };
     });
+  };
+
+  const handleDaterangeChange = ({ startDate, endDate }) => {
+    setStartDate(startDate ? startDate.toISOString().split('T')[0] : '');
+    setEndDate(endDate ? endDate.toISOString().split('T')[0] : '');
+
+    if (startDate && endDate) {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      setDuration(`${diffDays} days`);
+    }
   };
 
   const handleItinerary = async () => {
@@ -252,16 +268,14 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
+        startDate: startDate || '',
+        endDate: endDate || '',
         duration: duration || '1 day', // Default to 1 day if not specified
         location: details.location || { lat: 0, lng: 0 },
       };
 
       // Save details locally
-      saveDetails(
-        tripName,
-        details.destination,
-        duration
-      );
+      saveDetails(tripName, details.destination, duration, startDate, endDate);
 
       // Save to Firebase
       const savedTripId = await saveUserTrip(
@@ -271,7 +285,7 @@ function CreateTrip() {
         {
           selectedFoods,
           selectedEntertainment,
-          selectedOutdoor
+          selectedOutdoor,
         }
       );
 
@@ -311,25 +325,29 @@ function CreateTrip() {
 
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Use default activities if activityList is empty
-      const finalActivityList = activityList.length > 0 ? activityList : [
-        'Restaurant',
-        'Park',
-        'Museum',
-        'Cafe',
-        'Historic Site',
-        'Local Attraction'
-      ];
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Restaurant',
+              'Park',
+              'Museum',
+              'Cafe',
+              'Historic Site',
+              'Local Attraction',
+            ];
 
       // Construct the OpenAI request content
       const openaiRequest = `
 Location: ${details.destination}
 Start date: ${startDate || new Date().toISOString().split('T')[0]}
+End date: ${endDate || new Date().toISOString().split('T')[0]}
 Duration: ${duration}
 Activity List:
 ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
@@ -355,6 +373,10 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         }
       }
 
+      saveItineraryData(jsonString);
+
+      console.log('after save itinerary data');
+
       // Parse the JSON response
       const parsedItinerary = JSON.parse(jsonString);
 
@@ -371,13 +393,13 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
             name: tripName,
             destination: details.destination,
             location: details.location || { lat: 0, lng: 0 },
-            budget: "0"
+            budget: '0',
           },
           duration,
           {
             selectedFoods,
             selectedEntertainment,
-            selectedOutdoor
+            selectedOutdoor,
           }
         );
         setTripId(savedTripId);
@@ -395,10 +417,9 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           selectedOutdoor,
           tripName,
           tripId: savedTripId,
-          itineraryData: parsedItinerary.schedule || []
-        }
+          itineraryData: parsedItinerary.schedule || [],
+        },
       });
-
     } catch (error) {
       console.error('Error generating itinerary:', error);
       toast.error('Failed to generate itinerary. Please try again.');
@@ -438,6 +459,11 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     onChange={handleChange}
                     onPlaceSelected={handlePlaceSelected}
                   />
+                  <DateSelector
+                    onDateRangeChange={handleDaterangeChange}
+                    initialStartDate={startDate ? new Date(startDate) : null}
+                    initialEndDate={endDate ? new Date(endDate) : null}
+                  />
                   <TripInputField
                     type='text'
                     placeholder='Duration'
@@ -447,9 +473,9 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   />
                 </form>
 
-                <div className="create-trip-buttons">
+                <div className='create-trip-buttons'>
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleSaveTrip}
                     disabled={isSubmitting}
                   >
@@ -457,7 +483,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   </button>
 
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleGenerateItinerary}
                     disabled={loadingItinerary || isSubmitting}
                   >
@@ -494,7 +520,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
       {isLoadingActivities && (
         <div className='loading-container'>
           <p>Loading activities for {details.destination}...</p>
-          <div className="spinner"></div>
+          <div className='spinner'></div>
         </div>
       )}
     </>
