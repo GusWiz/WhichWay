@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { auth, googleProvider } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
@@ -69,7 +68,7 @@ function Login() {
           </form>
 
           <p className='atext'>
-            Don't have an account? <Link to='/signup'>Signup</Link>
+            Don't have an account? <a href='/signup'>Signup</a>
           </p>
         </div>
       </div>
