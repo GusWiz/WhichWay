@@ -21,11 +21,20 @@ import EditTrip from './pages/EditTrip.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
+      setLoading(false);
     });
-  });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Or a spinner or splash screen
+  }
 
   return (
     <Router>
@@ -44,10 +53,7 @@ export default function App() {
           path='/createitinerary'
           element={user ? <CreateItinerary /> : <Login />}
         />
-        <Route
-          path='/account'
-          element={user ? <Account user={user} /> : <Login />}
-        />
+        <Route path='/account' element={user ? <Account user={user} /> : <Login />} />
         <Route path='/settings' element={user ? <Settings /> : <Login />} />
         <Route path='/edittrip' element={user ? <EditTrip /> : <Login />} />
       </Routes>
