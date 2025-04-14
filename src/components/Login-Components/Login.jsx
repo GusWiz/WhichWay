@@ -65,7 +65,7 @@ function Login() {
               Forgot Password?
             </a>
 
-            <LoginButton text='Log In' />
+            <LoginButton text='Login' />
           </form>
 
           <p className='atext'>

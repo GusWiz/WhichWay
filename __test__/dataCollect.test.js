@@ -1,5 +1,7 @@
-
-const { saveActivities, getSavedActivities } = require('../src/backend/dataCollect');
+const {
+  saveActivities,
+  getSavedActivities,
+} = require('../src/backend/dataCollect');
 
 describe('Activity Data Collection', () => {
   it('should save and retrieve the selected activities correctly', () => {
