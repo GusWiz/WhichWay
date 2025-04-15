@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 
+
+
 const TripTable = ({
   title,
   trips,
@@ -22,14 +24,16 @@ const TripTable = ({
   onEdit,
   onView,
   onRemove,
+  onViewItinerary,
 }) => (
+
   <>
     <button className='triphome-button' onClick={toggleHide}>
       {hide ? `Show ${title}` : `Hide ${title}`}
     </button>
     {!hide && (
       <div className='trip-section'>
-        <h2 class='h2'>{title}</h2>
+        <h2 className='h2'>{title}</h2>
         {trips.length ? (
           <table>
             <thead>
@@ -37,6 +41,7 @@ const TripTable = ({
                 <th>Trip Name</th>
                 <th>Date</th>
                 <th>Destination</th>
+                <th>Itinerary</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -52,6 +57,14 @@ const TripTable = ({
                       />
                     </td>
                   ))}
+                  <td>
+                    <button
+                      className='triphome-button'
+                      onClick={onViewItinerary}
+                    >
+                      View Itinerary
+                    </button>
+                  </td>
                   <td>
                     {title === 'Upcoming Trips' ? (
                       <button
@@ -78,6 +91,7 @@ const TripTable = ({
         )}
       </div>
     )}
+
   </>
 );
 
@@ -106,6 +120,7 @@ const EditableField = ({ field, value, tripId }) => {
 };
 
 export default function TripManager() {
+  const [showModal, setShowModal] = useState(false);
   const [trips, setTrips] = useState([]);
   const [tripDetails, setTripDetails] = useState({
     name: '',
@@ -170,20 +185,25 @@ export default function TripManager() {
       <div className='triphome-body'>
         <div>
           <h1 className='h1'>Trip Dashboard</h1>
+
           <TripTable
             title='Upcoming Trips'
             trips={upcomingTrips}
             hide={hideUpcoming}
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
             onRemove={handleRemove}
+            onViewItinerary={() => setShowModal(true)}
           />
+
           <TripTable
             title='Past Trips'
             trips={pastTrips}
             hide={hidePast}
             toggleHide={() => setHidePast(!hidePast)}
             onView={navigate}
+            onViewItinerary={() => setShowModal(true)}
           />
+
           <div>
             <h2 className='h2'>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
             {['name', 'date', 'destination'].map((field) => (
@@ -200,8 +220,26 @@ export default function TripManager() {
               {tripId ? 'Save' : 'Add Trip'}
             </button>
           </div>
+
+          {/* ✅ Here’s where the modal goes */}
+          {showModal && (
+            <div className="modal-overlay" onClick={() => setShowModal(false)}>
+              <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <button
+                  className="close-button"
+                  onClick={() => setShowModal(false)}
+                >
+                  ×
+                </button>
+                <h2>Itinerary Details</h2>
+                <p>(You can render itinerary content here later)</p>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </ErrorBoundary>
   );
+
 }
