@@ -190,6 +190,21 @@
   animation: spin 1s linear infinite;
 }
 
+.placeholder-activity-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px; /* Adjust based on the container size you want */
+  text-align: center;
+  background-color: #f9f9f9; /* optional: subtle background */
+  border-radius: 10px; /* optional: rounded corners */
+  color: #555; /* optional: soft text color */
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 20px; /* optional spacing */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* optional: light shadow */
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
