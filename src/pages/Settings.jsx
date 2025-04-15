@@ -61,7 +61,10 @@ function Settings() {
 
                 <div className='setting-item'>
                   <label>Language</label>
-                  <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+                  <select
+                    value={language}
+                    onChange={(e) => setLanguage(e.target.value)}
+                  >
                     <option value='en'>English</option>
                     <option value='es'>Spanish</option>
                     <option value='fr'>French</option>
@@ -75,7 +78,10 @@ function Settings() {
 
                 <div className='setting-item'>
                   <label>Theme</label>
-                  <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+                  <select
+                    value={theme}
+                    onChange={(e) => setTheme(e.target.value)}
+                  >
                     <option value='light'>Light Mode</option>
                     <option value='dark'>Dark Mode</option>
                     <option value='system'>System Default</option>
@@ -84,7 +90,10 @@ function Settings() {
 
                 <div className='setting-item'>
                   <label>Font Style</label>
-                  <select value={fontStyle} onChange={(e) => setFontStyle(e.target.value)}>
+                  <select
+                    value={fontStyle}
+                    onChange={(e) => setFontStyle(e.target.value)}
+                  >
                     <option value='default'>Default</option>
                     <option value='serif'>Serif</option>
                     <option value='sans-serif'>Sans-serif</option>
@@ -105,8 +114,9 @@ function Settings() {
                   >
                     Set Permission
                   </button>
-                  <p style={{ fontSize: '0.9rem'}}>
-                    Current: {defaultLocation === 'auto' ? 'Allowed' : 'Not allowed'}
+                  <p style={{ fontSize: '0.9rem' }}>
+                    Current:{' '}
+                    {defaultLocation === 'auto' ? 'Allowed' : 'Not allowed'}
                   </p>
                 </div>
               </div>
