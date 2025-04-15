@@ -183,6 +183,7 @@ function CreateTrip() {
   // Handle location selection
   const handlePlaceSelected = async (placeData) => {
     // Update trip details with the location data
+    console.log("we doin da handle place select");
     setDetails((prev) => ({
       ...prev,
       destination: placeData.name,
@@ -220,13 +221,6 @@ function CreateTrip() {
     }
   };
 
-  // Handle the place selected from LocationSearch
-  const handleLocationSelect = (placeDetails) => {
-    setDetails((prev) => ({
-      ...prev,
-      destination: placeDetails.formatted_address,
-    }));
-  };
 
   // Save the trip details to Firestore
   const handleSaveTrip = async () => {
