@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   collection,
   addDoc,
@@ -15,6 +15,10 @@ import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 import ItineraryDisplay from '../Universal-Components/ItineraryDisplay';
 import { sampleSchedule } from '../../pages/TestPage';
+
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 
 
@@ -98,6 +102,7 @@ const TripTable = ({
 );
 
 const EditableField = ({ field, value, tripId }) => {
+
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
 
@@ -122,6 +127,7 @@ const EditableField = ({ field, value, tripId }) => {
 };
 
 export default function TripManager() {
+  const printRef = useRef();
   const [showModal, setShowModal] = useState(false);
   const [trips, setTrips] = useState([]);
   const [tripDetails, setTripDetails] = useState({
@@ -133,6 +139,37 @@ export default function TripManager() {
   const [hideUpcoming, setHideUpcoming] = useState(false);
   const [hidePast, setHidePast] = useState(false);
   const navigate = useNavigate();
+
+  const handleDownloadPDF = async () => {
+    const element = printRef.current;
+
+    if (!element) {
+      console.error('No content to download');
+      return;
+    }
+
+    try {
+      const canvas = await html2canvas(element);
+      const data = canvas.toDataURL('image/png');
+
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'px',
+        format: 'a4',
+      });
+
+      const imageProperties = pdf.getImageProperties(data);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight =
+        (imageProperties.height * pdfWidth) / imageProperties.width;
+
+      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('Itinerary.pdf');
+      console.log('PDF downloaded successfully!');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -233,7 +270,18 @@ export default function TripManager() {
                   ×
                 </button>
                 <h2>Itinerary Details</h2>
-                <ItineraryDisplay schedule={sampleSchedule}/>
+                <div ref={printRef}>
+                  <ItineraryDisplay schedule={sampleSchedule}/>
+                </div>
+
+                <button
+                  className="triphome-button"
+                  style={{ marginTop: '20px' }}
+                  onClick={handleDownloadPDF}
+                >
+                  Export to PDF
+              </button>
+
               </div>
             </div>
           )}
