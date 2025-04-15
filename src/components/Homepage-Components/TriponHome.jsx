@@ -13,6 +13,8 @@ import { db } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
+import ItineraryDisplay from '../Universal-Components/ItineraryDisplay';
+import { sampleSchedule } from '../../pages/TestPage';
 
 
 
@@ -221,7 +223,6 @@ export default function TripManager() {
             </button>
           </div>
 
-          {/* ✅ Here’s where the modal goes */}
           {showModal && (
             <div className="modal-overlay" onClick={() => setShowModal(false)}>
               <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -232,7 +233,7 @@ export default function TripManager() {
                   ×
                 </button>
                 <h2>Itinerary Details</h2>
-                <p>(You can render itinerary content here later)</p>
+                <ItineraryDisplay schedule={sampleSchedule}/>
               </div>
             </div>
           )}

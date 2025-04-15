@@ -1,7 +1,7 @@
 import React from 'react';
 import ItineraryCalendar from '../components/Universal-Components/ItineraryDisplay';
 
-const sampleSchedule = [
+export const sampleSchedule = [
   {
     date: '2025-04-14',
     activities: [
@@ -40,5 +40,4 @@ const testPage = () => {
     </div>
   );
 };
-
 export default testPage;

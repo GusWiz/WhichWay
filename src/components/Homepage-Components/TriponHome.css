@@ -152,7 +152,7 @@ tr:hover {
 
 /* Modal box */
 .modal-content {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 12px;
   width: 80%;
