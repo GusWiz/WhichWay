@@ -59,7 +59,6 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
 
         // Add event listener for place selection
         autocompleteRef.current.addListener('place_changed', () => {
-          console.log('we tryin some shi');
           const place = autocompleteRef.current.getPlace();
           if (place?.geometry?.location) {
             // Format location data for parent component
