@@ -1,30 +1,80 @@
-// ItineraryCalendar.jsx
 import React from 'react';
+import './ItineraryDisplay.css';
 
-const ItineraryCalendar = ({ schedule }) => {
+const HOURS = Array.from({ length: 13 }, (_, i) => i + 8); // 8 AM to 8 PM
+
+const formatHour = (hour) => {
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+  return `${hour12}:00 ${ampm}`;
+};
+
+const getWeekday = (dateStr) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { weekday: 'long' });
+};
+
+const getMinutesFromTime = (timeStr) => {
+  const [hours, minutes] = timeStr.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+const ItineraryDisplay = ({ schedule }) => {
   return (
-    <div className='p-4'>
-      {schedule.map((day, idx) => (
-        <div key={idx} className='mb-6 border rounded-lg p-4 shadow'>
-          <h2 className='text-xl font-bold mb-2'>{day.date}</h2>
-          <div className='space-y-2'>
-            {day.activities.map((activity, i) => (
-              <div
-                key={i}
-                className='bg-blue-100 border-l-4 border-blue-500 p-3 rounded'
-              >
-                <p className='font-semibold'>{activity.name}</p>
-                <p>
-                  {activity.start_time} - {activity.end_time}
-                </p>
-                <p>Duration: {activity.Duration}</p>
-              </div>
-            ))}
+    <div className='itinerary-grid-wrapper'>
+      {/* Header Row */}
+      <div className='header-row'>
+        <div className='time-column-header' /> {/* Empty spacer */}
+        {schedule.map((day, idx) => (
+          <div key={idx} className='day-column-header'>
+            <div className='weekday'>{getWeekday(day.date)}</div>
+            <div className='date'>{day.date}</div>
           </div>
+        ))}
+      </div>
+
+      {/* Main Grid */}
+      <div className='grid-content'>
+        {/* Time Labels */}
+        <div className='time-column'>
+          {HOURS.map((hour) => (
+            <div key={hour} className='time-slot'>
+              {formatHour(hour)}
+            </div>
+          ))}
         </div>
-      ))}
+
+        {/* Day Columns */}
+        <div className='days-container'>
+          {schedule.map((day, idx) => (
+            <div key={idx} className='day-column'>
+              <div className='day-body'>
+                {day.activities.map((activity, i) => {
+                  const start = getMinutesFromTime(activity.start_time);
+                  const end = getMinutesFromTime(activity.end_time);
+                  const top = ((start - 480) / 60) * 50; // 480 = 8 AM
+                  const height = ((end - start) / 60) * 50;
+
+                  return (
+                    <div
+                      key={i}
+                      className='activity-block'
+                      style={{ top: `${top}px`, height: `${height}px` }}
+                    >
+                      <strong>{activity.name}</strong>
+                      <div>
+                        {activity.start_time} - {activity.end_time}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default ItineraryCalendar;
+export default ItineraryDisplay;
