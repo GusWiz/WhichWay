@@ -9,22 +9,13 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 
 function Settings() {
-  // General Settings
-  const [language, setLanguage] = useState('en');
-  const [timeFormat, setTimeFormat] = useState('12');
-  const [dateFormat, setDateFormat] = useState('MM/DD/YYYY');
-  const [currency, setCurrency] = useState('USD');
-
-  // Display Settings
   const [theme, setTheme] = useState('light');
   const [fontStyle, setFontStyle] = useState('default');
-
-  // Location Settings
-  const [defaultLocation, setDefaultLocation] = useState('');
-  const [measurementUnits, setMeasurementUnits] = useState('metric');
+  const [showTips, setShowTips] = useState(true);
 
   const handleSaveSettings = () => {
-    //Add later
+    console.log('Saved settings:', { theme, fontStyle, showTips });
+    // TODO: persist to context or Firebase
   };
 
   const logout = async () => {
@@ -46,71 +37,7 @@ function Settings() {
             <div className='settings-page'>
               <h2>Settings</h2>
 
-              {/* General Settings Section */}
-              <div className='settings-section'>
-                <h3>🌍 General Settings</h3>
-
-                <div className='setting-item'>
-                  <label>Language</label>
-                  <select
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                  >
-                    <option value='en'>English</option>
-                    <option value='es'>Spanish</option>
-                    <option value='fr'>French</option>
-                  </select>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Time Format</label>
-                  <div className='radio-group'>
-                    <label>
-                      <input
-                        type='radio'
-                        value='12'
-                        checked={timeFormat === '12'}
-                        onChange={() => setTimeFormat('12')}
-                      />
-                      12-hour
-                    </label>
-                    <label>
-                      <input
-                        type='radio'
-                        value='24'
-                        checked={timeFormat === '24'}
-                        onChange={() => setTimeFormat('24')}
-                      />
-                      24-hour
-                    </label>
-                  </div>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Date Format</label>
-                  <select
-                    value={dateFormat}
-                    onChange={(e) => setDateFormat(e.target.value)}
-                  >
-                    <option value='MM/DD/YYYY'>MM/DD/YYYY</option>
-                    <option value='DD/MM/YYYY'>DD/MM/YYYY</option>
-                    <option value='YYYY-MM-DD'>YYYY-MM-DD</option>
-                  </select>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Currency Format</label>
-                  <select
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                  >
-                    <option value='USD'>USD - US Dollar</option>
-                    <option value='EUR'>EUR - Euro</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Display Settings Section */}
+              {/* Display Settings */}
               <div className='settings-section'>
                 <h3>🎨 Display Settings</h3>
 
@@ -133,47 +60,36 @@ function Settings() {
                     onChange={(e) => setFontStyle(e.target.value)}
                   >
                     <option value='default'>Default</option>
-                    <option value='serif'>Serif</option>
-                    <option value='sans-serif'>Sans-serif</option>
                     <option value='large'>Large Text</option>
+                    <option value='dyslexia'>Dyslexia-Friendly</option>
                   </select>
                 </div>
               </div>
 
-              {/* Location Settings Section */}
+              {/* Tips & Tutorials */}
               <div className='settings-section'>
-                <h3>📍 Location Settings</h3>
+                <h3>🧠 Tips & Tutorials</h3>
 
                 <div className='setting-item'>
-                  <label>Default Starting Location</label>
-                  <input
-                    type='text'
-                    value={defaultLocation}
-                    onChange={(e) => setDefaultLocation(e.target.value)}
-                    placeholder='Enter your home/base location'
-                  />
-                </div>
-
-                <div className='setting-item'>
-                  <label>Units of Measurement</label>
+                  <label>Show Travel Tips</label>
                   <div className='radio-group'>
                     <label>
                       <input
                         type='radio'
-                        value='metric'
-                        checked={measurementUnits === 'metric'}
-                        onChange={() => setMeasurementUnits('metric')}
+                        value='yes'
+                        checked={showTips}
+                        onChange={() => setShowTips(true)}
                       />
-                      Metric (km, °C)
+                      Yes, show tips
                     </label>
                     <label>
                       <input
                         type='radio'
-                        value='imperial'
-                        checked={measurementUnits === 'imperial'}
-                        onChange={() => setMeasurementUnits('imperial')}
+                        value='no'
+                        checked={!showTips}
+                        onChange={() => setShowTips(false)}
                       />
-                      Imperial (miles, °F)
+                      Don’t show tips
                     </label>
                   </div>
                 </div>
