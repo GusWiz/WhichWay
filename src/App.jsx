@@ -18,7 +18,7 @@ import Landing from './pages/Landing.jsx';
 import Settings from './pages/Settings.jsx';
 import Account from './pages/Account.jsx';
 import EditTrip from './pages/EditTrip.jsx';
-import TestPage from './pages/testPage.jsx';
+import TestPage from './pages/TestPage.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
