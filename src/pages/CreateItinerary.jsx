@@ -9,6 +9,8 @@ import html2canvas from 'html2canvas';
 
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
+import { saveUserItinerary } from '../components/api/dataModel';
+import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -32,7 +34,7 @@ function Itinerary() {
     selectedOutdoor = [],
     tripName = 'My Trip',
     tripId = null,
-    itineraryData: initialItineraryData = []
+    itineraryData: initialItineraryData = [],
   } = location.state || {};
 
   // Use the provided itinerary data if available
@@ -81,6 +83,42 @@ function Itinerary() {
     }
   };
 
+  const getItineraryData = () => {
+    if (!itineraryData || itineraryData.length === 0) {
+      return null;
+    }
+
+    return {
+      name: tripName,
+      schedule: itineraryData,
+    };
+  };
+
+  const itineraryToDb = async () => {
+    console.log('in itinerary to db');
+    try {
+      if (!tripId) {
+        toast.error('No trip ID found. Cannot save itinerary.');
+        return;
+      }
+      const itineraryData = getItineraryData();
+      if (!itineraryData) {
+        toast.error('No itinerary data to save');
+        return;
+      }
+      // if (!itineraryData.name && tripName) {
+      //   itineraryData.name = tripName;
+      //   console.log('Saving itinerary with name:', itineraryData.name);
+      // }
+      await saveUserItinerary(itineraryData, tripId, tripName);
+      toast.success('Itinerary saved successfully!');
+      navigate('/home');
+    } catch (error) {
+      console.error('Error saving itinerary', error);
+      toast.error('Failed to save itinerary, try again.');
+    }
+  };
+
   // Function to generate itinerary with OpenAI directly
   // Uses the same approach as in EditTrip.jsx
   const handleGenerateItinerary = async () => {
@@ -88,21 +126,24 @@ function Itinerary() {
     try {
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Use default activities if activityList is empty
-      const finalActivityList = activityList.length > 0 ? activityList : [
-        'Chilis',
-        'Sewell Park',
-        'Double Daves',
-        'EVO',
-        'Chi Lantro',
-        'Golds Gym',
-        'Hiking trail',
-      ];
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Chilis',
+              'Sewell Park',
+              'Double Daves',
+              'EVO',
+              'Chi Lantro',
+              'Golds Gym',
+              'Hiking trail',
+            ];
 
       // Construct the OpenAI request content
       const openaiRequest = `
@@ -122,8 +163,18 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         throw new Error('Failed to generate a valid itinerary');
       }
 
-      // Parse the JSON response
-      const parsedItinerary = JSON.parse(itineraryResponse);
+      // Extract JSON from the response if it contains markdown code blocks
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+        }
+      }
+
+      // Now parse the cleaned JSON
+      const parsedItinerary = JSON.parse(jsonString);
 
       if (!parsedItinerary || !parsedItinerary.schedule) {
         throw new Error('Invalid itinerary format received');
@@ -142,38 +193,41 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
   return (
     <>
       <NavigationBar />
-      <div className="home-page">
-        <div className="home-container">
+      <div className='home-page'>
+        <div className='home-container'>
           <Sidebar logout={logout} />
-          <div className="home-contents">
-            <div ref={printRef} className="itinerary-container">
-              <div className="createititnerary-title">
+          <div className='home-contents'>
+            <div ref={printRef} className='itinerary-container'>
+              <div className='createititnerary-title'>
                 <h1>Create Itinerary</h1>
                 <h2>for {tripLocation}</h2>
               </div>
 
               {/* Display loading spinner or itinerary data */}
               {loading ? (
-                <div className="loading-container">
+                <div className='loading-container'>
                   <p>Loading itinerary...</p>
-                  <div className="spinner"></div>
+                  <div className='spinner'></div>
                 </div>
               ) : itineraryData.length > 0 ? (
                 itineraryData.map((dayData, dayIndex) => (
-                  <div key={dayIndex} className="itinerary-day">
-                    <div className="itinerary-daytitle">
-                      <h2>Day {dayIndex + 1}: {dayData.date}</h2>
+                  <div key={dayIndex} className='itinerary-day'>
+                    <div className='itinerary-daytitle'>
+                      <h2>
+                        Day {dayIndex + 1}: {dayData.date}
+                      </h2>
                     </div>
-                    <div className="itinerary-itemscontainer">
+                    <div className='itinerary-itemscontainer'>
                       {dayData.activities.map((activity, activityIndex) => (
-                        <div key={activityIndex} className="itinerary-item">
-                          <div className="itinerary-itemtime">
+                        <div key={activityIndex} className='itinerary-item'>
+                          <div className='itinerary-itemtime'>
                             <h3>
-                              {activity.start_time} - {activity.end_time || 'TBD'}
+                              {activity.start_time} -{' '}
+                              {activity.end_time || 'TBD'}
                             </h3>
                           </div>
-                          <div className="itinerary-item-details">
-                            <div className="itinerary-item-title">
+                          <div className='itinerary-item-details'>
+                            <div className='itinerary-item-title'>
                               <h3>{activity.name}</h3>
                             </div>
                             <p>
@@ -193,24 +247,30 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </p>
               )}
 
-              {/* Buttons for managing itinerary */}
-              <div className="itinerary-buttons">
+              <div className='itinerary-buttons'>
                 <button
-                  className="itinerary-button"
+                  className='itinerary-button'
+                  onClick={itineraryToDb}
+                  disabled={loading}
+                >
+                  {loading ? 'Saving' : 'Save Itinerary'}
+                </button>
+                <button
+                  className='itinerary-button'
                   onClick={handleGenerateItinerary}
                   disabled={loading}
                 >
-                  {loading ? "Generating..." : "Generate Itinerary"}
+                  {loading ? 'Generating...' : 'Generate Itinerary'}
                 </button>
 
                 <button
-                  className="itinerary-button"
+                  className='itinerary-button'
                   onClick={() => navigate('/home')}
                 >
                   Back to Home
                 </button>
                 <button
-                  className="itinerary-button"
+                  className='itinerary-button'
                   onClick={handleDownloadPDF}
                   disabled={!itineraryData.length}
                 >
@@ -221,7 +281,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           </div>
         </div>
       </div>
-      <ToastContainer position="bottom-center" />
+      <ToastContainer position='bottom-center' />
     </>
   );
 }

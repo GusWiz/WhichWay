@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FaUser,
   FaEnvelope,
@@ -17,15 +17,48 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 
 function Account({ user }) {
-  const [userData, setUserData] = useState({
-    name: user?.displayName || 'User Name',
-    email: user?.email || 'user@example.com',
-    location: 'New York, USA',
-    joinDate: 'Joined January 2023',
-  });
-
+  const [userData, setUserData] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  const [tempData, setTempData] = useState({ ...userData });
+  const [tempData, setTempData] = useState({});
+
+  useEffect(() => {
+    if (user) {
+      const defaultData = {
+        name: user.displayName || 'User Name',
+        email: user.email || 'user@example.com',
+        location: 'Locating...',
+        joinDate: new Date(user.metadata?.creationTime).toLocaleDateString(
+          'en-US',
+          {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }
+        ),
+      };
+
+      setUserData(defaultData);
+      setTempData(defaultData);
+
+      //use their IP for their location
+      fetch('https://ipapi.co/json/')
+        .then((res) => res.json())
+        .then((data) => {
+          const city = data.city || 'Unknown city';
+          const region = data.region || 'Unknown state';
+          const country = data.country_name || 'Unknown country';
+          const updatedLocation = `${city}, ${region}, ${country}`;
+
+          setUserData((prev) => ({ ...prev, location: updatedLocation }));
+          setTempData((prev) => ({ ...prev, location: updatedLocation }));
+        })
+        .catch((error) => {
+          console.log('IP location fetch failed:', error);
+        });
+    }
+  }, [user]);
+
+  if (!userData) return <div>Loading...</div>;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -122,7 +155,7 @@ function Account({ user }) {
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Location:</span>
-                        <span>{userData.location}</span>
+                        <span>{userData.location} (auto-detected)</span>
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Member Since:</span>

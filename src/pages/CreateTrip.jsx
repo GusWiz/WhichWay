@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TripInputField from '../components/Createtrip-Components/TripInputField';
 import './CreateTrip.css';
@@ -7,7 +7,10 @@ import './CreateItinerary.css';
 import './Home.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { saveUserTrip } from '../components/api/dataModel.js';
+import {
+  saveUserTrip,
+  saveUserItinerary,
+} from '../components/api/dataModel.js';
 import { auth } from '../components/firebase.js';
 import {
   getSavedActivities,
@@ -23,10 +26,9 @@ import Sidebar from '../components/Homepage-Components/Sidebar';
 import PreferenceModal from '../components/Createtrip-Components/PreferenceModal';
 import ActivitiesDisplay from '../components/Createtrip-Components/ActivitiesDisplay';
 import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.jsx';
-import LocationSearch from '../components/Createtrip-Components/LocationSearch.jsx';
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
-import FadingTextBox from '../components/Createtrip-Components/FadingTextBox.jsx';
+import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -43,8 +45,10 @@ function CreateTrip() {
   const [tripName, setTripName] = useState('');
   const [duration, setDuration] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tripId, setTripId] = useState(null);
 
   // State for place/destination details
   const [details, setDetails] = useState({
@@ -62,6 +66,35 @@ function CreateTrip() {
   const [loadingItinerary, setLoadingItinerary] = useState(false);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
 
+  // Initial default options for activities
+  const [foodOptions, setFoodOptions] = useState([
+    {
+      name: 'Chilis',
+      imgSrc: '/images/activities/food/chilis.jpg',
+      groupSize: '2-4',
+    },
+  ]);
+
+  const [entertainmentOptions, setEntertainmentOptions] = useState([
+    { name: 'Movie', imgSrc: 'movie.jpg' },
+  ]);
+
+  const [outdoorOptions, setOutdoorOptions] = useState([
+    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
+  ]);
+
+  // Debug console commands
+  const cmdPassthru = {};
+
+  useEffect(() => {
+    const storedTripId = localStorage.getItem('tripId');
+    if (storedTripId) {
+      setTripId(storedTripId); // Update the state with tripId from localStorage
+    } else {
+      setTripId(null); // In case tripId is null in localStorage
+    }
+  }, []);
+
   // Toggle the preference modal
   const handleModalToggle = () => {
     setIsModalOpen(!isModalOpen);
@@ -76,7 +109,49 @@ function CreateTrip() {
     });
   };
 
-  // Handle selection of activities
+  const handleDaterangeChange = ({ startDate, endDate }) => {
+    setStartDate(startDate ? startDate.toISOString().split('T')[0] : '');
+    setEndDate(endDate ? endDate.toISOString().split('T')[0] : '');
+
+    if (startDate && endDate) {
+      const diffTime = Math.abs(endDate - startDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+      setDuration(`${diffDays} days`);
+    }
+  };
+
+  const handleItinerary = async () => {
+    setLoading(true); // Disable button and show loading spinner
+    try {
+      const response = await generateItinerary(); // Wait for API response
+
+      if (response) {
+        saveItineraryData(response); // Store itinerary
+        console.log('Itinerary saved:', getItineraryData()); // Debugging
+
+        navigate('/createItinerary'); // Navigate only after response is successfully stored
+      } else {
+        console.error('Failed to generate itinerary. No response received.');
+      }
+    } catch (error) {
+      console.error('Error handling itinerary:', error);
+    } finally {
+      setLoading(false); // Hide loading spinner and re-enable button
+    }
+  };
+
+  const handleSaveActivities = () => {
+    console.log('displaying current selections: ');
+    console.log(selectedEntertainment);
+    console.log(selectedFoods);
+    console.log(selectedOutdoor);
+
+    saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+
+    const savedActivities = getSavedActivities();
+    console.log(savedActivities);
+  };
+
   const handleSelect = (category, item) => {
     switch (category) {
       case 'food':
@@ -158,22 +233,13 @@ function CreateTrip() {
     }
   };
 
-  // Initial default options for activities
-  const [foodOptions, setFoodOptions] = useState([
-    {
-      name: 'Chilis',
-      imgSrc: '/images/activities/food/chilis.jpg',
-      groupSize: '2-4',
-    },
-  ]);
-
-  const [entertainmentOptions, setEntertainmentOptions] = useState([
-    { name: 'Movie', imgSrc: 'movie.jpg' },
-  ]);
-
-  const [outdoorOptions, setOutdoorOptions] = useState([
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
-  ]);
+  // Handle the place selected from LocationSearch
+  const handleLocationSelect = (placeDetails) => {
+    setDetails((prev) => ({
+      ...prev,
+      destination: placeDetails.formatted_address,
+    }));
+  };
 
   // Save the trip details to Firestore
   const handleSaveTrip = async () => {
@@ -202,31 +268,30 @@ function CreateTrip() {
       const tripDetails = {
         name: tripName,
         destination: details.destination,
+        startDate: startDate || '',
+        endDate: endDate || '',
         duration: duration || '1 day', // Default to 1 day if not specified
         location: details.location || { lat: 0, lng: 0 },
       };
 
       // Save details locally
-      saveDetails(
-        tripName,
-        details.destination,
-        duration
-      );
+      saveDetails(tripName, details.destination, duration, startDate, endDate);
 
       // Save to Firebase
-      const tripId = await saveUserTrip(
+      const savedTripId = await saveUserTrip(
         currentUser.uid,
         tripDetails,
         duration,
         {
           selectedFoods,
           selectedEntertainment,
-          selectedOutdoor
+          selectedOutdoor,
         }
       );
 
+      setTripId(savedTripId);
       toast.success('Trip saved successfully!');
-      console.log('Trip saved with ID:', tripId);
+      console.log('Trip saved with ID:', savedTripId);
     } catch (error) {
       console.error('Error saving trip:', error);
       toast.error('Failed to save trip details');
@@ -242,40 +307,47 @@ function CreateTrip() {
       // Validate required fields first
       if (!tripName) {
         toast.error('Please enter a trip name');
+        setLoadingItinerary(false);
         return;
       }
 
       if (!details.destination) {
         toast.error('Please enter a trip location');
+        setLoadingItinerary(false);
         return;
       }
 
       if (!duration) {
         toast.error('Please enter a trip duration');
+        setLoadingItinerary(false);
         return;
       }
 
       // Create activities array from selected items
       const activityList = [
-        ...selectedFoods.map(food => food.name),
-        ...selectedEntertainment.map(entertainment => entertainment.name),
-        ...selectedOutdoor.map(outdoor => outdoor.name)
+        ...selectedFoods.map((food) => food.name),
+        ...selectedEntertainment.map((entertainment) => entertainment.name),
+        ...selectedOutdoor.map((outdoor) => outdoor.name),
       ];
 
       // Use default activities if activityList is empty
-      const finalActivityList = activityList.length > 0 ? activityList : [
-        'Restaurant',
-        'Park',
-        'Museum',
-        'Cafe',
-        'Historic Site',
-        'Local Attraction'
-      ];
+      const finalActivityList =
+        activityList.length > 0
+          ? activityList
+          : [
+              'Restaurant',
+              'Park',
+              'Museum',
+              'Cafe',
+              'Historic Site',
+              'Local Attraction',
+            ];
 
       // Construct the OpenAI request content
       const openaiRequest = `
 Location: ${details.destination}
 Start date: ${startDate || new Date().toISOString().split('T')[0]}
+End date: ${endDate || new Date().toISOString().split('T')[0]}
 Duration: ${duration}
 Activity List:
 ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
@@ -290,32 +362,47 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
         throw new Error('Failed to generate a valid itinerary');
       }
 
+      // Extract JSON from the response if it contains markdown code blocks
+      let jsonString = itineraryResponse;
+
+      if (itineraryResponse.includes('```')) {
+        const matches = itineraryResponse.match(/```(?:json)?\s*([\s\S]*?)```/);
+        if (matches && matches[1]) {
+          jsonString = matches[1].trim();
+          console.log('Extracted JSON string:', jsonString);
+        }
+      }
+
+      saveItineraryData(jsonString);
+
+      console.log('after save itinerary data');
+
       // Parse the JSON response
-      const parsedItinerary = JSON.parse(itineraryResponse);
+      const parsedItinerary = JSON.parse(jsonString);
 
       if (!parsedItinerary || !parsedItinerary.schedule) {
         throw new Error('Invalid itinerary format received');
       }
 
-      // First save the trip to get a tripId
-      let tripId = null;
-      if (auth.currentUser) {
-        const savedTripId = await saveUserTrip(
+      // First save the trip to get a tripId if not already set
+      let savedTripId = tripId;
+      if (auth.currentUser && !tripId) {
+        savedTripId = await saveUserTrip(
           auth.currentUser.uid,
           {
             name: tripName,
             destination: details.destination,
             location: details.location || { lat: 0, lng: 0 },
-            budget: "0"
+            budget: '0',
           },
           duration,
           {
             selectedFoods,
             selectedEntertainment,
-            selectedOutdoor
+            selectedOutdoor,
           }
         );
-        tripId = savedTripId;
+        setTripId(savedTripId);
         toast.success('Trip saved successfully!');
       }
 
@@ -329,11 +416,10 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           selectedEntertainment,
           selectedOutdoor,
           tripName,
-          tripId,
-          itineraryData: parsedItinerary.schedule || []
-        }
+          tripId: savedTripId,
+          itineraryData: parsedItinerary.schedule || [],
+        },
       });
-
     } catch (error) {
       console.error('Error generating itinerary:', error);
       toast.error('Failed to generate itinerary. Please try again.');
@@ -341,9 +427,6 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
       setLoadingItinerary(false);
     }
   };
-
-  // Pass functions to ConsoleCommands (for debugging)
-  const cmdPassthru = {};
 
   return (
     <>
@@ -376,6 +459,11 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     onChange={handleChange}
                     onPlaceSelected={handlePlaceSelected}
                   />
+                  <DateSelector
+                    onDateRangeChange={handleDaterangeChange}
+                    initialStartDate={startDate ? new Date(startDate) : null}
+                    initialEndDate={endDate ? new Date(endDate) : null}
+                  />
                   <TripInputField
                     type='text'
                     placeholder='Duration'
@@ -385,9 +473,9 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   />
                 </form>
 
-                <div className="create-trip-buttons">
+                <div className='create-trip-buttons'>
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleSaveTrip}
                     disabled={isSubmitting}
                   >
@@ -395,7 +483,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   </button>
 
                   <button
-                    className="trip-preference-btn"
+                    className='trip-preference-btn'
                     onClick={handleGenerateItinerary}
                     disabled={loadingItinerary || isSubmitting}
                   >
@@ -432,7 +520,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
       {isLoadingActivities && (
         <div className='loading-container'>
           <p>Loading activities for {details.destination}...</p>
-          <div className="spinner"></div>
+          <div className='spinner'></div>
         </div>
       )}
     </>
