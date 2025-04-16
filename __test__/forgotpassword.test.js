@@ -53,4 +53,27 @@ describe('ForgotPassword Component', () => {
         fireEvent.change(emailInput, { target: { value: 'unitTest@example.com'}});
         expect(emailInput.value).toBe('unitTest@example.com');
     });
+
+    it('calls sendPasswordResetEmail and redirects on successful submission', async() => {
+        sendPasswordResetEmail.mockResolvedValue();
+        const mockAuth = {};
+        getAuth.mockReturnValue(mockAuth);
+
+        renderForgotPassword();
+
+        const emailInput = screen.getByPlaceholderText(/Email Address/i);
+        const submitButton = screen.getByRole('button', { name: /Send Email/i });
+
+        fireEvent.change(emailInput, { target: { value : 'successEmail@example.com' } });
+        fireEvent.click(submitButton);
+
+        await waitFor(() => {
+            expect(sendPasswordResetEmail).toHaveBeenCalledWith(
+                mockAuth,
+                'successEmail@example.com'
+            );
+            expect(mockAlert).toHaveBeenCalledWith('email sent');
+            expect(window.location.href).toBe('/login');
+        });
+    });
 });
