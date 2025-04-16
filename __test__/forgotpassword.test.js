@@ -54,6 +54,7 @@ describe('ForgotPassword Component', () => {
         expect(emailInput.value).toBe('unitTest@example.com');
     });
 
+    // Test case 3: Check the behavior when the form submission is successful
     it('calls sendPasswordResetEmail and redirects on successful submission', async() => {
         sendPasswordResetEmail.mockResolvedValue();
         const mockAuth = {};
@@ -76,4 +77,34 @@ describe('ForgotPassword Component', () => {
             expect(window.location.href).toBe('/login');
         });
     });
+
+    // Test case 4: Check the behavior when the form submission is fails
+    it('shows an alert on failed email submission', async() => {
+        const mockError = new Error('Firebase: Error (auth/user-not-found).');
+        mockError.code = 'auth/user-not-found';
+
+        sendPasswordResetEmail.mockRejectedValue(mockError);
+
+        const mockAuth = {};
+        getAuth.mockReturnValue(mockAuth);
+
+        renderForgotPassword();
+
+        const emailInput = screen.getByPlaceholderText(/Email Address/i);
+        const submitButton = screen.getByRole('button', { name : /Send Email/i });
+
+        fireEvent.change(emailInput, { target : { value: 'failTest@example.com' } });
+        fireEvent.click(submitButton);
+
+        await waitFor(() => {
+            expect(sendPasswordResetEmail).toHaveBeenCalledTimes(1);
+            expect(sendPasswordResetEmail).toHaveBeenCalledWith(
+                mockAuth,
+                'failTest@example.com'
+            );
+
+            expect(mockAlert).toHaveBeenCalledWith(mockError.message);
+            expect(window.location.href).not.toBe('/login');
+        });
+    })
 });
