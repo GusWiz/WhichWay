@@ -88,14 +88,14 @@ export default function TripManager() {
   }, []);
 
   const travelQuotes = [
-    "Life is short and the world is wide.",
-    "Travel is the only thing you buy that makes you richer.",
-    "Jobs fill your pockets, but adventures fill your soul.",
-    "Travel far enough, you meet yourself.",
-    "Adventure is out there.",
-    "Wherever you go becomes a part of you somehow.",
-    "Take only memories, leave only footprints.",
-    "The journey not the arrival matters.",
+    'Life is short and the world is wide.',
+    'Travel is the only thing you buy that makes you richer.',
+    'Jobs fill your pockets, but adventures fill your soul.',
+    'Travel far enough, you meet yourself.',
+    'Adventure is out there.',
+    'Wherever you go becomes a part of you somehow.',
+    'Take only memories, leave only footprints.',
+    'The journey not the arrival matters.',
   ];
 
   const [quote, setQuote] = useState('');
@@ -104,7 +104,6 @@ export default function TripManager() {
     const randomIndex = Math.floor(Math.random() * travelQuotes.length);
     setQuote(travelQuotes[randomIndex]);
   }, []);
-
 
   const handleRemove = async (id) => {
     await deleteDoc(doc(db, 'trips', id));
@@ -124,8 +123,8 @@ export default function TripManager() {
         <div className='triphome-container'>
           <h1 className='h1'>Trip Dashboard</h1>
           <div className='quote-box'>
-  <p>“{quote}”</p>
-</div>
+            <p>“{quote}”</p>
+          </div>
           <TripTable
             title='Upcoming Trips'
             trips={upcomingTrips}

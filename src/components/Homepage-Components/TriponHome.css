@@ -88,7 +88,7 @@ td {
   margin: 1.5rem auto;
   text-align: center;
   font-size: 1.2rem;
-  font-family: "Times New Roman";
+  font-family: 'Times New Roman';
   font-style: italic;
   color: #000000;
   background: #c9e6f5;
@@ -96,4 +96,3 @@ td {
   border-radius: 8px;
   max-width: 600px;
 }
-
