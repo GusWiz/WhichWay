@@ -48,9 +48,18 @@ describe('saveGeneratedItinerary Function', () => {
     });
 
     // Test Case 2: Verify that the function throws an error if the Itinerary Data is missing/null
-    it('Should throw an error if itineraryData.schedule is missing', async () => {
+    it('Should throw an error if itineraryData is missing', async () => {
         await expect(
             saveGeneratedItinerary(mockTripId, null, mockTripName)
+        ).rejects.toThrow('Valid itinerary data is required');
+        expect(getDoc).not.toHaveBeenCalled();
+        expect(setDoc).not.toHaveBeenCalled();
+        expect(updateDoc).not.toHaveBeenCalled();
+    });
+    // Test Case 3: Verify that the functions throws an error if itinerary data is but lacks the 'schedule'
+    it('Should throw an error if itineraryData.schedule is missing', async () => {
+        await expect(
+            saveGeneratedItinerary(mockTripId, {}, mockTripName)
         ).rejects.toThrow('Valid itinerary data is required');
         expect(getDoc).not.toHaveBeenCalled();
         expect(setDoc).not.toHaveBeenCalled();
