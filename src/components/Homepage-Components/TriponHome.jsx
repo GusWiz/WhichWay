@@ -184,21 +184,55 @@ export default function TripManager() {
             toggleHide={() => setHidePast(!hidePast)}
             onView={navigate}
           />
-          <div>
-            <h2 className='h2'>{tripId ? 'Edit Trip' : 'New Trip'}</h2>
-            {['name', 'date', 'destination'].map((field) => (
-              <input
-                key={field}
-                type={field === 'date' ? 'date' : 'text'}
-                name={field}
-                value={tripDetails[field]}
-                onChange={handleInputChange}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              />
-            ))}
-            <button className='triphome-button' onClick={handleSave}>
-              {tripId ? 'Save' : 'Add Trip'}
-            </button>
+          <div className='trip-section'>
+            <h2 className='h2'>All Trips</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Trip Name</th>
+                  <th>Destination</th>
+                  <th>Time Frame</th>
+                  <th>Entertainment</th>
+                  <th>Food</th>
+                  <th>Outdoor</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {trips.map((trip) => (
+                  <tr key={trip.id}>
+                    <td>{trip.name}</td>
+                    <td>{trip.destination}</td>
+                    <td>{trip.duration || 'N/A'}</td>
+                    <td>{trip.selectedEntertainment?.length || 0}</td>
+                    <td>{trip.selectedFoods?.length || 0}</td>
+                    <td>{trip.selectedOutdoors?.length || 0}</td>
+                    <td>
+                      {trip.created?.seconds
+                        ? new Date(
+                            trip.created.seconds * 1000
+                          ).toLocaleDateString()
+                        : 'N/A'}
+                    </td>
+                    <td>
+                      <button
+                        className='triphome-button'
+                        onClick={() => setTripId(trip.id)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className='triphome-button'
+                        onClick={() => handleRemove(trip.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
