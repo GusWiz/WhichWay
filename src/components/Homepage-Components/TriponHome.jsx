@@ -14,15 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 
-const TripTable = ({
-  title,
-  trips,
-  hide,
-  toggleHide,
-  onEdit,
-  onView,
-  onRemove,
-}) => (
+const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
   <>
     <button className='triphome-button' onClick={toggleHide}>
       {hide ? `Show ${title}` : `Hide ${title}`}
@@ -43,15 +35,9 @@ const TripTable = ({
             <tbody>
               {trips.map(({ id, name, date, destination }) => (
                 <tr key={id}>
-                  {['name', 'date', 'destination'].map((field) => (
-                    <td key={field}>
-                      <EditableField
-                        field={field}
-                        value={{ name, date, destination }[field]}
-                        tripId={id}
-                      />
-                    </td>
-                  ))}
+                  <td>{name}</td>
+                  <td>{date}</td>
+                  <td>{destination}</td>
                   <td>
                     {title === 'Upcoming Trips' ? (
                       <button
@@ -81,38 +67,8 @@ const TripTable = ({
   </>
 );
 
-const EditableField = ({ field, value, tripId }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [tempValue, setTempValue] = useState(value);
-
-  const handleSave = async () => {
-    if (tempValue !== value) {
-      await updateDoc(doc(db, 'trips', tripId), { [field]: tempValue });
-    }
-    setIsEditing(false);
-  };
-
-  return isEditing ? (
-    <input
-      type={field === 'date' ? 'date' : 'text'}
-      value={tempValue}
-      onChange={(e) => setTempValue(e.target.value)}
-      onBlur={handleSave}
-      autoFocus
-    />
-  ) : (
-    <span onClick={() => setIsEditing(true)}>{tempValue}</span>
-  );
-};
-
 export default function TripManager() {
   const [trips, setTrips] = useState([]);
-  const [tripDetails, setTripDetails] = useState({
-    name: '',
-    date: '',
-    destination: '',
-  });
-  const [tripId, setTripId] = useState(null);
   const [hideUpcoming, setHideUpcoming] = useState(false);
   const [hidePast, setHidePast] = useState(false);
   const [hideAll, setHideAll] = useState(true);
@@ -131,27 +87,24 @@ export default function TripManager() {
     })();
   }, []);
 
-  const handleInputChange = ({ target: { name, value } }) =>
-    setTripDetails((prev) => ({ ...prev, [name]: value }));
+  const travelQuotes = [
+    "Life is short and the world is wide.",
+    "Travel is the only thing you buy that makes you richer.",
+    "Jobs fill your pockets, but adventures fill your soul.",
+    "Travel far enough, you meet yourself.",
+    "Adventure is out there.",
+    "Wherever you go becomes a part of you somehow.",
+    "Take only memories, leave only footprints.",
+    "The journey not the arrival matters.",
+  ];
 
-  const handleSave = async () => {
-    if (
-      !tripDetails.name.trim() ||
-      !tripDetails.date ||
-      !tripDetails.destination.trim()
-    ) {
-      alert('Please fill in all fields correctly.');
-      return;
-    }
-    if (tripId) {
-      await updateDoc(doc(db, 'trips', tripId), tripDetails);
-    } else {
-      const docRef = await addDoc(collection(db, 'trips'), tripDetails);
-      setTrips((prev) => [...prev, { id: docRef.id, ...tripDetails }]);
-    }
-    setTripId(null);
-    setTripDetails({ name: '', date: '', destination: '' });
-  };
+  const [quote, setQuote] = useState('');
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * travelQuotes.length);
+    setQuote(travelQuotes[randomIndex]);
+  }, []);
+
 
   const handleRemove = async (id) => {
     await deleteDoc(doc(db, 'trips', id));
@@ -170,7 +123,9 @@ export default function TripManager() {
       <div className='triphome-body'>
         <div className='triphome-container'>
           <h1 className='h1'>Trip Dashboard</h1>
-
+          <div className='quote-box'>
+  <p>“{quote}”</p>
+</div>
           <TripTable
             title='Upcoming Trips'
             trips={upcomingTrips}
@@ -187,63 +142,71 @@ export default function TripManager() {
             onView={navigate}
           />
 
-          {/* All Trips Toggle Section */}
-          <>
-            <button className='triphome-button' onClick={() => setHideAll(!hideAll)}>
-              {hideAll ? 'Show All Trips' : 'Hide All Trips'}
-            </button>
+          <button
+            className='triphome-button'
+            onClick={() => setHideAll(!hideAll)}
+          >
+            {hideAll ? 'Show All Trips' : 'Hide All Trips'}
+          </button>
 
-            {!hideAll && (
-              <div className='trip-section'>
-                <h2 className='h2'>All Trips</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Trip Name</th>
-                      <th>Destination</th>
-                      <th>Time Frame</th>
-                      <th>Entertainment</th>
-                      <th>Food</th>
-                      <th>Outdoor</th>
-                      <th>Created</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {trips.map((trip) => (
-                      <tr key={trip.id}>
-                        <td>{trip.name}</td>
-                        <td>{trip.destination}</td>
-                        <td>{trip.duration || 'N/A'}</td>
-                        <td>{trip.selectedEntertainment?.length || 0}</td>
-                        <td>{trip.selectedFoods?.length || 0}</td>
-                        <td>{trip.selectedOutdoors?.length || 0}</td>
-                        <td>
-                          {trip.created?.seconds
-                            ? new Date(trip.created.seconds * 1000).toLocaleDateString()
-                            : 'N/A'}
-                        </td>
-                        <td>
-                          <button
-                            className='triphome-button'
-                            onClick={() => setTripId(trip.id)}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className='triphome-button'
-                            onClick={() => handleRemove(trip.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+          {!hideAll && (
+            <div className='trip-section'>
+              {/* Summary section */}
+              <div className='trip-summary'>
+                <div>Total Trips: {trips.length}</div>
+                <div>Upcoming: {upcomingTrips.length}</div>
+                <div>Past: {pastTrips.length}</div>
               </div>
-            )}
-          </>
+              <h2 className='h2'>All Trips</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Trip Name</th>
+                    <th>Destination</th>
+                    <th>Time Frame</th>
+                    <th>Entertainment</th>
+                    <th>Food</th>
+                    <th>Outdoor</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {trips.map((trip) => (
+                    <tr key={trip.id}>
+                      <td>{trip.name}</td>
+                      <td>{trip.destination}</td>
+                      <td>{trip.duration || 'N/A'}</td>
+                      <td>{trip.selectedEntertainment?.length || 0}</td>
+                      <td>{trip.selectedFoods?.length || 0}</td>
+                      <td>{trip.selectedOutdoors?.length || 0}</td>
+                      <td>
+                        {trip.created?.seconds
+                          ? new Date(
+                              trip.created.seconds * 1000
+                            ).toLocaleDateString()
+                          : 'N/A'}
+                      </td>
+                      <td>
+                        <button
+                          className='triphome-button'
+                          onClick={() => handleRemove(trip.id)}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          className='triphome-button'
+                          onClick={() => navigate(`/trip/${trip.id}`)}
+                        >
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </ErrorBoundary>
