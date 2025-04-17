@@ -38,7 +38,7 @@ describe('saveGeneratedItinerary Function', () => {
     });
 
     // Test Case 1: Verify that the function throws an error if the trip id is missing/null
-    it('Shouw throw an error if TripId is missing', async () => {
+    it('Should throw an error if TripId is missing', async () => {
         await expect(
             saveGeneratedItinerary(null, mockItineraryData, mockTripName)
         ).rejects.toThrow('Trip ID is required');
@@ -46,4 +46,14 @@ describe('saveGeneratedItinerary Function', () => {
         expect(setDoc).not.toHaveBeenCalled();
         expect(updateDoc).not.toHaveBeenCalled();
     });
-})
+
+    // Test Case 2: Verify that the function throws an error if the Itinerary Data is missing/null
+    it('Should throw an error if itineraryData.schedule is missing', async () => {
+        await expect(
+            saveGeneratedItinerary(mockTripId, null, mockTripName)
+        ).rejects.toThrow('Valid itinerary data is required');
+        expect(getDoc).not.toHaveBeenCalled();
+        expect(setDoc).not.toHaveBeenCalled();
+        expect(updateDoc).not.toHaveBeenCalled();
+    });
+});
