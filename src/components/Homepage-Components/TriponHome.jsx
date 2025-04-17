@@ -29,7 +29,7 @@ const TripTable = ({
     </button>
     {!hide && (
       <div className='trip-section'>
-        <h2 class='h2'>{title}</h2>
+        <h2 className='h2'>{title}</h2>
         {trips.length ? (
           <table>
             <thead>
@@ -115,6 +115,7 @@ export default function TripManager() {
   const [tripId, setTripId] = useState(null);
   const [hideUpcoming, setHideUpcoming] = useState(false);
   const [hidePast, setHidePast] = useState(false);
+  const [hideAll, setHideAll] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -142,7 +143,6 @@ export default function TripManager() {
       alert('Please fill in all fields correctly.');
       return;
     }
-    // Save only after validation passes
     if (tripId) {
       await updateDoc(doc(db, 'trips', tripId), tripDetails);
     } else {
@@ -169,9 +169,8 @@ export default function TripManager() {
     <ErrorBoundary>
       <div className='triphome-body'>
         <div className='triphome-container'>
-          {' '}
-          {/* <- this was missing */}
           <h1 className='h1'>Trip Dashboard</h1>
+
           <TripTable
             title='Upcoming Trips'
             trips={upcomingTrips}
@@ -179,6 +178,7 @@ export default function TripManager() {
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
             onRemove={handleRemove}
           />
+
           <TripTable
             title='Past Trips'
             trips={pastTrips}
@@ -186,56 +186,64 @@ export default function TripManager() {
             toggleHide={() => setHidePast(!hidePast)}
             onView={navigate}
           />
-          <div className='trip-section'>
-            <h2 className='h2'>All Trips</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Trip Name</th>
-                  <th>Destination</th>
-                  <th>Time Frame</th>
-                  <th>Entertainment</th>
-                  <th>Food</th>
-                  <th>Outdoor</th>
-                  <th>Created</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {trips.map((trip) => (
-                  <tr key={trip.id}>
-                    <td>{trip.name}</td>
-                    <td>{trip.destination}</td>
-                    <td>{trip.duration || 'N/A'}</td>
-                    <td>{trip.selectedEntertainment?.length || 0}</td>
-                    <td>{trip.selectedFoods?.length || 0}</td>
-                    <td>{trip.selectedOutdoors?.length || 0}</td>
-                    <td>
-                      {trip.created?.seconds
-                        ? new Date(
-                            trip.created.seconds * 1000
-                          ).toLocaleDateString()
-                        : 'N/A'}
-                    </td>
-                    <td>
-                      <button
-                        className='triphome-button'
-                        onClick={() => setTripId(trip.id)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className='triphome-button'
-                        onClick={() => handleRemove(trip.id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+
+          {/* All Trips Toggle Section */}
+          <>
+            <button className='triphome-button' onClick={() => setHideAll(!hideAll)}>
+              {hideAll ? 'Show All Trips' : 'Hide All Trips'}
+            </button>
+
+            {!hideAll && (
+              <div className='trip-section'>
+                <h2 className='h2'>All Trips</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Trip Name</th>
+                      <th>Destination</th>
+                      <th>Time Frame</th>
+                      <th>Entertainment</th>
+                      <th>Food</th>
+                      <th>Outdoor</th>
+                      <th>Created</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {trips.map((trip) => (
+                      <tr key={trip.id}>
+                        <td>{trip.name}</td>
+                        <td>{trip.destination}</td>
+                        <td>{trip.duration || 'N/A'}</td>
+                        <td>{trip.selectedEntertainment?.length || 0}</td>
+                        <td>{trip.selectedFoods?.length || 0}</td>
+                        <td>{trip.selectedOutdoors?.length || 0}</td>
+                        <td>
+                          {trip.created?.seconds
+                            ? new Date(trip.created.seconds * 1000).toLocaleDateString()
+                            : 'N/A'}
+                        </td>
+                        <td>
+                          <button
+                            className='triphome-button'
+                            onClick={() => setTripId(trip.id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className='triphome-button'
+                            onClick={() => handleRemove(trip.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </>
         </div>
       </div>
     </ErrorBoundary>
