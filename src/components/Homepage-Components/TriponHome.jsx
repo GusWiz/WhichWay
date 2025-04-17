@@ -168,7 +168,9 @@ export default function TripManager() {
   return (
     <ErrorBoundary>
       <div className='triphome-body'>
-        <div>
+        <div className='triphome-container'>
+          {' '}
+          {/* <- this was missing */}
           <h1 className='h1'>Trip Dashboard</h1>
           <TripTable
             title='Upcoming Trips'
