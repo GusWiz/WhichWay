@@ -3,48 +3,53 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // IMPORTANT: Mock the component before importing it
-jest.mock('../src/components/Createtrip-Components/LocationAutocomplete', () => {
-  // Create a mock implementation that mimics the component's behavior
-  return function MockedLocationAutocomplete(props) {
-    // We can't use React hooks inside the mock factory function
-    // So we'll create a simple component that simulates the behavior
-    // without using React.useEffect
+jest.mock(
+  '../src/components/Createtrip-Components/LocationAutocomplete',
+  () => {
+    // Create a mock implementation that mimics the component's behavior
+    return function MockedLocationAutocomplete(props) {
+      // We can't use React hooks inside the mock factory function
+      // So we'll create a simple component that simulates the behavior
+      // without using React.useEffect
 
-    // To expose the trigger function to tests, we use a setTimeout
-    // to ensure it runs after this component is rendered
-    setTimeout(() => {
-      global.mockLocationAutocompleteFunctions = {
-        triggerPlaceSelected: () => {
-          const mockPlace = {
-            name: 'Test Location',
-            location: {
-              lat: 34.0522,
-              lng: -118.2437,
-            },
-            placeId: 'ChIJtestplaceid',
-          };
-          props.onChange({ target: { name: 'destination', value: mockPlace.name } });
-          props.onPlaceSelected(mockPlace);
-        }
-      };
-    }, 0);
+      // To expose the trigger function to tests, we use a setTimeout
+      // to ensure it runs after this component is rendered
+      setTimeout(() => {
+        global.mockLocationAutocompleteFunctions = {
+          triggerPlaceSelected: () => {
+            const mockPlace = {
+              name: 'Test Location',
+              location: {
+                lat: 34.0522,
+                lng: -118.2437,
+              },
+              placeId: 'ChIJtestplaceid',
+            };
+            props.onChange({
+              target: { name: 'destination', value: mockPlace.name },
+            });
+            props.onPlaceSelected(mockPlace);
+          },
+        };
+      }, 0);
 
-    // Render a simplified version of the component
-    return (
-      <div className='ainput-wrapper'>
-        <input
-          type='text'
-          name='destination'
-          placeholder='Enter destination'
-          data-testid="location-input"
-          value={props.value}
-          onChange={props.onChange}
-          className='ainput-field'
-        />
-      </div>
-    );
-  };
-});
+      // Render a simplified version of the component
+      return (
+        <div className='ainput-wrapper'>
+          <input
+            type='text'
+            name='destination'
+            placeholder='Enter destination'
+            data-testid='location-input'
+            value={props.value}
+            onChange={props.onChange}
+            className='ainput-field'
+          />
+        </div>
+      );
+    };
+  }
+);
 
 // Now import the mocked component
 import LocationAutocomplete from '../src/components/Createtrip-Components/LocationAutocomplete';
