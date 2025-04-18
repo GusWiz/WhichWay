@@ -166,6 +166,7 @@ npm install axios
 npm install openai
 npm install html2canvas
 npm install jspdf
+npm install util
 ```
 
 ### Unit Tests:
