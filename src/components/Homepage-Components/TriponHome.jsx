@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
-  collection,
-  addDoc,
-  updateDoc,
   doc,
-  getDocs,
-  query,
-  orderBy,
+  getDoc,
   deleteDoc,
 } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
@@ -39,21 +34,12 @@ const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
                   <td>{date}</td>
                   <td>{destination}</td>
                   <td>
-                    {title === 'Upcoming Trips' ? (
-                      <button
-                        className='triphome-button'
-                        onClick={() => onRemove(id)}
-                      >
-                        🅧
-                      </button>
-                    ) : (
-                      <button
-                        className='triphome-button'
-                        onClick={() => onView(id)}
-                      >
-                        View
-                      </button>
-                    )}
+                    <button
+                      className='triphome-button'
+                      onClick={() => onRemove(id)}
+                    >
+                      🅧
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -68,24 +54,46 @@ const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
 );
 
 export default function TripManager() {
+  const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
   const [hideUpcoming, setHideUpcoming] = useState(false);
-  const [hidePast, setHidePast] = useState(false);
   const [hideAll, setHideAll] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async () => {
-      const tripQuery = query(
-        collection(db, 'trips'),
-        orderBy('startDate', 'desc')
-      );
-      const querySnapshot = await getDocs(tripQuery);
-      setTrips(
-        querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-      );
-    })();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+    });
+    return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (!user) return;
+
+    (async () => {
+      try {
+        const userDocRef = doc(db, 'Users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          const tripIds = userData.trips || [];
+
+          const tripsData = await Promise.all(
+            tripIds.map(async (id) => {
+              const tripDocRef = doc(db, 'trips', id);
+              const tripSnap = await getDoc(tripDocRef);
+              return tripSnap.exists() ? { id, ...tripSnap.data() } : null;
+            })
+          );
+
+          setTrips(tripsData.filter((trip) => trip !== null));
+        }
+      } catch (err) {
+        console.error('Error loading trips:', err);
+      }
+    })();
+  }, [user]);
 
   const travelQuotes = [
     'Life is short and the world is wide.',
@@ -110,12 +118,14 @@ export default function TripManager() {
     setTrips((prev) => prev.filter((trip) => trip.id !== id));
   };
 
-  const upcomingTrips = trips.filter(
-    ({ date }) => date >= new Date().toISOString().split('T')[0]
-  );
-  const pastTrips = trips.filter(
-    ({ date }) => date < new Date().toISOString().split('T')[0]
-  );
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const upcomingTrips = trips.filter(({ date }) => {
+    const tripDate = new Date(date);
+    tripDate.setHours(0, 0, 0, 0);
+    return tripDate >= today;
+  });
 
   return (
     <ErrorBoundary>
@@ -133,14 +143,6 @@ export default function TripManager() {
             onRemove={handleRemove}
           />
 
-          <TripTable
-            title='Past Trips'
-            trips={pastTrips}
-            hide={hidePast}
-            toggleHide={() => setHidePast(!hidePast)}
-            onView={navigate}
-          />
-
           <button
             className='triphome-button'
             onClick={() => setHideAll(!hideAll)}
@@ -150,11 +152,9 @@ export default function TripManager() {
 
           {!hideAll && (
             <div className='trip-section'>
-              {/* Summary section */}
               <div className='trip-summary'>
                 <div>Total Trips: {trips.length}</div>
                 <div>Upcoming: {upcomingTrips.length}</div>
-                <div>Past: {pastTrips.length}</div>
               </div>
               <h2 className='h2'>All Trips</h2>
               <table>
