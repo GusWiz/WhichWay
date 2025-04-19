@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  doc,
-  getDoc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, deleteDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
@@ -121,8 +117,8 @@ export default function TripManager() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const upcomingTrips = trips.filter(({ date }) => {
-    const tripDate = new Date(date);
+  const upcomingTrips = trips.filter(({ startDate }) => {
+    const tripDate = new Date(startDate);
     tripDate.setHours(0, 0, 0, 0);
     return tripDate >= today;
   });
