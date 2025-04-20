@@ -296,6 +296,7 @@ export const addItineraryToUser = async (userId, itineraryId) => {
     return true;
   } catch (error) {
     console.error('Error adding itinerary to user:', error);
+    throw error;
   }
 };
 //creating the new data model of how to save the itinerary to the db.

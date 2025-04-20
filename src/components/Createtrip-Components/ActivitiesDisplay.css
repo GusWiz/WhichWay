@@ -120,6 +120,7 @@
   width: 20px;
   height: 20px; /* Adjust based on the desired icon size */
   margin-right: 8px; /* Space between icon and text */
+  filter: invert(1);
 }
 
 /* Hide the default checkbox */
@@ -175,6 +176,7 @@
   justify-content: center;
   width: 30px;
   height: 30px;
+  /* filter: invert(1); */
 }
 
 /* Icon inside the button */
@@ -183,6 +185,7 @@
   height: 30px; /* Adjust the height as needed */
   object-fit: contain; /* Ensures the image scales while keeping its aspect ratio */
   display: block; /* Prevents any inline display issues */
+  filter: invert(1);
 }
 /* Optional: Add a hover effect for the button */
 .selectable-button:hover {
@@ -204,4 +207,17 @@
 .star-rating {
   color: #ffd700; /* Gold color for stars */
   margin-right: 4px;
+}
+
+.activities-header {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.activities-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'Charter BT', serif;
+  color: #1a1a1a;
 }

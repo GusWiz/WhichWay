@@ -1,142 +1,133 @@
-/* Modal Container */
+/* === Fullscreen Modal Overlay === */
 .fixed {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  font-family: 'Charter BT', serif;
 }
 
-/* Background and Blur */
+/* === Background Blur & Dim === */
 .bg-black {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .backdrop-blur-sm {
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
 }
 
-/* Main Modal Box */
+/* === Modal Box === */
 .bg-white {
-  background-color: white;
-  border-radius: 1rem;
-  padding: 30px 40px;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom right, #ffffff, #f4f9ff);
+  border-radius: 14px;
+  padding: 2.75rem 2.5rem 2.5rem 2.5rem;
+  max-width: 580px; /* slightly wider */
+  width: 95%;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align to the left */
-  gap: 20px;
-  position: relative; /* Added position relative for positioning the X button */
+  gap: 1.7rem; /* more space between inputs */
+  position: relative;
+  font-family: 'Charter BT', serif;
 }
 
-/* Close Button (Placed at the top-right corner of the input area) */
+/* === Close Button === */
 .close-btn {
   position: absolute;
-  top: 10px; /* Move slightly down from the top */
-  right: 10px; /* Align to the right edge */
-  background-color: transparent;
+  top: 14px;
+  right: 14px;
+  background: none;
   border: none;
+  color: #555;
+  font-size: 1.5rem;
   cursor: pointer;
-  color: #333; /* Dark color to make it visible */
-  font-size: 1.5rem; /* Increase size */
-  transition: color 0.3s;
+  transition: color 0.2s ease;
 }
 
-/* Hover Effect for Close Button */
 .close-btn:hover {
-  color: #000000; /* Red color when hovered */
-  opacity: 0.8;
+  color: #000;
 }
 
-/* Title */
+/* === Title === */
 .modal-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.75rem;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 20px;
-  width: 100%; /* Make sure title takes up full width for alignment */
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: 0.3px;
 }
 
-/* Form Fields */
+/* === Inputs === */
 input,
 textarea,
 select {
-  padding: 10px;
-  margin-top: 8px;
-  border: 1px solid #ddd;
+  padding: 12px 14px;
   border-radius: 10px;
-  width: 100%;
-  box-sizing: border-box;
+  border: 1.5px solid #bccada;
+  background-color: #fdfdfd;
   font-size: 1rem;
+  font-family: 'Charter BT', serif;
+  width: 100%;
+  transition: border-color 0.2s ease;
+  color: #2c2c2c;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
 }
 
 textarea {
   resize: vertical;
-  min-height: 120px;
-}
-
-select {
-  background-color: #f8f8f8;
+  min-height: 100px;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #4c6ef5;
+  border-color: hsl(202, 52%, 40%);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 94, 139, 0.15);
 }
 
-/* Submit Button */
-.submit-btn {
-  padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #4c6ef5;
-  color: white;
-  border-radius: 8px;
-  border: none;
+/* === Button (Primary) === */
+.submit-btn,
+.trip-preference-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Charter BT', serif;
+  border-radius: 10px;
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 
-.submit-btn:hover {
-  background-color: #2f4df2;
+.submit-btn:hover,
+.trip-preference-btn:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
 }
 
 .submit-btn:disabled {
   background-color: #ccc;
+  color: #f5f5f5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-.trip-preference-btn {
-  font-size: 1.2rem !important;
-  padding: 12px 20px !important;
-  background-color: #4c6ef5 !important;
-  color: white !important;
-  border-radius: 8px !important;
-  transition: background-color 0.3s !important;
-}
-
-.trip-preference-btn:hover {
-  background-color: #2f4df2 !important;
-}
-
-/* Responsive Design */
+/* === Responsive (Mobile Modal) === */
 @media (max-width: 480px) {
   .bg-white {
-    padding: 20px 25px;
+    padding: 1.5rem;
     width: 90%;
   }
 
   .modal-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }

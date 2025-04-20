@@ -66,22 +66,9 @@ function CreateTrip() {
   const [loadingItinerary, setLoadingItinerary] = useState(false);
   const [isLoadingActivities, setIsLoadingActivities] = useState(false);
 
-  // Initial default options for activities
-  const [foodOptions, setFoodOptions] = useState([
-    {
-      name: 'Chilis',
-      imgSrc: '/images/activities/food/chilis.jpg',
-      groupSize: '2-4',
-    },
-  ]);
-
-  const [entertainmentOptions, setEntertainmentOptions] = useState([
-    { name: 'Movie', imgSrc: 'movie.jpg' },
-  ]);
-
-  const [outdoorOptions, setOutdoorOptions] = useState([
-    { name: 'Gustavo Hiking Trail', imgSrc: 'hiking.jpg' },
-  ]);
+  const [foodOptions, setFoodOptions] = useState([]);
+  const [entertainmentOptions, setEntertainmentOptions] = useState([]);
+  const [outdoorOptions, setOutdoorOptions] = useState([]);
 
   // Debug console commands
   const cmdPassthru = {};
@@ -202,6 +189,11 @@ function CreateTrip() {
       location: placeData.location,
     }));
 
+    // ✅ Clear previous activity options right away
+    setFoodOptions([]);
+    setEntertainmentOptions([]);
+    setOutdoorOptions([]);
+
     // Set loading state while fetching activities
     setIsLoadingActivities(true);
 
@@ -231,14 +223,6 @@ function CreateTrip() {
     } finally {
       setIsLoadingActivities(false);
     }
-  };
-
-  // Handle the place selected from LocationSearch
-  const handleLocationSelect = (placeDetails) => {
-    setDetails((prev) => ({
-      ...prev,
-      destination: placeDetails.formatted_address,
-    }));
   };
 
   // Save the trip details to Firestore
@@ -436,13 +420,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
-              <button
-                onClick={handleModalToggle}
-                className='trip-preference-btn'
-              >
-                Trip Preferences
-              </button>
-              <div className='createititnerary-title'>
+              <div className='createtrip-title'>
                 <h1>Create Trip</h1>
               </div>
               <div className='form-container'>
@@ -472,6 +450,12 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     name='duration'
                   />
                 </form>
+                <button
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
 
                 <div className='create-trip-buttons'>
                   <button
@@ -492,26 +476,36 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </div>
 
                 {/* Render ActivitiesDisplay component */}
-                <ActivitiesDisplay
-                  foodOptions={foodOptions}
-                  selectedFoods={selectedFoods}
-                  handleSelectFood={(item) => {
-                    handleSelect('food', item);
-                  }}
-                  entertainmentOptions={entertainmentOptions}
-                  selectedEntertainment={selectedEntertainment}
-                  handleSelectEntertainment={(item) =>
-                    handleSelect('entertainment', item)
-                  }
-                  outdoorOptions={outdoorOptions}
-                  selectedOutdoor={selectedOutdoor}
-                  handleSelectOutdoor={(item) => handleSelect('outdoor', item)}
-                />
+                {foodOptions.length ||
+                entertainmentOptions.length ||
+                outdoorOptions.length ? (
+                  <ActivitiesDisplay
+                    foodOptions={foodOptions}
+                    selectedFoods={selectedFoods}
+                    handleSelectFood={(item) => {
+                      handleSelect('food', item);
+                    }}
+                    entertainmentOptions={entertainmentOptions}
+                    selectedEntertainment={selectedEntertainment}
+                    handleSelectEntertainment={(item) =>
+                      handleSelect('entertainment', item)
+                    }
+                    outdoorOptions={outdoorOptions}
+                    selectedOutdoor={selectedOutdoor}
+                    handleSelectOutdoor={(item) =>
+                      handleSelect('outdoor', item)
+                    }
+                  />
+                ) : (
+                  <div className='placeholder-activity-msg'>
+                    <p>Select a destination to see activities</p>
+                  </div>
+                )}
               </div>
 
               {/* Conditionally render the modal */}
               {isModalOpen && <PreferenceModal onClose={handleModalToggle} />}
-              <ToastContainer />
+              <ToastContainer position='bottom-center' />
               <ConsoleCommands cmdPassThru={cmdPassthru} />
             </div>
           </div>

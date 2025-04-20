@@ -1,178 +1,97 @@
-/* Enlarging the main container */
+/* CreateTrip.css — harmonized with TriponHome.css */
 
-.title-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100px; /* Controls title area height */
-  text-align: center;
-}
-
-.createtrip-input {
-  width: 600px;
-}
-
-.trip-input-container {
-  display: flex;
-  align-items: center; /* Aligns items vertically */
-  gap: 10px; /* Adds spacing between elements */
-  font-size: 24px; /* Matches the text size with input boxes */
-}
-
-.activities-container {
-  display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center; /* Centers vertically */
-  width: 100%;
-}
-
-/* Enlarging the selectable container */
-.selectable-container {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Individual selectable box */
-.selectable-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  /* width: 150px; */
-  height: 180px;
-  border: 3px solid #ccc;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: bold;
-  transition: 0.3s;
-  user-select: none;
-  background-color: white;
-  padding: 10px;
-}
-
-/* Hide the default checkbox */
-.selectable-box input {
-  display: none;
-}
-
-/* Image inside selectable box */
-.selectable-image {
-  /* width: 100px; */
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-/* Title inside selectable box */
-.selectable-title {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Highlight border when selected */
-.selectable-box.selected {
-  border: 3px solid #4caf50;
-  background-color: #e8f5e9;
-}
-
-/* Make sure the parent container allows it to be at the bottom left */
 .page-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Aligns to the left */
-  padding-left: 20px;
+  background: linear-gradient(to bottom right, #daeef7, #ffffff);
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Charter BT', serif;
+  color: #2c2c2c;
 }
 
-.itinerary-section h3 {
-  font-size: 16px;
-  margin: 0;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #ccc;
-}
-
-.standard-button {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.standard-button:hover {
-  background-color: #0056b3;
-}
-
-.preferences-container {
-  /* width: 100%; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.activity-preferences-form {
-  /* width: 100%; */
-  /* max-width: 600px; */
-  background-color: #f8f8f8;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.activity-preferences-form h3 {
+/* Title Styling */
+.title-container,
+.createtrip-title,
+.edittrip-heading {
   text-align: center;
-  font-size: 18px;
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
-.input-group {
-  margin-bottom: 15px;
+.createtrip-title h1,
+.edittrip-heading h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  font-family: 'Charter BT', serif;
+}
+
+/* Input Containers */
+.createtrip-input,
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid #bccada;
+  font-size: 1rem;
+  font-family: 'Charter BT', serif;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: hsl(202, 52%, 40%);
+  outline: none;
 }
 
 .input-group label {
   font-size: 16px;
   margin-bottom: 5px;
   display: block;
+  font-weight: 600;
 }
 
-.input-group input {
-  /* width: 100%; */
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+.input-group {
+  margin-bottom: 15px;
 }
 
-.activity-preferences-form button {
-  display: block;
-  /* width: 100%; */
-  padding: 10px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+/* Activity Preferences Form */
+.activity-preferences-form {
+  background: #ffffff;
+  border: 1.5px solid #cddbe3;
+  border-radius: 14px;
+  padding: 24px;
+  font-family: 'Charter BT', serif;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
-.activity-preferences-form button:hover {
-  background-color: #0056b3;
+.activity-preferences-form h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
+/* Buttons */
+.standard-button,
+.activity-preferences-form button,
 .gen-itinerary-button {
-  position: relative;
-  padding: 10px 20px;
-  font-size: 16px;
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
+  font-family: 'Charter BT', serif;
+  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
+
+.standard-button:hover,
+.activity-preferences-form button:hover,
+.gen-itinerary-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
 }
 
 .gen-itinerary-button:disabled {
@@ -197,4 +116,112 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Selectable Boxes */
+.selectable-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.selectable-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 180px;
+  border: 2px solid #d0dce4;
+  border-radius: 14px;
+  background: #fafcfe;
+  font-family: 'Charter BT', serif;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  user-select: none;
+}
+
+.selectable-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.selectable-box.selected {
+  border: 2px solid #4caf50;
+  background-color: #e8f5e9;
+}
+
+.selectable-box input {
+  display: none;
+}
+
+.selectable-image {
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.selectable-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.preferences-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.create-trip-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.trip-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-family: 'Charter BT', serif;
+}
+
+.activities-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.placeholder-activity-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  color: #555;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.itinerary-section h3 {
+  font-size: 1rem;
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  font-family: 'Charter BT', serif;
 }

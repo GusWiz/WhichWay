@@ -51,6 +51,7 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
 
       try {
         // Create autocomplete instance
+
         autocompleteRef.current = new window.google.maps.places.Autocomplete(
           inputRef.current,
           { types: ['(cities)'] }
@@ -59,7 +60,6 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
         // Add event listener for place selection
         autocompleteRef.current.addListener('place_changed', () => {
           const place = autocompleteRef.current.getPlace();
-
           if (place?.geometry?.location) {
             // Format location data for parent component
             const placeData = {
@@ -70,6 +70,8 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
               },
               placeId: place.place_id,
             };
+            console.log(place.geometry.location.lat());
+            console.log(place.geometry.location.lng());
 
             // Update input value and notify parent component
             onChange({ target: { name: 'destination', value: place.name } });
@@ -109,8 +111,8 @@ const LocationAutocomplete = ({ value, onChange, onPlaceSelected }) => {
         placeholder={
           isLoading ? 'Loading places autocomplete...' : 'Enter destination'
         }
-        value={value || ''}
-        onChange={onChange}
+        //value={value || ''}
+        //onChange={onChange}
         className='ainput-field'
         disabled={isLoading}
       />

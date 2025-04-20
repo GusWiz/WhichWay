@@ -3,55 +3,72 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: hsl(201, 69%, 22%);
+  background: linear-gradient(
+    to bottom right,
+    hsl(202, 52%, 30%),
+    hsl(202, 52%, 18%)
+  );
+  font-family: 'Charter BT', serif;
+  color: #f5f5f5;
 }
 
 .landing-card {
-  background-color: hsl(0, 0%, 100%);
-  height: 450px;
-  width: 500px;
+  background-color: white;
+  height: auto;
+  max-width: 500px;
+  width: 90%;
+  padding: 2rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 4.5px 8px 7.5px #000000;
 }
 
 .landingcard-title {
-  margin-bottom: 50px;
-  font-size: 20px;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
   background-color: hsl(202, 52%, 30%);
-  color: hsl(0, 0%, 100%);
-  border-radius: 5px;
-  padding: 2px;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-family: 'Charter BT', serif;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 
 .landingcard-text {
-  margin-bottom: 20px;
   text-align: left;
-  padding: 5px;
-  font-size: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  padding: 0 0.5rem;
+  color: #333;
 }
 
 .landingcard-buttons {
   display: flex;
-  justify-content: space-evenly;
-}
-.landing-button {
-  margin-top: 70px;
-  height: 54px;
-  width: 200px;
-  font-size: 1rem;
-  font-weight: 425;
-  cursor: pointer;
-  padding: 0.75rem 0;
-  background: hsl(201, 69%, 22%);
-  border: 1px solid hsl(0, 0%, 75%);
-  color: hsl(0, 0%, 100%);
-  border-radius: 0.31rem;
-  transition: 0.2s ease;
-  outline: none;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
-.landing-body .landing-button:hover {
-  background: hsl(202, 52%, 30%);
+.landing-button {
+  height: 52px;
+  width: 200px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: hsl(202, 52%, 30%);
+  color: white;
+  border: 1.5px solid hsl(202, 52%, 30%);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-family: 'Charter BT', serif;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
+
+.landing-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
 }
