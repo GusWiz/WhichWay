@@ -97,7 +97,6 @@
   margin-bottom: 4px;
 }
 
-
 @media print {
   body {
     font-size: 11px;
@@ -219,7 +218,9 @@
     display: flex;
   }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 }

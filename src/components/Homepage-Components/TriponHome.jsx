@@ -19,9 +19,6 @@ import { sampleSchedule } from '../../pages/TestPage';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-
-
-
 const TripTable = ({
   title,
   trips,
@@ -32,7 +29,6 @@ const TripTable = ({
   onRemove,
   onViewItinerary,
 }) => (
-
   <>
     <button className='triphome-button' onClick={toggleHide}>
       {hide ? `Show ${title}` : `Hide ${title}`}
@@ -97,12 +93,10 @@ const TripTable = ({
         )}
       </div>
     )}
-
   </>
 );
 
 const EditableField = ({ field, value, tripId }) => {
-
   const [isEditing, setIsEditing] = useState(false);
   const [tempValue, setTempValue] = useState(value);
 
@@ -261,34 +255,34 @@ export default function TripManager() {
           </div>
 
           {showModal && (
-            <div className="modal-overlay" onClick={() => setShowModal(false)}>
-              <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className='modal-overlay' onClick={() => setShowModal(false)}>
+              <div
+                className='modal-content'
+                onClick={(e) => e.stopPropagation()}
+              >
                 <button
-                  className="close-button"
+                  className='close-button'
                   onClick={() => setShowModal(false)}
                 >
                   ×
                 </button>
                 <h2>Itinerary Details</h2>
                 <div ref={printRef}>
-                  <ItineraryDisplay schedule={sampleSchedule}/>
+                  <ItineraryDisplay schedule={sampleSchedule} />
                 </div>
 
                 <button
-                  className="triphome-button"
+                  className='triphome-button'
                   style={{ marginTop: '20px' }}
                   onClick={handleDownloadPDF}
                 >
                   Export to PDF
-              </button>
-
+                </button>
               </div>
             </div>
           )}
-
         </div>
       </div>
     </ErrorBoundary>
   );
-
 }
