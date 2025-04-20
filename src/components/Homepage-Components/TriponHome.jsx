@@ -154,8 +154,7 @@ export default function TripManager() {
 
           {!hideAll && (
             <div className='trip-section'>
-              <div className='trip-summary'>
-              </div>
+              <div className='trip-summary'></div>
               <h2 className='h2'>All Trips</h2>
               <table>
                 <thead>
@@ -181,9 +180,7 @@ export default function TripManager() {
                   ))}
                 </tbody>
               </table>
-              <div className='trip-count'>
-      Total Trips: {trips.length}
-    </div>
+              <div className='trip-count'>Total Trips: {trips.length}</div>
             </div>
           )}
         </div>

@@ -124,5 +124,5 @@
 .save-button:hover {
   background-color: hsl(202, 52%, 24%);
   border-color: hsl(202, 52%, 24%);
-  box-shadow: 0 4px 12px rgba(13, 94)
+  box-shadow: 0 4px 12px rgba(13, 94);
 }
