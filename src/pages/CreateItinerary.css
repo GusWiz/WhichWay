@@ -1,105 +1,115 @@
-/* Main Container */
+/* Base Container */
 .itinerary-container {
   width: 100%;
-  background: linear-gradient(to bottom right, #e3f2fd, #ffffff);
-  border-radius: 12px;
-  padding: 2rem 2rem 2rem 2.5rem;
+  background: linear-gradient(to bottom right, #daeef7, #ffffff);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
   margin: 2rem auto;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  font-family: 'Charter BT', serif;
+  color: #2c2c2c;
 }
 
 /* Title */
 .createititnerary-title {
   text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: #0d2c40;
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
 }
 
 .itinerary-subtitle {
   text-align: center;
-  font-size: 1.2rem;
-  color: #555;
+  font-size: 1.1rem;
+  color: #666;
   margin-bottom: 2rem;
+  font-style: italic;
 }
 
-/* Day Labels */
+/* Day Section */
 .itinerary-day {
   margin-bottom: 2.5rem;
 }
 
 .itinerary-daytitle {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #0d8fec;
-  margin-bottom: 0.75rem;
+  color: hsl(202, 52%, 30%);
+  margin-bottom: 1rem;
 }
 
-/* Activity Card Layout */
+/* Item List Container */
 .itinerary-itemscontainer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
+/* Activity Card */
 .itinerary-item {
   background: #ffffff;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #0d8fec;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid hsl(202, 52%, 30%);
+  transition: transform 0.2s ease;
+}
+
+.itinerary-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Timestamp */
 .itinerary-itemtime {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #555;
   font-weight: 500;
   margin-bottom: 0.4rem;
 }
 
-/* Title and Description */
+/* Title and Details */
 .itinerary-item-title {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: #222;
 }
 
 .itinerary-item-details {
-  font-size: 0.95rem;
-  color: #666;
-  margin-top: 0.25rem;
-  line-height: 1.4;
+  font-size: 1rem;
+  color: #555;
+  margin-top: 0.3rem;
+  line-height: 1.6;
 }
 
-/* Match TriponHome button styles */
-.itinerary-button {
-  padding: 6px 20px;
-  font-size: 0.85rem;
-  border-radius: 5px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  background-color: #0d8fec;
-  color: #fff;
-  transition: background-color 0.2s ease;
-  margin: 0.5rem;
-}
-
+/* Buttons */
 .itinerary-buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   gap: 1rem;
 }
 
+.itinerary-button {
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Charter BT', serif;
+  border-radius: 8px;
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
+
 .itinerary-button:hover {
-  background-color: #0056b3;
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
 }

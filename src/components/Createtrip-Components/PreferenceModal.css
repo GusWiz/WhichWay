@@ -1,4 +1,4 @@
-/* Fullscreen Modal Overlay */
+/* === Fullscreen Modal Overlay === */
 .fixed {
   position: fixed;
   inset: 0;
@@ -6,9 +6,10 @@
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  font-family: 'Charter BT', serif;
 }
 
-/* Background Blur and Dim */
+/* === Background Blur & Dim === */
 .bg-black {
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -17,28 +18,29 @@
   backdrop-filter: blur(6px);
 }
 
-/* Modal Content Box */
+/* === Modal Box === */
 .bg-white {
   background: linear-gradient(to bottom right, #ffffff, #f4f9ff);
-  border-radius: 12px;
-  padding: 2rem 2.5rem;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  padding: 2.75rem 2.5rem 2.5rem 2.5rem;
+  max-width: 580px; /* slightly wider */
+  width: 95%;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.7rem; /* more space between inputs */
   position: relative;
+  font-family: 'Charter BT', serif;
 }
 
-/* Close (X) Button */
+/* === Close Button === */
 .close-btn {
   position: absolute;
   top: 14px;
   right: 14px;
   background: none;
   border: none;
-  color: #444;
+  color: #555;
   font-size: 1.5rem;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -48,27 +50,31 @@
   color: #000;
 }
 
-/* Title */
+/* === Title === */
 .modal-title {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.75rem;
+  font-weight: 700;
   text-align: center;
-  width: 100%;
-  color: #222;
-  margin-bottom: 0;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: 0.3px;
 }
 
-/* Input Styling */
+/* === Inputs === */
 input,
 textarea,
 select {
-  padding: 12px;
+  padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid #ccc;
-  width: 100%;
+  border: 1.5px solid #bccada;
+  background-color: #fdfdfd;
   font-size: 1rem;
-  background-color: #f9f9f9;
+  font-family: 'Charter BT', serif;
+  width: 100%;
   transition: border-color 0.2s ease;
+  color: #2c2c2c;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
 }
 
 textarea {
@@ -79,38 +85,42 @@ textarea {
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #0d8fec;
+  border-color: hsl(202, 52%, 40%);
   outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 94, 139, 0.15);
 }
 
-/* Action Button */
+/* === Button (Primary) === */
 .submit-btn,
 .trip-preference-btn {
-  padding: 12px 20px;
-  background-color: #0d8fec;
-  color: #fff;
+  padding: 12px 24px;
   font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
-  border: none;
+  font-weight: 600;
+  font-family: 'Charter BT', serif;
+  border-radius: 10px;
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 
 .submit-btn:hover,
 .trip-preference-btn:hover {
-  background-color: #005ecb;
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
 }
 
 .submit-btn:disabled {
   background-color: #ccc;
+  color: #f5f5f5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* Responsive Modal */
+/* === Responsive (Mobile Modal) === */
 @media (max-width: 480px) {
   .bg-white {
     padding: 1.5rem;
@@ -118,6 +128,6 @@ select:focus {
   }
 
   .modal-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
 }

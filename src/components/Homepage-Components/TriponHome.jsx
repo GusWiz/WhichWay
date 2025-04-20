@@ -33,8 +33,8 @@ const TripTable = ({ title, trips, hide, toggleHide, onView }) => (
                   <td>{startDate || 'N/A'}</td>
                   <td>{destination}</td>
                   <td>
-                    <button className='edit-button' onClick={() => onView(id)}>
-                      <FaEye /> View
+                    <button className='view-button'>
+                      <FaEye style={{ marginRight: '6px' }} /> View
                     </button>
                   </td>
                 </tr>
@@ -97,6 +97,19 @@ export default function TripManager() {
     'The journey not the arrival matters.',
   ];
 
+  const greetingBank = [
+    'Hi',
+    'Hey',
+    'Welcome',
+    'Greetings',
+    'What’s up',
+    'Hola',
+    'Yo',
+  ];
+  const [greeting] = useState(
+    () => greetingBank[Math.floor(Math.random() * greetingBank.length)]
+  );
+
   const [quote] = useState(
     () => quoteBank[Math.floor(Math.random() * quoteBank.length)]
   );
@@ -114,10 +127,13 @@ export default function TripManager() {
     <ErrorBoundary>
       <div className='triphome-body'>
         <div className='triphome-container'>
-          <h1 className='h1'>Trip Dashboard</h1>
-          <div className='quote-box'>
-            <blockquote>“{quote}”</blockquote>
-          </div>
+          <h1 className='h1'>
+            {user?.displayName
+              ? `${user.displayName}'s Dashboard 🌎`
+              : 'Your Dashboard'}
+          </h1>
+
+          <p className='subtle-greeting'>Welcome, traveler.</p>
 
           <TripTable
             title='Upcoming Trips'
@@ -139,8 +155,6 @@ export default function TripManager() {
           {!hideAll && (
             <div className='trip-section'>
               <div className='trip-summary'>
-                <div>Total Trips: {trips.length}</div>
-                <div>Upcoming: {upcomingTrips.length}</div>
               </div>
               <h2 className='h2'>All Trips</h2>
               <table>
@@ -149,10 +163,6 @@ export default function TripManager() {
                     <th>Trip Name</th>
                     <th>Destination</th>
                     <th>Time Frame</th>
-                    <th>Entertainment</th>
-                    <th>Food</th>
-                    <th>Outdoor</th>
-                    <th>Created</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -162,30 +172,23 @@ export default function TripManager() {
                       <td>{trip.name}</td>
                       <td>{trip.destination}</td>
                       <td>{trip.duration || 'N/A'}</td>
-                      <td>{trip.selectedEntertainment?.length || 0}</td>
-                      <td>{trip.selectedFoods?.length || 0}</td>
-                      <td>{trip.selectedOutdoors?.length || 0}</td>
                       <td>
-                        {trip.created?.seconds
-                          ? new Date(
-                              trip.created.seconds * 1000
-                            ).toLocaleDateString()
-                          : 'N/A'}
-                      </td>
-                      <td>
-                        <button
-                          className='edit-button'
-                          onClick={() => navigate(`/trip/${trip.id}`)}
-                        >
-                          <FaEye /> View
+                        <button className='view-button'>
+                          <FaEye style={{ marginRight: '6px' }} /> View
                         </button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <div className='trip-count'>
+      Total Trips: {trips.length}
+    </div>
             </div>
           )}
+        </div>
+        <div className='quote-footer'>
+          <blockquote>“{quote}” ✈️</blockquote>
         </div>
       </div>
     </ErrorBoundary>

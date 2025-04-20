@@ -32,7 +32,10 @@ function ActivitiesDisplay({
 
   return (
     <div className='activities-container'>
-      <h2>Activities</h2>
+      <div className='activities-header'>
+  <h2>Activities</h2>
+</div>
+
 
       <div className='categories-container'>
         {/* Entertainment Selection */}
