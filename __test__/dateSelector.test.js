@@ -6,7 +6,10 @@ import '@testing-library/jest-dom';
 // Mock react-datepicker to simplify the DOM
 jest.mock('react-datepicker', () => (props) => {
   return (
-    <div data-testid="mock-datepicker" onClick={() => props.onChange(new Date(2025, 3, 17))}>
+    <div
+      data-testid='mock-datepicker'
+      onClick={() => props.onChange(new Date(2025, 3, 17))}
+    >
       Mock DatePicker
     </div>
   );
