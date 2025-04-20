@@ -134,6 +134,13 @@ export default function TripManager() {
   const [hidePast, setHidePast] = useState(false);
   const navigate = useNavigate();
 
+
+
+  const exportItinerary = () => {
+    const printWindow = window.open('/test', '_blank');
+    printWindow.focus();
+
+  }
   const handleDownloadPDF = async () => {
     const element = printRef.current;
 
@@ -274,7 +281,7 @@ export default function TripManager() {
                 <button
                   className='triphome-button'
                   style={{ marginTop: '20px' }}
-                  onClick={handleDownloadPDF}
+                  onClick={exportItinerary}
                 >
                   Export to PDF
                 </button>
