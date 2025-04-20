@@ -9,7 +9,6 @@
 .header-row {
   display: flex;
   align-items: flex-end;
-  margin-left: 60px; /* Match time-column width */
   gap: 1rem;
 }
 

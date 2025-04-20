@@ -134,13 +134,10 @@ export default function TripManager() {
   const [hidePast, setHidePast] = useState(false);
   const navigate = useNavigate();
 
-
-
   const exportItinerary = () => {
     const printWindow = window.open('/test', '_blank');
     printWindow.focus();
-
-  }
+  };
   const handleDownloadPDF = async () => {
     const element = printRef.current;
 

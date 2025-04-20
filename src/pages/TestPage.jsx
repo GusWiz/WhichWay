@@ -110,9 +110,7 @@ export const sampleSchedule = [
   },
 ];
 
-
 const testPage = () => {
-
   useEffect(() => {
     const timer = setTimeout(() => {
       window.print();
@@ -125,16 +123,12 @@ const testPage = () => {
   //   window.print()
   // }
 
-
-
-
   return (
     <div className='min-h-screen bg-gray-50 py-10'>
       <h1 className='text-3xl font-bold text-center mb-8'>Itinerary</h1>
 
       <ItineraryCalendar schedule={sampleSchedule} />
     </div>
-
   );
 };
 export default testPage;
