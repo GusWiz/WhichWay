@@ -7,6 +7,22 @@
   height: 100px; /* Controls title area height */
   text-align: center;
 }
+.createtrip-title h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0;
+  color: #0d2c40;
+  text-align: center;
+}
+
+.edittrip-heading h1 {
+  font-size: 2.0rem !important;
+  font-weight: 600;
+  color: #0d2c40;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
 
 .createtrip-input {
   width: 600px;

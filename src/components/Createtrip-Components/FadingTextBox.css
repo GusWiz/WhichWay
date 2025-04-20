@@ -1,29 +1,33 @@
 .fading-textbox-container {
-  margin: 20px; /* Add margin around the container */
-  padding: 10px; /* Optional: add padding around the container */
-}
-
-/* Default state: no border */
-.fading-textbox {
-  border: 1px solid transparent; /* Invisible border by default */
+  margin: 1.5rem 0;
+  display: flex;
   justify-content: center;
-  padding: 10px;
-  font-size: 24px; /* Increased font size */
-  width: 300px; /* Reduced width of the textbox */
-  outline: none; /* Remove default outline */
-  transition: border-color 0.3s ease;
-  white-space: nowrap; /* Prevents text from wrapping to the next line */
-  overflow: hidden; /* Hides the overflowed text */
-  text-overflow: ellipsis; /* Adds the "..." when text overflows */
-  border-radius: 8px; /* Make the border rounded */
 }
 
-/* When the textbox is focused (being edited), show the border */
+.fading-textbox {
+  padding: 10px 16px;
+  font-size: 1rem;
+  width: 280px;
+  border-radius: 8px;
+  border: 1px solid #d0d7de;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  color: #333;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .fading-textbox:focus {
-  border: 1px solid #4a90e2; /* Blue border when focused */
+  border-color: #0d8fec;
+  box-shadow: 0 0 0 3px rgba(13, 143, 236, 0.2);
 }
 
-/* Optionally, you can add a border on hover */
 .fading-textbox:hover {
-  border: 1px solid #ccc; /* Light gray border when hovering */
+  border-color: #b0bec5;
 }

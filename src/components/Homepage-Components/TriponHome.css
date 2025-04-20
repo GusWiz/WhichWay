@@ -2,11 +2,22 @@
 
 .triphome-body {
   min-height: 100vh;
-  background-color: #ffffff;
+  width: 100%;
   padding: 2rem;
-  width: 100%; /* Takes 100% of the available flex space */
-  flex-grow: 1; /* Fills the rest beside sidebar */
+  flex-grow: 1;
   box-sizing: border-box;
+
+  background: linear-gradient(
+    to bottom right,
+    #e3f2fd,
+    #ffffff
+  ); /* soft blue to white */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  color: #333;
 }
 
 .triphome-container {
@@ -18,7 +29,7 @@
   text-align: center;
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #000000;
+  color: #000;
 }
 
 .trip-section {
@@ -32,46 +43,61 @@
 .h2 {
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #000000;
-}
-
-.triphome-button {
-  background-color: #3b82f6;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  margin: 8px 0;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.triphome-button:hover {
-  background-color: #2563eb;
+  color: #000;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 th,
 td {
-  border: 1px solid #e5e7eb;
-  padding: 10px;
-  text-align: center;
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 th {
-  background-color: #f3f4f6;
+  background-color: #f8f9fa;
   font-weight: 600;
 }
 
-td {
-  background-color: #ffffff;
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* Button group positioning */
+.button-row {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.9rem;
+  margin-top: -0.5rem;
+}
+
+.triphome-button {
+  padding: 4px 20px;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  transition: background-color 0.2s ease;
+  background-color: #0d8fec;
+  color: #fff;
+}
+
+.triphome-button:hover {
+  background-color: #0056b3;
 }
 
 .trip-summary {
@@ -85,14 +111,18 @@ td {
 }
 
 .quote-box {
-  margin: 1.5rem auto;
-  text-align: center;
-  font-size: 1.2rem;
-  font-family: 'Times New Roman';
+  background-color: #030001; /* soft blush pink */
+  padding: 18px 28px;
+  border-left: 4px solid #a1c1db; /* hot pink accent */
+  margin: 2rem auto;
+  max-width: 640px;
+  font-family: 'Georgia', 'serif';
   font-style: italic;
-  color: #000000;
-  background: #c9e6f5;
-  padding: 1rem;
-  border-radius: 8px;
-  max-width: 600px;
+  font-size: 1.1rem;
+  color: #000000; /* deep rose */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.15);
+  text-align: center;
+  line-height: 1.6;
+  background-image: linear-gradient(to right, #d0e9fa, #c7e2ff);
 }

@@ -426,7 +426,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
               >
                 Trip Preferences
               </button>
-              <div className='createititnerary-title'>
+              <div className='createtrip-title'>
                 <h1>Create Trip</h1>
               </div>
               <div className='form-container'>

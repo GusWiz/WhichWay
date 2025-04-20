@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
+import { FaEye } from 'react-icons/fa';
 
-const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
+const TripTable = ({ title, trips, hide, toggleHide, onView }) => (
   <>
-    <button className='triphome-button' onClick={toggleHide}>
-      {hide ? `Show ${title}` : `Hide ${title}`}
-    </button>
+    <div className='button-row'>
+      <button className='triphome-button' onClick={toggleHide}>
+        {hide ? `Show ${title}` : `Hide ${title}`}
+      </button>
+    </div>
     {!hide && (
       <div className='trip-section'>
         <h2 className='h2'>{title}</h2>
@@ -24,17 +27,14 @@ const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
               </tr>
             </thead>
             <tbody>
-              {trips.map(({ id, name, date, destination }) => (
+              {trips.map(({ id, name, startDate, destination }) => (
                 <tr key={id}>
                   <td>{name}</td>
-                  <td>{date}</td>
+                  <td>{startDate || 'N/A'}</td>
                   <td>{destination}</td>
                   <td>
-                    <button
-                      className='triphome-button'
-                      onClick={() => onRemove(id)}
-                    >
-                      🅧
+                    <button className='edit-button' onClick={() => onView(id)}>
+                      <FaEye /> View
                     </button>
                   </td>
                 </tr>
@@ -42,7 +42,7 @@ const TripTable = ({ title, trips, hide, toggleHide, onView, onRemove }) => (
             </tbody>
           </table>
         ) : (
-          <p>No available. Create a new trip to get started with {title}.</p>
+          <p className='empty-msg'>No trips found. Start planning one!</p>
         )}
       </div>
     )}
@@ -57,41 +57,36 @@ export default function TripManager() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
+    const unsubscribe = auth.onAuthStateChanged(setUser);
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     if (!user) return;
 
-    (async () => {
+    const loadTrips = async () => {
       try {
-        const userDocRef = doc(db, 'Users', user.uid);
-        const userDocSnap = await getDoc(userDocRef);
+        const userDoc = await getDoc(doc(db, 'Users', user.uid));
+        if (!userDoc.exists()) return;
 
-        if (userDocSnap.exists()) {
-          const userData = userDocSnap.data();
-          const tripIds = userData.trips || [];
+        const tripIds = userDoc.data().trips || [];
+        const tripsData = await Promise.all(
+          tripIds.map(async (id) => {
+            const tripDoc = await getDoc(doc(db, 'trips', id));
+            return tripDoc.exists() ? { id, ...tripDoc.data() } : null;
+          })
+        );
 
-          const tripsData = await Promise.all(
-            tripIds.map(async (id) => {
-              const tripDocRef = doc(db, 'trips', id);
-              const tripSnap = await getDoc(tripDocRef);
-              return tripSnap.exists() ? { id, ...tripSnap.data() } : null;
-            })
-          );
-
-          setTrips(tripsData.filter((trip) => trip !== null));
-        }
+        setTrips(tripsData.filter(Boolean));
       } catch (err) {
         console.error('Error loading trips:', err);
       }
-    })();
+    };
+
+    loadTrips();
   }, [user]);
 
-  const travelQuotes = [
+  const quoteBank = [
     'Life is short and the world is wide.',
     'Travel is the only thing you buy that makes you richer.',
     'Jobs fill your pockets, but adventures fill your soul.',
@@ -102,17 +97,9 @@ export default function TripManager() {
     'The journey not the arrival matters.',
   ];
 
-  const [quote, setQuote] = useState('');
-
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * travelQuotes.length);
-    setQuote(travelQuotes[randomIndex]);
-  }, []);
-
-  const handleRemove = async (id) => {
-    await deleteDoc(doc(db, 'trips', id));
-    setTrips((prev) => prev.filter((trip) => trip.id !== id));
-  };
+  const [quote] = useState(
+    () => quoteBank[Math.floor(Math.random() * quoteBank.length)]
+  );
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -129,22 +116,25 @@ export default function TripManager() {
         <div className='triphome-container'>
           <h1 className='h1'>Trip Dashboard</h1>
           <div className='quote-box'>
-            <p>“{quote}”</p>
+            <blockquote>“{quote}”</blockquote>
           </div>
+
           <TripTable
             title='Upcoming Trips'
             trips={upcomingTrips}
             hide={hideUpcoming}
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
-            onRemove={handleRemove}
+            onView={(id) => navigate(`/trip/${id}`)}
           />
 
-          <button
-            className='triphome-button'
-            onClick={() => setHideAll(!hideAll)}
-          >
-            {hideAll ? 'Show All Trips' : 'Hide All Trips'}
-          </button>
+          <div className='button-row'>
+            <button
+              className='triphome-button'
+              onClick={() => setHideAll(!hideAll)}
+            >
+              {hideAll ? 'Show All Trips' : 'Hide All Trips'}
+            </button>
+          </div>
 
           {!hideAll && (
             <div className='trip-section'>
@@ -184,16 +174,10 @@ export default function TripManager() {
                       </td>
                       <td>
                         <button
-                          className='triphome-button'
-                          onClick={() => handleRemove(trip.id)}
-                        >
-                          Delete
-                        </button>
-                        <button
-                          className='triphome-button'
+                          className='edit-button'
                           onClick={() => navigate(`/trip/${trip.id}`)}
                         >
-                          View
+                          <FaEye /> View
                         </button>
                       </td>
                     </tr>
