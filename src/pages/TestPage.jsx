@@ -124,8 +124,8 @@ const testPage = () => {
   // }
 
   return (
-    <div className='min-h-screen bg-gray-50 py-10'>
-      <h1 className='text-3xl font-bold text-center mb-8'>Itinerary</h1>
+    <div>
+      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Itinerary</h1>
 
       <ItineraryCalendar schedule={sampleSchedule} />
     </div>

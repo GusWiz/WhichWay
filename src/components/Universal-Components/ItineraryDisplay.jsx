@@ -30,59 +30,61 @@ const getMinutesFromTime = (timeStr) => {
 
 const ItineraryDisplay = ({ schedule }) => {
   return (
-    <div className='itinerary-grid-wrapper'>
-      {/* Header Row */}
-      <div className='header-row'>
-        <div className='time-column-header' /> {/* Empty spacer */}
-        {schedule.map((day, idx) => (
-          <div key={idx} className='day-column-header'>
-            <div className='weekday'>{getWeekday(day.date)}</div>
-            <div className='date'>{day.date}</div>
-          </div>
-        ))}
-      </div>
 
-      {/* Main Grid */}
-      <div className='grid-content'>
-        {/* Time Labels */}
-        <div className='time-column'>
-          {HOURS.map((hour) => (
-            <div key={hour} className='time-slot'>
-              {formatHour(hour)}
-            </div>
-          ))}
-        </div>
 
-        {/* Day Columns */}
-        <div className='days-container'>
+      <div className='itinerary-grid-wrapper'>
+        {/* Header Row */}
+        <div className='header-row'>
+          <div className='time-column-header' /> {/* Empty spacer */}
           {schedule.map((day, idx) => (
-            <div key={idx} className='day-column'>
-              <div className='day-body'>
-                {day.activities.map((activity, i) => {
-                  const start = getMinutesFromTime(activity.start_time);
-                  const end = getMinutesFromTime(activity.end_time);
-                  const top = ((start - 480) / 60) * 50; // 480 = 8 AM
-                  const height = ((end - start) / 60) * 50;
-
-                  return (
-                    <div
-                      key={i}
-                      className='activity-block'
-                      style={{ top: `${top}px`, height: `${height}px` }}
-                    >
-                      <strong>{activity.name}</strong>
-                      <div>
-                        {activity.start_time} - {activity.end_time}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+            <div key={idx} className='day-column-header'>
+              <div className='weekday'>{getWeekday(day.date)}</div>
+              <div className='date'>{day.date}</div>
             </div>
           ))}
         </div>
+
+        {/* Main Grid */}
+        <div className='grid-content'>
+          {/* Time Labels */}
+          <div className='time-column'>
+            {HOURS.map((hour) => (
+              <div key={hour} className='time-slot'>
+                {formatHour(hour)}
+              </div>
+            ))}
+          </div>
+
+          {/* Day Columns */}
+          <div className='days-container'>
+            {schedule.map((day, idx) => (
+              <div key={idx} className='day-column'>
+                <div className='day-body'>
+                  {day.activities.map((activity, i) => {
+                    const start = getMinutesFromTime(activity.start_time);
+                    const end = getMinutesFromTime(activity.end_time);
+                    const top = ((start - 480) / 60) * 50; // 480 = 8 AM
+                    const height = ((end - start) / 60) * 50;
+
+                    return (
+                      <div
+                        key={i}
+                        className='activity-block'
+                        style={{ top: `${top}px`, height: `${height}px` }}
+                      >
+                        <strong>{activity.name}</strong>
+                        <div>
+                          {activity.start_time} - {activity.end_time}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
   );
 };
 

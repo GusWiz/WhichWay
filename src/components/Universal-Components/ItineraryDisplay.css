@@ -1,3 +1,11 @@
+.header-container {
+  width: 100%;
+}
+
+.itinerary-title {
+  text-align: center;
+}
+
 /* Container for the entire calendar */
 .itinerary-grid-wrapper {
   display: flex;
