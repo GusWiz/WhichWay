@@ -33,17 +33,17 @@ describe('Sidebar', () => {
   const sidebarItems = [
     {
       title: 'Home',
-      icon: <div data-testid="icon-home" />,
+      icon: <div data-testid='icon-home' />,
       link: '/home',
     },
     {
       title: 'Create Trip',
-      icon: <div data-testid="icon-create" />,
+      icon: <div data-testid='icon-create' />,
       link: '/createtrip',
     },
     {
       title: 'Logout',
-      icon: <div data-testid="icon-logout" />,
+      icon: <div data-testid='icon-logout' />,
       onClick: mockLogout,
     },
   ];

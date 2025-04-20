@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744930332069" clover="3.2.0">
-  <project timestamp="1744930332069" name="All files">
-    <metrics statements="421" coveredstatements="253" conditionals="245" coveredconditionals="113" methods="113" coveredmethods="70" elements="779" coveredelements="436" complexity="0" loc="421" ncloc="421" packages="7" files="18" classes="18"/>
-    <package name="backend">
+<coverage generated="1745124442118" clover="3.2.0">
+  <project timestamp="1745124442119" name="All files">
+    <metrics statements="450" coveredstatements="284" conditionals="254" coveredconditionals="122" methods="117" coveredmethods="74" elements="821" coveredelements="480" complexity="0" loc="450" ncloc="450" packages="9" files="20" classes="20"/>
+    <package name="netlify.functions">
+      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="googlePlaces.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\netlify\functions\googlePlaces.js">
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.backend">
       <metrics statements="48" coveredstatements="19" conditionals="16" coveredconditionals="6" methods="8" coveredmethods="3"/>
-      <file name="dataCollect.js" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\backend\dataCollect.js">
+      <file name="dataCollect.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\backend\dataCollect.js">
         <metrics statements="34" coveredstatements="10" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -41,7 +59,7 @@
         <line num="104" count="0" type="stmt"/>
         <line num="106" count="0" type="stmt"/>
       </file>
-      <file name="openAI.js" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\backend\openAI.js">
+      <file name="openAI.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\backend\openAI.js">
         <metrics statements="14" coveredstatements="9" conditionals="10" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -59,9 +77,9 @@
         <line num="80" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="components.Createtrip-Components">
-      <metrics statements="119" coveredstatements="90" conditionals="84" coveredconditionals="59" methods="36" coveredmethods="20"/>
-      <file name="ActivitiesDisplay.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Createtrip-Components\ActivitiesDisplay.jsx">
+    <package name="src.components.Createtrip-Components">
+      <metrics statements="119" coveredstatements="92" conditionals="84" coveredconditionals="59" methods="36" coveredmethods="20"/>
+      <file name="ActivitiesDisplay.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\ActivitiesDisplay.jsx">
         <metrics statements="28" coveredstatements="8" conditionals="21" coveredconditionals="12" methods="18" coveredmethods="3"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
@@ -92,7 +110,7 @@
         <line num="244" count="0" type="stmt"/>
         <line num="269" count="1" type="stmt"/>
       </file>
-      <file name="ActivityModal.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Createtrip-Components\ActivityModal.jsx">
+      <file name="ActivityModal.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\ActivityModal.jsx">
         <metrics statements="8" coveredstatements="8" conditionals="14" coveredconditionals="9" methods="1" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -103,8 +121,8 @@
         <line num="11" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="13" count="2" type="stmt"/>
       </file>
-      <file name="DateSelector.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Createtrip-Components\DateSelector.jsx">
-        <metrics statements="46" coveredstatements="41" conditionals="39" coveredconditionals="31" methods="8" coveredmethods="8"/>
+      <file name="DateSelector.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\DateSelector.jsx">
+        <metrics statements="46" coveredstatements="43" conditionals="39" coveredconditionals="31" methods="8" coveredmethods="8"/>
         <line num="6" count="1" type="stmt"/>
         <line num="12" count="10" type="stmt"/>
         <line num="13" count="10" type="stmt"/>
@@ -148,11 +166,11 @@
         <line num="122" count="1" type="stmt"/>
         <line num="125" count="1" type="stmt"/>
         <line num="128" count="1" type="stmt"/>
-        <line num="129" count="0" type="stmt"/>
-        <line num="130" count="0" type="stmt"/>
+        <line num="129" count="2" type="stmt"/>
+        <line num="130" count="2" type="stmt"/>
         <line num="133" count="1" type="stmt"/>
       </file>
-      <file name="PreferenceModal.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Createtrip-Components\PreferenceModal.jsx">
+      <file name="PreferenceModal.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\PreferenceModal.jsx">
         <metrics statements="35" coveredstatements="31" conditionals="10" coveredconditionals="7" methods="8" coveredmethods="7"/>
         <line num="9" count="10" type="stmt"/>
         <line num="10" count="10" type="stmt"/>
@@ -190,15 +208,15 @@
         <line num="188" count="1" type="stmt"/>
         <line num="207" count="1" type="stmt"/>
       </file>
-      <file name="TripInputField.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Createtrip-Components\TripInputField.jsx">
+      <file name="TripInputField.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\TripInputField.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="components.Homepage-Components">
+    <package name="src.components.Homepage-Components">
       <metrics statements="73" coveredstatements="61" conditionals="35" coveredconditionals="27" methods="33" coveredmethods="25"/>
-      <file name="ErrorBoundary.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Homepage-Components\ErrorBoundary.jsx">
+      <file name="ErrorBoundary.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\ErrorBoundary.jsx">
         <metrics statements="7" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="2"/>
         <line num="9" count="8" type="stmt"/>
         <line num="10" count="8" type="stmt"/>
@@ -208,7 +226,7 @@
         <line num="24" count="0" type="stmt"/>
         <line num="27" count="17" type="stmt"/>
       </file>
-      <file name="Sidebar.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Homepage-Components\Sidebar.jsx">
+      <file name="Sidebar.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\Sidebar.jsx">
         <metrics statements="15" coveredstatements="14" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
         <line num="8" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
@@ -226,7 +244,7 @@
         <line num="40" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
       </file>
-      <file name="TriponHome.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Homepage-Components\TriponHome.jsx">
+      <file name="TriponHome.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\TriponHome.jsx">
         <metrics statements="51" coveredstatements="43" conditionals="27" coveredconditionals="21" methods="25" coveredmethods="19"/>
         <line num="17" count="1" type="stmt"/>
         <line num="26" count="26" type="stmt"/>
@@ -281,16 +299,16 @@
         <line num="190" count="39" type="stmt"/>
       </file>
     </package>
-    <package name="components.Landing-Components">
+    <package name="src.components.Landing-Components">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="NavigationBar.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Landing-Components\NavigationBar.jsx">
+      <file name="NavigationBar.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Landing-Components\NavigationBar.jsx">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="10" type="stmt"/>
       </file>
     </package>
-    <package name="components.Login-Components">
+    <package name="src.components.Login-Components">
       <metrics statements="36" coveredstatements="36" conditionals="0" coveredconditionals="0" methods="14" coveredmethods="14"/>
-      <file name="ForgotPassword.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Login-Components\ForgotPassword.jsx">
+      <file name="ForgotPassword.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\ForgotPassword.jsx">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="9" count="7" type="stmt"/>
         <line num="11" count="7" type="stmt"/>
@@ -305,12 +323,12 @@
         <line num="26" count="7" type="stmt"/>
         <line num="37" count="3" type="stmt"/>
       </file>
-      <file name="InputField.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Login-Components\InputField.jsx">
+      <file name="InputField.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\InputField.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="10" type="stmt"/>
       </file>
-      <file name="Login.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Login-Components\Login.jsx">
+      <file name="Login.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\Login.jsx">
         <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="14" count="12" type="stmt"/>
         <line num="15" count="12" type="stmt"/>
@@ -330,21 +348,44 @@
         <line num="53" count="3" type="stmt"/>
         <line num="58" count="3" type="stmt"/>
       </file>
-      <file name="LoginButton.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Login-Components\LoginButton.jsx">
+      <file name="LoginButton.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\LoginButton.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="10" type="stmt"/>
       </file>
-      <file name="SocialLogin.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\Login-Components\SocialLogin.jsx">
+      <file name="SocialLogin.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\SocialLogin.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="components.api">
+    <package name="src.components.Universal-Components">
+      <metrics statements="17" coveredstatements="17" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
+      <file name="ConsoleCommands.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Universal-Components\ConsoleCommands.jsx">
+        <metrics statements="17" coveredstatements="17" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="7" type="stmt"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="33" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="48" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="57" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.api">
       <metrics statements="110" coveredstatements="25" conditionals="92" coveredconditionals="11" methods="8" coveredmethods="1"/>
-      <file name="dataModel.js" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\components\api\dataModel.js">
+      <file name="dataModel.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\api\dataModel.js">
         <metrics statements="110" coveredstatements="25" conditionals="92" coveredconditionals="11" methods="8" coveredmethods="1"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
@@ -458,9 +499,9 @@
         <line num="299" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="pages">
+    <package name="src.pages">
       <metrics statements="34" coveredstatements="21" conditionals="18" coveredconditionals="10" methods="13" coveredmethods="6"/>
-      <file name="Account.jsx" path="C:\Users\Steve\Dropbox\My PC (DESKTOP-R6I1S2M)\Documents\Software Engineering\WhichWay Repo\whichway\src\pages\Account.jsx">
+      <file name="Account.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\pages\Account.jsx">
         <metrics statements="34" coveredstatements="21" conditionals="18" coveredconditionals="10" methods="13" coveredmethods="6"/>
         <line num="20" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>
