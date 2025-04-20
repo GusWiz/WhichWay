@@ -12,6 +12,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import './Home.css';
 import './Account.css';
+import { updateProfile } from 'firebase/auth';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -65,10 +66,22 @@ function Account({ user }) {
     setTempData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    setUserData(tempData);
-    setEditMode(false);
-    console.log('Profile updated:', tempData);
+  const handleSave = async () => {
+    try {
+      // Update Firebase Auth profile
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: tempData.name,
+        });
+      }
+
+      // Update local state
+      setUserData(tempData);
+      setEditMode(false);
+      console.log('Firebase profile and local state updated:', tempData);
+    } catch (error) {
+      console.error('Failed to update Firebase profile:', error);
+    }
   };
 
   const logout = async () => {
