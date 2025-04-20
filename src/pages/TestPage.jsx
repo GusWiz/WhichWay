@@ -110,7 +110,7 @@ export const sampleSchedule = [
   },
 ];
 
-const testPage = () => {
+const testPage = (schedule, tripName) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.print();
