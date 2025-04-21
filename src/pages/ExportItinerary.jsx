@@ -112,7 +112,7 @@ export const sampleSchedule = [
 ];
 
 
-const testPage = () => {
+const ExportItinerary = () => {
   const [schedule, setSchedule] = useState([]);
   const [tripName, setTripName] = useState('');
 
@@ -147,4 +147,4 @@ const testPage = () => {
   );
 };
 
-export default testPage;
+export default ExportItinerary;

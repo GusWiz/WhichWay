@@ -52,12 +52,8 @@ function Itinerary() {
     }
   };
 
-  const exportItinerary = (schedule, tripName) => {
-    console.log(schedule)
-    console.log(tripName)
-    localStorage.setItem('exportSchedule', JSON.stringify(schedule))
-    localStorage.setItem('exportTripName', tripName)
-    const printWindow = window.open('/test', '_blank');
+  const exportItinerary = () => {
+    const printWindow = window.open('/export', '_blank');
     printWindow.focus();
   };
 
@@ -282,7 +278,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={() => exportItinerary(itineraryData, tripName)}
+                  onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary

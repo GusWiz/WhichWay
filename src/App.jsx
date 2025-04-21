@@ -18,7 +18,7 @@ import Landing from './pages/Landing.jsx';
 import Settings from './pages/Settings.jsx';
 import Account from './pages/Account.jsx';
 import EditTrip from './pages/EditTrip.jsx';
-import TestPage from './pages/TestPage.jsx';
+import ExportItinerary from './pages/ExportItinerary.jsx';
 
 export default function App() {
   const [user, setUser] = useState();
@@ -51,7 +51,7 @@ export default function App() {
         />
         <Route path='/settings' element={user ? <Settings /> : <Login />} />
         <Route path='/edittrip' element={user ? <EditTrip /> : <Login />} />
-        <Route path='/test' element={<TestPage />} />
+        <Route path='/export' element={<ExportItinerary />} />
       </Routes>
     </Router>
   );
