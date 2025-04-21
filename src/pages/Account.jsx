@@ -27,7 +27,7 @@ function Account({ user }) {
       const defaultData = {
         name: user.displayName || 'User Name',
         email: user.email || 'user@example.com',
-        location: 'Locating...',
+        location: 'Not allowed',
         joinDate: new Date(user.metadata?.creationTime).toLocaleDateString(
           'en-US',
           {
@@ -41,21 +41,23 @@ function Account({ user }) {
       setUserData(defaultData);
       setTempData(defaultData);
 
-      //use their IP for their location
-      fetch('https://ipapi.co/json/')
-        .then((res) => res.json())
-        .then((data) => {
-          const city = data.city || 'Unknown city';
-          const region = data.region || 'Unknown state';
-          const country = data.country_name || 'Unknown country';
-          const updatedLocation = `${city}, ${region}, ${country}`;
+      const locationPermission = localStorage.getItem('allowLocation');
+      if (locationPermission === 'auto') {
+        fetch('https://ipapi.co/json/')
+          .then((res) => res.json())
+          .then((data) => {
+            const city = data.city || 'Unknown city';
+            const region = data.region || 'Unknown state';
+            const country = data.country_name || 'Unknown country';
+            const updatedLocation = `${city}, ${region}, ${country}`;
 
-          setUserData((prev) => ({ ...prev, location: updatedLocation }));
-          setTempData((prev) => ({ ...prev, location: updatedLocation }));
-        })
-        .catch((error) => {
-          console.log('IP location fetch failed:', error);
-        });
+            setUserData((prev) => ({ ...prev, location: updatedLocation }));
+            setTempData((prev) => ({ ...prev, location: updatedLocation }));
+          })
+          .catch((error) => {
+            console.log('IP location fetch failed:', error);
+          });
+      }
     }
   }, [user]);
 
@@ -168,7 +170,7 @@ function Account({ user }) {
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Location:</span>
-                        <span>{userData.location} (auto-detected)</span>
+                        <span>{userData.location} </span>
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Member Since:</span>
