@@ -158,11 +158,11 @@
   }
 
   .time-slot {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding-top: 2px;
-}
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-top: 2px;
+  }
 
   .days-container {
     display: flex;
@@ -224,5 +224,3 @@
     box-sizing: border-box;
   }
 }
-
-

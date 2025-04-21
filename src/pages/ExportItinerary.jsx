@@ -111,7 +111,6 @@ export const sampleSchedule = [
   },
 ];
 
-
 const ExportItinerary = () => {
   const [schedule, setSchedule] = useState([]);
   const [tripName, setTripName] = useState('');
@@ -141,7 +140,9 @@ const ExportItinerary = () => {
 
   return (
     <div>
-      <h1 style={{ display: 'flex', justifyContent: 'center' }}>{tripName || 'Itinerary'}</h1>
+      <h1 style={{ display: 'flex', justifyContent: 'center' }}>
+        {tripName || 'Itinerary'}
+      </h1>
       <ItineraryCalendar schedule={schedule || sampleSchedule} />
     </div>
   );
