@@ -1,5 +1,6 @@
 // import React from 'react';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { getExportName, getExportSchedule } from '../backend/dataCollect';
 import ItineraryCalendar from '../components/Universal-Components/ItineraryDisplay';
 
 // export const sampleSchedule = [
@@ -110,25 +111,40 @@ export const sampleSchedule = [
   },
 ];
 
-const testPage = (schedule, tripName) => {
+
+const testPage = () => {
+  const [schedule, setSchedule] = useState([]);
+  const [tripName, setTripName] = useState('');
+
   useEffect(() => {
+    const savedSchedule = localStorage.getItem('exportSchedule');
+    const savedTripName = localStorage.getItem('exportTripName');
+
+    if (savedSchedule) {
+      try {
+        setSchedule(JSON.parse(savedSchedule));
+      } catch (err) {
+        console.error('Failed to parse saved schedule:', err);
+      }
+    }
+
+    if (savedTripName) {
+      setTripName(savedTripName);
+    }
+
     const timer = setTimeout(() => {
       window.print();
-    }, 200); // wait 500ms before printing
+    }, 300);
 
-    return () => clearTimeout(timer); // clean up the timer if the component unmounts
+    return () => clearTimeout(timer);
   }, []);
-
-  // const handlePrint = () => {
-  //   window.print()
-  // }
 
   return (
     <div>
-      <h1 style={{ display: 'flex', justifyContent: 'center' }}>Itinerary</h1>
-
-      <ItineraryCalendar schedule={sampleSchedule} />
+      <h1 style={{ display: 'flex', justifyContent: 'center' }}>{tripName || 'Itinerary'}</h1>
+      <ItineraryCalendar schedule={schedule || sampleSchedule} />
     </div>
   );
 };
+
 export default testPage;

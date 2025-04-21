@@ -11,6 +11,8 @@ import html2canvas from 'html2canvas';
 import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
 import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
+import { passToExport } from '../backend/dataCollect';
+import { exportSchedule, exportTripName } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -48,6 +50,15 @@ function Itinerary() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const exportItinerary = (schedule, tripName) => {
+    console.log(schedule)
+    console.log(tripName)
+    localStorage.setItem('exportSchedule', JSON.stringify(schedule))
+    localStorage.setItem('exportTripName', tripName)
+    const printWindow = window.open('/test', '_blank');
+    printWindow.focus();
   };
 
   // Function to download itinerary as PDF
@@ -271,7 +282,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={handleDownloadPDF}
+                  onClick={() => exportItinerary(itineraryData, tripName)}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary

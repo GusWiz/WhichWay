@@ -106,6 +106,25 @@ function getItineraryData() {
   return itineraryObj;
 }
 
+let exportSchedule = [];
+let exportTripName = "";
+
+function passToExport(schedule, tripName)
+{
+  exportSchedule = schedule;
+  exportTripName = tripName;
+}
+
+function getExportName()
+{
+  return exportTripName;
+}
+function getExportSchedule()
+{
+  return exportSchedule;
+}
+
+
 export {
   saveActivities,
   getSavedActivities,
@@ -114,4 +133,10 @@ export {
   saveDetails,
   saveItineraryData,
   getItineraryData,
+  passToExport,
+  getExportName,
+  getExportSchedule,
+  exportSchedule,
+  exportTripName,
 };
+
