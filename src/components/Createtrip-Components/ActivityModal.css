@@ -23,7 +23,7 @@
   align-items: center;
   gap: 1.75rem;
   overflow-y: auto;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Image */
@@ -83,7 +83,7 @@
     background-color 0.2s ease,
     box-shadow 0.2s ease;
   box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .activity-modal-submit-btn:hover {

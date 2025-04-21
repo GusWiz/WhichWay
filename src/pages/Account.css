@@ -6,7 +6,7 @@
   align-items: center;
   padding: 2rem;
   background: linear-gradient(to bottom right, #daeef7, #ffffff);
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   color: #2c2c2c;
 }
 
@@ -36,7 +36,7 @@
   margin-bottom: 1.5rem;
   color: hsl(202, 52%, 30%);
   font-weight: 600;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Details Layout */
@@ -80,7 +80,7 @@
   border-radius: 10px;
   border: 1.5px solid #bccada;
   font-size: 1rem;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   transition: border-color 0.3s;
   background-color: white;
 }
@@ -113,11 +113,11 @@
 .delete-button,
 .save-button,
 .cancel-button {
-  padding: 10px 22px;
+  padding: 10px 17px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95rem;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -166,10 +166,10 @@
   background-color: #b02a2a;
   border: 1.5px solid #b02a2a;
   color: white;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 10px 17px;
+  padding: 10px 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;

@@ -30,7 +30,7 @@
   flex-direction: column;
   gap: 1.7rem; /* more space between inputs */
   position: relative;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
 /* === Close Button === */
@@ -69,7 +69,7 @@ select {
   border: 1.5px solid #bccada;
   background-color: #fdfdfd;
   font-size: 1rem;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   width: 100%;
   transition: border-color 0.2s ease;
   color: #2c2c2c;
@@ -96,7 +96,7 @@ select:focus {
   padding: 12px 24px;
   font-size: 1rem;
   font-weight: 600;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   border-radius: 10px;
   background-color: hsl(202, 52%, 30%);
   border: 1.5px solid hsl(202, 52%, 30%);
