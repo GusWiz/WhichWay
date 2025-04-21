@@ -11,8 +11,7 @@ import html2canvas from 'html2canvas';
 import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
 import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
-import { passToExport } from '../backend/dataCollect';
-import { exportSchedule, exportTripName } from '../backend/dataCollect';
+
 
 import './Home.css';
 import './Landing.css';
