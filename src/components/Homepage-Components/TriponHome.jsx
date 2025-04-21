@@ -18,6 +18,7 @@ import { sampleSchedule } from '../../pages/ExportItinerary';
 
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import { name } from 'file-loader';
 
 const TripTable = ({
   title,
@@ -135,39 +136,14 @@ export default function TripManager() {
   const navigate = useNavigate();
 
   const exportItinerary = () => {
+    const stringSchedule = JSON.stringify(sampleSchedule);
+    const stringName = JSON.stringify(name);
+    localStorage.setItem('exportSchedule', stringSchedule);
+    localStorage.setItem('exportTripName', stringName)
     const printWindow = window.open('/export', '_blank');
     printWindow.focus();
   };
-  const handleDownloadPDF = async () => {
-    const element = printRef.current;
 
-    if (!element) {
-      console.error('No content to download');
-      return;
-    }
-
-    try {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF({
-        orientation: 'landscape',
-        unit: 'px',
-        format: 'a4',
-      });
-
-      const imageProperties = pdf.getImageProperties(data);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight =
-        (imageProperties.height * pdfWidth) / imageProperties.width;
-
-      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Itinerary.pdf');
-      console.log('PDF downloaded successfully!');
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
 
   useEffect(() => {
     (async () => {

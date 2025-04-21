@@ -126,7 +126,6 @@ tr:hover {
   transform: translateY(-3px);
 }
 
-/* 'View Itinerary' button */
 .triphome-button.view-itinerary {
   background-color: #28a745;
 }
@@ -139,29 +138,25 @@ tr:hover {
 /* Modal overlay */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  inset: 0; /* shorthand for top: 0; left: 0; right: 0; bottom: 0 */
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
   z-index: 1000;
 }
 
-/* Modal box */
 .modal-content {
   background-color: rgb(255, 255, 255);
   padding: 30px;
   border-radius: 12px;
-  width: 80%;
-  max-width: 700px;
+  width: 100%;
+  max-width: 1200px;
   position: relative;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: left;
 }
-
 /* Close button */
 .close-button {
   position: absolute;

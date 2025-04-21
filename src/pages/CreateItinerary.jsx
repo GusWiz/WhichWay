@@ -55,39 +55,6 @@ function Itinerary() {
     printWindow.focus();
   };
 
-  // Function to download itinerary as PDF
-  const handleDownloadPDF = async () => {
-    const element = printRef.current;
-
-    if (!element) {
-      toast.error('No content to download');
-      return;
-    }
-
-    try {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF({
-        orientation: 'landscape',
-        unit: 'px',
-        format: 'a4',
-      });
-
-      const imageProperties = pdf.getImageProperties(data);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight =
-        (imageProperties.height * pdfWidth) / imageProperties.width;
-
-      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Itinerary.pdf');
-      toast.success('PDF downloaded successfully!');
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      toast.error('Failed to download PDF');
-    }
-  };
-
   const getItineraryData = () => {
     if (!itineraryData || itineraryData.length === 0) {
       return null;
