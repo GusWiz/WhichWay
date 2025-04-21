@@ -6,7 +6,7 @@
   padding: 2.5rem 2rem;
   margin: 2rem auto;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   color: #2c2c2c;
 }
 
@@ -98,7 +98,7 @@
   padding: 10px 24px;
   font-size: 0.95rem;
   font-weight: 600;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   border-radius: 8px;
   background-color: hsl(202, 52%, 30%);
   border: 1.5px solid hsl(202, 52%, 30%);

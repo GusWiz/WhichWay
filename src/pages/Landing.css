@@ -8,18 +8,18 @@
     hsl(202, 52%, 30%),
     hsl(202, 52%, 18%)
   );
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   color: #f5f5f5;
 }
 
 .landing-card {
-  background-color: white;
-  height: auto;
-  max-width: 500px;
-  width: 90%;
-  padding: 2rem;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background-color: hsl(0, 0%, 100%);
+  height: 450px;
+  width: 500px;
+  text-align: center;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 4.5px 8px 7.5px #000000;
   text-align: center;
 }
 
@@ -31,7 +31,7 @@
   color: white;
   padding: 0.75rem;
   border-radius: 10px;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 
@@ -63,7 +63,7 @@
   border: 1.5px solid hsl(202, 52%, 30%);
   border-radius: 8px;
   transition: all 0.2s ease;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 

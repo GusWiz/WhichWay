@@ -19,7 +19,7 @@
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   color: var(--text-main);
 }
 
@@ -35,7 +35,7 @@
   margin-bottom: 1.5rem;
   letter-spacing: 0.5px;
   color: #1a1a1a;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
 .subtle-greeting {
@@ -108,7 +108,7 @@ tr:last-child td {
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   text-decoration: none;
   transition: all 0.2s ease;
   box-shadow: var(--shadow-button);

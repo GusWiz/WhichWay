@@ -22,7 +22,7 @@
   color: white;
   justify-content: center;
   align-items: center;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   font-size: 1rem;
   transition: background-color 0.2s ease;
 }

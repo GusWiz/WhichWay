@@ -6,11 +6,10 @@
   align-items: center;
   padding: 2rem;
   background: linear-gradient(to bottom right, #daeef7, #ffffff);
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   color: #2c2c2c;
 }
 
-/* Title */
 .settings-page h2 {
   font-size: 2.3rem;
   font-weight: 700;
@@ -28,7 +27,7 @@
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
   cursor: pointer;
   transition:
     background-color 0.2s ease,
@@ -50,7 +49,6 @@
   text-align: center;
 }
 
-/* Section Box */
 .settings-section {
   background: #ffffff;
   border-radius: 14px;
@@ -59,6 +57,7 @@
   width: 100%;
   max-width: 600px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
 }
 
 .settings-section h3 {
@@ -66,10 +65,9 @@
   margin-bottom: 1.5rem;
   color: hsl(202, 52%, 30%);
   font-weight: 600;
-  font-family: 'Charter BT', serif;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Form Items */
 .setting-item {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
@@ -89,70 +87,126 @@
   color: #444;
 }
 
-.setting-item select,
-.setting-item input[type='text'] {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 10px;
-  border: 1.5px solid #bccada;
-  font-size: 1rem;
-  font-family: 'Charter BT', serif;
-  background-color: white;
-  transition: border-color 0.3s;
+.notification-toggle {
+  margin-left: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  background-color: #ccc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.setting-item select:focus,
-.setting-item input:focus {
-  border-color: hsl(202, 52%, 40%);
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(13, 94, 139, 0.1);
+.notification-toggle.active {
+  background-color: #4caf50;
 }
 
-/* Radio Options */
-.radio-group {
-  display: flex;
-  gap: 1.5rem;
+.contact-support-button {
+  display: inline-block;
+  background-color: hsl(202, 52%, 30%);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
   margin-top: 0.5rem;
-  flex-wrap: wrap;
+  transition: background-color 0.2s ease;
 }
 
-.radio-group label {
+.contact-support-button:hover {
+  background-color: #004066;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.4);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: normal;
-  cursor: pointer;
-  color: #555;
-  font-size: 0.95rem;
+  justify-content: center;
+  z-index: 999;
 }
 
-/* Action Button */
-.settings-actions {
+.modal {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+.modal h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+}
+
+.modal-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
-  width: 100%;
-  max-width: 600px;
+  gap: 1rem;
 }
 
-.save-button {
+.modal-buttons button {
+  padding: 0.7rem 1.4rem;
   background-color: hsl(202, 52%, 30%);
-  border: 1.5px solid hsl(202, 52%, 30%);
-  color: #fff;
-  font-family: 'Charter BT', serif;
-  font-size: 1rem;
-  padding: 12px 26px;
+  color: white;
+  border: none;
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  font-size: 0.95rem;
   font-weight: 600;
-  width: 100%;
-  max-width: 240px;
-  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.save-button:hover {
+.modal-buttons button:hover {
   background-color: hsl(202, 52%, 24%);
-  border-color: hsl(202, 52%, 24%);
-  box-shadow: 0 4px 12px rgba(13, 94);
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  opacity: 0.95;
+  z-index: 1000;
+  animation: fade-in-out 2s ease;
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
 }
