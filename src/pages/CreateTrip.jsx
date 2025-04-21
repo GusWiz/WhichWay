@@ -420,13 +420,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div className='itinerary-container'>
-              <button
-                onClick={handleModalToggle}
-                className='trip-preference-btn'
-              >
-                Trip Preferences
-              </button>
-              <div className='createititnerary-title'>
+              <div className='createtrip-title'>
                 <h1>Create Trip</h1>
               </div>
               <div className='form-container'>
@@ -456,6 +450,12 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     name='duration'
                   />
                 </form>
+                <button
+                  onClick={handleModalToggle}
+                  className='trip-preference-btn'
+                >
+                  Trip Preferences
+                </button>
 
                 <div className='create-trip-buttons'>
                   <button

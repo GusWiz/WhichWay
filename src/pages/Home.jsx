@@ -20,9 +20,12 @@ function Home() {
     <>
       <NavigationBar />
       <div className='home-page'>
-        <div className='home-container'>
+        <div
+          className='home-container'
+          style={{ display: 'flex', width: '100vw' }}
+        >
           <Sidebar logout={logout} />
-          <div className='home-contents'>
+          <div className='home-contents' style={{ flexGrow: 1 }}>
             <div className='home-card'>
               <TriponHome />
             </div>

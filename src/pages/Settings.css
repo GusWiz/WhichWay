@@ -1,45 +1,49 @@
-/* Settings.css */
-
 .settings-page {
   width: 100%;
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  background-color: white;
-  color: #333;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #daeef7, #ffffff);
+  font-family: 'Arial', sans-serif;
+  color: #2c2c2c;
 }
 
+/* Title */
 .settings-page h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-  font-weight: 600;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
   text-align: center;
 }
 
+/* Section Box */
 .settings-section {
-  background: hsla(201, 70%, 22%, 0.101);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #eaeaea8a;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 2rem;
+  border: 1.5px solid #cddbe3;
   width: 100%;
   max-width: 600px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .settings-section h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1.2rem;
-  color: #3498db;
-  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: hsl(202, 52%, 30%);
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Form Items */
 .setting-item {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .setting-item:last-child {
@@ -50,33 +54,36 @@
 
 .setting-item label {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
   color: #444;
 }
 
 .setting-item select,
 .setting-item input[type='text'] {
   width: 100%;
-  padding: 0.7rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid #bccada;
   font-size: 1rem;
+  font-family: 'Arial', sans-serif;
   background-color: white;
-  transition: all 0.2s ease;
+  transition: border-color 0.3s;
 }
 
 .setting-item select:focus,
 .setting-item input:focus {
+  border-color: hsl(202, 52%, 40%);
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  box-shadow: 0 0 0 3px rgba(13, 94, 139, 0.1);
 }
 
+/* Radio Options */
 .radio-group {
   display: flex;
   gap: 1.5rem;
   margin-top: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .radio-group label {
@@ -86,48 +93,36 @@
   font-weight: normal;
   cursor: pointer;
   color: #555;
+  font-size: 0.95rem;
 }
 
+/* Action Button */
 .settings-actions {
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   width: 100%;
   max-width: 600px;
 }
 
-save-button {
-  background-color: #3498db; /* Blue color matching edit button */
-  color: white;
-  border: none;
-  padding: 0.8rem 1.8rem;
+.save-button {
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
   font-size: 1rem;
-  border-radius: 6px;
+  padding: 12px 26px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-weight: 500;
+  transition: all 0.2s ease;
+  font-weight: 600;
   width: 100%;
-  max-width: 200px;
-  display: block;
-  margin: 0 auto; /* Centers the button */
+  max-width: 240px;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
 }
 
 .save-button:hover {
-  background-color: #2980b9; /* Slightly darker blue on hover */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .settings-page {
-    padding: 1rem;
-  }
-
-  .settings-section {
-    padding: 1.2rem;
-  }
-
-  .radio-group {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94);
 }

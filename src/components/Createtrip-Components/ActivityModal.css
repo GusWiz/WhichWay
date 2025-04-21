@@ -1,96 +1,95 @@
-/* Activity Modal Container */
 .activity-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  backdrop-filter: blur(8px); /* Background blur effect */
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
 }
 
-/* Main Activity Modal Box */
+/* Modal Box */
 .activity-modal-content {
-  background: white;
-  border-radius: 1rem;
-  padding: 40px 60px; /* Adjust padding */
-  max-width: 750px; /* Keep the width larger */
-  width: 100%;
-  height: 800px; /* Maintain the larger height */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom right, #ffffff, #f6faff);
+  border-radius: 16px;
+  padding: 3rem 3.5rem;
+  max-width: 750px;
+  width: 95%;
+  height: 800px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align the content */
-  gap: 20px;
-  position: relative;
-  overflow-y: auto; /* Allow scrolling if content exceeds the height */
+  align-items: center;
+  gap: 1.75rem;
+  overflow-y: auto;
+  font-family: 'Arial', sans-serif;
 }
 
-/* Optional: Adjusting the image size to fit the new modal size */
+/* Image */
 .activity-modal-image {
-  width: 100%; /* Make sure it takes full width */
-  height: 500px; /* Set a fixed height */
-  object-fit: cover; /* Ensure the image fills the space without stretching */
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  margin-bottom: 20px; /* Space below the image */
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
-/* Close Button (Top-right corner) */
+
+/* Close Button */
 .activity-modal-close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
+  top: 18px;
+  right: 18px;
+  background: none;
   border: none;
+  color: #444;
+  font-size: 1.6rem;
   cursor: pointer;
-  color: #333; /* Dark color for visibility */
-  font-size: 1.5rem;
-  transition: color 0.3s;
+  transition: opacity 0.2s ease;
 }
 
 .activity-modal-close-button:hover {
-  color: #000000; /* Darker hover effect */
   opacity: 0.8;
 }
 
 /* Title */
 .activity-modal-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #1a1a1a;
   text-align: center;
-  margin-bottom: 20px;
-  width: 100%;
+  margin-bottom: 0.5rem;
 }
 
+/* Description */
 .activity-modal-description {
-  font-size: 1rem;
-  color: #333; /* Adjust color as needed */
-  margin-top: 10px;
-  text-align: center; /* Center the description text */
-  padding: 0 20px;
+  font-size: 1.05rem;
+  color: #3b3a39;
+  text-align: center;
+  padding: 0 1.5rem;
+  line-height: 1.6;
 }
 
 /* Submit Button */
 .activity-modal-submit-btn {
-  padding: 10px 20px;
-  margin-top: 20px;
-  background-color: #4c6ef5;
+  padding: 12px 24px;
+  background-color: hsl(202, 52%, 30%);
   color: white;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1px solid hsl(202, 52%, 30%);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+  font-family: 'Arial', sans-serif;
 }
 
 .activity-modal-submit-btn:hover {
-  background-color: #2f4df2;
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 10px rgba(13, 94, 139, 0.3);
 }
 
 .activity-modal-submit-btn:disabled {
@@ -98,14 +97,23 @@
   cursor: not-allowed;
 }
 
-/* Responsive Design */
-@media (max-width: 480px) {
+/* Mobile Responsive */
+@media (max-width: 600px) {
   .activity-modal-content {
-    padding: 20px 25px;
-    width: 90%;
+    padding: 2rem;
+    height: auto;
+  }
+
+  .activity-modal-image {
+    height: 280px;
   }
 
   .activity-modal-title {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  .activity-modal-description {
+    font-size: 1rem;
+    padding: 0 1rem;
   }
 }
