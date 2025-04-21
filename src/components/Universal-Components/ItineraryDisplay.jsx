@@ -37,17 +37,14 @@ const getScheduleTimeRange = (schedule) => {
       if (start < earliest) earliest = start;
       if (end > latest) latest = end;
     });
-
   });
-
-
 
   return { startMinutes: earliest, endMinutes: latest };
 };
 
 const ItineraryDisplay = ({ schedule }) => {
   const { startMinutes, endMinutes } = getScheduleTimeRange(schedule);
-  const totalSpanMinutes = (endMinutes - startMinutes) + 60;
+  const totalSpanMinutes = endMinutes - startMinutes + 60;
 
   // Fixed container height (can adjust for printing)
   const containerHeight = 600;
@@ -93,7 +90,10 @@ const ItineraryDisplay = ({ schedule }) => {
         <div className='days-container'>
           {schedule.map((day, idx) => (
             <div key={idx} className='day-column'>
-              <div className='day-body' style={{ height: `${containerHeight}px` }}>
+              <div
+                className='day-body'
+                style={{ height: `${containerHeight}px` }}
+              >
                 {day.activities.map((activity, i) => {
                   const start = getMinutesFromTime(activity.start_time);
                   const end = getMinutesFromTime(activity.end_time);

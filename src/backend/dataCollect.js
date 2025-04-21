@@ -107,10 +107,7 @@ function getItineraryData() {
 }
 
 let exportSchedule = [];
-let exportTripName = "";
-
-
-
+let exportTripName = '';
 
 export {
   saveActivities,
@@ -121,4 +118,3 @@ export {
   saveItineraryData,
   getItineraryData,
 };
-

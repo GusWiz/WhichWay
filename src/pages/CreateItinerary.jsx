@@ -12,7 +12,6 @@ import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
 import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
-
 import './Home.css';
 import './Landing.css';
 import './CreateItinerary.css';
