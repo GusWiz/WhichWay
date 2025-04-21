@@ -12,6 +12,7 @@ import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
 import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
+
 import './Home.css';
 import './Landing.css';
 import './CreateItinerary.css';
@@ -48,6 +49,11 @@ function Itinerary() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const exportItinerary = () => {
+    const printWindow = window.open('/export', '_blank');
+    printWindow.focus();
   };
 
   // Function to download itinerary as PDF
@@ -271,7 +277,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={handleDownloadPDF}
+                  onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary

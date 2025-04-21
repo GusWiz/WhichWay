@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 import ItineraryDisplay from '../Universal-Components/ItineraryDisplay';
-import { sampleSchedule } from '../../pages/TestPage';
+import { sampleSchedule } from '../../pages/ExportItinerary';
 
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -134,13 +134,10 @@ export default function TripManager() {
   const [hidePast, setHidePast] = useState(false);
   const navigate = useNavigate();
 
-
-
   const exportItinerary = () => {
-    const printWindow = window.open('/test', '_blank');
+    const printWindow = window.open('/export', '_blank');
     printWindow.focus();
-
-  }
+  };
   const handleDownloadPDF = async () => {
     const element = printRef.current;
 
