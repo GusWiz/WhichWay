@@ -1,18 +1,26 @@
-/* TriponHome.css */
+:root {
+  --primary: hsl(202, 52%, 30%);
+  --primary-hover: hsl(202, 52%, 24%);
+  --text-main: #2c2c2c;
+  --text-muted: #555;
+  --bg-light: #ffffff;
+  --bg-accent: #f3f6fa;
+  --shadow-soft: 0 6px 14px rgba(0, 0, 0, 0.06);
+  --shadow-button: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
 
 .triphome-body {
   min-height: 100vh;
   width: 100%;
   padding: 2rem;
-  flex-grow: 1;
   box-sizing: border-box;
+  flex-grow: 1;
   background: linear-gradient(to bottom right, #daeef7, #ffffff);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   background-attachment: fixed;
-  color: #2c2c2c;
+  background-position: center;
+  background-size: cover;
   font-family: 'Charter BT', serif;
+  color: var(--text-main);
 }
 
 .triphome-container {
@@ -23,20 +31,27 @@
 .h1 {
   text-align: center;
   font-size: 2.3rem;
-  margin-bottom: 1.5rem;
-  color: #1a1a1a;
   font-weight: 700;
-  font-family: 'Charter BT', serif;
+  margin-bottom: 1.5rem;
   letter-spacing: 0.5px;
-  position: relative;
+  color: #1a1a1a;
+  font-family: 'Charter BT', serif;
+}
+
+.subtle-greeting {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin: -1rem 0 1rem;
+  font-style: italic;
 }
 
 .trip-section {
-  background-color: #ffffff;
+  background-color: var(--bg-light);
   border-radius: 16px;
   padding: 1.75rem;
   margin-bottom: 2rem;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-soft);
 }
 
 .h2 {
@@ -48,24 +63,24 @@
 
 table {
   width: 100%;
+  margin-top: 0.75rem;
   border-collapse: collapse;
-  margin-top: 12px;
-  background: white;
   border-radius: 12px;
   overflow: hidden;
+  background-color: var(--bg-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
 th,
 td {
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   text-align: left;
   vertical-align: middle;
   border-bottom: 1px solid #f0f0f0;
 }
 
 th {
-  background-color: #f3f6fa;
+  background-color: var(--bg-accent);
   font-weight: 600;
   color: #3a3a3a;
 }
@@ -77,39 +92,51 @@ tr:last-child td {
 .button-row {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 1rem;
-  margin-top: -0.3rem;
+  margin: -0.3rem 0 1rem;
 }
 
-.triphome-button {
+.triphome-button,
+.view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 10px 24px;
   font-size: 0.95rem;
-  border-radius: 8px;
   font-weight: 600;
-  border: 1.5px solid hsl(202, 52%, 30%);
-  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid var(--primary);
+  background-color: var(--primary);
   color: #fff;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
   font-family: 'Charter BT', serif;
-  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-button);
 }
 
-.triphome-button:hover {
-  background-color: hsl(202, 52%, 24%);
-  border-color: hsl(202, 52%, 24%);
-  box-shadow: 0 4px 10px rgba(13, 94, 139, 0.3);
+.triphome-button:hover,
+.view-button:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  box-shadow: 0 4px 10px rgba(13, 94, 139, 0.25);
 }
 
 .trip-count {
-  margin-top: 1rem;
   text-align: center;
   font-size: 0.95rem;
   font-weight: 500;
   color: #3b3a39;
   font-style: italic;
+  margin-top: 1rem;
   padding: 0.5rem 0;
   opacity: 0.85;
+}
+
+.empty-msg {
+  text-align: center;
+  font-style: italic;
+  padding: 0.7rem;
+  color: var(--text-muted);
 }
 
 .quote-footer {
@@ -120,15 +147,15 @@ tr:last-child td {
   margin: 3rem auto 2rem;
   padding: 1.5rem 2rem;
   background: #ecf6fb;
-  color: #2c2c2c;
+  color: var(--text-main);
   font-family: 'Georgia', serif;
   font-size: 1.25rem;
   line-height: 1.8;
+  text-align: center;
   border: 2px solid #b0c4d6;
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   animation: fadeIn 1s ease-in;
-  text-align: center;
 }
 
 @keyframes fadeIn {
@@ -140,44 +167,4 @@ tr:last-child td {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.empty-msg {
-  text-align: center;
-  padding: 0.7rem;
-  font-style: italic;
-  color: #555;
-}
-
-.view-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: hsl(202, 52%, 30%);
-  color: white;
-  border: 1.5px solid hsl(202, 52%, 30%);
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  font-family: 'Charter BT', serif;
-  box-shadow: 0 2px 6px rgba(13, 94, 139, 0.15);
-}
-
-.view-button:hover {
-  background-color: hsl(202, 52%, 24%);
-  border-color: hsl(202, 52%, 24%);
-  box-shadow: 0 3px 10px rgba(13, 94, 139, 0.25);
-}
-
-.subtle-greeting {
-  text-align: center;
-  color: #666;
-  font-size: 1.1rem;
-  margin-top: -1rem;
-  margin-bottom: 1rem;
-  font-style: italic;
 }

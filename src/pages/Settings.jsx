@@ -108,12 +108,7 @@ function Settings() {
 
                 <div className='setting-item center-content'>
                   <label>Auto-Detect Location</label>
-                  <button
-                    className='location-button'
-                    onClick={() => setShowLocationModal(true)}
-                  >
-                    Set Permission
-                  </button>
+                  <button className='location-button'>Set Permission</button>
                   <p style={{ fontSize: '0.9rem' }}>
                     Current:{' '}
                     {defaultLocation === 'auto' ? 'Allowed' : 'Not allowed'}

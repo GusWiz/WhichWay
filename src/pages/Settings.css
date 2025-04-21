@@ -20,6 +20,36 @@
   text-align: center;
 }
 
+.location-button {
+  padding: 0.6rem 1.2rem;
+  background-color: hsl(202, 52%, 30%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Charter BT', serif;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  margin: 0.5rem 0;
+  box-shadow: 0 3px 6px rgba(13, 94, 139, 0.1);
+}
+
+.location-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 10px rgba(13, 94, 139, 0.15);
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 /* Section Box */
 .settings-section {
   background: #ffffff;
