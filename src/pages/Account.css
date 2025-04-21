@@ -113,7 +113,7 @@
 .delete-button,
 .save-button,
 .cancel-button {
-  padding: 10px 22px;
+  padding: 10px 17px;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95rem;
@@ -169,7 +169,7 @@
   font-family: 'Arial', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  padding: 10px 17px;
+  padding: 10px 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;

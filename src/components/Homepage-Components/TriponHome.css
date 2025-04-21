@@ -17,10 +17,8 @@
   flex-grow: 1;
   background: linear-gradient(to bottom right, #daeef7, #ffffff);
   background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+  color: #2c2c2c;
   font-family: 'Arial', sans-serif;
-  color: var(--text-main);
 }
 
 .triphome-container {
@@ -32,7 +30,7 @@
   text-align: center;
   font-size: 2.3rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
   color: #1a1a1a;
   font-family: 'Arial', sans-serif;
@@ -167,4 +165,44 @@ tr:last-child td {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 0.7rem;
+  font-style: italic;
+  color: #555;
+}
+
+.view-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: hsl(202, 52%, 30%);
+  color: white;
+  border: 1.5px solid hsl(202, 52%, 30%);
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 6px rgba(13, 94, 139, 0.15);
+}
+
+.view-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 3px 10px rgba(13, 94, 139, 0.25);
+}
+
+.subtle-greeting {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  font-style: italic;
 }

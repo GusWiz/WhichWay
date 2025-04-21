@@ -87,19 +87,16 @@
   color: #444;
 }
 
-.notification-toggle {
-  margin-left: 1rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  background-color: #ccc;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 600;
-  transition:
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
+.setting-item select,
+.setting-item input[type='text'] {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid #bccada;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  background-color: white;
+  transition: border-color 0.3s;
 }
 
 .notification-toggle.active {
@@ -161,8 +158,11 @@
 .modal-buttons button {
   padding: 0.7rem 1.4rem;
   background-color: hsl(202, 52%, 30%);
-  color: white;
-  border: none;
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  padding: 12px 26px;
   border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
