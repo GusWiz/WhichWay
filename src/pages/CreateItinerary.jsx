@@ -94,28 +94,41 @@ function Itinerary() {
     };
   };
 
+  // Check this function in your CreateItinerary.jsx
   const itineraryToDb = async () => {
-    console.log('in itinerary to db');
     try {
-      if (!tripId) {
-        toast.error('No trip ID found. Cannot save itinerary.');
-        return;
-      }
-      const itineraryData = getItineraryData();
-      if (!itineraryData) {
-        toast.error('No itinerary data to save');
-        return;
-      }
-      // if (!itineraryData.name && tripName) {
-      //   itineraryData.name = tripName;
-      //   console.log('Saving itinerary with name:', itineraryData.name);
-      // }
-      await saveUserItinerary(itineraryData, tripId, tripName);
-      toast.success('Itinerary saved successfully!');
-      navigate('/home');
+      // When processing activities before saving
+      const processedSchedule = itineraryData.map(day => ({
+        ...day,
+        activities: day.activities.map(activity => {
+          // Ensure Google Places data is preserved
+          return {
+            name: activity.name,
+            start_time: activity.start_time,
+            end_time: activity.end_time,
+            description: activity.description,
+            location: activity.location,
+            // Preserve additional Google Places data
+            placeId: activity.placeId,
+            rating: activity.rating,
+            photoUrls: activity.photoUrls,
+            priceRange: activity.priceRange,
+            website: activity.website,
+            vicinity: activity.vicinity,
+            opening_hours: activity.opening_hours
+          };
+        })
+      }));
+
+      // Save the processed data
+      const itineraryId = await saveUserItinerary(auth.currentUser.uid, tripId, {
+        name: tripName,
+        schedule: processedSchedule
+      });
+
+      // Rest of your function
     } catch (error) {
-      console.error('Error saving itinerary', error);
-      toast.error('Failed to save itinerary, try again.');
+      console.error("Error saving itinerary:", error);
     }
   };
 

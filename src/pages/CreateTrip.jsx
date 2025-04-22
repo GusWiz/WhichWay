@@ -29,6 +29,8 @@ import ConsoleCommands from '../components/Universal-Components/ConsoleCommands.
 import LocationAutocomplete from '../components/Createtrip-Components/LocationAutocomplete';
 import { fetchActivitiesByLocation } from '../components/api/placesService.js';
 import DateSelector from '../components/Createtrip-Components/DateSelector.jsx';
+import { fetchPlaceDetails } from '../components/api/placesService';
+import ActivityModal from '../components/Createtrip-Components/ActivityModal';
 
 function CreateTrip() {
   const navigate = useNavigate();
@@ -72,6 +74,10 @@ function CreateTrip() {
 
   // Debug console commands
   const cmdPassthru = {};
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
 
   useEffect(() => {
     const storedTripId = localStorage.getItem('tripId');
@@ -435,6 +441,38 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
     }
   };
 
+  const handleActivityExpand = async (activity) => {
+    setSelectedActivity(activity);
+    setIsLoadingDetails(true);
+
+    try {
+      // If the activity has a placeId, fetch Google Places details
+      if (activity.placeId) {
+        const placeDetails = await fetchPlaceDetails(activity.placeId);
+
+        if (placeDetails) {
+          // Enhance the activity with place details
+          setSelectedActivity({
+            ...activity,
+            description: placeDetails.description || activity.description,
+            photoUrls: placeDetails.photoUrls || [],
+            rating: placeDetails.rating,
+            userRatingCount: placeDetails.user_ratings_total,
+            priceRange: placeDetails.priceRange,
+            vicinity: placeDetails.vicinity || placeDetails.formatted_address,
+            opening_hours: placeDetails.opening_hours,
+            website: placeDetails.website
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching place details:", error);
+    } finally {
+      setIsLoadingDetails(false);
+      setShowModal(true);
+    }
+  };
+
   return (
     <>
       <NavigationBar />
@@ -540,6 +578,12 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           <div className='spinner'></div>
         </div>
       )}
+      <ActivityModal
+        show={showModal}
+        closeModal={() => setShowModal(false)}
+        item={selectedActivity}
+        isLoading={isLoadingDetails}
+      />
     </>
   );
 }
