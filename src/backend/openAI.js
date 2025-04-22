@@ -52,6 +52,27 @@ Rules:
 4. Include meal times at appropriate restaurants from the activity list
 `;
 
+const promptTemplate = `
+// ... existing content ...
+
+Format your response as a JSON object with the following structure:
+{
+  "schedule": [
+    {
+      "date": "YYYY-MM-DD",
+      "activities": [
+        {
+          "name": "Activity name",
+          "start_time": "HH:MM AM/PM",
+          "end_time": "HH:MM AM/PM",
+          "description": "Detailed 2-3 sentence description of this activity"
+        }
+      ]
+    }
+  ]
+}
+`;
+
 const generateItinerary = async (openaiRequest) => {
   try {
     // Validate openaiRequest parameter

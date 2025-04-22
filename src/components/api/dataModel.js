@@ -10,6 +10,26 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
+// Add this function at the top of your file
+function sanitizeData(obj) {
+  if (obj === undefined) return null;
+
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map(item => sanitizeData(item));
+  }
+
+  const sanitized = {};
+  for (const [key, value] of Object.entries(obj)) {
+    sanitized[key] = sanitizeData(value);
+  }
+
+  return sanitized;
+}
+
 // Create a new user document in the Users collection
 export const createUserDocument = async (user) => {
   try {
@@ -135,16 +155,21 @@ export const saveUserTrip = async (
       tripId,
     });
 
+    // Sanitize the data before creating the tripData object
+    const sanitizedTripDetails = sanitizeData(tripDetails);
+    const sanitizedActivities = sanitizeData(selectedActivities);
+
+    // Create tripData with sanitized values
     const tripData = {
       userId,
-      name: tripDetails.name || 'Unnamed Trip',
-      destination: tripDetails.destination || 'No destination',
-      duration: timeFrame || tripDetails.duration || '',
-      startDate: tripDetails.startDate || '',
-      endDate: tripDetails.endDate || '',
-      budget: tripDetails.budget || '0',
-      location: tripDetails.location || { lat: 0, lng: 0 },
-      preferences: selectedActivities || {},
+      name: sanitizedTripDetails.name || 'Unnamed Trip',
+      destination: sanitizedTripDetails.destination || 'No destination',
+      duration: timeFrame || sanitizedTripDetails.duration || '',
+      startDate: sanitizedTripDetails.startDate || '',
+      endDate: sanitizedTripDetails.endDate || '',
+      budget: sanitizedTripDetails.budget || '0',
+      location: sanitizedTripDetails.location || { lat: 0, lng: 0 },
+      preferences: sanitizedActivities || {},
       updatedAt: serverTimestamp(),
     };
 
