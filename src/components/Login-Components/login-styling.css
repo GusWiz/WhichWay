@@ -3,150 +3,167 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: hsl(201, 69%, 22%);
+  background: linear-gradient(
+    to bottom right,
+    hsl(202, 52%, 30%),
+    hsl(202, 52%, 18%)
+  );
+  font-family: 'Arial', sans-serif;
 }
 
+/* Card Styling */
 .acontainer {
   width: 500px;
   margin: 0 auto;
-  border-radius: 0.5rem;
-  padding: 2rem 1.5rem;
-  background: hsl(0, 0%, 100%);
-  box-shadow: 0 10px 20px hsl(0, 0%, 0%);
-  border: 1px solid hsl(0, 0%, 29%);
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  background: white;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid hsl(0, 0%, 85%);
 }
 
-.acontainer .aform-title {
+/* Title */
+.aform-title {
   text-align: center;
-  font-size: 1.67rem;
+  font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 1.87rem;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
 }
 
-.acontainer .social-login {
+/* Social Login */
+.social-login {
   display: flex;
-  gap: 1.31rem;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
 }
 
-.social-login .social-button {
+.social-button {
+  flex: 1;
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: center;
-  gap: 0.81rem;
+  gap: 0.75rem;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: 425;
-  padding: 0.75rem 0;
-  border-radius: 0.31rem;
-  background: hsl(0, 0%, 100%);
-  border: 1px solid hsl(0, 0%, 75%);
-  transition: 0.3s ease;
-  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
+  font-weight: 500;
+  padding: 0.8rem;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.social-login .social-button:hover {
-  background: hsl(0, 0%, 95%);
+.social-button:hover {
+  background: #f2f2f2;
 }
 
-.social-login .social-button:focus {
-  border-color: hsl(0, 0%, 88%);
+.social-icon {
+  width: 22px;
 }
 
-.social-login .social-button .social-icon {
-  width: 23px;
-}
-
-.acontainer .aseparator {
+/* Separator */
+.aseparator {
   text-align: center;
-  font-weight: 600;
+  font-weight: 500;
   margin: 1.5rem 0;
   position: relative;
 }
 
-.acontainer .aseparator span {
+.aseparator span {
   position: relative;
   z-index: 1;
   background: white;
-  padding: 0 0.9rem;
-  font-size: 1.06rem;
-  font-weight: 500;
+  padding: 0 0.75rem;
+  font-size: 1rem;
 }
 
-.acontainer .aseparator::after {
-  position: absolute;
+.aseparator::after {
   content: '';
-  left: 0;
+  position: absolute;
   top: 50%;
+  left: 0;
   width: 100%;
   height: 1px;
-  background: hsl(0, 0%, 75%);
+  background: #ccc;
 }
 
-.aform .ainput-wrapper {
+/* Form */
+.ainput-wrapper {
   height: 54px;
   width: 100%;
   margin-bottom: 1.5rem;
 }
 
-.aform .ainput-wrapper .ainput-field {
+.ainput-field {
   height: 100%;
   width: 100%;
-  border-radius: 0.31rem;
-  border: 1px solid hsl(0, 0%, 75%);
-  padding: 10px 10px 10px;
+  padding: 0 1rem;
+  border-radius: 8px;
+  border: 1.5px solid #ccc;
+  font-size: 1.05rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.ainput-field:focus {
+  border-color: hsl(202, 52%, 40%);
+  box-shadow: 0 0 0 2px rgba(13, 94, 139, 0.2);
   outline: none;
-  font-size: 1.06rem;
-  transition: 0.2s ease;
-  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
 }
 
-.aform .ainput-wrapper .ainput-field:focus {
-  border-color: hsl(0, 0%, 88%);
+.ainput-field:hover {
+  background: #f8f8f8;
 }
 
-.aform .ainput-wrapper .ainput-field:hover {
-  background: hsl(0, 0%, 95%);
+.ainput-field::placeholder {
+  color: #888;
 }
 
-.aform .ainput-wrapper .ainput-field::placeholder {
-  color: hsl(0, 0%, 60%);
-}
-
-.aform .forgot-pass-link {
+/* Forgot Password */
+.forgot-pass-link {
   display: block;
   width: fit-content;
-  margin-top: -0.46rem;
+  margin: -0.5rem 0 1.25rem auto;
+  font-size: 0.9rem;
+  color: hsl(202, 52%, 30%);
+  font-weight: 500;
+  text-decoration: none;
 }
 
-.aform .abutton {
+.forgot-pass-link:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.abutton {
   width: 100%;
   height: 54px;
-  cursor: pointer;
-  outline: none;
-  color: hsl(0, 0%, 100%);
-  background: hsl(201, 69%, 22%);
   font-size: 1.125rem;
-  font-weight: 425;
-  border-radius: 0.31rem;
-  border: 1px solid hsl(0, 0%, 75%);
-  box-shadow: 0 10px 20px hsl(0, 0%, 90%);
-  transition: 0.2s ease;
-  margin-top: 1.5rem;
-}
-
-.aform .abutton:hover {
+  font-weight: 500;
+  border-radius: 8px;
   background: hsl(202, 52%, 30%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(13, 94, 139, 0.2);
 }
 
-.acontainer .atext {
+.abutton:hover {
+  background: hsl(202, 52%, 24%);
+}
+
+/* Bottom Text */
+.atext {
   text-align: center;
   font-weight: 500;
-  margin: 1.75rem 0 0.31rem;
+  margin-top: 1.75rem;
 }
 
 .acontainer a {
-  color: hsl(201, 69%, 22%);
+  color: hsl(202, 52%, 30%);
   font-weight: 500;
   text-decoration: none;
 }

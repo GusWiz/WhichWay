@@ -4,8 +4,6 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
@@ -170,10 +168,8 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div ref={printRef} className='itinerary-container'>
-              <div className='createititnerary-title'>
-                <h1>Create Itinerary</h1>
-                <h2>for {tripLocation}</h2>
-              </div>
+              <h1 className='createititnerary-title'>Itinerary</h1>
+              <p className='itinerary-subtitle'>for {tripLocation}</p>
 
               {/* Display loading spinner or itinerary data */}
               {loading ? (

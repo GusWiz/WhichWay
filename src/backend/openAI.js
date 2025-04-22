@@ -48,8 +48,6 @@ Rules:
 `;
 
 const generateItinerary = async (openaiRequest) => {
-  console.log('Generating itinerary with OpenAI amazing AI capabilities');
-
   try {
     // Validate openaiRequest parameter
     if (!openaiRequest) {
