@@ -99,6 +99,20 @@
   transition: border-color 0.3s;
 }
 
+.notification-toggle {
+  display: inline-block;
+  background-color: hsl(202, 52%, 30%);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
 .notification-toggle.active {
   background-color: #4caf50;
 }
