@@ -396,9 +396,7 @@ function EditTrip() {
                           >
                             Save
                           </button>
-                          <button className='itinerary-button'>
-                            Download PDF
-                          </button>
+
                           <button
                             onClick={handleCancelEdit}
                             className='itinerary-button'

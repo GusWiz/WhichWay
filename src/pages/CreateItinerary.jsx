@@ -4,13 +4,10 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
-import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -40,6 +37,8 @@ function Itinerary() {
   // Use the provided itinerary data if available
   const [itineraryData, setItineraryData] = useState(initialItineraryData);
   const [loading, setLoading] = useState(false);
+  const [selectedSchedule, setSchedule] = useState(null);
+  const [selectedName, setName] = useState(null);
 
   const logout = async () => {
     try {
@@ -50,43 +49,14 @@ function Itinerary() {
     }
   };
 
-  const exportItinerary = () => {
-    const printWindow = window.open('/export', '_blank');
-    printWindow.focus();
-  };
-
-  // Function to download itinerary as PDF
-  const handleDownloadPDF = async () => {
-    const element = printRef.current;
-
-    if (!element) {
-      toast.error('No content to download');
-      return;
-    }
-
-    try {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF({
-        orientation: 'landscape',
-        unit: 'px',
-        format: 'a4',
-      });
-
-      const imageProperties = pdf.getImageProperties(data);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight =
-        (imageProperties.height * pdfWidth) / imageProperties.width;
-
-      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Itinerary.pdf');
-      toast.success('PDF downloaded successfully!');
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      toast.error('Failed to download PDF');
-    }
-  };
+  // const exportItinerary = () => {
+  //   const stringSchedule = JSON.stringify(itineraryData);
+  //   const stringName = JSON.stringify(name);
+  //   localStorage.setItem('exportSchedule', schedule);
+  //   localStorage.setItem('exportTripName', name);
+  //   const printWindow = window.open('/export', '_blank');
+  //   printWindow.focus();
+  // };
 
   const getItineraryData = () => {
     if (!itineraryData || itineraryData.length === 0) {
@@ -272,13 +242,13 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 >
                   Back to Home
                 </button>
-                <button
+                {/* <button
                   className='itinerary-button'
                   onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

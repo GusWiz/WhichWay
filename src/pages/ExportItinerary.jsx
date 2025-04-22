@@ -88,6 +88,8 @@ const ExportItinerary = () => {
     const savedSchedule = localStorage.getItem('exportSchedule');
     const savedTripName = localStorage.getItem('exportTripName');
 
+    console.log('saved trip name: ', savedTripName);
+
     if (savedSchedule) {
       try {
         setSchedule(JSON.parse(savedSchedule));
