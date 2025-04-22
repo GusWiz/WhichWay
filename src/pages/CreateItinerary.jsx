@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
-import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -38,6 +37,8 @@ function Itinerary() {
   // Use the provided itinerary data if available
   const [itineraryData, setItineraryData] = useState(initialItineraryData);
   const [loading, setLoading] = useState(false);
+  const [selectedSchedule, setSchedule] = useState(null);
+  const [selectedName, setName] = useState(null);
 
   const logout = async () => {
     try {
@@ -48,19 +49,26 @@ function Itinerary() {
     }
   };
 
-  const exportItinerary = () => {
-    const printWindow = window.open('/export', '_blank');
-    printWindow.focus();
-  };
+  // const exportItinerary = () => {
+  //   const stringSchedule = JSON.stringify(itineraryData);
+  //   const stringName = JSON.stringify(name);
+  //   localStorage.setItem('exportSchedule', schedule);
+  //   localStorage.setItem('exportTripName', name);
+  //   const printWindow = window.open('/export', '_blank');
+  //   printWindow.focus();
+  // };
 
   const getItineraryData = () => {
     if (!itineraryData || itineraryData.length === 0) {
       return null;
     }
 
+
+
     return {
       name: tripName,
       schedule: itineraryData,
+
     };
   };
 
@@ -237,13 +245,13 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 >
                   Back to Home
                 </button>
-                <button
+                {/* <button
                   className='itinerary-button'
                   onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

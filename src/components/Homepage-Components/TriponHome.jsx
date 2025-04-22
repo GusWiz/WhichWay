@@ -79,6 +79,18 @@ export default function TripManager() {
   }, []);
 
   useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = 'hidden'; // Lock scroll
+    } else {
+      document.body.style.overflow = 'auto'; // Re-enable scroll
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto'; // Clean up if component unmounts
+    };
+  }, [showModal]);
+
+  useEffect(() => {
     if (!user) return;
 
     const loadTrips = async () => {
