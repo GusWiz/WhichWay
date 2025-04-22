@@ -450,12 +450,6 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                     name='duration'
                   />
                 </form>
-                <button
-                  onClick={handleModalToggle}
-                  className='trip-preference-btn'
-                >
-                  Trip Preferences
-                </button>
 
                 <div className='create-trip-buttons'>
                   <button
