@@ -1,6 +1,5 @@
 // import React from 'react';
 import React, { useEffect, useState } from 'react';
-import { getExportName, getExportSchedule } from '../backend/dataCollect';
 import ItineraryCalendar from '../components/Universal-Components/ItineraryDisplay';
 
 // export const sampleSchedule = [

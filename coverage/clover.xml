@@ -1,10 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1744515104438" clover="3.2.0">
-  <project timestamp="1744515104438" name="All files">
-    <metrics statements="111" coveredstatements="74" conditionals="63" coveredconditionals="38" methods="44" coveredmethods="21" elements="218" coveredelements="133" complexity="0" loc="111" ncloc="111" packages="4" files="7" classes="7"/>
-    <package name="components.Createtrip-Components">
-      <metrics statements="71" coveredstatements="47" conditionals="45" coveredconditionals="28" methods="27" coveredmethods="11"/>
-      <file name="ActivitiesDisplay.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Createtrip-Components/ActivitiesDisplay.jsx">
+<coverage generated="1745124442118" clover="3.2.0">
+  <project timestamp="1745124442119" name="All files">
+    <metrics statements="450" coveredstatements="284" conditionals="254" coveredconditionals="122" methods="117" coveredmethods="74" elements="821" coveredelements="480" complexity="0" loc="450" ncloc="450" packages="9" files="20" classes="20"/>
+    <package name="netlify.functions">
+      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <file name="googlePlaces.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\netlify\functions\googlePlaces.js">
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.backend">
+      <metrics statements="48" coveredstatements="19" conditionals="16" coveredconditionals="6" methods="8" coveredmethods="3"/>
+      <file name="dataCollect.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\backend\dataCollect.js">
+        <metrics statements="34" coveredstatements="10" conditionals="6" coveredconditionals="0" methods="7" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="94" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+      </file>
+      <file name="openAI.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\backend\openAI.js">
+        <metrics statements="14" coveredstatements="9" conditionals="10" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="67" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="80" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Createtrip-Components">
+      <metrics statements="119" coveredstatements="92" conditionals="84" coveredconditionals="59" methods="36" coveredmethods="20"/>
+      <file name="ActivitiesDisplay.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\ActivitiesDisplay.jsx">
         <metrics statements="28" coveredstatements="8" conditionals="21" coveredconditionals="12" methods="18" coveredmethods="3"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
@@ -35,7 +110,7 @@
         <line num="244" count="0" type="stmt"/>
         <line num="269" count="1" type="stmt"/>
       </file>
-      <file name="ActivityModal.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Createtrip-Components/ActivityModal.jsx">
+      <file name="ActivityModal.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\ActivityModal.jsx">
         <metrics statements="8" coveredstatements="8" conditionals="14" coveredconditionals="9" methods="1" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
@@ -46,7 +121,56 @@
         <line num="11" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="13" count="2" type="stmt"/>
       </file>
-      <file name="PreferenceModal.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Createtrip-Components/PreferenceModal.jsx">
+      <file name="DateSelector.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\DateSelector.jsx">
+        <metrics statements="46" coveredstatements="43" conditionals="39" coveredconditionals="31" methods="8" coveredmethods="8"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="12" count="10" type="stmt"/>
+        <line num="13" count="10" type="stmt"/>
+        <line num="14" count="10" type="stmt"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="16" count="10" type="stmt"/>
+        <line num="19" count="10" type="stmt"/>
+        <line num="20" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="28" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="38" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="39" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="40" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="50" count="10" type="stmt"/>
+        <line num="51" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="58" count="10" type="stmt"/>
+        <line num="59" count="6" type="stmt"/>
+        <line num="60" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="71" count="6" type="stmt"/>
+        <line num="72" count="6" type="stmt"/>
+        <line num="73" count="6" type="stmt"/>
+        <line num="77" count="10" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="83" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="85" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="121" count="1" type="stmt"/>
+        <line num="122" count="1" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="129" count="2" type="stmt"/>
+        <line num="130" count="2" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+      </file>
+      <file name="PreferenceModal.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\PreferenceModal.jsx">
         <metrics statements="35" coveredstatements="31" conditionals="10" coveredconditionals="7" methods="8" coveredmethods="7"/>
         <line num="9" count="10" type="stmt"/>
         <line num="10" count="10" type="stmt"/>
@@ -84,31 +208,300 @@
         <line num="188" count="1" type="stmt"/>
         <line num="207" count="1" type="stmt"/>
       </file>
-    </package>
-    <package name="components.Landing-Components">
-      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="NavigationBar.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Landing-Components/NavigationBar.jsx">
-        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="3" type="stmt"/>
-      </file>
-    </package>
-    <package name="components.Login-Components">
-      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-      <file name="InputField.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Login-Components/InputField.jsx">
+      <file name="TripInputField.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Createtrip-Components\TripInputField.jsx">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
-      <file name="SocialLogin.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/components/Login-Components/SocialLogin.jsx">
+    </package>
+    <package name="src.components.Homepage-Components">
+      <metrics statements="73" coveredstatements="61" conditionals="35" coveredconditionals="27" methods="33" coveredmethods="25"/>
+      <file name="ErrorBoundary.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\ErrorBoundary.jsx">
+        <metrics statements="7" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="2"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="23" count="17" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="17" type="stmt"/>
+      </file>
+      <file name="Sidebar.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\Sidebar.jsx">
+        <metrics statements="15" coveredstatements="14" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="4"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="31" count="12" type="stmt"/>
+        <line num="37" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+      </file>
+      <file name="TriponHome.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Homepage-Components\TriponHome.jsx">
+        <metrics statements="51" coveredstatements="43" conditionals="27" coveredconditionals="21" methods="25" coveredmethods="19"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="26" count="26" type="stmt"/>
+        <line num="45" count="12" type="stmt"/>
+        <line num="47" count="36" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="85" count="38" type="stmt"/>
+        <line num="86" count="38" type="stmt"/>
+        <line num="88" count="38" type="stmt"/>
+        <line num="89" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="95" count="38" type="cond" truecount="2" falsecount="0"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="109" count="13" type="stmt"/>
+        <line num="110" count="13" type="stmt"/>
+        <line num="115" count="13" type="stmt"/>
+        <line num="116" count="13" type="stmt"/>
+        <line num="117" count="13" type="stmt"/>
+        <line num="118" count="13" type="stmt"/>
+        <line num="120" count="13" type="stmt"/>
+        <line num="121" count="4" type="stmt"/>
+        <line num="122" count="4" type="stmt"/>
+        <line num="126" count="4" type="stmt"/>
+        <line num="127" count="4" type="stmt"/>
+        <line num="128" count="8" type="stmt"/>
+        <line num="133" count="13" type="stmt"/>
+        <line num="134" count="3" type="stmt"/>
+        <line num="136" count="13" type="stmt"/>
+        <line num="137" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="142" count="0" type="stmt"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="146" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="147" count="0" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="150" count="1" type="stmt"/>
+        <line num="152" count="1" type="stmt"/>
+        <line num="153" count="1" type="stmt"/>
+        <line num="156" count="13" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="158" count="0" type="stmt"/>
+        <line num="161" count="13" type="stmt"/>
+        <line num="162" count="13" type="stmt"/>
+        <line num="164" count="13" type="stmt"/>
+        <line num="165" count="13" type="stmt"/>
+        <line num="168" count="13" type="stmt"/>
+        <line num="177" count="2" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="190" count="39" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Landing-Components">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="NavigationBar.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Landing-Components\NavigationBar.jsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="10" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Login-Components">
+      <metrics statements="36" coveredstatements="36" conditionals="0" coveredconditionals="0" methods="14" coveredmethods="14"/>
+      <file name="ForgotPassword.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\ForgotPassword.jsx">
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="26" count="7" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+      </file>
+      <file name="InputField.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\InputField.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="10" type="stmt"/>
+      </file>
+      <file name="Login.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\Login.jsx">
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+        <line num="14" count="12" type="stmt"/>
+        <line num="15" count="12" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="12" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="12" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+      </file>
+      <file name="LoginButton.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\LoginButton.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="10" type="stmt"/>
+      </file>
+      <file name="SocialLogin.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Login-Components\SocialLogin.jsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="pages">
+    <package name="src.components.Universal-Components">
+      <metrics statements="17" coveredstatements="17" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
+      <file name="ConsoleCommands.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\Universal-Components\ConsoleCommands.jsx">
+        <metrics statements="17" coveredstatements="17" conditionals="7" coveredconditionals="7" methods="3" coveredmethods="3"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="7" type="stmt"/>
+        <line num="30" count="7" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="33" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="48" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="57" count="7" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.api">
+      <metrics statements="110" coveredstatements="25" conditionals="92" coveredconditionals="11" methods="8" coveredmethods="1"/>
+      <file name="dataModel.js" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\components\api\dataModel.js">
+        <metrics statements="110" coveredstatements="25" conditionals="92" coveredconditionals="11" methods="8" coveredmethods="1"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="104" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="118" count="1" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="127" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="128" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="151" count="0" type="stmt"/>
+        <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="155" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="160" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="168" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="169" count="0" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
+        <line num="174" count="0" type="stmt"/>
+        <line num="175" count="0" type="stmt"/>
+        <line num="178" count="0" type="stmt"/>
+        <line num="180" count="0" type="stmt"/>
+        <line num="181" count="0" type="stmt"/>
+        <line num="186" count="1" type="stmt"/>
+        <line num="191" count="6" type="stmt"/>
+        <line num="192" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="193" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="194" count="2" type="stmt"/>
+        <line num="196" count="3" type="stmt"/>
+        <line num="197" count="3" type="stmt"/>
+        <line num="198" count="2" type="stmt"/>
+        <line num="200" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="201" count="2" type="stmt"/>
+        <line num="203" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="204" count="0" type="stmt"/>
+        <line num="207" count="0" type="stmt"/>
+        <line num="208" count="0" type="stmt"/>
+        <line num="211" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="212" count="0" type="stmt"/>
+        <line num="215" count="2" type="stmt"/>
+        <line num="223" count="2" type="stmt"/>
+        <line num="226" count="2" type="stmt"/>
+        <line num="232" count="1" type="stmt"/>
+        <line num="237" count="0" type="stmt"/>
+        <line num="239" count="0" type="stmt"/>
+        <line num="240" count="0" type="stmt"/>
+        <line num="242" count="6" type="stmt"/>
+        <line num="243" count="6" type="stmt"/>
+        <line num="247" count="1" type="stmt"/>
+        <line num="252" count="0" type="stmt"/>
+        <line num="253" count="0" type="stmt"/>
+        <line num="254" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="255" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="257" count="0" type="stmt"/>
+        <line num="259" count="0" type="stmt"/>
+        <line num="260" count="0" type="stmt"/>
+        <line num="264" count="1" type="stmt"/>
+        <line num="265" count="0" type="stmt"/>
+        <line num="266" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="267" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="268" count="0" type="stmt"/>
+        <line num="270" count="0" type="stmt"/>
+        <line num="271" count="0" type="stmt"/>
+        <line num="273" count="0" type="stmt"/>
+        <line num="274" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="275" count="0" type="stmt"/>
+        <line num="279" count="0" type="stmt"/>
+        <line num="288" count="0" type="stmt"/>
+        <line num="293" count="0" type="stmt"/>
+        <line num="296" count="0" type="stmt"/>
+        <line num="298" count="0" type="stmt"/>
+        <line num="299" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages">
       <metrics statements="34" coveredstatements="21" conditionals="18" coveredconditionals="10" methods="13" coveredmethods="6"/>
-      <file name="Account.jsx" path="/Users/aldoguerrero/Desktop/SWE CS 3398/betazoids project/src/pages/Account.jsx">
+      <file name="Account.jsx" path="C:\Users\packy\Desktop\Software Engineering\whichway\src\pages\Account.jsx">
         <metrics statements="34" coveredstatements="21" conditionals="18" coveredconditionals="10" methods="13" coveredmethods="6"/>
         <line num="20" count="3" type="stmt"/>
         <line num="21" count="3" type="stmt"/>

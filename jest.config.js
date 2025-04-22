@@ -1,4 +1,5 @@
 module.exports = {
+  setupFiles: ['./jest.setup.js'],
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest', // Transpile both .js and .jsx files using babel-jest
   },

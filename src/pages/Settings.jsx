@@ -1,6 +1,8 @@
 import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
-import React, { useState } from 'react';
+import { db } from '../components/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 
 import './Home.css';
 import './Settings.css';
@@ -9,22 +11,55 @@ import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
 
 function Settings() {
-  // General Settings
-  const [language, setLanguage] = useState('en');
-  const [timeFormat, setTimeFormat] = useState('12');
-  const [dateFormat, setDateFormat] = useState('MM/DD/YYYY');
-  const [currency, setCurrency] = useState('USD');
-
-  // Display Settings
-  const [theme, setTheme] = useState('light');
-  const [fontStyle, setFontStyle] = useState('default');
-
-  // Location Settings
   const [defaultLocation, setDefaultLocation] = useState('');
-  const [measurementUnits, setMeasurementUnits] = useState('metric');
+  const [showLocationModal, setShowLocationModal] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
-  const handleSaveSettings = () => {
-    //Add later
+  useEffect(() => {
+    const savedLocationPref = localStorage.getItem('allowLocation');
+    if (savedLocationPref === 'auto') {
+      setDefaultLocation('auto');
+    }
+
+    const savedNotifications = localStorage.getItem('notificationsEnabled');
+    if (savedNotifications === 'true') {
+      setNotificationsEnabled(true);
+    }
+  }, []);
+
+  const showToastMsg = (msg) => {
+    setToastMessage(msg);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2000);
+  };
+
+  const handleToggleNotifications = () => {
+    const newValue = !notificationsEnabled;
+    setNotificationsEnabled(newValue);
+    localStorage.setItem('notificationsEnabled', newValue.toString());
+    showToastMsg(`Notifications ${newValue ? 'enabled' : 'disabled'}`);
+  };
+
+  const submitFeedback = async () => {
+    if (feedback.trim() === '') {
+      showToastMsg('Please enter feedback before submitting');
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'feedback'), {
+        message: feedback.trim(),
+        timestamp: serverTimestamp(),
+      });
+      setFeedback('');
+      showToastMsg('Feedback submitted');
+    } catch (err) {
+      console.error('Error saving feedback:', err);
+      showToastMsg('Error saving feedback');
+    }
   };
 
   const logout = async () => {
@@ -46,144 +81,133 @@ function Settings() {
             <div className='settings-page'>
               <h2>Settings</h2>
 
-              {/* General Settings Section */}
-              <div className='settings-section'>
-                <h3>🌍 General Settings</h3>
-
-                <div className='setting-item'>
-                  <label>Language</label>
-                  <select
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                  >
-                    <option value='en'>English</option>
-                    <option value='es'>Spanish</option>
-                    <option value='fr'>French</option>
-                  </select>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Time Format</label>
-                  <div className='radio-group'>
-                    <label>
-                      <input
-                        type='radio'
-                        value='12'
-                        checked={timeFormat === '12'}
-                        onChange={() => setTimeFormat('12')}
-                      />
-                      12-hour
-                    </label>
-                    <label>
-                      <input
-                        type='radio'
-                        value='24'
-                        checked={timeFormat === '24'}
-                        onChange={() => setTimeFormat('24')}
-                      />
-                      24-hour
-                    </label>
-                  </div>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Date Format</label>
-                  <select
-                    value={dateFormat}
-                    onChange={(e) => setDateFormat(e.target.value)}
-                  >
-                    <option value='MM/DD/YYYY'>MM/DD/YYYY</option>
-                    <option value='DD/MM/YYYY'>DD/MM/YYYY</option>
-                    <option value='YYYY-MM-DD'>YYYY-MM-DD</option>
-                  </select>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Currency Format</label>
-                  <select
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                  >
-                    <option value='USD'>USD - US Dollar</option>
-                    <option value='EUR'>EUR - Euro</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Display Settings Section */}
-              <div className='settings-section'>
-                <h3>🎨 Display Settings</h3>
-
-                <div className='setting-item'>
-                  <label>Theme</label>
-                  <select
-                    value={theme}
-                    onChange={(e) => setTheme(e.target.value)}
-                  >
-                    <option value='light'>Light Mode</option>
-                    <option value='dark'>Dark Mode</option>
-                    <option value='system'>System Default</option>
-                  </select>
-                </div>
-
-                <div className='setting-item'>
-                  <label>Font Style</label>
-                  <select
-                    value={fontStyle}
-                    onChange={(e) => setFontStyle(e.target.value)}
-                  >
-                    <option value='default'>Default</option>
-                    <option value='serif'>Serif</option>
-                    <option value='sans-serif'>Sans-serif</option>
-                    <option value='large'>Large Text</option>
-                  </select>
-                </div>
-              </div>
-
-              {/* Location Settings Section */}
+              {/* Location Settings */}
               <div className='settings-section'>
                 <h3>📍 Location Settings</h3>
-
-                <div className='setting-item'>
-                  <label>Default Starting Location</label>
-                  <input
-                    type='text'
-                    value={defaultLocation}
-                    onChange={(e) => setDefaultLocation(e.target.value)}
-                    placeholder='Enter your home/base location'
-                  />
+                <div className='setting-item center-content'>
+                  <label>Auto-Detect Location</label>
+                  <button
+                    className='location-button'
+                    onClick={() => setShowLocationModal(true)}
+                  >
+                    Set Permission
+                  </button>
+                  <p style={{ fontSize: '0.9rem' }}>
+                    Current:{' '}
+                    {defaultLocation === 'auto' ? 'Allowed' : 'Not allowed'}
+                  </p>
                 </div>
+              </div>
 
-                <div className='setting-item'>
-                  <label>Units of Measurement</label>
-                  <div className='radio-group'>
-                    <label>
-                      <input
-                        type='radio'
-                        value='metric'
-                        checked={measurementUnits === 'metric'}
-                        onChange={() => setMeasurementUnits('metric')}
-                      />
-                      Metric (km, °C)
-                    </label>
-                    <label>
-                      <input
-                        type='radio'
-                        value='imperial'
-                        checked={measurementUnits === 'imperial'}
-                        onChange={() => setMeasurementUnits('imperial')}
-                      />
-                      Imperial (miles, °F)
-                    </label>
+              {/* Notification Toggle */}
+              <div className='settings-section'>
+                <h3>🔔 Notifications</h3>
+                <div className='setting-item center-content'>
+                  <label>Enable Notifications</label>
+                  <button
+                    className={`notification-toggle ${
+                      notificationsEnabled ? 'active' : ''
+                    }`}
+                    onClick={handleToggleNotifications}
+                  >
+                    {notificationsEnabled ? 'On' : 'Off'}
+                  </button>
+                </div>
+              </div>
+
+              {/* Support Contact */}
+              <div className='settings-section center-content'>
+                <h3>🆘 Need Help?</h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    width: '100%',
+                  }}
+                >
+                  <a
+                    href='mailto:support@whichwayapp.com'
+                    className='contact-support-button'
+                  >
+                    Contact Support
+                  </a>
+                </div>
+              </div>
+
+              {/* Feedback */}
+              <div className='settings-section'>
+                <h3>💬 Feedback</h3>
+                <textarea
+                  placeholder='Let us know what you think...'
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  rows={4}
+                  style={{
+                    width: '100%',
+                    borderRadius: '8px',
+                    padding: '0.5rem',
+                    border: '1px solid #ccc',
+                    fontSize: '1rem',
+                  }}
+                />
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginTop: '1rem',
+                  }}
+                >
+                  <button
+                    onClick={submitFeedback}
+                    style={{
+                      backgroundColor: '#005f8f',
+                      color: 'white',
+                      padding: '0.5rem 1.2rem',
+                      borderRadius: '8px',
+                      border: 'none',
+                      fontWeight: '600',
+                      fontSize: '0.95rem',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Submit Feedback
+                  </button>
+                </div>
+              </div>
+
+              {/* Location Access Modal */}
+              {showLocationModal && (
+                <div className='modal-overlay'>
+                  <div className='modal'>
+                    <h3>Allow WhichWay to access your location?</h3>
+                    <div className='modal-buttons'>
+                      <button
+                        onClick={() => {
+                          setDefaultLocation('auto');
+                          localStorage.setItem('allowLocation', 'auto');
+                          setShowLocationModal(false);
+                          showToastMsg('Location access allowed');
+                        }}
+                      >
+                        Allow
+                      </button>
+                      <button
+                        onClick={() => {
+                          setDefaultLocation('');
+                          localStorage.setItem('allowLocation', 'deny');
+                          setShowLocationModal(false);
+                          showToastMsg('Location access denied');
+                        }}
+                      >
+                        Don’t Allow
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
-              <div className='settings-actions'>
-                <button onClick={handleSaveSettings} className='save-button'>
-                  Save Settings
-                </button>
-              </div>
+              {/* Toast Notification */}
+              {showToast && <div className='toast'>{toastMessage}</div>}
             </div>
           </div>
         </div>
