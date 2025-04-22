@@ -12,6 +12,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import './Home.css';
 import './Account.css';
+import { updateProfile } from 'firebase/auth';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
@@ -26,7 +27,7 @@ function Account({ user }) {
       const defaultData = {
         name: user.displayName || 'User Name',
         email: user.email || 'user@example.com',
-        location: 'Locating...',
+        location: 'Not allowed',
         joinDate: new Date(user.metadata?.creationTime).toLocaleDateString(
           'en-US',
           {
@@ -40,21 +41,23 @@ function Account({ user }) {
       setUserData(defaultData);
       setTempData(defaultData);
 
-      //use their IP for their location
-      fetch('https://ipapi.co/json/')
-        .then((res) => res.json())
-        .then((data) => {
-          const city = data.city || 'Unknown city';
-          const region = data.region || 'Unknown state';
-          const country = data.country_name || 'Unknown country';
-          const updatedLocation = `${city}, ${region}, ${country}`;
+      const locationPermission = localStorage.getItem('allowLocation');
+      if (locationPermission === 'auto') {
+        fetch('https://ipapi.co/json/')
+          .then((res) => res.json())
+          .then((data) => {
+            const city = data.city || 'Unknown city';
+            const region = data.region || 'Unknown state';
+            const country = data.country_name || 'Unknown country';
+            const updatedLocation = `${city}, ${region}, ${country}`;
 
-          setUserData((prev) => ({ ...prev, location: updatedLocation }));
-          setTempData((prev) => ({ ...prev, location: updatedLocation }));
-        })
-        .catch((error) => {
-          console.log('IP location fetch failed:', error);
-        });
+            setUserData((prev) => ({ ...prev, location: updatedLocation }));
+            setTempData((prev) => ({ ...prev, location: updatedLocation }));
+          })
+          .catch((error) => {
+            console.log('IP location fetch failed:', error);
+          });
+      }
     }
   }, [user]);
 
@@ -65,10 +68,22 @@ function Account({ user }) {
     setTempData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    setUserData(tempData);
-    setEditMode(false);
-    console.log('Profile updated:', tempData);
+  const handleSave = async () => {
+    try {
+      // Update Firebase Auth profile
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: tempData.name,
+        });
+      }
+
+      // Update local state
+      setUserData(tempData);
+      setEditMode(false);
+      console.log('Firebase profile and local state updated:', tempData);
+    } catch (error) {
+      console.error('Failed to update Firebase profile:', error);
+    }
   };
 
   const logout = async () => {
@@ -155,7 +170,7 @@ function Account({ user }) {
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Location:</span>
-                        <span>{userData.location} (auto-detected)</span>
+                        <span>{userData.location} </span>
                       </div>
                       <div className='detail-item'>
                         <span className='label'>Member Since:</span>

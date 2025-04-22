@@ -1,51 +1,56 @@
-/* Account.css - Matches Settings page style */
-
 .account-page {
   width: 100%;
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
-  background-color: white;
-  color: #333;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #daeef7, #ffffff);
+  font-family: 'Arial', sans-serif;
+  color: #2c2c2c;
 }
 
+/* Title */
 .account-page h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #2c3e50;
-  font-weight: 600;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
+/* Section Card */
 .account-section {
-  background: hsla(201, 70%, 22%, 0.101);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  border: 1px solid #eaeaea8a;
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 2rem;
+  border: 1.5px solid #cddbe3;
   width: 100%;
   max-width: 600px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .account-section h3 {
-  font-size: 1.3rem;
-  margin-bottom: 1.2rem;
-  color: #3498db;
-  font-weight: 500;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  color: hsl(202, 52%, 30%);
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
 }
 
+/* Details Layout */
 .profile-details {
   display: grid;
-  gap: 1.2rem;
+  gap: 1.25rem;
 }
 
 .detail-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.7rem 0;
-  border-bottom: 1px solid #eee;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 1rem;
 }
 
 .detail-item:last-child {
@@ -53,119 +58,135 @@
 }
 
 .detail-item .label {
-  font-weight: 500;
-  color: #444;
+  font-weight: 600;
+  color: #3b3a39;
 }
 
+/* Edit Mode */
 .form-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.6rem;
-  font-weight: 500;
+  font-weight: 600;
   color: #444;
+  margin-bottom: 0.6rem;
+  display: block;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: 1.5px solid #bccada;
   font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s;
   background-color: white;
-  transition: all 0.2s ease;
 }
 
 .form-group input:focus {
+  border-color: hsl(202, 52%, 40%);
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  box-shadow: 0 0 0 3px rgba(13, 94, 139, 0.1);
 }
 
+/* Section Header */
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
-.delete-button,
-.edit-button,
-.save-button,
-.cancel-button {
-  padding: 0.6rem 1.2rem;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.edit-button {
-  background-color: #0d8fec;
-  color: rgb(240, 242, 245);
-  justify-content: center;
-  width: 110px;
-}
-
-.delete-button {
-  justify-content: center;
-  margin-top: 5px;
-  background-color: #ae0c0c;
-  color: rgb(240, 242, 245);
-  width: 110px;
-}
-
-.save-button {
-  background-color: #3498db; /* Blue color matching edit button */
-  color: white;
-  border: none;
-  padding: 0.8rem 1.8rem;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  font-weight: 500;
-  width: 100%;
-  max-width: 200px;
-  display: block;
-  margin: 0 auto; /* Centers the button */
-}
-
-.save-button:hover {
-  background-color: #2980b9; /* Slightly darker blue on hover */
-}
-
-.cancel-button {
-  background-color: white;
-  color: #e74c3c;
-  border: 1px solid #ddd;
-}
-
-.edit-button:hover {
-  background-color: #33628b;
-}
-
-.cancel-button:hover {
-  background-color: #f5f5f5;
-}
-
+/* Action Buttons */
 .account-actions {
   display: flex;
   justify-content: center;
-  margin-top: 1.5rem;
+  gap: 1rem;
+  margin-top: 2rem;
   width: 100%;
   max-width: 600px;
-  gap: 0.8rem;
 }
 
-/* Responsive adjustments */
+.edit-button,
+.delete-button,
+.save-button,
+.cancel-button {
+  padding: 10px 17px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: 'Arial', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  border: 1.5px solid transparent;
+}
+
+/* Specific Button Colors */
+.edit-button {
+  background-color: hsl(202, 52%, 30%);
+  border-color: hsl(202, 52%, 30%);
+  color: #f0f2f5;
+}
+
+.edit-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
+
+.save-button {
+  background-color: hsl(202, 52%, 30%);
+  border-color: hsl(202, 52%, 30%);
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 20px;
+}
+
+.save-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 10px rgba(13, 94, 139, 0.2);
+}
+
+.cancel-button {
+  background-color: #b02a2a;
+  color: white;
+  border: 1.5px solid #b02a2a;
+  font-size: 1rem;
+  padding: 8px 20px;
+}
+
+.delete-button {
+  background-color: #b02a2a;
+  border: 1.5px solid #b02a2a;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(176, 42, 42, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.delete-button:hover {
+  background-color: #871d1d;
+  border-color: #871d1d;
+  box-shadow: 0 3px 10px rgba(135, 29, 29, 0.3);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .account-page {
     padding: 1rem;
@@ -186,11 +207,10 @@
   .save-button,
   .cancel-button {
     width: 100%;
-    justify-content: center;
   }
 
   .detail-item {
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.4rem;
   }
 }

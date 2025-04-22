@@ -12,24 +12,31 @@ const ActivityModal = ({ show, closeModal, item }) => {
   if (!show) return null;
 
   // Display photo from Google Places if available, otherwise use existing image
-  const displayImage = item?.photoUrls && item.photoUrls.length > 0
-    ? item.photoUrls[0]
-    : item?.imgSrc || fallbackImage;
+  const displayImage =
+    item?.photoUrls && item.photoUrls.length > 0
+      ? item.photoUrls[0]
+      : item?.imgSrc || fallbackImage;
 
   // Add this function within your component
   const formatDescription = (text) => {
     if (!text) return fallbackDescription;
 
-    // Split into sentences to create better paragraph breaks
+    // Clean up any strange spacing issues first
+    text = text.replace(/\s+/g, ' ').trim();
+
+    // Split into sentences - match period, question mark, or exclamation followed by space
     const sentences = text.split(/(?<=[.!?])\s+/);
 
-    // Group sentences into paragraphs (every 2-3 sentences)
+    // Group sentences into paragraphs (2-3 sentences per paragraph)
     const paragraphs = [];
     for (let i = 0; i < sentences.length; i += 2) {
-      paragraphs.push(sentences.slice(i, i + 2).join(' '));
+      const paragraphSentences = sentences.slice(i, i + 2);
+      if (paragraphSentences.length > 0) {
+        paragraphs.push(paragraphSentences.join(' '));
+      }
     }
 
-    // Join paragraphs with line breaks
+    // Join paragraphs with double line breaks for proper spacing
     return paragraphs.join('\n\n');
   };
 
@@ -38,11 +45,14 @@ const ActivityModal = ({ show, closeModal, item }) => {
   const formattedDescription = formatDescription(description);
 
   // Format the description to be more compact
-  const shortDescription = description.length > 150
-    ? `${description.substring(0, 150)}...`
-    : description;
+  const shortDescription =
+    description.length > 150
+      ? `${description.substring(0, 150)}...`
+      : description;
 
-  const displayDescription = showFullDescription ? formattedDescription : shortDescription;
+  const displayDescription = showFullDescription
+    ? formattedDescription
+    : shortDescription;
 
   return (
     <div className='activity-modal-overlay'>
@@ -77,7 +87,7 @@ const ActivityModal = ({ show, closeModal, item }) => {
         {/* List of features */}
         <ul className='activity-modal-features'>
           {/* <li> */}
-            {/* <strong>Group Size:</strong> {item?.groupSize || fallbackGroupSize}
+          {/* <strong>Group Size:</strong> {item?.groupSize || fallbackGroupSize}
           </li> */}
           {/* <li>
             <strong>Atmosphere:</strong>{' '}

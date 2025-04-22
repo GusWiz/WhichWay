@@ -4,13 +4,10 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../components/firebase';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 // Import directly from backend instead of through api layer
 import { generateItinerary } from '../backend/openAI';
 import { saveUserItinerary } from '../components/api/dataModel';
-import { getItineraryData as getStoredItineraryData } from '../backend/dataCollect';
 
 import './Home.css';
 import './Landing.css';
@@ -40,6 +37,8 @@ function Itinerary() {
   // Use the provided itinerary data if available
   const [itineraryData, setItineraryData] = useState(initialItineraryData);
   const [loading, setLoading] = useState(false);
+  const [selectedSchedule, setSchedule] = useState(null);
+  const [selectedName, setName] = useState(null);
 
   const logout = async () => {
     try {
@@ -50,38 +49,14 @@ function Itinerary() {
     }
   };
 
-  // Function to download itinerary as PDF
-  const handleDownloadPDF = async () => {
-    const element = printRef.current;
-
-    if (!element) {
-      toast.error('No content to download');
-      return;
-    }
-
-    try {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL('image/png');
-
-      const pdf = new jsPDF({
-        orientation: 'landscape',
-        unit: 'px',
-        format: 'a4',
-      });
-
-      const imageProperties = pdf.getImageProperties(data);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight =
-        (imageProperties.height * pdfWidth) / imageProperties.width;
-
-      pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('Itinerary.pdf');
-      toast.success('PDF downloaded successfully!');
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      toast.error('Failed to download PDF');
-    }
-  };
+  // const exportItinerary = () => {
+  //   const stringSchedule = JSON.stringify(itineraryData);
+  //   const stringName = JSON.stringify(name);
+  //   localStorage.setItem('exportSchedule', schedule);
+  //   localStorage.setItem('exportTripName', name);
+  //   const printWindow = window.open('/export', '_blank');
+  //   printWindow.focus();
+  // };
 
   const getItineraryData = () => {
     if (!itineraryData || itineraryData.length === 0) {
@@ -109,8 +84,8 @@ function Itinerary() {
         tripId: tripId,
         data: {
           name: tripName,
-          schedule: itineraryData
-        }
+          schedule: itineraryData,
+        },
       });
 
       // When processing activities before saving
@@ -241,7 +216,10 @@ IMPORTANT INSTRUCTIONS:
   };
 
   // Add this function to your CreateItinerary component
-  const enrichItineraryWithPlaceDetails = async (schedule, selectedActivities) => {
+  const enrichItineraryWithPlaceDetails = async (
+    schedule,
+    selectedActivities
+  ) => {
     // Create a map of activity names to their place details
     const activityDetailsMap = {};
 
@@ -249,11 +227,11 @@ IMPORTANT INSTRUCTIONS:
     const allSelectedActivities = [
       ...selectedFoods,
       ...selectedEntertainment,
-      ...selectedOutdoor
+      ...selectedOutdoor,
     ];
 
     // Create a lookup map by activity name
-    allSelectedActivities.forEach(activity => {
+    allSelectedActivities.forEach((activity) => {
       if (activity.description) {
         activityDetailsMap[activity.name.toLowerCase()] = {
           description: activity.description,
@@ -262,70 +240,79 @@ IMPORTANT INSTRUCTIONS:
           website: activity.website,
           vicinity: activity.vicinity,
           priceRange: activity.priceRange,
-          opening_hours: activity.opening_hours
+          opening_hours: activity.opening_hours,
         };
       }
     });
 
     // Enrich the schedule with place details
-    const enrichedSchedule = await Promise.all(schedule.map(async (day) => {
-      const enrichedActivities = await Promise.all(day.activities.map(async (activity) => {
-        // First check if OpenAI already provided a description
-        if (activity.description) {
-          return activity;
-        }
+    const enrichedSchedule = await Promise.all(
+      schedule.map(async (day) => {
+        const enrichedActivities = await Promise.all(
+          day.activities.map(async (activity) => {
+            // First check if OpenAI already provided a description
+            if (activity.description) {
+              return activity;
+            }
 
-        const activityName = activity.name.toLowerCase();
+            const activityName = activity.name.toLowerCase();
 
-        // Check if we have details from Google Places
-        if (activityDetailsMap[activityName]) {
-          return {
-            ...activity,
-            ...activityDetailsMap[activityName]
-          };
-        }
-
-        // Try to fetch from Google Places if we have placeId
-        if (activity.placeId) {
-          try {
-            const details = await fetchPlaceDetails(activity.placeId);
-            if (details) {
+            // Check if we have details from Google Places
+            if (activityDetailsMap[activityName]) {
               return {
                 ...activity,
-                description: details.description,
-                photoUrls: details.photoUrls || [],
-                rating: details.rating,
-                website: details.website,
-                vicinity: details.vicinity,
-                priceRange: details.priceRange,
-                opening_hours: details.opening_hours
+                ...activityDetailsMap[activityName],
               };
             }
-          } catch (error) {
-            console.error(`Error fetching details for ${activity.name}:`, error);
-          }
-        }
 
-        // If all else fails, generate a fallback description
+            // Try to fetch from Google Places if we have placeId
+            if (activity.placeId) {
+              try {
+                const details = await fetchPlaceDetails(activity.placeId);
+                if (details) {
+                  return {
+                    ...activity,
+                    description: details.description,
+                    photoUrls: details.photoUrls || [],
+                    rating: details.rating,
+                    website: details.website,
+                    vicinity: details.vicinity,
+                    priceRange: details.priceRange,
+                    opening_hours: details.opening_hours,
+                  };
+                }
+              } catch (error) {
+                console.error(
+                  `Error fetching details for ${activity.name}:`,
+                  error
+                );
+              }
+            }
+
+            // If all else fails, generate a fallback description
+            return {
+              ...activity,
+              description: generateFallbackDescription(activity),
+            };
+          })
+        );
+
         return {
-          ...activity,
-          description: generateFallbackDescription(activity)
+          ...day,
+          activities: enrichedActivities,
         };
-      }));
-
-      return {
-        ...day,
-        activities: enrichedActivities
-      };
-    }));
+      })
+    );
 
     return enrichedSchedule;
   };
 
   // Add this helper function
   const generateFallbackDescription = (activity) => {
-    const timeInfo = activity.start_time && activity.end_time ?
-      `Scheduled from ${activity.start_time} to ${activity.end_time}.` : '';
+    const timeInfo =
+      activity.start_time && activity.end_time
+        ? `Scheduled from ${activity.start_time} to ${activity.end_time}.`
+        : '';
 
     return `Visit ${activity.name}, an activity included in your ${tripLocation} itinerary. ${timeInfo} Enjoy your time at this location during your trip.`;
   };
@@ -338,10 +325,8 @@ IMPORTANT INSTRUCTIONS:
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div ref={printRef} className='itinerary-container'>
-              <div className='createititnerary-title'>
-                <h1>Create Itinerary</h1>
-                <h2>for {tripLocation}</h2>
-              </div>
+              <h1 className='createititnerary-title'>Itinerary</h1>
+              <p className='itinerary-subtitle'>for {tripLocation}</p>
 
               {/* Display loading spinner or itinerary data */}
               {loading ? (
@@ -371,8 +356,9 @@ IMPORTANT INSTRUCTIONS:
                               <h3>{activity.name}</h3>
                             </div>
                             {/* Add the description here */}
-                            <p className="activity-description">
-                              {activity.description || 'No description available'}
+                            <p className='activity-description'>
+                              {activity.description ||
+                                'No description available'}
                             </p>
                           </div>
                         </div>
@@ -409,13 +395,13 @@ IMPORTANT INSTRUCTIONS:
                 >
                   Back to Home
                 </button>
-                <button
+                {/* <button
                   className='itinerary-button'
-                  onClick={handleDownloadPDF}
+                  onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

@@ -208,3 +208,16 @@
   color: #ffd700; /* Gold color for stars */
   margin-right: 4px;
 }
+
+.activities-header {
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.activities-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  color: #1a1a1a;
+}

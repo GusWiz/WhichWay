@@ -198,10 +198,13 @@ function createBetterDescription(place) {
       'reasonably priced',
       'moderately priced',
       'a higher-end establishment',
-      'a premium destination'
+      'a premium destination',
     ];
 
-    if (place.price_level >= 0 && place.price_level < priceDescriptions.length) {
+    if (
+      place.price_level >= 0 &&
+      place.price_level < priceDescriptions.length
+    ) {
       description += ` It's ${priceDescriptions[place.price_level]}.`;
     }
   }

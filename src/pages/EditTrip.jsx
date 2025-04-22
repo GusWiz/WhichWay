@@ -338,9 +338,7 @@ function EditTrip() {
             <div className='itinerary-container'>
               {editingTrip ? (
                 <>
-                  <div className='createititnerary-title'>
-                    <h1>Edit Trip</h1>
-                  </div>
+                  <h1 style={{ fontSize: '1.5rem' }}>Edit Trip</h1>
                   <div className='form-container'>
                     {showItinerary ? (
                       <div>
@@ -398,9 +396,7 @@ function EditTrip() {
                           >
                             Save
                           </button>
-                          <button className='itinerary-button'>
-                            Download PDF
-                          </button>
+
                           <button
                             onClick={handleCancelEdit}
                             className='itinerary-button'
@@ -484,7 +480,7 @@ function EditTrip() {
                 </>
               ) : (
                 <>
-                  <div className='createititnerary-title'>
+                  <div className='edittrip-heading'>
                     <h1>Edit Trip</h1>
                   </div>
                   <div>
