@@ -50,6 +50,11 @@ function Itinerary() {
     }
   };
 
+  const exportItinerary = () => {
+    const printWindow = window.open('/export', '_blank');
+    printWindow.focus();
+  };
+
   // Function to download itinerary as PDF
   const handleDownloadPDF = async () => {
     const element = printRef.current;
@@ -198,10 +203,8 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
           <Sidebar logout={logout} />
           <div className='home-contents'>
             <div ref={printRef} className='itinerary-container'>
-              <div className='createititnerary-title'>
-                <h1>Create Itinerary</h1>
-                <h2>for {tripLocation}</h2>
-              </div>
+              <h1 className='createititnerary-title'>Itinerary</h1>
+              <p className='itinerary-subtitle'>for {tripLocation}</p>
 
               {/* Display loading spinner or itinerary data */}
               {loading ? (
@@ -271,7 +274,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={handleDownloadPDF}
+                  onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary

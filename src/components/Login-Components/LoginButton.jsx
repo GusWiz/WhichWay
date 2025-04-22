@@ -1,3 +1,4 @@
+import React from 'react';
 import './login-styling.css';
 const LoginButton = ({ text }) => {
   return (

@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /* Container for the entire calendar */
 .itinerary-grid-wrapper {
   display: flex;
@@ -9,7 +15,6 @@
 .header-row {
   display: flex;
   align-items: flex-end;
-  margin-left: 60px; /* Match time-column width */
   gap: 1rem;
 }
 
@@ -53,11 +58,15 @@
 
 /* Styling for each time slot */
 .time-slot {
-  height: 50px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 4px 0 0;
   font-size: 12px;
-  text-align: right;
-  padding-right: 4px;
+  line-height: 1;
   border-top: 1px solid #ddd;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 /* The container for all day columns */
@@ -77,10 +86,8 @@
 /* Each day's body containing activities */
 .day-body {
   position: relative;
-  height: 650px; /* 13 hours × 50px per hour slot */
 }
 
-/* Activity block styles */
 .activity-block {
   position: absolute;
   width: 100%;
@@ -96,7 +103,6 @@
   display: block;
   margin-bottom: 4px;
 }
-
 
 @media print {
   body {
@@ -117,16 +123,15 @@
     margin-bottom: 0;
   }
 
-  /* Ensure the time column header and day column header widths match */
   .time-column-header {
-    width: 80px; /* Match the .time-column width */
+    width: 80px;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
   }
 
   .day-column-header {
-    width: 200px; /* Adjust this to match the day column width */
+    width: 200px;
     text-align: center;
     font-weight: bold;
     border-left: 1px solid #ccc;
@@ -153,13 +158,10 @@
   }
 
   .time-slot {
-    height: 50px;
-    font-size: 10px;
-    border-bottom: 1px solid #eee;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    padding-right: 4px;
+    padding-top: 2px;
   }
 
   .days-container {
@@ -176,12 +178,12 @@
     break-inside: avoid;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box; /* Ensure consistency */
+    box-sizing: border-box;
   }
 
   .day-body {
     position: relative;
-    height: calc(13 * 50px); /* 13 hours from 8 AM to 8 PM */
+    height: calc(13 * 50px);
     border-left: 1px solid #ccc;
   }
 
@@ -197,7 +199,6 @@
     overflow: hidden;
   }
 
-  /* Avoid page breaks within components */
   .day-column-header,
   .time-slot,
   .activity-block {
@@ -205,13 +206,11 @@
     page-break-inside: avoid;
   }
 
-  /* Optional: reduce spacing/padding */
   .weekday,
   .date {
     font-size: 10px;
   }
 
-  /* Ensure flex properties don't cause misalignment */
   .header-row,
   .grid-content {
     margin: 0;
@@ -219,7 +218,9 @@
     display: flex;
   }
 
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 }

@@ -106,6 +106,9 @@ function getItineraryData() {
   return itineraryObj;
 }
 
+let exportSchedule = [];
+let exportTripName = '';
+
 export {
   saveActivities,
   getSavedActivities,
