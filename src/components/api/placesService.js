@@ -127,8 +127,8 @@ export const fetchPlaceDetails = async (placeId) => {
             'user_ratings_total',
             'photos',
             'editorial_summary', // Contains the description
-            'vicinity'           // Simplified address
-          ]
+            'vicinity', // Simplified address
+          ],
         },
         (place, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -136,16 +136,19 @@ export const fetchPlaceDetails = async (placeId) => {
             const processedPlace = {
               ...place,
               // Format price level as dollar signs
-              priceRange: place.price_level ? '$'.repeat(place.price_level) : 'Price not available',
-              // Get description from editorial summary or construct from other fields
-              description: place.editorial_summary?.overview ||
-                (place.reviews && place.reviews.length > 0 ?
-                  `${place.name} is located at ${place.vicinity || place.formatted_address}. ${place.reviews[0].text.substring(0, 150)}...` :
-                  `${place.name} is located at ${place.vicinity || place.formatted_address}.`),
+              priceRange: place.price_level
+                ? '$'.repeat(place.price_level)
+                : 'Price not available',
+              // Get description from editorial summary or create a better formatted description
+              description: createBetterDescription(place),
               // Format photo URLs if available
-              photoUrls: place.photos ?
-                place.photos.slice(0, 3).map(photo => photo.getUrl({maxWidth: 800, maxHeight: 600})) :
-                []
+              photoUrls: place.photos
+                ? place.photos
+                    .slice(0, 3)
+                    .map((photo) =>
+                      photo.getUrl({ maxWidth: 800, maxHeight: 600 })
+                    )
+                : [],
             };
 
             resolve(processedPlace);
@@ -161,6 +164,50 @@ export const fetchPlaceDetails = async (placeId) => {
     return null;
   }
 };
+
+// Add this helper function above or below fetchPlaceDetails
+function createBetterDescription(place) {
+  // If we have an official description from Google, use it
+  if (place.editorial_summary?.overview) {
+    return place.editorial_summary.overview;
+  }
+
+  // Otherwise, create a professional description from available data
+  let description = `${place.name} is located at ${place.vicinity || place.formatted_address}.`;
+
+  // Add type information if available
+  if (place.types && place.types.length > 0) {
+    const readableType = place.types[0].replace(/_/g, ' ');
+    description += ` This establishment is categorized as a ${readableType}.`;
+  }
+
+  // Add rating information if available
+  if (place.rating) {
+    description += ` With a rating of ${place.rating}/5 based on ${place.user_ratings_total || 0} reviews, it's `;
+
+    if (place.rating >= 4.5) description += 'a highly-rated destination.';
+    else if (place.rating >= 4) description += 'well-regarded by visitors.';
+    else if (place.rating >= 3) description += 'generally well-received.';
+    else description += 'an option to consider.';
+  }
+
+  // Add price level information if available
+  if (place.price_level !== undefined) {
+    const priceDescriptions = [
+      'a budget-friendly option',
+      'reasonably priced',
+      'moderately priced',
+      'a higher-end establishment',
+      'a premium destination'
+    ];
+
+    if (place.price_level >= 0 && place.price_level < priceDescriptions.length) {
+      description += ` It's ${priceDescriptions[place.price_level]}.`;
+    }
+  }
+
+  return description;
+}
 
 /**
  * Fetches nearby activities organized by category for a location

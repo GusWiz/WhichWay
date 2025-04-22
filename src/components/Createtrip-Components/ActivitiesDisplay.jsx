@@ -38,17 +38,18 @@ function ActivitiesDisplay({
             description: placeDetails.description || item.description,
             photoUrls: placeDetails.photoUrls || [],
             rating: placeDetails.rating || item.rating,
-            userRatingCount: placeDetails.user_ratings_total || item.userRatingCount,
+            userRatingCount:
+              placeDetails.user_ratings_total || item.userRatingCount,
             priceRange: placeDetails.priceRange || item.priceRange,
             vicinity: placeDetails.vicinity || item.vicinity,
             formatted_address: placeDetails.formatted_address,
             opening_hours: placeDetails.opening_hours,
-            website: placeDetails.website
+            website: placeDetails.website,
           };
         }
       }
     } catch (error) {
-      console.error("Error fetching place details:", error);
+      console.error('Error fetching place details:', error);
     } finally {
       setIsLoadingDetails(false);
       setExpandedItem(enrichedItem);

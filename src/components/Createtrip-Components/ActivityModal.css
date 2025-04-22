@@ -67,11 +67,41 @@
 }
 
 .activity-modal-description {
-  font-size: 1rem;
-  color: #333; /* Adjust color as needed */
-  margin-top: 10px;
-  text-align: center; /* Center the description text */
-  padding: 0 20px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #333;
+  text-align: left;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  margin: 15px 0;
+  /* Control line length by limiting width */
+  width: 100%;
+  /* Add padding for better readability */
+  padding: 0 5px;
+  /* Make the text flow in a more controlled manner */
+  white-space: pre-line;
+}
+
+.activity-description-container {
+  margin: 10px 0;
+  border-left: 3px solid #4caf50;
+  padding-left: 12px;
+  max-width: 100%;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #4caf50;
+  font-size: 0.85rem;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 5px;
+  text-align: left;
+  text-decoration: underline;
+  display: block;
 }
 
 /* Submit Button */

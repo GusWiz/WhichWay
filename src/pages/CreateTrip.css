@@ -24,6 +24,9 @@
   justify-content: center; /* Centers horizontally */
   align-items: center; /* Centers vertically */
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 /* Enlarging the selectable container */
@@ -212,4 +215,20 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Make sure your main form container has a consistent width */
+.create-trip-form,
+.form-container,
+.activities-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  /* Remove any conditional width changes */
+}
+
+/* Add min-height to ensure space exists even when empty */
+.form-extended-section {
+  min-height: 200px; /* Adjust based on your design */
 }

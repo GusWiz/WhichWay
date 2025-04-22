@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ActivityModal.css';
 
 const fallbackImage = '/images/placeholders/noImage.jpg';
@@ -7,15 +7,42 @@ const fallbackGroupSize = 'Not specified';
 const fallbackAtmosphere = 'Atmosphere not specified';
 
 const ActivityModal = ({ show, closeModal, item }) => {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+
   if (!show) return null;
 
   // Display photo from Google Places if available, otherwise use existing image
   const displayImage = item?.photoUrls && item.photoUrls.length > 0
     ? item.photoUrls[0]
-    : (item?.imgSrc || fallbackImage);
+    : item?.imgSrc || fallbackImage;
 
-  // Use enhanced description from Google Places if available
-  const displayDescription = item?.description || fallbackDescription;
+  // Add this function within your component
+  const formatDescription = (text) => {
+    if (!text) return fallbackDescription;
+
+    // Split into sentences to create better paragraph breaks
+    const sentences = text.split(/(?<=[.!?])\s+/);
+
+    // Group sentences into paragraphs (every 2-3 sentences)
+    const paragraphs = [];
+    for (let i = 0; i < sentences.length; i += 2) {
+      paragraphs.push(sentences.slice(i, i + 2).join(' '));
+    }
+
+    // Join paragraphs with line breaks
+    return paragraphs.join('\n\n');
+  };
+
+  // Update the description processing
+  const description = item?.description || fallbackDescription;
+  const formattedDescription = formatDescription(description);
+
+  // Format the description to be more compact
+  const shortDescription = description.length > 150
+    ? `${description.substring(0, 150)}...`
+    : description;
+
+  const displayDescription = showFullDescription ? formattedDescription : shortDescription;
 
   return (
     <div className='activity-modal-overlay'>
@@ -34,20 +61,28 @@ const ActivityModal = ({ show, closeModal, item }) => {
         {/* Title */}
         <h2 className='activity-modal-title'>{item?.name}</h2>
 
-        {/* Enhanced description */}
-        <p className='activity-modal-description'>
-          {displayDescription}
-        </p>
+        {/* Enhanced description with read more/less toggle */}
+        <div className='activity-description-container'>
+          <p className='activity-modal-description'>{displayDescription}</p>
+          {description.length > 150 && (
+            <button
+              className='read-more-btn'
+              onClick={() => setShowFullDescription(!showFullDescription)}
+            >
+              {showFullDescription ? 'Show less' : 'Read more'}
+            </button>
+          )}
+        </div>
 
         {/* List of features */}
         <ul className='activity-modal-features'>
-          <li>
-            <strong>Group Size:</strong> {item?.groupSize || fallbackGroupSize}
-          </li>
-          <li>
+          {/* <li> */}
+            {/* <strong>Group Size:</strong> {item?.groupSize || fallbackGroupSize}
+          </li> */}
+          {/* <li>
             <strong>Atmosphere:</strong>{' '}
             {item?.atmosphere || fallbackAtmosphere}
-          </li>
+          </li> */}
         </ul>
 
         {/* Details section with enhanced information */}
@@ -58,7 +93,8 @@ const ActivityModal = ({ show, closeModal, item }) => {
             {/* Price Information */}
             <div className='detail-row'>
               <div className='detail-item'>
-                <strong>Price Range:</strong> {item.priceRange || 'Not available'}
+                <strong>Price Range:</strong>{' '}
+                {item.priceRange || 'Not available'}
               </div>
             </div>
 
@@ -68,7 +104,9 @@ const ActivityModal = ({ show, closeModal, item }) => {
                 <strong>Rating:</strong>{' '}
                 {item.rating !== 'N/A' ? (
                   <span>
-                    ★ {item.rating} ({item.userRatingCount || item.user_ratings_total || 0} reviews)
+                    ★ {item.rating} (
+                    {item.userRatingCount || item.user_ratings_total || 0}{' '}
+                    reviews)
                   </span>
                 ) : (
                   'No ratings yet'
@@ -79,7 +117,10 @@ const ActivityModal = ({ show, closeModal, item }) => {
             {/* Location */}
             <div className='detail-row'>
               <div className='detail-item'>
-                <strong>Location:</strong> {item.vicinity || item.formatted_address || 'Location not available'}
+                <strong>Location:</strong>{' '}
+                {item.vicinity ||
+                  item.formatted_address ||
+                  'Location not available'}
               </div>
             </div>
 
@@ -88,7 +129,7 @@ const ActivityModal = ({ show, closeModal, item }) => {
               <div className='detail-row'>
                 <div className='detail-item'>
                   <strong>Hours:</strong>
-                  <ul className="hours-list">
+                  <ul className='hours-list'>
                     {item.opening_hours.weekday_text.map((day, idx) => (
                       <li key={idx}>{day}</li>
                     ))}
@@ -109,7 +150,11 @@ const ActivityModal = ({ show, closeModal, item }) => {
               <div className='detail-row'>
                 <div className='detail-item'>
                   <strong>Website:</strong>{' '}
-                  <a href={item.website} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={item.website}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
                     Visit Website
                   </a>
                 </div>

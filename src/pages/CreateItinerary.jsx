@@ -98,9 +98,9 @@ function Itinerary() {
   const itineraryToDb = async () => {
     try {
       // When processing activities before saving
-      const processedSchedule = itineraryData.map(day => ({
+      const processedSchedule = itineraryData.map((day) => ({
         ...day,
-        activities: day.activities.map(activity => {
+        activities: day.activities.map((activity) => {
           // Ensure Google Places data is preserved
           return {
             name: activity.name,
@@ -115,20 +115,24 @@ function Itinerary() {
             priceRange: activity.priceRange,
             website: activity.website,
             vicinity: activity.vicinity,
-            opening_hours: activity.opening_hours
+            opening_hours: activity.opening_hours,
           };
-        })
+        }),
       }));
 
       // Save the processed data
-      const itineraryId = await saveUserItinerary(auth.currentUser.uid, tripId, {
-        name: tripName,
-        schedule: processedSchedule
-      });
+      const itineraryId = await saveUserItinerary(
+        auth.currentUser.uid,
+        tripId,
+        {
+          name: tripName,
+          schedule: processedSchedule,
+        }
+      );
 
       // Rest of your function
     } catch (error) {
-      console.error("Error saving itinerary:", error);
+      console.error('Error saving itinerary:', error);
     }
   };
 

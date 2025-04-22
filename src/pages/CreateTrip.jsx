@@ -192,17 +192,16 @@ function CreateTrip() {
                 opening_hours: placeDetails.opening_hours?.weekday_text,
                 rating: placeDetails.rating,
                 user_ratings_total: placeDetails.user_ratings_total,
-                vicinity: placeDetails.vicinity
-              }
+                vicinity: placeDetails.vicinity,
+              },
             };
           }
         }
 
         // Add the item (enriched if possible)
         setter([...collection, enrichedItem]);
-
       } catch (error) {
-        console.error("Error enriching activity data:", error);
+        console.error('Error enriching activity data:', error);
         // Add the original item if enrichment fails
         setter([...collection, item]);
       }
@@ -461,12 +460,12 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
             priceRange: placeDetails.priceRange,
             vicinity: placeDetails.vicinity || placeDetails.formatted_address,
             opening_hours: placeDetails.opening_hours,
-            website: placeDetails.website
+            website: placeDetails.website,
           });
         }
       }
     } catch (error) {
-      console.error("Error fetching place details:", error);
+      console.error('Error fetching place details:', error);
     } finally {
       setIsLoadingDetails(false);
       setShowModal(true);
@@ -537,31 +536,33 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </div>
 
                 {/* Render ActivitiesDisplay component */}
-                {foodOptions.length ||
-                entertainmentOptions.length ||
-                outdoorOptions.length ? (
-                  <ActivitiesDisplay
-                    foodOptions={foodOptions}
-                    selectedFoods={selectedFoods}
-                    handleSelectFood={(item) => {
-                      handleSelect('food', item);
-                    }}
-                    entertainmentOptions={entertainmentOptions}
-                    selectedEntertainment={selectedEntertainment}
-                    handleSelectEntertainment={(item) =>
-                      handleSelect('entertainment', item)
-                    }
-                    outdoorOptions={outdoorOptions}
-                    selectedOutdoor={selectedOutdoor}
-                    handleSelectOutdoor={(item) =>
-                      handleSelect('outdoor', item)
-                    }
-                  />
-                ) : (
-                  <div className='placeholder-activity-msg'>
-                    <p>Select a destination to see activities</p>
-                  </div>
-                )}
+                <div className="form-extended-section">
+                  {foodOptions.length ||
+                  entertainmentOptions.length ||
+                  outdoorOptions.length ? (
+                    <ActivitiesDisplay
+                      foodOptions={foodOptions}
+                      selectedFoods={selectedFoods}
+                      handleSelectFood={(item) => {
+                        handleSelect('food', item);
+                      }}
+                      entertainmentOptions={entertainmentOptions}
+                      selectedEntertainment={selectedEntertainment}
+                      handleSelectEntertainment={(item) =>
+                        handleSelect('entertainment', item)
+                      }
+                      outdoorOptions={outdoorOptions}
+                      selectedOutdoor={selectedOutdoor}
+                      handleSelectOutdoor={(item) =>
+                        handleSelect('outdoor', item)
+                      }
+                    />
+                  ) : (
+                    <div className='placeholder-activity-msg'>
+                      <p>Select a destination to see activities</p>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Conditionally render the modal */}
