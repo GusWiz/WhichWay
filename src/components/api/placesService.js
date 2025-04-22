@@ -97,8 +97,10 @@ const getPriceRangeText = (priceLevel) => {
  * @returns {Object|null} Place details or null if error
  */
 export const fetchPlaceDetails = async (placeId) => {
+  if (!placeId) return null;
+
   try {
-    // Create or reuse hidden DOM element
+    // Create hidden DOM element for PlacesService
     let mapDiv = document.getElementById('map-service-div');
     if (!mapDiv) {
       mapDiv = document.createElement('div');
@@ -123,15 +125,30 @@ export const fetchPlaceDetails = async (placeId) => {
             'price_level',
             'reviews',
             'user_ratings_total',
-          ],
+            'photos',
+            'editorial_summary', // Contains the description
+            'vicinity'           // Simplified address
+          ]
         },
-        (result, status) => {
+        (place, status) => {
           if (status === google.maps.places.PlacesServiceStatus.OK) {
-            // checks if result has a pricelevel
-            if (result.price_level !== undefined) {
-              result.priceRange = getPriceRangeText(result.price_level);
-            }
-            resolve(result);
+            // Process the place data
+            const processedPlace = {
+              ...place,
+              // Format price level as dollar signs
+              priceRange: place.price_level ? '$'.repeat(place.price_level) : 'Price not available',
+              // Get description from editorial summary or construct from other fields
+              description: place.editorial_summary?.overview ||
+                (place.reviews && place.reviews.length > 0 ?
+                  `${place.name} is located at ${place.vicinity || place.formatted_address}. ${place.reviews[0].text.substring(0, 150)}...` :
+                  `${place.name} is located at ${place.vicinity || place.formatted_address}.`),
+              // Format photo URLs if available
+              photoUrls: place.photos ?
+                place.photos.slice(0, 3).map(photo => photo.getUrl({maxWidth: 800, maxHeight: 600})) :
+                []
+            };
+
+            resolve(processedPlace);
           } else {
             console.error(`Place details API returned status: ${status}`);
             resolve(null);

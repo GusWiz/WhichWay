@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './ActivitiesDisplay.css';
 import Model from './ActivityModal';
+import { fetchPlaceDetails } from '../api/placesService';
 
 function ActivitiesDisplay({
   foodOptions,
@@ -17,13 +18,42 @@ function ActivitiesDisplay({
 }) {
   const [showModal, setShowModal] = useState(false);
   const [expandedItem, setExpandedItem] = useState(null);
-  // const [imageSrc, setImageSrc] = useState('');
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
 
-  const handleExpand = (item) => {
+  const handleExpand = async (item) => {
     console.log('in handleExpand');
-    console.log(item.imgSrc);
-    setExpandedItem(item);
-    setShowModal(true); // Open the modal
+
+    // Start with basic item data
+    let enrichedItem = { ...item };
+    setIsLoadingDetails(true);
+
+    try {
+      // If the item has a placeId, fetch enhanced details
+      if (item.placeId) {
+        const placeDetails = await fetchPlaceDetails(item.placeId);
+
+        if (placeDetails) {
+          enrichedItem = {
+            ...item,
+            description: placeDetails.description || item.description,
+            photoUrls: placeDetails.photoUrls || [],
+            rating: placeDetails.rating || item.rating,
+            userRatingCount: placeDetails.user_ratings_total || item.userRatingCount,
+            priceRange: placeDetails.priceRange || item.priceRange,
+            vicinity: placeDetails.vicinity || item.vicinity,
+            formatted_address: placeDetails.formatted_address,
+            opening_hours: placeDetails.opening_hours,
+            website: placeDetails.website
+          };
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching place details:", error);
+    } finally {
+      setIsLoadingDetails(false);
+      setExpandedItem(enrichedItem);
+      setShowModal(true);
+    }
   };
 
   const handleClose = () => {
@@ -255,6 +285,7 @@ function ActivitiesDisplay({
               show={showModal}
               closeModal={handleClose}
               item={expandedItem}
+              isLoading={isLoadingDetails}
             />{' '}
             {/*LOOK HERE*/}
           </div>
