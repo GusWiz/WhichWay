@@ -517,24 +517,6 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                   Trip Preferences
                 </button>
 
-                <div className='create-trip-buttons'>
-                  <button
-                    className='trip-preference-btn'
-                    onClick={handleSaveTrip}
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Saving...' : 'Save Trip'}
-                  </button>
-
-                  <button
-                    className='trip-preference-btn'
-                    onClick={handleGenerateItinerary}
-                    disabled={loadingItinerary || isSubmitting}
-                  >
-                    {loadingItinerary ? 'Generating...' : 'Generate Itinerary'}
-                  </button>
-                </div>
-
                 {/* Render ActivitiesDisplay component */}
                 <div className='form-extended-section'>
                   {foodOptions.length ||
@@ -562,6 +544,26 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                       <p>Select a destination to see activities</p>
                     </div>
                   )}
+
+                  <div className='create-trip-buttons'>
+                    <button
+                      className='trip-preference-btn'
+                      onClick={handleSaveTrip}
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Saving...' : 'Save Trip'}
+                    </button>
+
+                    <button
+                      className='trip-preference-btn'
+                      onClick={handleGenerateItinerary}
+                      disabled={loadingItinerary || isSubmitting}
+                    >
+                      {loadingItinerary
+                        ? 'Generating...'
+                        : 'Generate Itinerary'}
+                    </button>
+                  </div>
                 </div>
               </div>
 

@@ -111,9 +111,9 @@ function Itinerary() {
             priceRange: activity.priceRange || null,
             website: activity.website || null,
             vicinity: activity.vicinity || null,
-            opening_hours: activity.opening_hours || null
+            opening_hours: activity.opening_hours || null,
           };
-        })
+        }),
       }));
 
       // Final sanitization to catch any remaining undefined values
@@ -125,7 +125,7 @@ function Itinerary() {
         tripId || null,
         {
           name: tripName || 'My Itinerary',
-          schedule: sanitizedSchedule
+          schedule: sanitizedSchedule,
         }
       );
 
@@ -224,7 +224,10 @@ IMPORTANT INSTRUCTIONS:
   };
 
   // Add this function to your CreateItinerary component
-  const enrichItineraryWithPlaceDetails = async (schedule, selectedActivities) => {
+  const enrichItineraryWithPlaceDetails = async (
+    schedule,
+    selectedActivities
+  ) => {
     // Create a lookup map by activity name
     const activityDetailsMap = {};
 
@@ -232,11 +235,11 @@ IMPORTANT INSTRUCTIONS:
     const allSelectedActivities = [
       ...(selectedActivities.selectedFoods || []),
       ...(selectedActivities.selectedEntertainment || []),
-      ...(selectedActivities.selectedOutdoor || [])
+      ...(selectedActivities.selectedOutdoor || []),
     ];
 
     // Add all activities to the lookup map
-    allSelectedActivities.forEach(activity => {
+    allSelectedActivities.forEach((activity) => {
       if (activity && activity.name) {
         activityDetailsMap[activity.name.toLowerCase()] = {
           description: activity.description,
@@ -246,71 +249,89 @@ IMPORTANT INSTRUCTIONS:
           vicinity: activity.vicinity,
           priceRange: activity.priceRange,
           opening_hours: activity.opening_hours,
-          placeId: activity.placeId
+          placeId: activity.placeId,
         };
       }
     });
 
-    console.log('Activity details map created with', Object.keys(activityDetailsMap).length, 'entries');
+    console.log(
+      'Activity details map created with',
+      Object.keys(activityDetailsMap).length,
+      'entries'
+    );
 
     // Process each day in the schedule
-    const enrichedSchedule = await Promise.all(schedule.map(async (day) => {
-      // Process each activity in the day
-      const enrichedActivities = await Promise.all(day.activities.map(async (activity) => {
-        // Skip if activity doesn't have a name
-        if (!activity || !activity.name) return activity;
+    const enrichedSchedule = await Promise.all(
+      schedule.map(async (day) => {
+        // Process each activity in the day
+        const enrichedActivities = await Promise.all(
+          day.activities.map(async (activity) => {
+            // Skip if activity doesn't have a name
+            if (!activity || !activity.name) return activity;
 
-        const activityName = activity.name.toLowerCase();
-        let enrichedActivity = { ...activity };
+            const activityName = activity.name.toLowerCase();
+            let enrichedActivity = { ...activity };
 
-        // Case 1: Activity already has a description from OpenAI
-        if (activity.description && activity.description.length > 20) {
-          console.log(`Activity ${activity.name} already has a description`);
-          return activity;
-        }
+            // Case 1: Activity already has a description from OpenAI
+            if (activity.description && activity.description.length > 20) {
+              console.log(
+                `Activity ${activity.name} already has a description`
+              );
+              return activity;
+            }
 
-        // Case 2: We have the activity details in our map
-        if (activityDetailsMap[activityName]) {
-          console.log(`Found details for ${activity.name} in selected activities`);
-          return {
-            ...activity,
-            ...activityDetailsMap[activityName]
-          };
-        }
-
-        // Case 3: Try to fetch from Google Places using placeId
-        if (activity.placeId) {
-          try {
-            console.log(`Fetching details for ${activity.name} using placeId`);
-            const details = await fetchPlaceDetails(activity.placeId);
-            if (details) {
+            // Case 2: We have the activity details in our map
+            if (activityDetailsMap[activityName]) {
+              console.log(
+                `Found details for ${activity.name} in selected activities`
+              );
               return {
                 ...activity,
-                description: details.description,
-                photoUrls: details.photoUrls || [],
-                rating: details.rating,
-                website: details.website,
-                vicinity: details.vicinity,
-                priceRange: details.priceRange,
-                opening_hours: details.opening_hours
+                ...activityDetailsMap[activityName],
               };
             }
-          } catch (error) {
-            console.error(`Error fetching details for ${activity.name}:`, error);
-          }
-        }
 
-        // Case 4: Generate a fallback description
-        console.log(`Generating fallback description for ${activity.name}`);
-        enrichedActivity.description = generateFallbackDescription(activity);
-        return enrichedActivity;
-      }));
+            // Case 3: Try to fetch from Google Places using placeId
+            if (activity.placeId) {
+              try {
+                console.log(
+                  `Fetching details for ${activity.name} using placeId`
+                );
+                const details = await fetchPlaceDetails(activity.placeId);
+                if (details) {
+                  return {
+                    ...activity,
+                    description: details.description,
+                    photoUrls: details.photoUrls || [],
+                    rating: details.rating,
+                    website: details.website,
+                    vicinity: details.vicinity,
+                    priceRange: details.priceRange,
+                    opening_hours: details.opening_hours,
+                  };
+                }
+              } catch (error) {
+                console.error(
+                  `Error fetching details for ${activity.name}:`,
+                  error
+                );
+              }
+            }
 
-      return {
-        ...day,
-        activities: enrichedActivities
-      };
-    }));
+            // Case 4: Generate a fallback description
+            console.log(`Generating fallback description for ${activity.name}`);
+            enrichedActivity.description =
+              generateFallbackDescription(activity);
+            return enrichedActivity;
+          })
+        );
+
+        return {
+          ...day,
+          activities: enrichedActivities,
+        };
+      })
+    );
 
     console.log('Schedule enriched with descriptions');
     return enrichedSchedule;
@@ -366,9 +387,9 @@ IMPORTANT INSTRUCTIONS:
                             </div>
                             <p className='activity-description'>
                               {activity.description
-                                ? (activity.description.length > 200
-                                    ? `${activity.description.substring(0, 200)}...`
-                                    : activity.description)
+                                ? activity.description.length > 200
+                                  ? `${activity.description.substring(0, 200)}...`
+                                  : activity.description
                                 : 'No description available'}
                             </p>
                           </div>
