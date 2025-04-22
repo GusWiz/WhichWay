@@ -1,0 +1,226 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Container for the entire calendar */
+.itinerary-grid-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+/* Row containing the headers (weekday & date) */
+.header-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+/* Spacer for time-column header */
+.time-column-header {
+  width: 60px;
+  flex-shrink: 0;
+}
+
+/* Header for each day's column */
+.day-column-header {
+  flex: 1;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Main content grid */
+.grid-content {
+  display: flex;
+}
+
+/* Time column to the left */
+.time-column {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
+  flex-shrink: 0;
+  gap: 0px;
+}
+
+/* Styling for each time slot */
+.time-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 0 4px 0 0;
+  font-size: 12px;
+  line-height: 1;
+  border-top: 1px solid #ddd;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* The container for all day columns */
+.days-container {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+}
+
+/* Each individual day column */
+.day-column {
+  flex: 1;
+  position: relative;
+  border-left: 1px solid #ddd;
+}
+
+/* Each day's body containing activities */
+.day-body {
+  position: relative;
+}
+
+.activity-block {
+  position: absolute;
+  width: 100%;
+  padding: 8px;
+  background-color: #00aaff;
+  color: white;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+.activity-block strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+@media print {
+  body {
+    font-size: 11px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .itinerary-grid-wrapper {
+    padding: 0;
+    margin: 0;
+  }
+
+  .header-row {
+    display: flex;
+    align-items: flex-end;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 0;
+  }
+
+  .time-column-header {
+    width: 80px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .day-column-header {
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+    border-left: 1px solid #ccc;
+    padding: 4px;
+    margin-left: -10px;
+    box-sizing: border-box;
+  }
+
+  .grid-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 0;
+    padding: 0;
+  }
+
+  .time-column {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    margin-right: 4px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .time-slot {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-top: 2px;
+  }
+
+  .days-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .day-column {
+    position: relative;
+    width: 200px;
+    margin-right: 8px;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .day-body {
+    position: relative;
+    height: calc(13 * 50px);
+    border-left: 1px solid #ccc;
+  }
+
+  .activity-block {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    background-color: #cce5ff;
+    border: 1px solid #339;
+    padding: 3px;
+    font-size: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .day-column-header,
+  .time-slot,
+  .activity-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .weekday,
+  .date {
+    font-size: 10px;
+  }
+
+  .header-row,
+  .grid-content {
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

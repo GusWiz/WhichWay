@@ -50,6 +50,11 @@ function Itinerary() {
     }
   };
 
+  const exportItinerary = () => {
+    const printWindow = window.open('/export', '_blank');
+    printWindow.focus();
+  };
+
   // Function to download itinerary as PDF
   const handleDownloadPDF = async () => {
     const element = printRef.current;
@@ -269,7 +274,7 @@ ${finalActivityList.map((activity) => `- ${activity}`).join('\n')}
                 </button>
                 <button
                   className='itinerary-button'
-                  onClick={handleDownloadPDF}
+                  onClick={() => exportItinerary()}
                   disabled={!itineraryData.length}
                 >
                   Download Itinerary
