@@ -24,6 +24,7 @@ function ActivitiesDisplay({
     console.log(item.imgSrc);
     setExpandedItem(item);
     setShowModal(true); // Open the modal
+    console.log(item);
   };
 
   const handleClose = () => {

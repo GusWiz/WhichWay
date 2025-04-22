@@ -24,41 +24,50 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
       document.body.appendChild(mapDiv);
     }
 
-    // Create search parameters
     const request = {
       location: new google.maps.LatLng(location.lat, location.lng),
       radius: radius,
     };
 
-    // Handle single vs. multiple types
     if (type.includes(',')) {
       request.types = type.split(',');
     } else {
       request.type = type;
     }
 
-    // Execute the search
     return new Promise((resolve) => {
       const service = new google.maps.places.PlacesService(mapDiv);
 
-      service.nearbySearch(request, (results, status) => {
+      service.nearbySearch(request, async (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK) {
-          // Format results for the application
-          const formattedResults = results.map((place) => ({
-            name: place.name,
-            imgSrc:
-              place.photos && place.photos.length > 0
-                ? place.photos[0].getUrl({ maxWidth: 400 })
-                : '/images/placeholders/noImage.jpg',
-            price: place.price_level ? String(place.price_level * 20) : '25',
-            priceLevel: place.price_level || 0,
-            priceRange: getPriceRangeText(place.price_level),
-            rating: place.rating || 'N/A',
-            userRatingCount: place.user_ratings_total || 0,
-            vicinity: place.vicinity || 'No address available',
-            placeId: place.place_id,
-            groupSize: '2-4',
-          }));
+          // Format basic info first
+          const formattedResults = await Promise.all(
+            results.map(async (place) => {
+              let description = null;
+              try {
+                const details = await fetchPlaceDetails(place.place_id);
+                description = details?.editorial_summary?.overview || null;
+              } catch (err) {
+                console.warn('Failed to fetch details for place:', place.name, err);
+              }
+
+              return {
+                name: place.name,
+                imgSrc:
+                  place.photos?.[0]?.getUrl({ maxWidth: 400 }) ||
+                  '/images/placeholders/noImage.jpg',
+                price: place.price_level ? String(place.price_level * 20) : '25',
+                priceLevel: place.price_level || 0,
+                priceRange: getPriceRangeText(place.price_level),
+                rating: place.rating || 'N/A',
+                userRatingCount: place.user_ratings_total || 0,
+                vicinity: place.vicinity || 'No address available',
+                placeId: place.place_id,
+                groupSize: '2-4',
+                description, // 🎯 the only thing pulled from getDetails
+              };
+            })
+          );
 
           resolve(formattedResults);
         } else {
@@ -72,6 +81,67 @@ export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
     return [];
   }
 };
+
+// export const fetchNearbyPlaces = async (location, type, radius = 5000) => {
+//   try {
+//     // Create a hidden DOM element for the PlacesService
+//     let mapDiv = document.getElementById('map-service-div');
+//     if (!mapDiv) {
+//       mapDiv = document.createElement('div');
+//       mapDiv.id = 'map-service-div';
+//       mapDiv.style.display = 'none';
+//       document.body.appendChild(mapDiv);
+//     }
+
+//     // Create search parameters
+//     const request = {
+//       location: new google.maps.LatLng(location.lat, location.lng),
+//       radius: radius,
+//     };
+
+//     // Handle single vs. multiple types
+//     if (type.includes(',')) {
+//       request.types = type.split(',');
+//     } else {
+//       request.type = type;
+//     }
+
+//     // Execute the search
+//     return new Promise((resolve) => {
+//       const service = new google.maps.places.PlacesService(mapDiv);
+
+//       service.nearbySearch(request, (results, status) => {
+//         if (status === google.maps.places.PlacesServiceStatus.OK) {
+//           // Format results for the application
+//           const formattedResults = results.map((place) => ({
+//             name: place.name,
+//             imgSrc:
+//               place.photos && place.photos.length > 0
+//                 ? place.photos[0].getUrl({ maxWidth: 400 })
+//                 : '/images/placeholders/noImage.jpg',
+//             price: place.price_level ? String(place.price_level * 20) : '25',
+//             priceLevel: place.price_level || 0,
+//             priceRange: getPriceRangeText(place.price_level),
+//             rating: place.rating || 'N/A',
+//             userRatingCount: place.user_ratings_total || 0,
+//             vicinity: place.vicinity || 'No address available',
+//             placeId: place.place_id,
+//             groupSize: '2-4',
+//             description: place.editorial_summary?.overview,
+//           }));
+
+//           resolve(formattedResults);
+//         } else {
+//           console.log(`Places API returned status: ${status}`);
+//           resolve([]);
+//         }
+//       });
+//     });
+//   } catch (error) {
+//     console.error('Error fetching nearby places:', error);
+//     return [];
+//   }
+// };
 // function to to make the price level (that will be displayed)
 const getPriceRangeText = (priceLevel) => {
   switch (priceLevel) {
@@ -123,6 +193,7 @@ export const fetchPlaceDetails = async (placeId) => {
             'price_level',
             'reviews',
             'user_ratings_total',
+            'editorial_summary',
           ],
         },
         (result, status) => {
