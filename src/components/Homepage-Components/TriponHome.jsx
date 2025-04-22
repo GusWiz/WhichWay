@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc,getDocs, query, collection, where } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 import { FaEye } from 'react-icons/fa';
+import ItineraryDisplay from '../Universal-Components/ItineraryDisplay';
 import ExportItinerary from '../../pages/ExportItinerary';
 
 
@@ -35,7 +36,7 @@ const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
                   <td>{startDate || 'N/A'}</td>
                   <td>{destination}</td>
                   <td>
-                    <button className='view-button' onClick={() => onViewItinerary(id)}>
+                    <button className='view-button' onClick={() => onViewItinerary(id, name)}>
                       <FaEye style={{ marginRight: '6px' }} /> View Itinerary
                     </button>
                   </td>
@@ -53,6 +54,7 @@ const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
 
 export default function TripManager() {
   // const [selectedTripId, setSelectedTripId] = useState(null);
+  const [selectedTripName, setSelectedTripName] = useState('');
   const [selectedSchedule, setSelectedSchedule] = useState(null);
   const [selectedItineraryId, setSelectedItineraryId] = useState(null);
   const [user, setUser] = useState(null);
@@ -138,19 +140,21 @@ export default function TripManager() {
     printWindow.focus();
   };
 
+
   const findItineraryForTrip = async (tripId) => {
+    console.log("Trip id is: ", tripId);
     try {
       // Find the itinerary ID associated with the trip
       const snapshot = await getDocs(
-        query(collection(db, 'itineraries'), where('tripid', '==', tripId))
+        query(collection(db, 'Itineraries'), where('tripId', '==', tripId))
       );
 
       if (!snapshot.empty) {
         const itinerary = snapshot.docs[0]; // Assuming you want the first match
         const itineraryId = itinerary.id;  // Get the itinerary ID
-
+        console.log("itinerary id is: ",itineraryId);
         // Now, fetch just the 'schedule' field from the itinerary document using the itineraryId
-        const itineraryDoc = await getDoc(doc(db, 'itineraries', itineraryId));
+        const itineraryDoc = await getDoc(doc(db, 'Itineraries', itineraryId));
 
         if (itineraryDoc.exists()) {
           const schedule = itineraryDoc.data().schedule; // Get the 'schedule' field
@@ -190,8 +194,9 @@ export default function TripManager() {
             trips={upcomingTrips}
             hide={hideUpcoming}
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
-            onViewItinerary={(id) => {x
+            onViewItinerary={(id, name) => {
               // setSelectedTripId(id);
+              setSelectedTripName(name)
               findItineraryForTrip(id);
               setShowModal(true);
             }}
@@ -219,9 +224,9 @@ export default function TripManager() {
                 >
                   ×
                 </button>
-                <h2>Itinerary Details</h2>
+                <h2>{selectedTripName}</h2>
                 <div>
-                  <ItineraryDisplay schedule={selectedSchedule} />
+                  {selectedSchedule && <ItineraryDisplay schedule={selectedSchedule} />}
                 </div>
 
                 <button
