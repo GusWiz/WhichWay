@@ -125,6 +125,15 @@ export default function TripManager() {
     return tripDate >= today;
   });
 
+  const exportItinerary = () => {
+    const stringSchedule = JSON.stringify(sampleSchedule);
+    const stringName = JSON.stringify(name);
+    localStorage.setItem('exportSchedule', stringSchedule);
+    localStorage.setItem('exportTripName', stringName);
+    const printWindow = window.open('/export', '_blank');
+    printWindow.focus();
+  };
+
   return (
     <ErrorBoundary>
       <div className='triphome-body'>
@@ -168,7 +177,7 @@ export default function TripManager() {
                   ×
                 </button>
                 <h2>Itinerary Details</h2>
-                <div ref={printRef}>
+                <div>
                   <ItineraryDisplay schedule={sampleSchedule} />
                 </div>
 

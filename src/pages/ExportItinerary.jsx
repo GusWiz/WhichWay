@@ -2,36 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import ItineraryCalendar from '../components/Universal-Components/ItineraryDisplay';
 
-// export const sampleSchedule = [
-//   {
-//     date: '2025-04-14',
-//     activities: [
-//       {
-//         name: 'Visit Museum',
-//         start_time: '09:00 AM',
-//         end_time: '11:00 AM',
-//         Duration: '1 Day',
-//       },
-//       {
-//         name: 'Lunch at Central Cafe',
-//         start_time: '12:00 PM',
-//         end_time: '1:00 PM',
-//         Duration: '1 Hour',
-//       },
-//     ],
-//   },
-//   {
-//     date: '2025-04-15',
-//     activities: [
-//       {
-//         name: 'Hiking at Green Trail',
-//         start_time: '08:00 AM',
-//         end_time: '2:00 PM',
-//         Duration: '4 Hours',
-//       },
-//     ],
-//   },
-// ];
 export const sampleSchedule = [
   {
     date: '2025-04-20', // Sunday
