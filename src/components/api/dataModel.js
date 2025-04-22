@@ -269,17 +269,47 @@ export const saveGeneratedItinerary = async (
   }
 };
 
-export const saveUserItinerary = async (
-  itineraryData,
-  tripId,
-  tripName = null
-) => {
-  console.log('in save user itinerary');
+export const saveUserItinerary = async (userId, tripId, itineraryData) => {
   try {
-    if (!tripId) throw new Error('Trip ID is required');
-    if (!itineraryData) throw new Error('Trip details are required');
+    console.log('in save user itinerary', { userId, tripId, itineraryData });
 
-    return await saveGeneratedItinerary(tripId, itineraryData, tripName);
+    // Basic validation
+    if (!userId) throw new Error('User ID is required');
+    if (!itineraryData) throw new Error('Itinerary data is required');
+    if (!itineraryData.schedule) throw new Error('Itinerary schedule is required');
+
+    // Sanitize data to replace undefined with null
+    const sanitizedData = {
+      name: itineraryData.name || 'My Itinerary',
+      schedule: itineraryData.schedule.map(day => ({
+        ...day,
+        activities: day.activities.map(activity => {
+          // Create a clean object with only the fields we want
+          const cleanActivity = {};
+
+          // Core fields
+          cleanActivity.name = activity.name || 'Unnamed Activity';
+          cleanActivity.start_time = activity.start_time || '12:00 PM';
+          cleanActivity.end_time = activity.end_time || '1:00 PM';
+          cleanActivity.description = activity.description || '';
+          cleanActivity.location = activity.location || '';
+
+          // Optional fields - only add if they exist
+          if (activity.placeId) cleanActivity.placeId = activity.placeId;
+          if (activity.rating) cleanActivity.rating = activity.rating;
+          if (activity.photoUrls && activity.photoUrls.length) cleanActivity.photoUrls = activity.photoUrls;
+          if (activity.priceRange) cleanActivity.priceRange = activity.priceRange;
+          if (activity.website) cleanActivity.website = activity.website;
+          if (activity.vicinity) cleanActivity.vicinity = activity.vicinity;
+          if (activity.opening_hours) cleanActivity.opening_hours = activity.opening_hours;
+
+          return cleanActivity;
+        })
+      }))
+    };
+
+    // Now save the sanitized data
+    return await saveGeneratedItinerary(tripId, sanitizedData, itineraryData.name);
   } catch (error) {
     console.error('Error saving itinerary:', error);
     throw error;

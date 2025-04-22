@@ -97,42 +97,61 @@ function Itinerary() {
   // Check this function in your CreateItinerary.jsx
   const itineraryToDb = async () => {
     try {
+      // First check if we have valid data
+      if (!itineraryData || itineraryData.length === 0) {
+        toast.error('No itinerary data to save');
+        return;
+      }
+
+      // Add logging to see what's being sent
+      console.log('Saving itinerary data:', {
+        userId: auth.currentUser.uid,
+        tripId: tripId,
+        data: {
+          name: tripName,
+          schedule: itineraryData
+        }
+      });
+
       // When processing activities before saving
       const processedSchedule = itineraryData.map((day) => ({
         ...day,
         activities: day.activities.map((activity) => {
-          // Ensure Google Places data is preserved
+          // Ensure Google Places data is preserved and handle undefined values
           return {
-            name: activity.name,
-            start_time: activity.start_time,
-            end_time: activity.end_time,
-            description: activity.description,
-            location: activity.location,
-            // Preserve additional Google Places data
-            placeId: activity.placeId,
-            rating: activity.rating,
-            photoUrls: activity.photoUrls,
-            priceRange: activity.priceRange,
-            website: activity.website,
-            vicinity: activity.vicinity,
-            opening_hours: activity.opening_hours,
+            name: activity.name || 'Unnamed Activity',
+            start_time: activity.start_time || '12:00 PM',
+            end_time: activity.end_time || '1:00 PM',
+            description: activity.description || `Visit ${activity.name}`,
+            location: activity.location || 'Location not specified',
+            // Preserve additional Google Places data with null fallbacks
+            placeId: activity.placeId || null,
+            rating: activity.rating || null,
+            photoUrls: activity.photoUrls || [],
+            priceRange: activity.priceRange || null,
+            website: activity.website || null,
+            vicinity: activity.vicinity || null,
+            opening_hours: activity.opening_hours || null,
           };
         }),
       }));
 
       // Save the processed data
       const itineraryId = await saveUserItinerary(
-        auth.currentUser.uid,
-        tripId,
+        auth.currentUser?.uid, // Add safety check
+        tripId || null, // Ensure null if undefined
         {
-          name: tripName,
+          name: tripName || 'My Itinerary',
           schedule: processedSchedule,
         }
       );
 
-      // Rest of your function
+      if (itineraryId) {
+        toast.success('Itinerary saved successfully!');
+      }
     } catch (error) {
       console.error('Error saving itinerary:', error);
+      toast.error('Failed to save itinerary: ' + error.message);
     }
   };
 
