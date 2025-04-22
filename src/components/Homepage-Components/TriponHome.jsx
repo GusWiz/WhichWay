@@ -7,6 +7,7 @@ import ErrorBoundary from './ErrorBoundary';
 import { FaEye } from 'react-icons/fa';
 import ExportItinerary from '../../pages/ExportItinerary';
 
+
 const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
   <>
     <div className='button-row'>
@@ -34,7 +35,7 @@ const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
                   <td>{startDate || 'N/A'}</td>
                   <td>{destination}</td>
                   <td>
-                    <button className='view-button' onClick={onViewItinerary}>
+                    <button className='view-button' onClick={() => onViewItinerary(id)}>
                       <FaEye style={{ marginRight: '6px' }} /> View Itinerary
                     </button>
                   </td>
@@ -51,6 +52,9 @@ const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
 );
 
 export default function TripManager() {
+  // const [selectedTripId, setSelectedTripId] = useState(null);
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [selectedItineraryId, setSelectedItineraryId] = useState(null);
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
   const [hideUpcoming, setHideUpcoming] = useState(false);
@@ -134,6 +138,41 @@ export default function TripManager() {
     printWindow.focus();
   };
 
+  const findItineraryForTrip = async (tripId) => {
+    try {
+      // Find the itinerary ID associated with the trip
+      const snapshot = await getDocs(
+        query(collection(db, 'itineraries'), where('tripid', '==', tripId))
+      );
+
+      if (!snapshot.empty) {
+        const itinerary = snapshot.docs[0]; // Assuming you want the first match
+        const itineraryId = itinerary.id;  // Get the itinerary ID
+
+        // Now, fetch just the 'schedule' field from the itinerary document using the itineraryId
+        const itineraryDoc = await getDoc(doc(db, 'itineraries', itineraryId));
+
+        if (itineraryDoc.exists()) {
+          const schedule = itineraryDoc.data().schedule; // Get the 'schedule' field
+          console.log("Itinerary Schedule:", schedule);
+
+          // You can now store the schedule data if needed
+          // For example, you can set the schedule to state
+          setSelectedSchedule(schedule); // Assuming you have a state hook for this
+        } else {
+          console.log("Itinerary document not found.");
+        }
+
+        setSelectedItineraryId(itineraryId);  // Set the selected itinerary ID
+      } else {
+        console.log("No itinerary found for this trip.");
+      }
+    } catch (err) {
+      console.error("Error finding itinerary:", err);
+    }
+  };
+
+
   return (
     <ErrorBoundary>
       <div className='triphome-body'>
@@ -151,7 +190,11 @@ export default function TripManager() {
             trips={upcomingTrips}
             hide={hideUpcoming}
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
-            onViewItinerary={() => setShowModal(true)}
+            onViewItinerary={(id) => {x
+              // setSelectedTripId(id);
+              findItineraryForTrip(id);
+              setShowModal(true);
+            }}
             // onView={(id) => navigate(`/trip/${id}`)}
           />
 
@@ -178,7 +221,7 @@ export default function TripManager() {
                 </button>
                 <h2>Itinerary Details</h2>
                 <div>
-                  <ItineraryDisplay schedule={sampleSchedule} />
+                  <ItineraryDisplay schedule={selectedSchedule} />
                 </div>
 
                 <button
