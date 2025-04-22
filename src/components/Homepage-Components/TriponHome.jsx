@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc,getDocs, query, collection, where } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import './TriponHome.css';
 import ErrorBoundary from './ErrorBoundary';
 import { FaEye } from 'react-icons/fa';
+import ItineraryDisplay from '../Universal-Components/ItineraryDisplay';
+import ExportItinerary from '../../pages/ExportItinerary';
 
-const TripTable = ({ title, trips, hide, toggleHide, onView }) => (
+
+const TripTable = ({ title, trips, hide, toggleHide, onViewItinerary }) => (
   <>
     <div className='button-row'>
       <button className='triphome-button' onClick={toggleHide}>
@@ -33,8 +36,8 @@ const TripTable = ({ title, trips, hide, toggleHide, onView }) => (
                   <td>{startDate || 'N/A'}</td>
                   <td>{destination}</td>
                   <td>
-                    <button className='view-button'>
-                      <FaEye style={{ marginRight: '6px' }} /> View
+                    <button className='view-button' onClick={() => onViewItinerary(id, name)}>
+                      <FaEye style={{ marginRight: '6px' }} /> View Itinerary
                     </button>
                   </td>
                 </tr>
@@ -50,11 +53,16 @@ const TripTable = ({ title, trips, hide, toggleHide, onView }) => (
 );
 
 export default function TripManager() {
+  // const [selectedTripId, setSelectedTripId] = useState(null);
+  const [selectedTripName, setSelectedTripName] = useState('');
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const [selectedItineraryId, setSelectedItineraryId] = useState(null);
   const [user, setUser] = useState(null);
   const [trips, setTrips] = useState([]);
   const [hideUpcoming, setHideUpcoming] = useState(false);
   const [hideAll, setHideAll] = useState(true);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(setUser);
@@ -123,6 +131,52 @@ export default function TripManager() {
     return tripDate >= today;
   });
 
+  const exportItinerary = () => {
+    const stringSchedule = JSON.stringify(sampleSchedule);
+    const stringName = JSON.stringify(name);
+    localStorage.setItem('exportSchedule', stringSchedule);
+    localStorage.setItem('exportTripName', stringName);
+    const printWindow = window.open('/export', '_blank');
+    printWindow.focus();
+  };
+
+
+  const findItineraryForTrip = async (tripId) => {
+    console.log("Trip id is: ", tripId);
+    try {
+      // Find the itinerary ID associated with the trip
+      const snapshot = await getDocs(
+        query(collection(db, 'Itineraries'), where('tripId', '==', tripId))
+      );
+
+      if (!snapshot.empty) {
+        const itinerary = snapshot.docs[0]; // Assuming you want the first match
+        const itineraryId = itinerary.id;  // Get the itinerary ID
+        console.log("itinerary id is: ",itineraryId);
+        // Now, fetch just the 'schedule' field from the itinerary document using the itineraryId
+        const itineraryDoc = await getDoc(doc(db, 'Itineraries', itineraryId));
+
+        if (itineraryDoc.exists()) {
+          const schedule = itineraryDoc.data().schedule; // Get the 'schedule' field
+          console.log("Itinerary Schedule:", schedule);
+
+          // You can now store the schedule data if needed
+          // For example, you can set the schedule to state
+          setSelectedSchedule(schedule); // Assuming you have a state hook for this
+        } else {
+          console.log("Itinerary document not found.");
+        }
+
+        setSelectedItineraryId(itineraryId);  // Set the selected itinerary ID
+      } else {
+        console.log("No itinerary found for this trip.");
+      }
+    } catch (err) {
+      console.error("Error finding itinerary:", err);
+    }
+  };
+
+
   return (
     <ErrorBoundary>
       <div className='triphome-body'>
@@ -140,7 +194,13 @@ export default function TripManager() {
             trips={upcomingTrips}
             hide={hideUpcoming}
             toggleHide={() => setHideUpcoming(!hideUpcoming)}
-            onView={(id) => navigate(`/trip/${id}`)}
+            onViewItinerary={(id, name) => {
+              // setSelectedTripId(id);
+              setSelectedTripName(name)
+              findItineraryForTrip(id);
+              setShowModal(true);
+            }}
+            // onView={(id) => navigate(`/trip/${id}`)}
           />
 
           <div className='button-row'>
@@ -151,6 +211,34 @@ export default function TripManager() {
               {hideAll ? 'Show All Trips' : 'Hide All Trips'}
             </button>
           </div>
+
+          {showModal && (
+            <div className='modal-overlay' onClick={() => setShowModal(false)}>
+              <div
+                className='modal-content'
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  className='close-button'
+                  onClick={() => setShowModal(false)}
+                >
+                  ×
+                </button>
+                <h2>{selectedTripName}</h2>
+                <div>
+                  {selectedSchedule && <ItineraryDisplay schedule={selectedSchedule} />}
+                </div>
+
+                <button
+                  className='triphome-button'
+                  style={{ marginTop: '20px' }}
+                  onClick={exportItinerary}
+                >
+                  Export to PDF
+                </button>
+              </div>
+            </div>
+          )}
 
           {!hideAll && (
             <div className='trip-section'>
