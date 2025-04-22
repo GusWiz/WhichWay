@@ -139,44 +139,67 @@ function CreateTrip() {
     console.log(savedActivities);
   };
 
-  const handleSelect = (category, item) => {
-    switch (category) {
+  const handleSelect = async (type, item) => {
+    let collection, setter, current;
+
+    // Determine which collection and state to update based on type
+    switch (type) {
       case 'food':
-        if (selectedFoods.some((food) => food.name === item.name)) {
-          setSelectedFoods((prev) =>
-            prev.filter((food) => food.name !== item.name)
-          );
-        } else {
-          setSelectedFoods((prev) => [...prev, item]);
-        }
-        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        collection = selectedFoods;
+        setter = setSelectedFoods;
         break;
       case 'entertainment':
-        if (
-          selectedEntertainment.some(
-            (entertainment) => entertainment.name === item.name
-          )
-        ) {
-          setSelectedEntertainment((prev) =>
-            prev.filter((entertainment) => entertainment.name !== item.name)
-          );
-        } else {
-          setSelectedEntertainment((prev) => [...prev, item]);
-        }
-        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        collection = selectedEntertainment;
+        setter = setSelectedEntertainment;
         break;
       case 'outdoor':
-        if (selectedOutdoor.some((outdoor) => outdoor.name === item.name)) {
-          setSelectedOutdoor((prev) =>
-            prev.filter((outdoor) => outdoor.name !== item.name)
-          );
-        } else {
-          setSelectedOutdoor((prev) => [...prev, item]);
-        }
-        saveActivities(selectedFoods, selectedEntertainment, selectedOutdoor);
+        collection = selectedOutdoor;
+        setter = setSelectedOutdoor;
         break;
       default:
-        break;
+        return;
+    }
+
+    // Check if the item is already selected
+    const exists = collection.some((selected) => selected.name === item.name);
+
+    if (exists) {
+      // Remove the item
+      setter(collection.filter((i) => i.name !== item.name));
+    } else {
+      try {
+        // If the item has a placeId, fetch and add Google Places details
+        let enrichedItem = { ...item };
+
+        if (item.placeId) {
+          const placeDetails = await fetchPlaceDetails(item.placeId);
+          if (placeDetails) {
+            enrichedItem = {
+              ...item,
+              description: placeDetails.description || item.description,
+              photoUrls: placeDetails.photoUrls || [],
+              // Add other fields you want to preserve
+              placeDetails: {
+                // Store complete place details to ensure we have everything for the itinerary
+                formatted_address: placeDetails.formatted_address,
+                website: placeDetails.website,
+                opening_hours: placeDetails.opening_hours?.weekday_text,
+                rating: placeDetails.rating,
+                user_ratings_total: placeDetails.user_ratings_total,
+                vicinity: placeDetails.vicinity
+              }
+            };
+          }
+        }
+
+        // Add the item (enriched if possible)
+        setter([...collection, enrichedItem]);
+
+      } catch (error) {
+        console.error("Error enriching activity data:", error);
+        // Add the original item if enrichment fails
+        setter([...collection, item]);
+      }
     }
   };
 
