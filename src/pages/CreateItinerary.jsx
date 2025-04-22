@@ -63,12 +63,9 @@ function Itinerary() {
       return null;
     }
 
-
-
     return {
       name: tripName,
       schedule: itineraryData,
-
     };
   };
 
