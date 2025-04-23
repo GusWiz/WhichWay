@@ -646,74 +646,73 @@ firebase use whichway-9040f
   - Jira Task: Unit Testing Assignment (Alan) 2
       - [WW-103](https://cs3398-betazoids-spring.atlassian.net/browse/WW-103),
         [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/98)
-        
+
 ## Retrospective
 
 ## What Went Well or maybe not?
-  
+
   **Team**:
-  
+
   - I think we accomplished the priorities we needed. We have a functional create trip and create itinerary pages. API calls work as intended and data is rendered correctly.
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
+
+  -
+
+  -
+
+  -
+
+  -
+
   **Individual**:
-  
+
   - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
 
 ## What Might Be Impeding Us from Performing Better?
 
   **Team**:
-  
+
   - Definitely time, if we spent more time as a team we would've completed a lot more tasks and would've structured the DB better.
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
+
+  -
+
+  -
+
+  -
+
+  -
+
 ## What Can I do to Improve?
 
   **Individual**:
-  
+
   - **Alan**: I need to improve in unit testing for JS and React. I had some challenges testing with these technologies as opposed to Java or Python.
-  
+
 ## AI:
 
   **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made.
-  
+
   **Examples of what AI is good at**:
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
+
+  -
+
+  -
+
+  -
+
+  -
+
+  -
+
   **Examples of when we needed to be careful using AI**:
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
-  - 
-  
+
+  -
+
+  -
+
+  -
+
+  -
+
+  -
+
 ![Burnup Chart Sprint 3](docs/BurnupChart3.png)
-  
