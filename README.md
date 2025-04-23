@@ -602,6 +602,7 @@ firebase use whichway-9040f
 ---
 # Sprint 3
 ## Contributions:
+
 ### **Alan**: Deployed the application using Firebase Hosting, created many unit tests, and create the Edit Trip page to allow users to change details about their trip.
 
   - Jira Task: Initialize Firebase Project and CLI Setup
@@ -647,6 +648,38 @@ firebase use whichway-9040f
       - [WW-103](https://cs3398-betazoids-spring.atlassian.net/browse/WW-103),
         [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/98)
 
+### **Aldo**: Helped establish the general DB model for WhichWay, developed the UI and functionality for the account and settings pages, refactored the dashboard for a smoother user experience, and contributed to unit testing and documentation.
+
+  - Jira Task: Establish DB Model
+      - [WW-84](https://cs3398-betazoids-spring.atlassian.net/browse/WW-84),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/78)
+  - Jira Task: Design Wireframes and UI Layout for Account and Settings Page
+      - [WW-25](https://cs3398-betazoids-spring.atlassian.net/browse/WW-25),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/87)
+  - Jira Task: Update Account Page
+      - [WW-26](https://cs3398-betazoids-spring.atlassian.net/browse/WW-26),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/99)
+  - Jira Task: Assignment 16 - Testing Plan
+      - [WW-104](https://cs3398-betazoids-spring.atlassian.net/browse/WW-104),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/101)
+  - Jira Task: Assignment 16 - Execution and Results
+      - [WW-105](https://cs3398-betazoids-spring.atlassian.net/browse/WW-105),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/102)
+  - Jira Task: Refactor Dashboard
+      - [WW-27](https://cs3398-betazoids-spring.atlassian.net/browse/WW-27),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/113)
+  - Jira Task: Design the Functionality and Implementation Settings Page
+      - [WW-81](https://cs3398-betazoids-spring.atlassian.net/browse/WW-81),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/115)
+
+## Next steps
+
+### **Aldo**:
+  - Explore customizable dashboard layout options so users can personalize their experience.
+  - Research and implement new features such as trip ratings, user tags, or saved itineraries to enhance functionality.
+  - Help improve component organization by refactoring EditTrip and TripManager (In TripOnHome.jsx) for better readability and reuse.
+  - Work with the group to finalize a proper robust data model.
+
 ## Retrospective
 
 ## What Went Well or maybe not?
@@ -655,7 +688,7 @@ firebase use whichway-9040f
 
   - I think we accomplished the priorities we needed. We have a functional create trip and create itinerary pages. API calls work as intended and data is rendered correctly.
 
-  -
+  - Our progress throughout the sprint was steady which allowed us to have a great looking burn up chart. We managed to finish our most important tasks such as the create trip components and the dashboard component. These were vital for a good demo and I believe we achieved that.
 
   -
 
@@ -667,13 +700,15 @@ firebase use whichway-9040f
 
   - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
 
+  - **Aldo**: I was able to make the UI of WhichWay feel smooth for the user. In addition, I refactored the dashboard so it would display the necessary trip information for each specific user that was logged in.
+
 ## What Might Be Impeding Us from Performing Better?
 
   **Team**:
 
   - Definitely time, if we spent more time as a team we would've completed a lot more tasks and would've structured the DB better.
 
-  -
+  - Communication. We had good communication at the beginning of the sprint but it dropped toward the end which led to unnecessary merge conflicts.
 
   -
 
@@ -687,15 +722,17 @@ firebase use whichway-9040f
 
   - **Alan**: I need to improve in unit testing for JS and React. I had some challenges testing with these technologies as opposed to Java or Python.
 
+  - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
+
 ## AI:
 
-  **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made.
+  **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made. AI helped generate functional and efficient unit testing for several parts of our WhichWay project.
 
   **Examples of what AI is good at**:
 
   - AI is very good at debugging and helping you write unit tests
 
-  -
+  - With the right prompt, it can generate great starter code.
 
   -
 
@@ -707,7 +744,7 @@ firebase use whichway-9040f
 
   - AI needs specific instructions on what you're trying to achieve.
 
-  -
+  - AI provides code that doesn't follow our naming conventions which led to manual debugging.
 
   -
 
