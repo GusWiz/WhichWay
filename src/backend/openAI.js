@@ -50,27 +50,9 @@ Rules:
 2. Ensure logical timing between activities, accounting for travel time
 3. Balance activities throughout the day
 4. Include meal times at appropriate restaurants from the activity list
-`;
-
-const promptTemplate = `
-// ... existing content ...
-
-Format your response as a JSON object with the following structure:
-{
-  "schedule": [
-    {
-      "date": "YYYY-MM-DD",
-      "activities": [
-        {
-          "name": "Activity name",
-          "start_time": "HH:MM AM/PM",
-          "end_time": "HH:MM AM/PM",
-          "description": "Detailed 2-3 sentence description of this activity"
-        }
-      ]
-    }
-  ]
-}
+- Focus on activities specific to the provided location
+- Ensure the schedule is appropriate for the given location and its local attractions
+- Consider typical opening hours for businesses in the specified location
 `;
 
 const generateItinerary = async (openaiRequest) => {
