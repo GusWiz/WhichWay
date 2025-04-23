@@ -693,7 +693,7 @@ firebase use whichway-9040f
 
   **Examples of what AI is good at**:
 
-  -
+  - AI is very good at debugging and helping you write unit tests
 
   -
 
@@ -705,7 +705,7 @@ firebase use whichway-9040f
 
   **Examples of when we needed to be careful using AI**:
 
-  -
+  - AI needs specific instructions on what you're trying to achieve.
 
   -
 
