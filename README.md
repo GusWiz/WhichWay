@@ -671,8 +671,8 @@ firebase use whichway-9040f
   - Jira Task: Design the Functionality and Implementation Settings Page
       - [WW-81](https://cs3398-betazoids-spring.atlassian.net/browse/WW-81),
         [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/115)
-        
-### **Aaron**: Handle saving itinerary to the database and created styling and format for new itineray displays. Integreated this display to be accessed to the user throughout the app as well as added functionality to export itinerary to pdf or print. Created unit tests for multiple React components. 
+
+### **Aaron**: Handle saving itinerary to the database and created styling and format for new itineray displays. Integreated this display to be accessed to the user throughout the app as well as added functionality to export itinerary to pdf or print. Created unit tests for multiple React components.
 
   - Jira Task: Frontend Button for Exporting to PDF
       - [WW-60](https://cs3398-betazoids-spring.atlassian.net/browse/WW-60)
@@ -691,8 +691,8 @@ firebase use whichway-9040f
   - Jira Task: Render itinerary in homepage
       - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
-  
-  
+
+
 
 ## Next steps
 
@@ -701,11 +701,11 @@ firebase use whichway-9040f
   - Research and implement new features such as trip ratings, user tags, or saved itineraries to enhance functionality.
   - Help improve component organization by refactoring EditTrip and TripManager (In TripOnHome.jsx) for better readability and reuse.
   - Work with the group to finalize a proper robust data model.
-  
+
 ### **Aaron**:
   - Refactor trip preferences to influence how the itinerary is generated.
   - Improve itinerary display to show different activity categories with different colors as well as make it interactable.
-  - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities. 
+  - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities.
 
 ## Retrospective
 
@@ -728,9 +728,9 @@ firebase use whichway-9040f
   - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
 
   - **Aldo**: I was able to make the UI of WhichWay feel smooth for the user. In addition, I refactored the dashboard so it would display the necessary trip information for each specific user that was logged in.
-  
-  - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries. 
-  
+
+  - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries.
+
 
 ## What Might Be Impeding Us from Performing Better?
 
@@ -740,7 +740,7 @@ firebase use whichway-9040f
 
   - Communication. We had good communication at the beginning of the sprint but it dropped toward the end which led to unnecessary merge conflicts.
 
-  - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time. 
+  - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time.
 
   -
 
@@ -753,9 +753,9 @@ firebase use whichway-9040f
   - **Alan**: I need to improve in unit testing for JS and React. I had some challenges testing with these technologies as opposed to Java or Python.
 
   - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
-  
+
   - **Aaron**: I can adhere more strictly to the SOLID principles. In the beginnging of the sprint I was not paying much mind to the SOLID principles, making me a weaker program and also setting up for a more unorganized project. This improvement would be noticable by a more organized codebase.
- 
+
 ## AI:
 
   **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made. AI helped generate functional and efficient unit testing for several parts of our WhichWay project.
