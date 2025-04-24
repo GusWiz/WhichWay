@@ -692,7 +692,7 @@ firebase use whichway-9040f
       - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
 
-      ### **Vinny**: Fixing general and longstanding bugs that were hurting the professionalism of our project and slowing down progress for future changes as well as generally cleaning up codebase.
+### **Vinny**: Fixing general and longstanding bugs that were hurting the professionalism of our project and slowing down progress for future changes as well as generally cleaning up codebase.
 
   - Jira Task: Task 2: Cleaning duplicates or any unused items in Create Trip
       - [WW-42](https://cs3398-betazoids-spring.atlassian.net/browse/WW-42)
@@ -762,8 +762,6 @@ firebase use whichway-9040f
 
   - The team had known the expectations set my sprint so they prepared accordingly. We also addressed issues that arised in a quick manner. We also set a consistent style for the website.
 
-  -
-
   **Individual**:
 
   - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
@@ -787,9 +785,9 @@ firebase use whichway-9040f
   - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time.
 
   - We were very efficient at refactoring code, but the project probably should've been planned better so that we didn't have to refactor as much.
+
   - We should be have been communicated on how the team wanted to strucutre the codebase and the database. We should also look at code that handled a responsibility, so we could re-use its functionality.
 
-  -
 
 ## What Can I do to Improve?
 
@@ -819,8 +817,6 @@ firebase use whichway-9040f
 
   - AI assisted in learning APIs handling, especially when it is the first time using a technology or for example the Google Places API.
 
-  -
-
   **Examples of when we needed to be careful using AI**:
 
   - AI needs specific instructions on what you're trying to achieve.
@@ -830,7 +826,5 @@ firebase use whichway-9040f
   - AI tended to over complicate simple tasks, which would clutter the files, making it more difficult to develop. This was prevalent in some of the code in the createTrip file where we had to spend time simplifying code. We need to be careful and analyitical of the code we generate from AI.
 
   - AI could bring about issues in the code that it generated, and then caused styling issues with other components. Somethings leaving code that left bugs on a component.
-
-  -
 
 ![Burnup Chart Sprint 3](docs/BurnupChart3.png)
