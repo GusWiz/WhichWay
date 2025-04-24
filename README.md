@@ -671,8 +671,8 @@ firebase use whichway-9040f
   - Jira Task: Design the Functionality and Implementation Settings Page
       - [WW-81](https://cs3398-betazoids-spring.atlassian.net/browse/WW-81),
         [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/115)
-        
-### **Aaron**: Handle saving itinerary to the database and created styling and format for new itineray displays. Integreated this display to be accessed to the user throughout the app as well as added functionality to export itinerary to pdf or print. Created unit tests for multiple React components. 
+
+### **Aaron**: Handle saving itinerary to the database and created styling and format for new itineray displays. Integreated this display to be accessed to the user throughout the app as well as added functionality to export itinerary to pdf or print. Created unit tests for multiple React components.
 
   - Jira Task: Frontend Button for Exporting to PDF
       - [WW-60](https://cs3398-betazoids-spring.atlassian.net/browse/WW-60)
@@ -691,7 +691,24 @@ firebase use whichway-9040f
   - Jira Task: Render itinerary in homepage
       - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
-      
+
+      ### **Vinny**: Fixing general and longstanding bugs that were hurting the professionalism of our project and slowing down progress for future changes as well as generally cleaning up codebase.
+
+  - Jira Task: Task 2: Cleaning duplicates or any unused items in Create Trip
+      - [WW-42](https://cs3398-betazoids-spring.atlassian.net/browse/WW-42)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/89)
+  - Jira Task: Task 3: Fix Trip ID Issue
+      - [WW-43](https://cs3398-betazoids-spring.atlassian.net/browse/WW-43)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/92)
+  - Jira Task: Task 4: Find Bugs and Clean Codebase
+      - [WW-44](https://cs3398-betazoids-spring.atlassian.net/browse/WW-44)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/107)
+  - Jira Task: Assignment 16 Testing Plan (Vinny)
+      - [WW-101](https://cs3398-betazoids-spring.atlassian.net/browse/WW-101)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/109)
+  - Jira Task: Assignment 16 Results (Vinny)
+      - [WW-102](https://cs3398-betazoids-spring.atlassian.net/browse/WW-102)
+
 ### **Gustavo**: Implemented the function that handles saving the itinerary to the database on the createTrip and createItinerary pages. Added Unit testing for the following components LocationAutocomplete, passwordReset, and a function for save the generate itinerary. Finally, create a datepicker component that allows the user to selected the dates for their trip.
   - Jira Task: Task 1: Regenerate Itinerary Functionality
       - [WW-82](https://cs3398-betazoids-spring.atlassian.net/browse/WW-82)
@@ -719,18 +736,18 @@ firebase use whichway-9040f
   - Research and implement new features such as trip ratings, user tags, or saved itineraries to enhance functionality.
   - Help improve component organization by refactoring EditTrip and TripManager (In TripOnHome.jsx) for better readability and reuse.
   - Work with the group to finalize a proper robust data model.
-  
+
 ### **Aaron**:
   - Refactor trip preferences to influence how the itinerary is generated.
   - Improve itinerary display to show different activity categories with different colors as well as make it interactable.
-  - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities. 
+  - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities.
 
 ### **Gustavo**:
   - Refactor the functions for generating itinerary as there were 3 different implementations of the it.
   - Add images to the itinerary document after it is generated.
   - Implement suggestions in the itinerary document like what clothing they should wear based on the weather.
   - Refactor the createItinerary page into components to improve readibility.
-  
+
 ## Retrospective
 
 ## What Went Well or maybe not?
@@ -752,11 +769,13 @@ firebase use whichway-9040f
   - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
 
   - **Aldo**: I was able to make the UI of WhichWay feel smooth for the user. In addition, I refactored the dashboard so it would display the necessary trip information for each specific user that was logged in.
-  
-  - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries. 
-  
+
+  - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries.
+
+  - **Vinny**: I feel confident in the quality of the things I did manage to get done for the project, but I feel like there were some things that I neglected or couldve gotten finished but fell just short before the sprint/class ended.
+
   - **Gustavo**: Understanding database structure assisted in creating functions that handled saving, retriving data from the database. Which would be used to generate an itinerary.
-  
+
 ## What Might Be Impeding Us from Performing Better?
 
   **Team**:
@@ -765,8 +784,9 @@ firebase use whichway-9040f
 
   - Communication. We had good communication at the beginning of the sprint but it dropped toward the end which led to unnecessary merge conflicts.
 
-  - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time. 
+  - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time.
 
+  - We were very efficient at refactoring code, but the project probably should've been planned better so that we didn't have to refactor as much.
   - We should be have been communicated on how the team wanted to strucutre the codebase and the database. We should also look at code that handled a responsibility, so we could re-use its functionality.
 
   -
@@ -778,11 +798,13 @@ firebase use whichway-9040f
   - **Alan**: I need to improve in unit testing for JS and React. I had some challenges testing with these technologies as opposed to Java or Python.
 
   - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
-  
+
   - **Aaron**: I can adhere more strictly to the SOLID principles. In the beginnging of the sprint I was not paying much mind to the SOLID principles, making me a weaker program and also setting up for a more unorganized project. This improvement would be noticable by a more organized codebase.
 
+  - **Vinny**: I need to improve my communication with the team since I only really communicated what was going on with the project when I was working on it and I was not making myself available outside of those times.
+
   - **Gustavo**: I should have checked files for already implement functions, like the handleGenerateItinerary, as I found out that it had already been implemented. Which brought inconsistent functionality across different pages.
-  
+
 ## AI:
 
   **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made. AI helped generate functional and efficient unit testing for several parts of our WhichWay project.
