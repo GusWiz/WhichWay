@@ -17,7 +17,7 @@ import './CreateItinerary.css';
 
 import NavigationBar from '../components/Landing-Components/NavigationBar';
 import Sidebar from '../components/Homepage-Components/Sidebar';
-
+import { enrichItineraryWithPlaceDetails } from '../components/api/itineraryFunctions';
 function Itinerary() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -139,7 +139,6 @@ function Itinerary() {
   };
 
   // Function to generate itinerary with OpenAI directly
-  // Uses the same approach as in EditTrip.jsx
   const handleGenerateItinerary = async () => {
     setLoading(true);
     try {
@@ -209,7 +208,8 @@ IMPORTANT INSTRUCTIONS:
       // Enrich the itinerary with place details
       const enrichedSchedule = await enrichItineraryWithPlaceDetails(
         parsedItinerary.schedule,
-        { selectedFoods, selectedEntertainment, selectedOutdoor }
+        { selectedFoods, selectedEntertainment, selectedOutdoor },
+        tripLocation // Pass your trip location from state or props
       );
 
       // Update state with the enriched schedule
@@ -221,130 +221,6 @@ IMPORTANT INSTRUCTIONS:
     } finally {
       setLoading(false);
     }
-  };
-
-  // Add this function to your CreateItinerary component
-  const enrichItineraryWithPlaceDetails = async (
-    schedule,
-    selectedActivities
-  ) => {
-    // Create a lookup map by activity name
-    const activityDetailsMap = {};
-
-    // Combine all selected activities into one array
-    const allSelectedActivities = [
-      ...(selectedActivities.selectedFoods || []),
-      ...(selectedActivities.selectedEntertainment || []),
-      ...(selectedActivities.selectedOutdoor || []),
-    ];
-
-    // Add all activities to the lookup map
-    allSelectedActivities.forEach((activity) => {
-      if (activity && activity.name) {
-        activityDetailsMap[activity.name.toLowerCase()] = {
-          description: activity.description,
-          photoUrls: activity.photoUrls || [],
-          rating: activity.rating,
-          website: activity.website,
-          vicinity: activity.vicinity,
-          priceRange: activity.priceRange,
-          opening_hours: activity.opening_hours,
-          placeId: activity.placeId,
-        };
-      }
-    });
-
-    console.log(
-      'Activity details map created with',
-      Object.keys(activityDetailsMap).length,
-      'entries'
-    );
-
-    // Process each day in the schedule
-    const enrichedSchedule = await Promise.all(
-      schedule.map(async (day) => {
-        // Process each activity in the day
-        const enrichedActivities = await Promise.all(
-          day.activities.map(async (activity) => {
-            // Skip if activity doesn't have a name
-            if (!activity || !activity.name) return activity;
-
-            const activityName = activity.name.toLowerCase();
-            let enrichedActivity = { ...activity };
-
-            // Case 1: Activity already has a description from OpenAI
-            if (activity.description && activity.description.length > 20) {
-              console.log(
-                `Activity ${activity.name} already has a description`
-              );
-              return activity;
-            }
-
-            // Case 2: We have the activity details in our map
-            if (activityDetailsMap[activityName]) {
-              console.log(
-                `Found details for ${activity.name} in selected activities`
-              );
-              return {
-                ...activity,
-                ...activityDetailsMap[activityName],
-              };
-            }
-
-            // Case 3: Try to fetch from Google Places using placeId
-            if (activity.placeId) {
-              try {
-                console.log(
-                  `Fetching details for ${activity.name} using placeId`
-                );
-                const details = await fetchPlaceDetails(activity.placeId);
-                if (details) {
-                  return {
-                    ...activity,
-                    description: details.description,
-                    photoUrls: details.photoUrls || [],
-                    rating: details.rating,
-                    website: details.website,
-                    vicinity: details.vicinity,
-                    priceRange: details.priceRange,
-                    opening_hours: details.opening_hours,
-                  };
-                }
-              } catch (error) {
-                console.error(
-                  `Error fetching details for ${activity.name}:`,
-                  error
-                );
-              }
-            }
-
-            // Case 4: Generate a fallback description
-            console.log(`Generating fallback description for ${activity.name}`);
-            enrichedActivity.description =
-              generateFallbackDescription(activity);
-            return enrichedActivity;
-          })
-        );
-
-        return {
-          ...day,
-          activities: enrichedActivities,
-        };
-      })
-    );
-
-    console.log('Schedule enriched with descriptions');
-    return enrichedSchedule;
-  };
-
-  // Add this helper function
-  const generateFallbackDescription = (activity) => {
-    const timeInfo =
-      activity.start_time && activity.end_time
-        ? `Scheduled from ${activity.start_time} to ${activity.end_time}.`
-        : '';
-
-    return `Visit ${activity.name}, an activity included in your ${tripLocation} itinerary. ${timeInfo} Enjoy your time at this location during your trip.`;
   };
 
   return (
