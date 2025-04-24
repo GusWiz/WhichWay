@@ -598,3 +598,190 @@ firebase use whichway-9040f
     - AI had trouble seeing the bigger picture, often forgetting that we have multiple files for a reason and often resorting to placing code in the most recent file it could remember rather than the most relevant file.
 
 ![Burnup Chart Sprint 2](docs/BurnupChart2.png)
+
+---
+# Sprint 3
+## Contributions:
+
+### **Alan**: Deployed the application using Firebase Hosting, created many unit tests, and create the Edit Trip page to allow users to change details about their trip.
+
+  - Jira Task: Initialize Firebase Project and CLI Setup
+      - [WW-88](https://cs3398-betazoids-spring.atlassian.net/browse/WW-88),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/76)
+  - Jira Task: Configure Firebase Hosting Settings
+      - [WW-89](https://cs3398-betazoids-spring.atlassian.net/browse/WW-89),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/77)
+  - Jira Task: Production React Build Configuration
+      - [WW-90](https://cs3398-betazoids-spring.atlassian.net/browse/WW-90),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/79)
+  - Jira Task: Fix Bitbucket Pipeline
+      - [WW-91](https://cs3398-betazoids-spring.atlassian.net/browse/WW-91),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/81)
+  - Jira Task: Deployment Verification
+      - [WW-92](https://cs3398-betazoids-spring.atlassian.net/browse/WW-92),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/82)
+  - Jira Task: Create UI for edit trip page along with edit Itinerary
+      - [WW-77](https://cs3398-betazoids-spring.atlassian.net/browse/WW-77),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/91)
+  - Jira Task: Fetch trip data and present in the edit trip page
+      - [WW-78](https://cs3398-betazoids-spring.atlassian.net/browse/WW-78),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/90)
+  - Jira Task: Implement ability to make changes to the trip and have the changes persist for the user
+      - [WW-79](https://cs3398-betazoids-spring.atlassian.net/browse/WW-79),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/95)
+  - Jira Task: Implement ability to make changes to itinerary
+      - [WW-80](https://cs3398-betazoids-spring.atlassian.net/browse/WW-80),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/104)
+  - Jira Task: Unit Testing
+      - [WW-29](https://cs3398-betazoids-spring.atlassian.net/browse/WW-29),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/105)
+  - Jira Task: Unit Testing for Create Trip
+      - [WW-45](https://cs3398-betazoids-spring.atlassian.net/browse/WW-45),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/110)
+  - Jira Task: Unit and Integration Testing
+      - [WW-59](https://cs3398-betazoids-spring.atlassian.net/browse/WW-59),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/111)
+  - Jira Task: Unit Testing Assignment (Alan) 1
+      - [WW-100](https://cs3398-betazoids-spring.atlassian.net/browse/WW-100),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/97)
+  - Jira Task: Unit Testing Assignment (Alan) 2
+      - [WW-103](https://cs3398-betazoids-spring.atlassian.net/browse/WW-103),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/98)
+
+### **Aldo**: Helped establish the general DB model for WhichWay, developed the UI and functionality for the account and settings pages, refactored the dashboard for a smoother user experience, and contributed to unit testing and documentation.
+
+  - Jira Task: Establish DB Model
+      - [WW-84](https://cs3398-betazoids-spring.atlassian.net/browse/WW-84),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/78)
+  - Jira Task: Design Wireframes and UI Layout for Account and Settings Page
+      - [WW-25](https://cs3398-betazoids-spring.atlassian.net/browse/WW-25),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/87)
+  - Jira Task: Update Account Page
+      - [WW-26](https://cs3398-betazoids-spring.atlassian.net/browse/WW-26),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/99)
+  - Jira Task: Assignment 16 - Testing Plan
+      - [WW-104](https://cs3398-betazoids-spring.atlassian.net/browse/WW-104),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/101)
+  - Jira Task: Assignment 16 - Execution and Results
+      - [WW-105](https://cs3398-betazoids-spring.atlassian.net/browse/WW-105),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/102)
+  - Jira Task: Refactor Dashboard
+      - [WW-27](https://cs3398-betazoids-spring.atlassian.net/browse/WW-27),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/113)
+  - Jira Task: Design the Functionality and Implementation Settings Page
+      - [WW-81](https://cs3398-betazoids-spring.atlassian.net/browse/WW-81),
+        [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/115)
+        
+### **Aaron**: Handle saving itinerary to the database and created styling and format for new itineray displays. Integreated this display to be accessed to the user throughout the app as well as added functionality to export itinerary to pdf or print. Created unit tests for multiple React components. 
+
+  - Jira Task: Frontend Button for Exporting to PDF
+      - [WW-60](https://cs3398-betazoids-spring.atlassian.net/browse/WW-60)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/116)
+  - Jira Task: Save Itinerary to DB
+      - [WW-85] (https://cs3398-betazoids-spring.atlassian.net/browse/WW-85)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/94)
+  - Jira Task: Assignment 16 Testing Plan (Aaron)
+      - [WW-98](https://cs3398-betazoids-spring.atlassian.net/browse/WW-98)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/100)
+  - Jira Task: Assignment 16 Results (Aaron)
+      - [WW-99](https://cs3398-betazoids-spring.atlassian.net/browse/WW-99)
+  - Jira Task: PDF Design and Styling
+      - [WW-62](https://cs3398-betazoids-spring.atlassian.net/browse/WW-62)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/114)
+  - Jira Task: Render itinerary in homepage
+      - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
+  
+  
+
+## Next steps
+
+### **Aldo**:
+  - Explore customizable dashboard layout options so users can personalize their experience.
+  - Research and implement new features such as trip ratings, user tags, or saved itineraries to enhance functionality.
+  - Help improve component organization by refactoring EditTrip and TripManager (In TripOnHome.jsx) for better readability and reuse.
+  - Work with the group to finalize a proper robust data model.
+  
+### **Aaron**:
+  - Refactor trip preferences to influence how the itinerary is generated.
+  - Improve itinerary display to show different activity categories with different colors as well as make it interactable.
+  - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities. 
+
+## Retrospective
+
+## What Went Well or maybe not?
+
+  **Team**:
+
+  - I think we accomplished the priorities we needed. We have a functional create trip and create itinerary pages. API calls work as intended and data is rendered correctly.
+
+  - Our progress throughout the sprint was steady which allowed us to have a great looking burn up chart. We managed to finish our most important tasks such as the create trip components and the dashboard component. These were vital for a good demo and I believe we achieved that.
+
+  - We had great communication throughout the sprint and problems were addressed quickly and team members were always willing to help out, however, some functionalities of the app were neglected and resulted in having to be removed.
+
+  -
+
+  -
+
+  **Individual**:
+
+  - **Alan**: I was able to deploy the application and also setup a solid development pipeline that formats our code and builds the code to make sure there are no issues.
+
+  - **Aldo**: I was able to make the UI of WhichWay feel smooth for the user. In addition, I refactored the dashboard so it would display the necessary trip information for each specific user that was logged in.
+  
+  - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries. 
+  
+
+## What Might Be Impeding Us from Performing Better?
+
+  **Team**:
+
+  - Definitely time, if we spent more time as a team we would've completed a lot more tasks and would've structured the DB better.
+
+  - Communication. We had good communication at the beginning of the sprint but it dropped toward the end which led to unnecessary merge conflicts.
+
+  - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time. 
+
+  -
+
+  -
+
+## What Can I do to Improve?
+
+  **Individual**:
+
+  - **Alan**: I need to improve in unit testing for JS and React. I had some challenges testing with these technologies as opposed to Java or Python.
+
+  - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
+  
+  - **Aaron**: I can adhere more strictly to the SOLID principles. In the beginnging of the sprint I was not paying much mind to the SOLID principles, making me a weaker program and also setting up for a more unorganized project. This improvement would be noticable by a more organized codebase.
+ 
+## AI:
+
+  **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made. AI helped generate functional and efficient unit testing for several parts of our WhichWay project.
+
+  **Examples of what AI is good at**:
+
+  - AI is very good at debugging and helping you write unit tests
+
+  - With the right prompt, it can generate great starter code.
+
+  - AI was very helpful with explaining foreign concepts relating to the tools I was using throughout the sprint. It was able to explain to me the use of different React functionalities such as useStates and useEffect.
+
+  -
+
+  -
+
+  **Examples of when we needed to be careful using AI**:
+
+  - AI needs specific instructions on what you're trying to achieve.
+
+  - AI provides code that doesn't follow our naming conventions which led to manual debugging.
+
+  - AI tended to over complicate simple tasks, which would clutter the files, making it more difficult to develop. This was prevalent in some of the code in the createTrip file where we had to spend time simplifying code. We need to be careful and analyitical of the code we generate from AI.
+
+  -
+
+  -
+
+![Burnup Chart Sprint 3](docs/BurnupChart3.png)
