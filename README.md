@@ -726,7 +726,7 @@ firebase use whichway-9040f
       - [WW-109](https://cs3398-betazoids-spring.atlassian.net/browse/WW-109)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/112)
   - Jira Task: WW-83 task 2 render itinerary (PR after sprint ended)
-      - [WW-83](https://cs3398-betazoids-spring.atlassian.net/browse/WW-83
+      - [WW-83](https://cs3398-betazoids-spring.atlassian.net/browse/WW-83)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/123)
 
 ## Next steps
