@@ -691,8 +691,26 @@ firebase use whichway-9040f
   - Jira Task: Render itinerary in homepage
       - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
-  
-  
+      
+### **Gustavo**: Implemented the function that handles saving the itinerary to the database on the createTrip and createItinerary pages. Added Unit testing for the following components LocationAutocomplete, passwordReset, and a function for save the generate itinerary. Finally, create a datepicker component that allows the user to selected the dates for their trip.
+  - Jira Task: Task 1: Regenerate Itinerary Functionality
+      - [WW-82](https://cs3398-betazoids-spring.atlassian.net/browse/WW-82)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/93)
+  - Jira Task: Updated User Input Box for start date to Date Picker
+      - [WW-96](https://cs3398-betazoids-spring.atlassian.net/browse/WW-96)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/96)
+  - Jira Task: Task 4: Store Itinerary Data in Firebase
+      - [WW-14](https://cs3398-betazoids-spring.atlassian.net/browse/WW-14)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/103)
+  - Jira Task: Assignment 16 - Testing Plan (Gustavo)
+      - [WW-108](https://cs3398-betazoids-spring.atlassian.net/browse/WW-108)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/108)
+  - Jira Task: Assignment 16 - Execution and Results (Gustavo)
+      - [WW-109](https://cs3398-betazoids-spring.atlassian.net/browse/WW-109)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/112)
+  - Jira Task: WW-83 task 2 render itinerary (PR after sprint ended)
+      - [WW-83](https://cs3398-betazoids-spring.atlassian.net/browse/WW-83
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/123)
 
 ## Next steps
 
@@ -707,6 +725,12 @@ firebase use whichway-9040f
   - Improve itinerary display to show different activity categories with different colors as well as make it interactable.
   - Improve code base organization by breaking larger files such as createTrip.jsx into smaller pieces organized by responsiblities. 
 
+### **Gustavo**:
+  - Refactor the functions for generating itinerary as there were 3 different implementations of the it.
+  - Add images to the itinerary document after it is generated.
+  - Implement suggestions in the itinerary document like what clothing they should wear based on the weather.
+  - Refactor the createItinerary page into components to improve readibility.
+  
 ## Retrospective
 
 ## What Went Well or maybe not?
@@ -719,7 +743,7 @@ firebase use whichway-9040f
 
   - We had great communication throughout the sprint and problems were addressed quickly and team members were always willing to help out, however, some functionalities of the app were neglected and resulted in having to be removed.
 
-  -
+  - The team had known the expectations set my sprint so they prepared accordingly. We also addressed issues that arised in a quick manner. We also set a consistent style for the website.
 
   -
 
@@ -731,7 +755,8 @@ firebase use whichway-9040f
   
   - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries. 
   
-
+  - **Gustavo**: Understanding database structure assisted in creating functions that handled saving, retriving data from the database. Which would be used to generate an itinerary.
+  
 ## What Might Be Impeding Us from Performing Better?
 
   **Team**:
@@ -742,7 +767,7 @@ firebase use whichway-9040f
 
   - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time. 
 
-  -
+  - We should be have been communicated on how the team wanted to strucutre the codebase and the database. We should also look at code that handled a responsibility, so we could re-use its functionality.
 
   -
 
@@ -755,7 +780,9 @@ firebase use whichway-9040f
   - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
   
   - **Aaron**: I can adhere more strictly to the SOLID principles. In the beginnging of the sprint I was not paying much mind to the SOLID principles, making me a weaker program and also setting up for a more unorganized project. This improvement would be noticable by a more organized codebase.
- 
+
+  - **Gustavo**: I should have checked files for already implement functions, like the handleGenerateItinerary, as I found out that it had already been implemented. Which brought inconsistent functionality across different pages.
+  
 ## AI:
 
   **Description**: AI was helpful in creating the edit trip page. I knew I needed components from the create trip and create itinerary, but I was aware that there were some tweaks that needed to be made. AI helped generate functional and efficient unit testing for several parts of our WhichWay project.
@@ -768,7 +795,7 @@ firebase use whichway-9040f
 
   - AI was very helpful with explaining foreign concepts relating to the tools I was using throughout the sprint. It was able to explain to me the use of different React functionalities such as useStates and useEffect.
 
-  -
+  - AI assisted in learning APIs handling, especially when it is the first time using a technology or for example the Google Places API.
 
   -
 
@@ -780,7 +807,7 @@ firebase use whichway-9040f
 
   - AI tended to over complicate simple tasks, which would clutter the files, making it more difficult to develop. This was prevalent in some of the code in the createTrip file where we had to spend time simplifying code. We need to be careful and analyitical of the code we generate from AI.
 
-  -
+  - AI could bring about issues in the code that it generated, and then caused styling issues with other components. Somethings leaving code that left bugs on a component.
 
   -
 
