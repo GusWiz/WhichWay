@@ -691,7 +691,24 @@ firebase use whichway-9040f
   - Jira Task: Render itinerary in homepage
       - [WW-86](https://cs3398-betazoids-spring.atlassian.net/browse/WW-86)
       - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/106)
-  
+      
+      ### **Vinny**: Fixing general and longstanding bugs that were hurting the professionalism of our project and slowing down progress for future changes as well as generally cleaning up codebase.
+
+  - Jira Task: Task 2: Cleaning duplicates or any unused items in Create Trip
+      - [WW-42](https://cs3398-betazoids-spring.atlassian.net/browse/WW-42)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/89)
+  - Jira Task: Task 3: Fix Trip ID Issue
+      - [WW-43](https://cs3398-betazoids-spring.atlassian.net/browse/WW-43)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/92)
+  - Jira Task: Task 4: Find Bugs and Clean Codebase
+      - [WW-44](https://cs3398-betazoids-spring.atlassian.net/browse/WW-44)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/107)
+  - Jira Task: Assignment 16 Testing Plan (Vinny)
+      - [WW-101](https://cs3398-betazoids-spring.atlassian.net/browse/WW-101)
+      - [BitBucket](https://bitbucket.org/cs3398-betazoids-s25/whichway/pull-requests/109)
+  - Jira Task: Assignment 16 Results (Vinny)
+      - [WW-102](https://cs3398-betazoids-spring.atlassian.net/browse/WW-102)
+      
   
 
 ## Next steps
@@ -731,6 +748,8 @@ firebase use whichway-9040f
   
   - **Aaron**: Although creating a consistent format for the itinerary display was very difficult, I feel like I was able to create a modern looking display that works well with any type of itinerary generated. Along with being able to export the itinerary I feel like I created a smooth system for users to interact with their itineraries. 
   
+  - **Vinny**: I feel confident in the quality of the things I did manage to get done for the project, but I feel like there were some things that I neglected or couldve gotten finished but fell just short before the sprint/class ended.
+  
 
 ## What Might Be Impeding Us from Performing Better?
 
@@ -742,7 +761,7 @@ firebase use whichway-9040f
 
   - Organization of the code base. There were some very large files that held too many responsibilties of the app which made it much harder to develop in these files, which led to wasted time. 
 
-  -
+  - We were very efficient at refactoring code, but the project probably should've been planned better so that we didn't have to refactor as much.
 
   -
 
@@ -755,6 +774,8 @@ firebase use whichway-9040f
   - **Aldo**: To improve, I need to work on asking AI the right questions. I struggled to leverage AI to our advantage because the responses it gave were not helpful at times.
   
   - **Aaron**: I can adhere more strictly to the SOLID principles. In the beginnging of the sprint I was not paying much mind to the SOLID principles, making me a weaker program and also setting up for a more unorganized project. This improvement would be noticable by a more organized codebase.
+  
+  - **Vinny**: I need to improve my communication with the team since I only really communicated what was going on with the project when I was working on it and I was not making myself available outside of those times.
  
 ## AI:
 
