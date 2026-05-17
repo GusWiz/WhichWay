@@ -28,7 +28,7 @@ provide you with extra information about the different activities found. This no
 
 ## General Information
 
-![Image](READMEimg/whichwayart.png)
+![Image](docs/READMEimg/whichwayart.png)
 
 ## Technologies Used
 
