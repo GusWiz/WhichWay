@@ -1,0 +1,227 @@
+/* CreateTrip.css — harmonized with TriponHome.css */
+
+.page-container {
+  background: linear-gradient(to bottom right, #daeef7, #ffffff);
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  color: #2c2c2c;
+}
+
+/* Title Styling */
+.title-container,
+.createtrip-title,
+.edittrip-heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.createtrip-title h1,
+.edittrip-heading h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Input Containers */
+.createtrip-input,
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1.5px solid #bccada;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  border-color: hsl(202, 52%, 40%);
+  outline: none;
+}
+
+.input-group label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+/* Activity Preferences Form */
+.activity-preferences-form {
+  background: #ffffff;
+  border: 1.5px solid #cddbe3;
+  border-radius: 14px;
+  padding: 24px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.activity-preferences-form h3 {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.standard-button,
+.activity-preferences-form button,
+.gen-itinerary-button {
+  background-color: hsl(202, 52%, 30%);
+  border: 1.5px solid hsl(202, 52%, 30%);
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(13, 94, 139, 0.2);
+}
+
+.standard-button:hover,
+.activity-preferences-form button:hover,
+.gen-itinerary-button:hover {
+  background-color: hsl(202, 52%, 24%);
+  border-color: hsl(202, 52%, 24%);
+  box-shadow: 0 4px 12px rgba(13, 94, 139, 0.3);
+}
+
+.gen-itinerary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loader {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Selectable Boxes */
+.selectable-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.selectable-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 180px;
+  border: 2px solid #d0dce4;
+  border-radius: 14px;
+  background: #fafcfe;
+  font-family: 'Arial', sans-serif;
+  padding: 12px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  user-select: none;
+}
+
+.selectable-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.selectable-box.selected {
+  border: 2px solid #4caf50;
+  background-color: #e8f5e9;
+}
+
+.selectable-box input {
+  display: none;
+}
+
+.selectable-image {
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.selectable-title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.preferences-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.create-trip-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.trip-input-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-family: 'Arial', sans-serif;
+}
+
+.activities-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.placeholder-activity-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  color: #555;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-top: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.itinerary-section h3 {
+  font-size: 1rem;
+  margin: 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  font-family: 'Arial', sans-serif;
+}
